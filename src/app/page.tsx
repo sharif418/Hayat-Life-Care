@@ -40,6 +40,9 @@ import {
   Building,
   ChevronUp,
   MessageCircle,
+  MessageSquare,
+  Facebook,
+  Youtube,
   Settings,
   X,
   LayoutDashboard,
@@ -53,6 +56,7 @@ import {
   Trash2,
   LogOut,
 } from 'lucide-react'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -193,6 +197,7 @@ const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Floors', href: '#floors' },
+  { label: 'Timeline', href: '#timeline' },
   { label: 'Leadership', href: '#leadership' },
   { label: 'Investment', href: '#investment' },
   { label: 'FAQ', href: '#faq' },
@@ -432,6 +437,26 @@ const faqs = [
     q: 'What is the maximum number of shares?',
     a: 'A total of 4,950 shares are available, each priced at 10 Lacs BDT. This limited number ensures exclusivity and higher per-share value.',
   },
+  {
+    q: 'Can I sell my shares/directorship?',
+    a: 'Yes, shareholders can sell their shares with prior written approval from Hayat Life Care management. A royalty fee of 10% of profit is payable to Hayat Life Care before transaction completion. Original investment amount plus 90% of profit goes to the seller.',
+  },
+  {
+    q: 'What is the share structure?',
+    a: '1st Phase: 2,500 shares at 10 Lacs each = 250 Crores. 2nd Phase: 500 shares at 15 Lacs each = 75 Crores. 3rd Phase: 1,000 shares at 20 Lacs each = 200 Crores. Total shares will not exceed 4,950.',
+  },
+  {
+    q: 'Do I need to pay extra for the hospital?',
+    a: 'No. Your payment is fixed as per the current slot at 10 Lacs per share. No additional payment will be required for the hospital establishment.',
+  },
+  {
+    q: 'What are the payment options?',
+    a: 'Option 1: 50% down payment, 25% within 30 days, 25% within 60-90 days. Option 2 (Directors only): 35% down payment, 30% within 30 days, 35% within 60-90 days.',
+  },
+  {
+    q: 'Is it a registered company?',
+    a: 'Yes. Hayat Life Care Ltd is a registered company with the Joint Stock.',
+  },
 ]
 
 /* ─────────────────────── main page ─────────────────────── */
@@ -445,6 +470,13 @@ export default function Home() {
   })
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 150])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+
+  // Page-level scroll progress bar
+  const { scrollYProgress: pageScrollProgress } = useScroll()
+
+  // Contact form state
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
+  const [isFormSubmitting, setIsFormSubmitting] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -661,6 +693,23 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#FAFFFE' }}>
+      {/* ─── SCROLL PROGRESS BAR ─── */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 z-[100]"
+        style={{
+          height: '3px',
+          opacity: useTransform(pageScrollProgress, [0, 0.01], [0, 1]),
+        }}
+      >
+        <motion.div
+          className="h-full origin-left"
+          style={{
+            scaleX: pageScrollProgress,
+            background: 'linear-gradient(90deg, #0D9488, #10B981)',
+          }}
+        />
+      </motion.div>
+
       {/* ─── 1. TOP INFO BAR ─── */}
       <div className="w-full py-2 px-4 text-center md:text-left" style={{ background: '#0D9488' }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-1 text-xs text-white/90">
@@ -668,8 +717,21 @@ export default function Home() {
             <Phone className="size-3" />
             <span>01332-850348 | 01335-074949</span>
           </div>
-          <div className="text-white/80 text-[11px] tracking-wide uppercase">
-            Sister Concern of HAYAT HOLDINGS
+          <div className="flex items-center gap-3">
+            <a href="mailto:info@hayatlifecare.com" className="flex items-center gap-1 hover:text-white transition-colors">
+              <Mail className="size-3" />
+              <span className="hidden sm:inline">info@hayatlifecare.com</span>
+            </a>
+            <a href="#" className="hover:text-white transition-colors" aria-label="Facebook">
+              <Facebook className="size-3.5" />
+            </a>
+            <a href="#" className="hover:text-white transition-colors" aria-label="YouTube">
+              <Youtube className="size-3.5" />
+            </a>
+            <span className="text-white/40 hidden sm:inline">|</span>
+            <div className="text-white/80 text-[11px] tracking-wide uppercase hidden sm:block">
+              Sister Concern of HAYAT HOLDINGS
+            </div>
           </div>
         </div>
       </div>
@@ -822,6 +884,9 @@ export default function Home() {
               >
                 HAYAT LIFE CARE
               </h1>
+              <div className="text-xl md:text-2xl tracking-[0.4em] text-white/70 font-light mt-2">
+                CHATTOGRAM
+              </div>
             </FadeIn>
 
             <FadeIn delay={0.5}>
@@ -1055,6 +1120,66 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── TIMELINE SECTION ─── */}
+        <section id="timeline" className="py-20 md:py-28" style={{ background: '#FAFFFE' }}>
+          <div className="max-w-5xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-14">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+                  Project Timeline
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <p className="mt-4 text-gray-500 max-w-xl mx-auto">
+                  Our Journey to Excellence
+                </p>
+              </div>
+            </FadeIn>
+
+            <div className="relative">
+              {/* Vertical center line */}
+              <div className="absolute left-4 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-0.5" style={{ background: 'linear-gradient(180deg, #0D9488, #10B981)' }} />
+
+              {[
+                { date: '2024 Q4', title: 'Project Conceptualization & Planning', desc: 'Vision born to create Chattogram\'s most comprehensive healthcare destination' },
+                { date: '2025 Q1', title: 'Company Registration & Land Acquisition', desc: 'Registered company with Joint Stock, 55 Katha land acquired at O.R. Nizam Road' },
+                { date: '2025 Q2', title: 'Architectural Design & CDA Approval', desc: 'Building plan designed for 14-18 floors with state-of-the-art facilities' },
+                { date: '2025 Q3', title: 'Construction Begins', desc: 'Foundation work starts with 2 basements and 8+ floors' },
+                { date: '2027 Q4', title: 'Revenue Generation Begins', desc: '10 of 11 business wings operational within 8 months of construction start' },
+                { date: '2028 Q4', title: 'Full-Scale Operations', desc: 'Complete operation of all 8 floors with 11 business wings' },
+                { date: '2030 Q2', title: 'Specialized Hospital Opening', desc: 'Hospital wing operational - Cancer, Heart, Kidney, Gyne & Obs' },
+              ].map((item, i) => (
+                <FadeIn key={i} delay={i * 0.1} direction={i % 2 === 0 ? 'right' : 'left'}>
+                  <div className={`relative flex items-start mb-10 last:mb-0 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                    {/* Date badge - hidden on mobile, shown on desktop */}
+                    <div className={`hidden md:flex w-1/2 ${i % 2 === 0 ? 'justify-end pr-10' : 'justify-start pl-10'}`}>
+                      <div className="px-4 py-2 rounded-full text-white text-sm font-semibold" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                        {item.date}
+                      </div>
+                    </div>
+
+                    {/* Center dot */}
+                    <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full border-4 border-white z-10" style={{ background: '#0D9488', boxShadow: '0 0 12px rgba(13,148,136,0.5)' }} />
+
+                    {/* Content card */}
+                    <div className={`ml-12 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pl-10' : 'md:pr-10'}`}>
+                      {/* Date badge for mobile */}
+                      <div className="md:hidden mb-2">
+                        <span className="px-3 py-1 rounded-full text-white text-xs font-semibold" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                          {item.date}
+                        </span>
+                      </div>
+                      <div className="bg-white rounded-2xl border shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                        <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ─── 6. SERVICES / 11 BUSINESS WINGS ─── */}
         <section id="services" className="relative py-20 md:py-28 overflow-hidden" style={{ background: '#0F172A' }}>
           {/* Noise overlay */}
@@ -1081,21 +1206,22 @@ export default function Home() {
                 <StaggerItem key={i}>
                   <motion.div
                     whileHover={{ y: -4, scale: 1.01 }}
-                    className="group relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/30 hover:bg-white/10"
+                    className="group relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/30 hover:bg-white/10 border-l-4"
+                    style={{ borderLeftColor: '#0D9488' }}
                   >
                     {/* Glow effect on hover */}
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: '0 0 30px rgba(13,148,136,0.15)' }} />
                     <div className="relative">
                       <div
                         className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4"
-                        style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.2), rgba(16,185,129,0.2))' }}
+                        style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.25), rgba(16,185,129,0.25))' }}
                       >
-                        <service.icon className="size-6" style={{ color: '#10B981' }} />
+                        <service.icon className="size-6" style={{ color: '#34D399' }} />
                       </div>
                       <h3 className="text-lg font-semibold text-white mb-2">
                         {service.title}
                       </h3>
-                      <p className="text-sm text-gray-400 leading-relaxed">
+                      <p className="text-sm text-gray-300 leading-relaxed">
                         {service.desc}
                       </p>
                     </div>
@@ -1172,6 +1298,47 @@ export default function Home() {
                 </div>
               </FadeIn>
             </div>
+          </div>
+        </section>
+
+        {/* ─── TRUST / WHY CHOOSE US SECTION ─── */}
+        <section id="trust" className="py-20 md:py-28" style={{ background: '#F8FAFC' }}>
+          <div className="max-w-7xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-14">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+                  Why Choose Hayat Life Care?
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+              </div>
+            </FadeIn>
+
+            <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { emoji: '🏆', title: 'Largest in Chattogram', desc: 'The biggest diagnostic and doctor consultation center in the region' },
+                { emoji: '🏥', title: 'Prime Location', desc: 'Near Chittagong Medical College Hospital, the most trusted healthcare zone' },
+                { emoji: '🔒', title: 'No Bank Loan', desc: 'Entirely funded by shareholder investments - zero debt burden' },
+                { emoji: '👨‍👩‍👧‍👦', title: 'Family-Focused', desc: 'Converting waiting time into quality family time with entertainment facilities' },
+                { emoji: '🔄', title: 'Buyback Guarantee', desc: 'After 3 years at 5% higher price - secure exit option' },
+                { emoji: '📊', title: 'Transparent Operations', desc: 'Govt. approved third-party audit, regular financial reporting' },
+              ].map((item, i) => (
+                <StaggerItem key={i}>
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    className="group bg-white rounded-2xl border shadow-sm p-6 hover:shadow-lg hover:border-teal-300 transition-all duration-300"
+                  >
+                    <div
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-full text-2xl mb-4"
+                      style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}
+                    >
+                      {item.emoji}
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                  </motion.div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
           </div>
         </section>
 
@@ -1448,9 +1615,33 @@ export default function Home() {
                 <div className="bg-white rounded-2xl border shadow-sm p-8">
                   <h3 className="text-xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
                   <form
-                    onSubmit={(e) => {
+                    onSubmit={async (e) => {
                       e.preventDefault()
-                      alert('Thank you! We will get back to you shortly.')
+                      if (isFormSubmitting) return
+                      setIsFormSubmitting(true)
+                      try {
+                        const res = await fetch('/api/inquiries', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                            name: formData.name,
+                            email: formData.email,
+                            phone: formData.phone,
+                            subject: formData.subject,
+                            message: formData.message,
+                          }),
+                        })
+                        if (res.ok) {
+                          toast.success('Message sent successfully! We will get back to you shortly.')
+                          setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+                        } else {
+                          toast.error('Failed to send message. Please try again.')
+                        }
+                      } catch {
+                        toast.error('Network error. Please try again later.')
+                      } finally {
+                        setIsFormSubmitting(false)
+                      }
                     }}
                     className="space-y-4"
                   >
@@ -1459,13 +1650,13 @@ export default function Home() {
                         <label className="text-sm font-medium text-gray-700 mb-1 block">
                           Name
                         </label>
-                        <Input placeholder="Your full name" required />
+                        <Input placeholder="Your full name" required value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} />
                       </div>
                       <div>
                         <label className="text-sm font-medium text-gray-700 mb-1 block">
                           Email
                         </label>
-                        <Input type="email" placeholder="you@example.com" required />
+                        <Input type="email" placeholder="you@example.com" required value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} />
                       </div>
                     </div>
                     <div className="grid sm:grid-cols-2 gap-4">
@@ -1473,13 +1664,13 @@ export default function Home() {
                         <label className="text-sm font-medium text-gray-700 mb-1 block">
                           Phone
                         </label>
-                        <Input type="tel" placeholder="+880 1XXX-XXXXXX" />
+                        <Input type="tel" placeholder="+880 1XXX-XXXXXX" value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} />
                       </div>
                       <div>
                         <label className="text-sm font-medium text-gray-700 mb-1 block">
                           Subject
                         </label>
-                        <Input placeholder="How can we help?" />
+                        <Input placeholder="How can we help?" value={formData.subject} onChange={(e) => setFormData(p => ({ ...p, subject: e.target.value }))} />
                       </div>
                     </div>
                     <div>
@@ -1490,16 +1681,19 @@ export default function Home() {
                         placeholder="Tell us about your inquiry..."
                         className="min-h-[120px]"
                         required
+                        value={formData.message}
+                        onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))}
                       />
                     </div>
                     <Button
                       type="submit"
                       size="lg"
+                      disabled={isFormSubmitting}
                       className="w-full rounded-xl text-white font-semibold"
                       style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
                     >
-                      <Send className="size-4 mr-2" />
-                      Send Message
+                      {isFormSubmitting ? <Loader2 className="size-4 mr-2 animate-spin" /> : <Send className="size-4 mr-2" />}
+                      {isFormSubmitting ? 'Sending...' : 'Send Message'}
                     </Button>
                   </form>
                 </div>
@@ -1671,6 +1865,19 @@ export default function Home() {
         </div>
       </footer>
 
+      {/* ─── WHATSAPP FLOATING BUTTON ─── */}
+      <a
+        href="https://wa.me/8801617977232"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-20 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 group"
+        style={{ background: '#25D366' }}
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageSquare className="size-6" />
+        <span className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full animate-pulse" style={{ boxShadow: '0 0 6px rgba(37,211,102,0.5)' }} />
+      </a>
+
       {/* ─── CHAT WIDGET FLOATING BUTTON ─── */}
       <AnimatePresence>
         {!isChatOpen && (
@@ -1680,7 +1887,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsChatOpen(true)}
-            className="fixed bottom-20 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer"
+            className="fixed bottom-36 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer"
             style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
             aria-label="Open Chat"
           >
@@ -2233,7 +2440,7 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full shadow-xl flex items-center justify-center text-white"
+          className="fixed bottom-52 right-6 z-40 w-12 h-12 rounded-full shadow-xl flex items-center justify-center text-white"
           style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
         >
           <ChevronUp className="size-5" />

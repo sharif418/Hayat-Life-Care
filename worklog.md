@@ -515,3 +515,116 @@ Stage Summary:
 5. **Content**: Add more FAQs from the brochure, testimonials section
 6. **Mobile UX**: Optimize touch interactions, improve admin dashboard mobile experience
 7. **Localization**: Add Bengali language support
+
+---
+Task ID: 7-b
+Agent: QA Improvement Agent
+Task: Implement 10 major QA improvements to existing page.tsx
+
+Work Log:
+- Read worklog.md and current page.tsx (~2245 lines)
+- Implemented all 10 improvements as targeted edits using MultiEdit tool
+
+### Improvements Implemented
+
+1. **Scroll Progress Bar** - Added fixed top progress bar (3px, teal-to-emerald gradient) using framer-motion useScroll with pageScrollProgress. Only visible when user scrolls (opacity transitions from 0 to 1). z-[100] to stay above everything.
+
+2. **Top Info Bar - Social Links** - Added email icon with info@hayatlifecare.com, Facebook icon, YouTube icon to the right side of the top info bar. Sister Concern text hidden on mobile for cleaner layout. Separator pipe added between social links and Sister Concern text.
+
+3. **Services Section - Better Contrast** - Changed service card descriptions from text-gray-400 to text-gray-300, icon background from rgba(0.2) to rgba(0.25), icon color from #10B981 to #34D399, added border-left-4 with teal color for visual emphasis.
+
+4. **Timeline Section** - Added new section (id="timeline") between Floor Plan and Services with 7 timeline items (2024 Q4 through 2030 Q2). Vertical timeline with alternating left/right on desktop, single-column on mobile. Teal gradient center line, glowing dots, date pills, content cards with shadow.
+
+5. **Trust Section** - Added new section (id="trust") after Leadership and before Vision & Mission. 6 trust/advantage cards in 3-col grid: Largest in Chattogram, Prime Location, No Bank Loan, Family-Focused, Buyback Guarantee, Transparent Operations. Hover lift effect with teal border glow.
+
+6. **WhatsApp Floating Button** - Green (#25D366) circular button at bottom-20 right-6, linking to wa.me/8801617977232. MessageSquare icon with pulse indicator. Chat button moved to bottom-36, back-to-top moved to bottom-52 to prevent overlap.
+
+7. **FAQ Section - More Entries** - Added 5 new FAQ entries: Can I sell my shares/directorship?, What is the share structure?, Do I need to pay extra for the hospital?, What are the payment options?, Is it a registered company? Total now 20 FAQs.
+
+8. **Contact Form - Success State** - Replaced alert() with sonner toast notifications. Added formData state with controlled inputs, isFormSubmitting loading state, async POST to /api/inquiries, success toast with form clear, error toasts for failure/network error, Loader2 spinner during submission.
+
+9. **Hero - CHATTOGRAM Text** - Added "CHATTOGRAM" text below the main HAYAT LIFE CARE heading with tracking-[0.4em] letter-spacing, white/70 color, and lighter font weight.
+
+10. **Nav Links - Timeline** - Added Timeline link after Floors in the navLinks array.
+
+### New Imports Added
+- MessageSquare, Facebook, Youtube from lucide-react
+- toast from sonner
+
+### New State Variables
+- pageScrollProgress (from useScroll)
+- formData (name, email, phone, subject, message)
+- isFormSubmitting
+
+### Lint Result
+- 0 errors, 0 warnings (clean pass)
+
+### Dev Server
+- Compiling and serving correctly on port 3000
+
+Stage Summary:
+- All 10 QA improvements successfully implemented
+- Existing functionality preserved intact
+- File grew from ~2245 lines to ~2452 lines
+- No breaking changes introduced
+
+---
+Task ID: 7
+Agent: Cron Development Agent
+Task: QA assessment, bug fixes, styling improvements, and new feature additions
+
+Work Log:
+- Performed comprehensive QA testing using agent-browser screenshots + VLM analysis
+- Identified issues: low contrast in services section, missing social links, missing trust signals, no scroll progress bar, no WhatsApp button
+- Implemented 10 major improvements to page.tsx
+
+### QA Findings (Before Fixes)
+1. **Hero**: Nav not visible on transparent, chat widget overlapping, scroll indicator too small
+2. **Services**: Low contrast text on dark cards, icon visibility issues
+3. **Top Info Bar**: Missing social media links and email
+4. **Missing**: Scroll progress bar, timeline section, trust section, WhatsApp button
+5. **FAQ**: Needed more entries from the brochure
+6. **Contact**: No success state on form submission
+7. **Hero**: Missing "CHATTOGRAM" subtitle text
+
+### Improvements Implemented
+1. **Scroll Progress Bar** - 3px teal-to-emerald gradient bar at top, fills with scroll, z-[100]
+2. **Social Links in Top Bar** - Added email (info@hayatlifecare.com), Facebook, YouTube icons
+3. **Services Section Contrast** - Descriptions text-gray-400→text-gray-300, icon bg opacity 0.2→0.25, icon color #10B981→#34D399, added border-left-4 teal accent
+4. **Project Timeline Section** - 7 milestones (2024 Q4 → 2030 Q2), alternating layout, teal gradient center line, glowing dots, responsive
+5. **Trust Section "Why Choose Us"** - 6 advantage cards (Largest, Prime Location, No Bank Loan, Family-Focused, Buyback, Transparent)
+6. **WhatsApp Floating Button** - Green (#25D366) at bottom-20, links to wa.me/8801617977232
+7. **5 New FAQ Entries** - Share selling, share structure, hospital costs, payment options, registration
+8. **Contact Form Success State** - Sonner toast notifications, loading spinner, form clearing
+9. **Hero CHATTOGRAM Text** - Added below main heading with letter-spacing
+10. **Nav Link - Timeline** - Added to navigation after "Floors"
+
+### VLM Quality Assessment
+- Hero section: 8/10 (strong visual hierarchy, modern design)
+- Timeline section: 7/10 (clean vertical timeline)
+- Services section: Improved contrast visible
+- Overall: Significant quality improvement from previous version
+
+### Lint Status: 0 errors, 0 warnings ✅
+### Dev Server: Running on port 3000 ✅
+### Page size: 2451 lines
+
+Stage Summary:
+- All 10 improvements implemented successfully
+- Website quality significantly improved based on VLM assessment (7-8/10)
+- New sections (Timeline, Trust) add depth and credibility
+- Better accessibility through improved contrast
+- More interactive with WhatsApp button and form success states
+- 20 total FAQs now covering all investment questions from the brochure
+
+### Unresolved / Next Phase Recommendations
+1. **Bengali Localization**: Add language toggle for English/Bengali
+2. **Investment Calculator**: Interactive ROI calculator for potential investors
+3. **Doctor Directory**: Searchable/filterable doctor listing by specialty
+4. **Appointment Booking**: Online appointment scheduling system
+5. **Gallery/Lightbox**: Image gallery with lightbox for brochure images
+6. **Testimonials**: Client/investor testimonial section
+7. **Animation Polish**: More micro-interactions, hover effects, page transitions
+8. **SEO**: Meta tags, structured data, sitemap
+9. **Performance**: Image lazy loading, component code splitting
+10. **Accessibility**: ARIA labels, keyboard navigation improvements
