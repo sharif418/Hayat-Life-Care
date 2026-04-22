@@ -210,6 +210,12 @@ function StaggerItem({
   )
 }
 
+function useSectionReveal() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  return { ref, isInView }
+}
+
 /* ─────────────────────── data ─────────────────────── */
 
 const navLinks = [
@@ -399,86 +405,114 @@ const benefitCodes = [
   { code: 'B-8', title: 'Social Recognition & Share Certification', icon: FileCheck },
 ]
 
+const faqCategoryConfig: Record<string, { color: string; icon: React.ElementType }> = {
+  general: { color: '#0D9488', icon: Building2 },
+  investment: { color: '#D97706', icon: TrendingUp },
+  shares: { color: '#7C3AED', icon: FileCheck },
+  operations: { color: '#2563EB', icon: Settings },
+  legal: { color: '#DC2626', icon: Shield },
+}
+
 const faqs = [
   {
     q: 'What is Hayat Life Care?',
     a: 'Hayat Life Care is a premium healthcare and lifestyle complex in Chattogram, Bangladesh — a one-stop destination for healthcare services, daily essentials, dining, and entertainment under one roof. It is a sister concern of Hayat Holdings.',
+    category: 'general',
   },
   {
     q: 'Where is it located?',
     a: 'Hayat Life Care is located at Manashi, O.R. Nizam Road, Chattogram — one of the most trusted healthcare zones in the city, near Chittagong Medical College Hospital.',
+    category: 'general',
   },
   {
     q: 'What is the land area and structure?',
     a: 'The complex spans 55 Katha of land with an 8-storied building plus 2 basements. Future plans include expansion to 14-18 floors.',
+    category: 'general',
   },
   {
     q: 'Why invest in Hayat Life Care?',
     a: 'Hayat Life Care offers a unique investment opportunity in Chattogram\'s healthcare sector. With 11 business wings, a prime location, and no bank loans, your investment is secure with transparent profit distribution and a buyback guarantee after 3 years at 5% higher price.',
+    category: 'investment',
   },
   {
     q: 'Will there be a hospital?',
     a: 'Yes, future expansion plans include a specialized hospital focusing on Cancer, Heart, Kidney, and Gyne & Obs departments — making it a comprehensive healthcare destination.',
+    category: 'operations',
   },
   {
     q: 'Who will operate the company?',
     a: 'The company is operated under the leadership of Chairman Capt. Md Showkat Hossain Chowdhury and Managing Director Dr. Mohammad Azizul Haque, both highly experienced professionals in their respective fields.',
+    category: 'operations',
   },
   {
     q: 'How will profit be distributed?',
     a: 'Profit will be distributed transparently among shareholders based on the benefit codes (B-1 to B-8). Financial statements will be audited and shared regularly with all investors.',
+    category: 'investment',
   },
   {
     q: 'What are the profit expectations?',
     a: 'Profit expectations are based on the revenue generated from all 11 business wings. As the complex becomes fully operational, returns are expected to grow significantly. Detailed projections are available upon request.',
+    category: 'investment',
   },
   {
     q: 'How is transparency ensured?',
     a: 'Transparency is maintained through regular audits, open financial reporting, shareholder meetings, and an administrative office on Level 8 for direct investor engagement.',
+    category: 'operations',
   },
   {
     q: 'Is there a buyback policy?',
     a: 'Yes! After 3 years, shares can be bought back at 5% higher than the purchase price, providing a guaranteed exit option for investors.',
+    category: 'shares',
   },
   {
     q: 'How to book a space?',
     a: 'You can book a space by contacting our office at 01332-850348 or 01335-074949, or by visiting our office at Probortok Circle, Badshah Miah Road, Ameerbag, Chattogram.',
+    category: 'general',
   },
   {
     q: 'What documents are required?',
     a: 'Required documents include valid national ID, passport-size photographs, and completed application form. Our team will guide you through the entire process.',
+    category: 'legal',
   },
   {
     q: 'What is the expected handover date?',
     a: 'The project is progressing on schedule. Please contact our office for the most up-to-date timeline and handover information.',
+    category: 'operations',
   },
   {
     q: 'Will any bank loan be taken?',
     a: 'No. Hayat Life Care will not take any bank loan. The project is entirely funded by shareholder investments, ensuring no debt burden on the company.',
+    category: 'investment',
   },
   {
     q: 'What is the maximum number of shares?',
     a: 'A total of 4,950 shares are available, each priced at 10 Lacs BDT. This limited number ensures exclusivity and higher per-share value.',
+    category: 'shares',
   },
   {
     q: 'Can I sell my shares/directorship?',
     a: 'Yes, shareholders can sell their shares with prior written approval from Hayat Life Care management. A royalty fee of 10% of profit is payable to Hayat Life Care before transaction completion. Original investment amount plus 90% of profit goes to the seller.',
+    category: 'shares',
   },
   {
     q: 'What is the share structure?',
     a: '1st Phase: 2,500 shares at 10 Lacs each = 250 Crores. 2nd Phase: 500 shares at 15 Lacs each = 75 Crores. 3rd Phase: 1,000 shares at 20 Lacs each = 200 Crores. Total shares will not exceed 4,950.',
+    category: 'shares',
   },
   {
     q: 'Do I need to pay extra for the hospital?',
     a: 'No. Your payment is fixed as per the current slot at 10 Lacs per share. No additional payment will be required for the hospital establishment.',
+    category: 'investment',
   },
   {
     q: 'What are the payment options?',
     a: 'Option 1: 50% down payment, 25% within 30 days, 25% within 60-90 days. Option 2 (Directors only): 35% down payment, 30% within 30 days, 35% within 60-90 days.',
+    category: 'investment',
   },
   {
     q: 'Is it a registered company?',
     a: 'Yes. Hayat Life Care Ltd is a registered company with the Joint Stock.',
+    category: 'legal',
   },
 ]
 
@@ -655,6 +689,10 @@ export default function Home() {
   const [showMobileBar, setShowMobileBar] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
 
+  // Section reveal hooks
+  const brochureReveal = useSectionReveal()
+  const emergencyReveal = useSectionReveal()
+
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark')
@@ -701,15 +739,16 @@ export default function Home() {
 
   // Gallery lightbox state
   const [lightboxIndex, setLightboxIndex] = useState(-1)
+  const [galleryFilter, setGalleryFilter] = useState('All')
   const lightboxImages = [
-    { src: '/images/hero-building.png', alt: 'Hayat Life Care Exterior' },
-    { src: '/images/interior-lobby.png', alt: 'Grand Lobby & Reception' },
-    { src: '/images/medical-lab.png', alt: 'Advanced Diagnostic Lab' },
-    { src: '/images/doctor-chamber.png', alt: 'Doctor Consultation Chamber' },
-    { src: '/images/super-shop.png', alt: 'Super Shop' },
-    { src: '/images/restaurant.png', alt: 'Restaurant & Dining' },
-    { src: '/images/children-park.png', alt: 'Children Amusement Park' },
-    { src: '/images/about-aerial.png', alt: 'Aerial View - O.R. Nizam Road' },
+    { src: '/images/hero-building.png', alt: 'Hayat Life Care Exterior', category: 'Healthcare' },
+    { src: '/images/interior-lobby.png', alt: 'Grand Lobby & Reception', category: 'Facilities' },
+    { src: '/images/medical-lab.png', alt: 'Advanced Diagnostic Lab', category: 'Healthcare' },
+    { src: '/images/doctor-chamber.png', alt: 'Doctor Consultation Chamber', category: 'Healthcare' },
+    { src: '/images/super-shop.png', alt: 'Super Shop', category: 'Retail' },
+    { src: '/images/restaurant.png', alt: 'Restaurant & Dining', category: 'Dining' },
+    { src: '/images/children-park.png', alt: 'Children Amusement Park', category: 'Facilities' },
+    { src: '/images/about-aerial.png', alt: 'Aerial View - O.R. Nizam Road', category: 'Facilities' },
   ]
 
   const doctorsData = [
@@ -937,10 +976,16 @@ export default function Home() {
           }}
         />
       </motion.div>
+      <motion.div
+        className="fixed top-[3px] right-4 z-[100] text-[10px] font-mono px-1.5 py-0.5 rounded-b-md opacity-0 hover:opacity-100 transition-opacity"
+        style={{ background: 'rgba(13,148,136,0.9)', color: 'white' }}
+      >
+        {Math.round(pageScrollProgress.get() * 100)}%
+      </motion.div>
 
       {/* ─── 1. TOP INFO BAR ─── */}
       <div className="w-full py-2 px-4 text-center md:text-left" style={{ background: isDarkMode ? '#064E3B' : '#0D9488' }}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-1 text-xs text-white/90">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-1 text-xs text-white">
           <div className="flex items-center gap-2">
             <Phone className="size-3" />
             <span>01332-850348 | 01335-074949</span>
@@ -1095,25 +1140,31 @@ export default function Home() {
       </nav>
 
       {/* ─── EMERGENCY CONTACT STRIP ─── */}
-      <div className="relative overflow-hidden" style={{ background: 'linear-gradient(90deg, #DC2626, #D97706, #DC2626)' }}>
+      <div ref={emergencyReveal.ref} className="relative overflow-hidden" style={{ background: 'linear-gradient(90deg, #DC2626, #D97706, #DC2626)', textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={emergencyReveal.isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
         <div className="absolute inset-0 animate-pulse opacity-20" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)' }} />
-        <div className="relative max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-white text-sm font-medium">
+        <div className="relative max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-white text-sm md:text-base font-medium">
           <motion.div
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
             className="flex items-center gap-2"
           >
             <Phone className="size-4" />
-            <span className="font-bold text-xs sm:text-sm">24/7 Hotline:</span>
+            <span className="font-bold text-sm md:text-base">24/7 Hotline:</span>
           </motion.div>
-          <a href="tel:01332-850348" className="hover:underline font-bold text-xs sm:text-sm">01332-850348</a>
+          <a href="tel:01332-850348" className="hover:underline font-bold text-white text-sm md:text-base">01332-850348</a>
           <span className="text-white/30">•</span>
-          <a href="tel:01335-074949" className="hover:underline font-bold text-xs sm:text-sm">01335-074949</a>
+          <a href="tel:01335-074949" className="hover:underline font-bold text-white text-sm md:text-base">01335-074949</a>
           <span className="text-white/30 hidden sm:inline">•</span>
-          <a href="https://wa.me/8801617977232" className="hidden sm:flex items-center gap-1.5 hover:underline text-xs sm:text-sm bg-white/10 px-3 py-1 rounded-full" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/8801617977232" className="hidden sm:flex items-center gap-1.5 hover:underline text-white font-bold text-sm md:text-base bg-white/10 px-3 py-1 rounded-full" target="_blank" rel="noopener noreferrer">
             <MessageSquare className="size-3.5" /> WhatsApp
           </a>
         </div>
+        </motion.div>
       </div>
 
       {/* ─── INFO TICKER ─── */}
@@ -1254,15 +1305,15 @@ export default function Home() {
               <h1
                 className="relative text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-4"
                 style={{
-                  background: 'linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 40%, #CCFBF1 80%, #99F6E4 100%)',
+                  background: 'linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 60%, #E0F7F5 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  textShadow: '0 0 40px rgba(13,148,136,0.3), 0 2px 10px rgba(0,0,0,0.3)',
+                  textShadow: '0 0 60px rgba(13,148,136,0.4), 0 4px 15px rgba(0,0,0,0.4)',
                 }}
               >
                 {t('HAYAT LIFE CARE')}
               </h1>
-              <div className="text-xl md:text-2xl tracking-[0.4em] text-white/90 font-light mt-2">
+              <div className="text-xl md:text-2xl tracking-[0.4em] text-white font-light mt-2">
                 {t('CHATTOGRAM')}
               </div>
             </FadeIn>
@@ -1274,7 +1325,7 @@ export default function Home() {
             </FadeIn>
 
             <FadeIn delay={0.7}>
-              <p className="text-lg md:text-xl text-white drop-shadow-md max-w-2xl mx-auto mb-10 leading-relaxed">
+              <p className="text-lg md:text-xl text-white font-medium drop-shadow-md max-w-2xl mx-auto mb-10 leading-relaxed">
                 We&apos;re proud to establish Hayat Life Care in one of Chittagong&apos;s most
                 trusted healthcare zones — a one-stop destination for world-class medical
                 services, daily essentials, dining, and family entertainment.
@@ -1415,8 +1466,9 @@ export default function Home() {
                     width={800}
                     height={500}
                     className="w-full h-auto object-cover"
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
                   <div className="absolute bottom-4 left-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 px-4 py-2 text-white text-sm font-medium">
                     55 Katha Complex • O.R. Nizam Road
                   </div>
@@ -1597,6 +1649,7 @@ export default function Home() {
                               alt={`${floor.label} - Hayat Life Care`}
                               fill
                               className="object-cover"
+                              loading="lazy"
                             />
                           </div>
                           <div className="p-6 md:p-8 flex flex-col justify-center">
@@ -1729,7 +1782,7 @@ export default function Home() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
                     { phase: 'Land Acquisition', status: 'completed', percent: 100 },
                     { phase: 'Design & Approval', status: 'completed', percent: 100 },
@@ -1738,7 +1791,7 @@ export default function Home() {
                     { phase: 'Interior Finishing', status: 'upcoming', percent: 0 },
                     { phase: 'Equipment Installation', status: 'upcoming', percent: 0 },
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: item.status === 'completed' ? 'rgba(16,185,129,0.05)' : item.status === 'in-progress' ? 'rgba(13,148,136,0.05)' : 'rgba(107,114,128,0.03)' }}>
+                    <StaggerItem key={i} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: item.status === 'completed' ? 'rgba(16,185,129,0.05)' : item.status === 'in-progress' ? 'rgba(13,148,136,0.05)' : 'rgba(107,114,128,0.03)' }}>
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                         item.status === 'completed' ? 'bg-emerald-100' :
                         item.status === 'in-progress' ? 'bg-teal-100 animate-pulse' :
@@ -1770,9 +1823,9 @@ export default function Home() {
                         item.status === 'in-progress' ? 'text-teal-600' :
                         'text-gray-400'
                       }`}>{item.percent}%</span>
-                    </div>
+                    </StaggerItem>
                   ))}
-                </div>
+                </StaggerContainer>
               </div>
             </FadeIn>
           </div>
@@ -1810,6 +1863,7 @@ export default function Home() {
                     width={600}
                     height={400}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
                   />
                   <div className="p-5 bg-white">
                     <h3 className="font-bold text-gray-900 mb-2">Current Progress</h3>
@@ -1831,6 +1885,7 @@ export default function Home() {
                     width={600}
                     height={400}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
                   />
                   <div className="p-5 bg-white">
                     <h3 className="font-bold text-gray-900 mb-2">Future Vision (2028)</h3>
@@ -2139,7 +2194,7 @@ export default function Home() {
               </div>
             </FadeIn>
             <FadeIn>
-              <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+              <StaggerContainer className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
                 {[
                   { name: 'Hayat Holdings', desc: 'Parent Company', icon: Building2 },
                   { name: 'Marinus Pvt. Ltd.', desc: 'Maritime & Logistics', icon: Ship },
@@ -2147,8 +2202,7 @@ export default function Home() {
                   { name: 'RJSC', desc: 'Registered with Joint Stock', icon: FileCheck },
                   { name: 'CDA Approved', desc: 'Chittagong Development Authority', icon: Shield },
                 ].map((partner, i) => (
-                  <motion.div
-                    key={i}
+                  <StaggerItem key={i}
                     whileHover={{ y: -5, scale: 1.03 }}
                     className="group flex flex-col items-center gap-3 p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-teal-200 transition-all duration-300 min-w-[160px]"
                     style={{ boxShadow: '0 0 0 rgba(13,148,136,0)' }}
@@ -2160,9 +2214,9 @@ export default function Home() {
                     </div>
                     <div className="text-sm font-bold text-gray-900 text-center">{partner.name}</div>
                     <div className="text-xs text-gray-700 text-center leading-snug">{partner.desc}</div>
-                  </motion.div>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </FadeIn>
           </div>
         </section>
@@ -2245,7 +2299,7 @@ export default function Home() {
                     </div>
                     <div className="p-5 text-center">
                       <h3 className="text-lg font-bold text-gray-900 mb-1">{doc.name}</h3>
-                      <p className="text-sm font-medium mb-2" style={{ color: '#0D9488' }}>{doc.specialty}</p>
+                      <Badge className="bg-teal-50 text-teal-700 border-teal-200 text-xs font-semibold mb-2">{doc.specialty}</Badge>
                       {doc.designation && <p className="text-xs text-gray-500 mb-3">{doc.designation}</p>}
                       <div className="flex items-center justify-center gap-2 text-xs text-gray-400 mb-4">
                         <Clock className="size-3" />
@@ -2306,17 +2360,34 @@ export default function Home() {
               </div>
             </FadeIn>
 
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
+              {['All', 'Healthcare', 'Dining', 'Retail', 'Facilities'].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setGalleryFilter(cat)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                    galleryFilter === cat
+                      ? 'text-white shadow-md'
+                      : 'bg-white text-gray-600 border border-gray-200 hover:border-teal-300 hover:text-teal-600'
+                  }`}
+                  style={galleryFilter === cat ? { background: 'linear-gradient(135deg, #0D9488, #10B981)' } : {}}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
             <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
-                { src: '/images/hero-building.png', alt: 'Hayat Life Care Exterior', span: 'col-span-2 row-span-2', idx: 0 },
-                { src: '/images/interior-lobby.png', alt: 'Grand Lobby & Reception', idx: 1 },
-                { src: '/images/medical-lab.png', alt: 'Advanced Diagnostic Lab', idx: 2 },
-                { src: '/images/doctor-chamber.png', alt: 'Doctor Consultation Chamber', idx: 3 },
-                { src: '/images/super-shop.png', alt: 'Super Shop', idx: 4 },
-                { src: '/images/restaurant.png', alt: 'Restaurant & Dining', idx: 5 },
-                { src: '/images/children-park.png', alt: 'Children Amusement Park', idx: 6 },
-                { src: '/images/about-aerial.png', alt: 'Aerial View - O.R. Nizam Road', span: 'col-span-2', idx: 7 },
-              ].map((img, i) => (
+                { src: '/images/hero-building.png', alt: 'Hayat Life Care Exterior', span: 'col-span-2 row-span-2', idx: 0, category: 'Healthcare' },
+                { src: '/images/interior-lobby.png', alt: 'Grand Lobby & Reception', idx: 1, category: 'Facilities' },
+                { src: '/images/medical-lab.png', alt: 'Advanced Diagnostic Lab', idx: 2, category: 'Healthcare' },
+                { src: '/images/doctor-chamber.png', alt: 'Doctor Consultation Chamber', idx: 3, category: 'Healthcare' },
+                { src: '/images/super-shop.png', alt: 'Super Shop', idx: 4, category: 'Retail' },
+                { src: '/images/restaurant.png', alt: 'Restaurant & Dining', idx: 5, category: 'Dining' },
+                { src: '/images/children-park.png', alt: 'Children Amusement Park', idx: 6, category: 'Facilities' },
+                { src: '/images/about-aerial.png', alt: 'Aerial View - O.R. Nizam Road', span: 'col-span-2', idx: 7, category: 'Facilities' },
+              ].filter((img) => galleryFilter === 'All' || img.category === galleryFilter).map((img, i) => (
                 <StaggerItem key={i} className={img.span || ''}>
                   <motion.div
                     whileHover={{ scale: 1.02 }}
@@ -2328,6 +2399,7 @@ export default function Home() {
                       alt={img.alt}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -2482,6 +2554,7 @@ export default function Home() {
                   alt={lightboxImages[lightboxIndex]?.alt || ''}
                   fill
                   className="object-contain"
+                  loading="lazy"
                 />
               </div>
               {/* Caption bar */}
@@ -3012,8 +3085,13 @@ export default function Home() {
         </section>
 
         {/* ─── DOWNLOAD BROCHURE CTA ─── */}
-        <section className="relative py-14 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>
+        <section ref={brochureReveal.ref} className="relative py-14 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={brochureReveal.isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
           <div className="relative max-w-4xl mx-auto px-4 text-center">
             <FadeIn>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -3047,6 +3125,7 @@ export default function Home() {
               </div>
             </FadeIn>
           </div>
+          </motion.div>
         </section>
 
         {/* ─── 10. FAQ SECTION ─── */}
@@ -3077,7 +3156,14 @@ export default function Home() {
                     className="bg-white rounded-xl border shadow-sm px-6 overflow-hidden"
                   >
                     <AccordionTrigger className="text-left font-semibold text-gray-800 hover:text-teal-600 hover:no-underline py-5">
-                      {faq.q}
+                      <span className="flex items-center gap-2">
+                        {(() => {
+                          const cat = faqCategoryConfig[faq.category as keyof typeof faqCategoryConfig] || faqCategoryConfig.general
+                          const CatIcon = cat.icon
+                          return <span className="inline-flex items-center justify-center w-5 h-5 rounded-full shrink-0" style={{ background: `${cat.color}15` }}><CatIcon className="size-3" style={{ color: cat.color }} /></span>
+                        })()}
+                        {faq.q}
+                      </span>
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 leading-relaxed pb-5">
                       {faq.a}
@@ -3252,6 +3338,12 @@ export default function Home() {
                       details: ['info@hayatlifecare.com'],
                       color: '#10B981',
                     },
+                    {
+                      icon: Clock,
+                      title: 'Operating Hours',
+                      details: ['Sat–Thu: 9:00 AM – 9:00 PM', 'Friday: Closed', 'Emergency: 24/7'],
+                      color: '#0D9488',
+                    },
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-4 p-5 bg-white rounded-2xl border shadow-sm border-l-4" style={{ borderLeftColor: item.color }}>
                       <div
@@ -3415,12 +3507,12 @@ export default function Home() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 transition-all duration-200"
+                    className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200"
                   >
                     {link.label}
                   </a>
                 ))}
-                <a href="#home" className="text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 transition-all duration-200 flex items-center gap-2">
+                <a href="#home" className="text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200 flex items-center gap-2">
                   <ChevronUp className="size-3" /> Back to Top
                 </a>
               </div>
@@ -3434,7 +3526,7 @@ export default function Home() {
                   <a
                     key={i}
                     href="#services"
-                    className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 transition-all duration-200"
+                    className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200"
                   >
                     {svc}
                   </a>
@@ -3450,7 +3542,7 @@ export default function Home() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 transition-all duration-200"
+                    className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200"
                   >
                     {link.label}
                   </a>
@@ -3516,7 +3608,7 @@ export default function Home() {
         href="https://wa.me/8801617977232"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 group"
+        className="fixed bottom-6 right-6 z-50 mb-16 lg:mb-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 group"
         style={{ background: '#25D366' }}
         aria-label="Contact us on WhatsApp"
       >
@@ -3534,7 +3626,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsChatOpen(true)}
-            className="fixed bottom-20 right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer group"
+            className="fixed bottom-20 right-6 z-50 mb-16 lg:mb-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer group"
             style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
             aria-label="Open AI Chat Assistant"
           >
@@ -3583,13 +3675,18 @@ export default function Home() {
                     👋 Hello! I'm the Hayat Life Care assistant. How can I help you today?
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {['Tell me about investment', 'What services are available?', 'How to book appointment?'].map((q) => (
+                    {[
+                      { q: 'Tell me about investment', icon: '💰' },
+                      { q: 'What services are available?', icon: '🏥' },
+                      { q: 'How to book appointment?', icon: '📅' },
+                      { q: 'Share price details', icon: '📈' },
+                    ].map((item) => (
                       <button
-                        key={q}
-                        onClick={() => { setChatInput(q); }}
-                        className="text-xs px-3 py-1.5 rounded-full border border-teal-200 text-teal-700 hover:bg-teal-50 transition-colors"
+                        key={item.q}
+                        onClick={() => { setChatInput(item.q); }}
+                        className="text-xs px-3 py-1.5 rounded-full border border-teal-200 text-teal-700 hover:bg-teal-50 hover:border-teal-300 transition-all duration-200 flex items-center gap-1"
                       >
-                        {q}
+                        <span>{item.icon}</span> {item.q}
                       </button>
                     ))}
                   </div>
@@ -3660,24 +3757,30 @@ export default function Home() {
             onSubmit={async (e) => {
               e.preventDefault()
               if (isAppointmentSubmitting) return
+              if (!appointmentForm.name || !appointmentForm.phone || !appointmentForm.date) {
+                toast.error('Please fill in all required fields')
+                return
+              }
               setIsAppointmentSubmitting(true)
               try {
-                const res = await fetch('/api/inquiries', {
+                const res = await fetch('/api/appointments', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
                     name: appointmentForm.name,
                     phone: appointmentForm.phone,
-                    subject: `Appointment Request - ${appointmentDoctor || 'General'}`,
-                    message: `Date: ${appointmentForm.date}, Time: ${appointmentForm.time}. ${appointmentForm.message}`,
+                    date: appointmentForm.date,
+                    time: appointmentForm.time,
+                    doctor: appointmentDoctor,
+                    message: appointmentForm.message,
                   }),
                 })
                 if (res.ok) {
-                  toast.success('Appointment request submitted! We will confirm your booking shortly.')
+                  toast.success('Appointment booked successfully! We will confirm shortly.')
                   setAppointmentForm({ name: '', phone: '', date: '', time: '', message: '' })
                   setIsAppointmentOpen(false)
                 } else {
-                  toast.error('Failed to submit. Please try again.')
+                  toast.error('Failed to book appointment. Please try again.')
                 }
               } catch {
                 toast.error('Network error. Please try again later.')
@@ -4237,7 +4340,7 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-36 right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white bg-white/80 backdrop-blur-sm border border-gray-200/50 group"
+          className="fixed bottom-36 right-6 z-40 mb-16 lg:mb-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white bg-white/80 backdrop-blur-sm border border-gray-200/50 group"
           style={{ color: '#0D9488' }}
           aria-label="Scroll back to top"
         >
