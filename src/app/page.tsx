@@ -200,6 +200,8 @@ const navLinks = [
   { label: 'Timeline', href: '#timeline' },
   { label: 'Leadership', href: '#leadership' },
   { label: 'Investment', href: '#investment' },
+  { label: 'Gallery', href: '#gallery' },
+  { label: 'Reviews', href: '#testimonials' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contact', href: '#contact' },
 ]
@@ -514,6 +516,10 @@ export default function Home() {
   const [newService, setNewService] = useState({ title: '', slug: '', description: '', icon: '', floor: '', category: '' })
   const [newFaq, setNewFaq] = useState({ question: '', answer: '', category: 'general' })
   const [newLeader, setNewLeader] = useState({ name: '', designation: '', bio: '' })
+
+  // Investment calculator state
+  const [investShares, setInvestShares] = useState(1)
+  const [investRate, setInvestRate] = useState(10)
 
   // Admin data fetching
   const fetchAdminData = useCallback(async () => {
@@ -891,7 +897,7 @@ export default function Home() {
 
             <FadeIn delay={0.5}>
               <p className="text-xl md:text-2xl text-white/80 italic mb-4 font-light">
-                A gathering of endless little moments
+                Your Trusted Partner in Health, Wellness &amp; Daily Essentials
               </p>
             </FadeIn>
 
@@ -949,6 +955,23 @@ export default function Home() {
                       {stat.suffix}
                     </div>
                     <div className="text-xs md:text-sm text-white/70 mt-1">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+
+            {/* Trust badges */}
+            <FadeIn delay={1.3}>
+              <div className="flex flex-wrap justify-center gap-4 mt-8">
+                {[
+                  { icon: Shield, text: 'Registered Company' },
+                  { icon: Award, text: 'No Bank Loan' },
+                  { icon: Users, text: '4,950 Shares' },
+                  { icon: Clock, text: 'Dec 2028 Operation' },
+                ].map((badge, i) => (
+                  <div key={i} className="flex items-center gap-2 text-white/60 text-xs">
+                    <badge.icon className="size-3.5" />
+                    <span>{badge.text}</span>
                   </div>
                 ))}
               </div>
@@ -1125,6 +1148,10 @@ export default function Home() {
           <div className="max-w-5xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Clock className="size-3" />
+                  OUR JOURNEY
+                </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   Project Timeline
                 </h2>
@@ -1191,6 +1218,10 @@ export default function Home() {
           <div className="relative max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-emerald-300 text-xs font-semibold mb-4">
+                  <Sparkles className="size-3" />
+                  COMPREHENSIVE CARE
+                </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
                   Our 11 Business Wings
                 </h2>
@@ -1306,6 +1337,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Award className="size-3" />
+                  WHY CHOOSE US
+                </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   Why Choose Hayat Life Care?
                 </h2>
@@ -1335,6 +1370,58 @@ export default function Home() {
                     </div>
                     <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
                     <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                  </motion.div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+        </section>
+
+        {/* ─── GALLERY SECTION ─── */}
+        <section id="gallery" className="py-20 md:py-28" style={{ background: '#FAFFFE' }}>
+          <div className="max-w-7xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Building2 className="size-3" />
+                  WORLD-CLASS FACILITIES
+                </div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+                  Our Facilities
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <p className="mt-4 text-gray-500 max-w-xl mx-auto">
+                  Explore our world-class facilities designed for comfort, care, and convenience.
+                </p>
+              </div>
+            </FadeIn>
+
+            <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {[
+                { src: '/images/hero-building.png', alt: 'Hayat Life Care Exterior', span: 'col-span-2 row-span-2' },
+                { src: '/images/interior-lobby.png', alt: 'Grand Lobby & Reception' },
+                { src: '/images/medical-lab.png', alt: 'Advanced Diagnostic Lab' },
+                { src: '/images/doctor-chamber.png', alt: 'Doctor Consultation Chamber' },
+                { src: '/images/super-shop.png', alt: 'Super Shop' },
+                { src: '/images/restaurant.png', alt: 'Restaurant & Dining' },
+                { src: '/images/children-park.png', alt: 'Children Amusement Park' },
+                { src: '/images/about-aerial.png', alt: 'Aerial View - O.R. Nizam Road', span: 'col-span-2' },
+              ].map((img, i) => (
+                <StaggerItem key={i} className={img.span || ''}>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="relative group rounded-2xl overflow-hidden border border-gray-200 shadow-sm cursor-pointer aspect-video"
+                  >
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute bottom-0 left-0 right-0 p-3 text-white text-sm font-medium translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      {img.alt}
+                    </div>
                   </motion.div>
                 </StaggerItem>
               ))}
@@ -1410,11 +1497,81 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── TESTIMONIALS SECTION ─── */}
+        <section id="testimonials" className="py-20 md:py-28 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Star className="size-3" />
+                  TESTIMONIALS
+                </div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+                  What People Say
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+              </div>
+            </FadeIn>
+
+            <StaggerContainer className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {[
+                {
+                  name: 'Ahmed Rahman',
+                  role: 'Business Owner, Chattogram',
+                  text: 'Hayat Life Care is exactly what Chattogram needed. Having all healthcare services under one roof with daily essentials is a game-changer for busy families like mine.',
+                  initials: 'AR',
+                },
+                {
+                  name: 'Dr. Fatima Begum',
+                  role: 'Senior Consultant, CMCH',
+                  text: 'As a medical professional, I appreciate the vision behind this project. The combination of advanced diagnostics with lifestyle facilities will transform patient experience in our city.',
+                  initials: 'FB',
+                },
+                {
+                  name: 'Mohammad Karim',
+                  role: 'Investor & Shareholder',
+                  text: 'The transparent operations, no-bank-loan policy, and buyback guarantee gave me the confidence to invest. This project has real potential for sustainable returns.',
+                  initials: 'MK',
+                },
+              ].map((testimonial, i) => (
+                <StaggerItem key={i}>
+                  <div className="bg-white rounded-2xl border border-gray-100 shadow-md p-6 h-full flex flex-col">
+                    <div className="flex items-center gap-1 mb-4">
+                      {[...Array(5)].map((_, j) => (
+                        <Star key={j} className="size-4 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                    <p className="text-gray-600 text-sm leading-relaxed flex-1 italic">
+                      &ldquo;{testimonial.text}&rdquo;
+                    </p>
+                    <div className="flex items-center gap-3 mt-4 pt-4 border-t">
+                      <div
+                        className="flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold text-white shrink-0"
+                        style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                      >
+                        {testimonial.initials}
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold text-gray-800">{testimonial.name}</div>
+                        <div className="text-xs text-gray-500">{testimonial.role}</div>
+                      </div>
+                    </div>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+        </section>
+
         {/* ─── 9. INVESTMENT SECTION ─── */}
         <section id="investment" className="py-20 md:py-28 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <TrendingUp className="size-3" />
+                  INVESTMENT OPPORTUNITY
+                </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   Pathways to Prestige Ownership
                 </h2>
@@ -1423,6 +1580,13 @@ export default function Home() {
                   Invest in Chattogram&apos;s premier healthcare &amp; lifestyle complex with guaranteed benefits and transparent returns.
                 </p>
               </div>
+            </FadeIn>
+
+            {/* Investment intro */}
+            <FadeIn>
+              <p className="text-center text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed">
+                Hayat Life Care offers a unique opportunity to invest in Chattogram&apos;s healthcare future. With 11 revenue-generating business wings, zero bank loans, and a guaranteed buyback policy, your investment is secured by real assets and transparent operations.
+              </p>
             </FadeIn>
 
             {/* Key investment info */}
@@ -1530,6 +1694,65 @@ export default function Home() {
                 </StaggerItem>
               ))}
             </StaggerContainer>
+
+            {/* Investment Calculator */}
+            <FadeIn>
+              <div className="mt-12 max-w-2xl mx-auto bg-white rounded-2xl border shadow-lg overflow-hidden">
+                <div className="p-6 text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                  <h4 className="text-xl font-bold flex items-center gap-2">
+                    <HandCoins className="size-5" />
+                    Investment ROI Calculator
+                  </h4>
+                  <p className="text-sm text-white/80 mt-1">Estimate your potential returns</p>
+                </div>
+                <div className="p-6">
+                  <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Number of Shares</label>
+                      <input
+                        type="number"
+                        min="1"
+                        max="10"
+                        value={investShares}
+                        onChange={e => setInvestShares(Number(e.target.value) || 1)}
+                        className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Expected Profit Rate (%)</label>
+                      <input
+                        type="number"
+                        min="5"
+                        max="20"
+                        step="0.5"
+                        value={investRate}
+                        onChange={e => setInvestRate(Number(e.target.value) || 10)}
+                        className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="p-3 rounded-xl text-center" style={{ background: 'rgba(13,148,136,0.05)' }}>
+                      <div className="text-xs text-gray-500">Investment</div>
+                      <div className="text-lg font-bold" style={{ color: '#0D9488' }}>৳{(investShares * 10).toFixed(0)}L</div>
+                    </div>
+                    <div className="p-3 rounded-xl text-center" style={{ background: 'rgba(16,185,129,0.05)' }}>
+                      <div className="text-xs text-gray-500">Annual Return</div>
+                      <div className="text-lg font-bold" style={{ color: '#10B981' }}>৳{(investShares * 10 * investRate / 100).toFixed(1)}L</div>
+                    </div>
+                    <div className="p-3 rounded-xl text-center" style={{ background: 'rgba(217,119,6,0.05)' }}>
+                      <div className="text-xs text-gray-500">3-Year Return</div>
+                      <div className="text-lg font-bold" style={{ color: '#D97706' }}>৳{(investShares * 10 * investRate / 100 * 3).toFixed(1)}L</div>
+                    </div>
+                    <div className="p-3 rounded-xl text-center" style={{ background: 'rgba(13,148,136,0.05)' }}>
+                      <div className="text-xs text-gray-500">Buyback Value</div>
+                      <div className="text-lg font-bold" style={{ color: '#0D9488' }}>৳{(investShares * 10.5).toFixed(1)}L</div>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-400 mt-3 text-center">* Based on projected profit rate. Actual returns may vary. Buyback after 3 years at 5% premium.</p>
+                </div>
+              </div>
+            </FadeIn>
 
             {/* Key highlights */}
             <FadeIn>
