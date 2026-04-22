@@ -215,6 +215,16 @@
   animation: float 3s ease-in-out infinite;
 }
 
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
 /* Section transitions */
 .section-divider {
   background: linear-gradient(90deg, transparent 0%, #0D9488 50%, transparent 100%);

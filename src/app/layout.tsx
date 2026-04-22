@@ -16,29 +16,29 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Hayat Life Care - One Stop Service for Healthcare & Daily Essentials",
-  description:
-    "Hayat Life Care is a one-stop lifestyle destination in Chattogram, offering healthcare, diagnostics, daily essentials, wellness, and leisure facilities — all under one roof. A sister concern of Hayat Holdings.",
-  keywords: [
-    "Hayat Life Care",
-    "Healthcare Chattogram",
-    "Diagnostic Center",
-    "Doctor Chamber",
-    "One Stop Healthcare",
-    "Chittagong Medical",
-    "Hayat Holdings",
-    "Investment Healthcare",
-  ],
-  authors: [{ name: "Hayat Life Care" }],
+  title: 'Hayat Life Care - One Stop Service for Healthcare & Daily Essentials | Chattogram',
+  description: 'Hayat Life Care is Chattogram\'s premier healthcare & lifestyle complex offering 11 business wings including Doctor\'s Chambers, Diagnostic Center, Pharmacy, Super Shop, Restaurant, and more. Invest in shares at 10 Lacs BDT with guaranteed buyback.',
+  keywords: ['Hayat Life Care', 'healthcare Chattogram', 'diagnostic center', 'doctor chamber', 'hospital Bangladesh', 'Chittagong medical', 'healthcare investment', 'medical complex'],
+  authors: [{ name: 'Hayat Life Care' }],
+  creator: 'Hayat Life Care',
+  publisher: 'Hayat Holdings',
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: 'Hayat Life Care - One Stop Service for Healthcare & Daily Essentials',
+    description: 'Chattogram\'s premier healthcare & lifestyle complex with 11 business wings. Invest in your health and future.',
+    url: 'https://hayatlifecare.com',
+    siteName: 'Hayat Life Care',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hayat Life Care - Healthcare & Lifestyle Complex',
+    description: 'Chattogram\'s premier healthcare & lifestyle complex with 11 business wings',
+  },
+  alternates: { canonical: 'https://hayatlifecare.com' },
   icons: {
     icon: "/favicon.ico",
-  },
-  openGraph: {
-    title: "Hayat Life Care - One Stop Service for Healthcare & Daily Essentials",
-    description:
-      "A one-stop lifestyle destination where health, wellness and everyday convenience come together under one roof.",
-    siteName: "Hayat Life Care",
-    type: "website",
   },
 };
 

@@ -496,6 +496,40 @@ const translations: Record<string, Record<string, string>> = {
     'Explore Services': 'সেবা দেখুন',
     'Invest Now': 'ইনভেস্ট করুন',
     'Send Message': 'মেসেজ পাঠান',
+    'One Stop Service for Healthcare & Daily Essentials': 'স্বাস্থ্যসেবা ও দৈনন্দিন প্রয়োজনের জন্য একটি সেবা কেন্দ্র',
+    '24/7 Hotline': '২৪/৭ হটলাইন',
+    'WhatsApp': 'হোয়াটসঅ্যাপ',
+    'Home': 'হোম',
+    'About': 'সম্পর্কে',
+    'Services': 'সেবাসমূহ',
+    'Floors': 'তলা',
+    'Doctors': 'ডাক্তার',
+    'Timeline': 'সময়রেখা',
+    'Gallery': 'গ্যালারি',
+    'Wellness': 'সুস্থতা',
+    'Investment': 'বিনিয়োগ',
+    'FAQ': 'সাধারণ প্রশ্ন',
+    'Contact': 'যোগাযোগ',
+    'Reviews': 'রিভিউ',
+    'Building Progress': 'নির্মাণ অগ্রগতি',
+    'Our Partners & Affiliations': 'আমাদের অংশীদার ও সহযোগী প্রতিষ্ঠান',
+    'Ready to Learn More?': 'আরও জানতে চান?',
+    'Download Brochure': 'ব্রোশার ডাউনলোড',
+    'Call Us Now': 'এখনই কল করুন',
+    'OUR SPECIALISTS': 'আমাদের বিশেষজ্ঞ',
+    'CONSTRUCTION UPDATE': 'নির্মাণ আপডেট',
+    'TRUSTED PARTNERS': 'বিশ্বস্ত অংশীদার',
+    'HEALTH & WELLNESS': 'স্বাস্থ্য ও সুস্থতা',
+    'GOT QUESTIONS?': 'প্রশ্ন আছে?',
+    'CONTACT US': 'যোগাযোগ করুন',
+    'LEADERSHIP': 'নেতৃত্ব',
+    'COMPREHENSIVE CARE': 'সামগ্রিক সেবা',
+    'OUR JOURNEY': 'আমাদের যাত্রা',
+    'WHY CHOOSE US': 'কেন আমাদের বেছে নেবেন',
+    'WORLD-CLASS FACILITIES': 'বিশ্বমানের সুবিধা',
+    'TESTIMONIALS': 'প্রশংসাপত্র',
+    'INVESTMENT OPPORTUNITY': 'বিনিয়োগের সুযোগ',
+    'Stay Updated with Hayat Life Care': 'হায়াত লাইফ কেয়ারের সাথে আপডেট থাকুন',
   },
 }
 
@@ -522,6 +556,22 @@ export default function Home() {
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('section[id]')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '-20% 0px -80% 0px' }
+    )
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
   }, [])
 
   const stat1 = useCounter(11, 1800)
@@ -582,6 +632,15 @@ export default function Home() {
 
   // Dark mode state
   const [isDarkMode, setIsDarkMode] = useState(false)
+  const [activeSection, setActiveSection] = useState('home')
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDarkMode])
 
   // Gallery lightbox state
   const [lightboxIndex, setLightboxIndex] = useState(-1)
@@ -785,7 +844,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: '#FAFFFE' }}>
+    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950 dark:text-gray-100 transition-colors duration-300" style={{ background: isDarkMode ? '#0F172A' : '#FAFFFE' }}>
       <Toaster position="top-center" richColors />
       {/* ─── SCROLL PROGRESS BAR ─── */}
       <motion.div
@@ -805,7 +864,7 @@ export default function Home() {
       </motion.div>
 
       {/* ─── 1. TOP INFO BAR ─── */}
-      <div className="w-full py-2 px-4 text-center md:text-left" style={{ background: '#0D9488' }}>
+      <div className="w-full py-2 px-4 text-center md:text-left" style={{ background: isDarkMode ? '#064E3B' : '#0D9488' }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-1 text-xs text-white/90">
           <div className="flex items-center gap-2">
             <Phone className="size-3" />
@@ -847,7 +906,7 @@ export default function Home() {
       <nav
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-lg'
+            ? isDarkMode ? 'bg-slate-900/95 backdrop-blur-md shadow-lg' : 'bg-white/95 backdrop-blur-md shadow-lg'
             : 'bg-transparent'
         }`}
       >
@@ -873,10 +932,14 @@ export default function Home() {
               <a
                 key={link.href}
                 href={link.href}
-                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  scrolled
-                    ? 'text-gray-700 hover:text-teal-600 hover:bg-teal-50'
-                    : 'text-white/90 hover:text-white hover:bg-white/10'
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  activeSection === link.href.slice(1)
+                    ? scrolled
+                      ? isDarkMode ? 'text-teal-400 bg-teal-900/30 font-semibold' : 'text-teal-700 bg-teal-50 font-semibold'
+                      : 'text-white bg-white/20 font-semibold'
+                    : scrolled
+                      ? isDarkMode ? 'text-gray-300 hover:text-teal-400 hover:bg-teal-900/30' : 'text-gray-700 hover:text-teal-600 hover:bg-teal-50'
+                      : 'text-white/90 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {link.label}
@@ -977,6 +1040,50 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ─── SHARE PRICE TICKER ─── */}
+      <div className="overflow-hidden py-2" style={{ background: '#0F172A' }}>
+        <div className="flex items-center gap-8 animate-marquee whitespace-nowrap">
+          {[...Array(3)].map((_, i) => (
+            <React.Fragment key={i}>
+              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
+                <TrendingUp className="size-3 text-emerald-400" />
+                HLC Share: <span className="text-emerald-400 font-bold">৳10.00 Lacs</span>
+              </span>
+              <span className="text-white/20">•</span>
+              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
+                <Shield className="size-3 text-teal-400" />
+                Buyback: <span className="text-teal-400 font-bold">+5% after 3 yrs</span>
+              </span>
+              <span className="text-white/20">•</span>
+              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
+                <Users className="size-3 text-amber-400" />
+                Shares: <span className="text-amber-400 font-bold">4,950 max</span>
+              </span>
+              <span className="text-white/20">•</span>
+              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
+                <Building2 className="size-3 text-emerald-400" />
+                11 Business Wings
+              </span>
+              <span className="text-white/20">•</span>
+              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
+                <MapPin className="size-3 text-teal-400" />
+                55 Katha Complex
+              </span>
+              <span className="text-white/20">•</span>
+              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
+                <TrendingUp className="size-3 text-emerald-400" />
+                HLC Share: <span className="text-emerald-400 font-bold">৳10.00 Lacs</span>
+              </span>
+              <span className="text-white/20">•</span>
+              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
+                No Bank Loan
+              </span>
+              <span className="text-white/20">•</span>
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+
       <main className="flex-1">
         {/* ─── 3. HERO SECTION ─── */}
         <section
@@ -1045,10 +1152,13 @@ export default function Home() {
             </FadeIn>
 
             <FadeIn delay={0.3}>
+              <span className="absolute inset-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white/10 blur-sm" aria-hidden="true">
+                HAYAT LIFE CARE
+              </span>
               <h1
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-4"
+                className="relative text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-4"
                 style={{
-                  background: 'linear-gradient(135deg, #0D9488, #10B981, #34D399)',
+                  background: 'linear-gradient(135deg, #5EEAD4, #A7F3D0, #D1FAE5)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
@@ -1075,7 +1185,7 @@ export default function Home() {
             </FadeIn>
 
             <FadeIn delay={0.9}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mb-16">
                 <Button
                   size="lg"
                   className="rounded-full px-8 text-white font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
@@ -1514,6 +1624,73 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── BEFORE/AFTER COMPARISON ─── */}
+        <section id="comparison" className="py-16" style={{ background: '#FAFFFE' }}>
+          <div className="max-w-5xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Building2 className="size-3" />
+                  OUR VISION
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                  From Vision to Reality
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <p className="mt-4 text-gray-500 max-w-xl mx-auto">
+                  See how Hayat Life Care is transforming Chattogram&apos;s healthcare landscape
+                </p>
+              </div>
+            </FadeIn>
+
+            <FadeIn>
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Current/Construction Phase */}
+                <div className="relative rounded-2xl overflow-hidden border-2 border-gray-200 shadow-lg group">
+                  <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-full bg-gray-900/80 backdrop-blur-sm text-white text-xs font-bold">
+                    UNDER CONSTRUCTION
+                  </div>
+                  <Image
+                    src="/images/hero-building.png"
+                    alt="Hayat Life Care Construction"
+                    width={600}
+                    height={400}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="p-5 bg-white">
+                    <h3 className="font-bold text-gray-900 mb-2">Current Progress</h3>
+                    <p className="text-sm text-gray-600">Foundation and structural work underway. 35% complete as of 2025.</p>
+                    <div className="mt-3 h-2 rounded-full bg-gray-100 overflow-hidden">
+                      <div className="h-full rounded-full" style={{ width: '35%', background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Future/Vision Phase */}
+                <div className="relative rounded-2xl overflow-hidden border-2 border-teal-200 shadow-lg group">
+                  <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-full text-white text-xs font-bold" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                    COMPLETED VISION
+                  </div>
+                  <Image
+                    src="/images/about-aerial.png"
+                    alt="Hayat Life Care Future Vision"
+                    width={600}
+                    height={400}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="p-5 bg-white">
+                    <h3 className="font-bold text-gray-900 mb-2">Future Vision (2028)</h3>
+                    <p className="text-sm text-gray-600">Complete 8+ floor complex with 11 business wings and specialized hospital.</p>
+                    <div className="mt-3 h-2 rounded-full bg-gray-100 overflow-hidden">
+                      <div className="h-full rounded-full" style={{ width: '100%', background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </section>
+
         {/* ─── 6. SERVICES / 11 BUSINESS WINGS ─── */}
         <section id="services" className="relative py-20 md:py-28 overflow-hidden" style={{ background: '#0F172A' }}>
           {/* Noise overlay */}
@@ -1793,19 +1970,19 @@ export default function Home() {
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
                   <Input
                     type="text"
-                    placeholder="Search by doctor name or specialty..."
+                    placeholder="Search doctors..."
                     className="pl-10 h-12 rounded-xl border-gray-200"
                     value={doctorSearch}
                     onChange={e => setDoctorSearch(e.target.value)}
                   />
                 </div>
-                <div className="flex gap-2 flex-wrap">
+                <div className="flex gap-2 flex-wrap justify-center">
                   {['All', 'Cardiology', 'Oncology', 'Gynecology', 'General', 'Dental'].map(cat => (
                     <Button
                       key={cat}
                       variant={doctorFilter === cat ? 'default' : 'outline'}
                       size="sm"
-                      className="rounded-full"
+                      className="rounded-full px-4"
                       style={doctorFilter === cat ? { background: 'linear-gradient(135deg, #0D9488, #10B981)', color: 'white' } : {}}
                       onClick={() => setDoctorFilter(cat)}
                     >
@@ -1894,6 +2071,12 @@ export default function Home() {
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
                   Explore our world-class facilities designed for comfort, care, and convenience. Click any image to view full size.
                 </p>
+                <div className="flex justify-center mt-3">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-medium">
+                    <ZoomIn className="size-3" />
+                    8 Photos · Click to enlarge
+                  </span>
+                </div>
               </div>
             </FadeIn>
 
@@ -2095,8 +2278,9 @@ export default function Home() {
                         <Star key={j} className="size-4 fill-amber-400 text-amber-400" />
                       ))}
                     </div>
-                    <p className="text-gray-600 text-sm leading-relaxed flex-1 italic">
-                      &ldquo;{testimonial.text}&rdquo;
+                    <p className="text-gray-600 text-sm leading-relaxed flex-1 italic relative pl-6">
+                      <span className="absolute left-0 top-0 text-3xl leading-none" style={{ color: '#0D9488', opacity: 0.3 }}>&ldquo;</span>
+                      {testimonial.text}
                     </p>
                     <div className="flex items-center gap-3 mt-4 pt-4 border-t">
                       <div
@@ -2541,7 +2725,7 @@ export default function Home() {
               {/* Contact form */}
               <FadeIn direction="right">
                 <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
-                  <div className="h-1.5" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                  <div className="h-2" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                   <div className="p-8">
                   <h3 className="text-xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
                   <form
@@ -2863,7 +3047,7 @@ export default function Home() {
         {/* Bottom bar */}
         <div className="border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
-            <div className="font-medium">&copy; 2026 Hayat Life Care. All Rights Reserved.</div>
+            <div className="flex items-center gap-2 font-medium">&copy; 2026 Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; Back to Top</button></div>
             <div className="flex items-center gap-4">
               <span>A sister concern of Hayat Holdings</span>
               <button
@@ -2922,7 +3106,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-6 right-6 z-[60] w-[360px] max-w-[calc(100vw-2rem)] rounded-2xl shadow-2xl overflow-hidden border border-gray-200 bg-white"
+            className="fixed bottom-6 right-4 sm:right-6 z-[60] w-[340px] sm:w-[360px] max-w-[calc(100vw-2rem)] rounded-2xl shadow-2xl overflow-hidden border border-gray-200 bg-white"
             style={{ height: '500px' }}
           >
             {/* Chat header */}
