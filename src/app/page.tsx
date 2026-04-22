@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion'
 import {
@@ -55,8 +55,14 @@ import {
   Pencil,
   Trash2,
   LogOut,
+  MousePointer,
+  CalendarCheck,
+  Search,
+  Globe,
+  Instagram,
+  Linkedin,
 } from 'lucide-react'
-import { toast } from 'sonner'
+import { toast, Toaster } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -197,6 +203,7 @@ const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Floors', href: '#floors' },
+  { label: 'Doctors', href: '#doctors' },
   { label: 'Timeline', href: '#timeline' },
   { label: 'Leadership', href: '#leadership' },
   { label: 'Investment', href: '#investment' },
@@ -521,6 +528,33 @@ export default function Home() {
   const [investShares, setInvestShares] = useState(1)
   const [investRate, setInvestRate] = useState(10)
 
+  // Doctor directory state
+  const [doctorSearch, setDoctorSearch] = useState('')
+  const [doctorFilter, setDoctorFilter] = useState('All')
+  const [isAppointmentOpen, setIsAppointmentOpen] = useState(false)
+  const [appointmentDoctor, setAppointmentDoctor] = useState('')
+  const [appointmentForm, setAppointmentForm] = useState({ name: '', phone: '', date: '', time: '', message: '' })
+  const [isAppointmentSubmitting, setIsAppointmentSubmitting] = useState(false)
+
+  // Newsletter state
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false)
+
+  // Language toggle state
+  const [isBengali, setIsBengali] = useState(false)
+
+  const doctorsData = [
+    { name: 'Dr. Mohammad Azizul Haque', specialty: 'General', designation: 'Associate Professor, CMCH', floor: 'Level 5', schedule: 'Sat-Thu, 5PM-9PM' },
+    { name: 'Dr. Fatima Begum', specialty: 'Gynecology', designation: 'Senior Consultant', floor: 'Level 7', schedule: 'Sat-Wed, 10AM-2PM' },
+    { name: 'Dr. Rashid Ahmed', specialty: 'Cardiology', designation: 'Professor & Head', floor: 'Level 4', schedule: 'Sun-Thu, 4PM-8PM' },
+    { name: 'Dr. Nasreen Akter', specialty: 'Oncology', designation: 'Consultant Oncologist', floor: 'Level 6', schedule: 'Sat-Tue, 9AM-1PM' },
+    { name: 'Dr. Kamal Hossain', specialty: 'Dental', designation: 'Dental Surgeon', floor: 'Level 8', schedule: 'Sat-Thu, 10AM-6PM' },
+    { name: 'Dr. Sharmin Sultana', specialty: 'Gynecology', designation: 'Fertility Specialist', floor: 'Level 7', schedule: 'Sun-Thu, 3PM-7PM' },
+    { name: 'Dr. Imran Khan', specialty: 'Cardiology', designation: 'Interventional Cardiologist', floor: 'Level 4', schedule: 'Sat-Wed, 5PM-9PM' },
+    { name: 'Dr. Tahmina Chowdhury', specialty: 'Oncology', designation: 'Radiation Oncologist', floor: 'Level 6', schedule: 'Mon-Fri, 9AM-3PM' },
+    { name: 'Dr. Rezaul Karim', specialty: 'General', designation: 'General Physician', floor: 'Level 5', schedule: 'Sat-Thu, 10AM-5PM' },
+  ]
+
   // Admin data fetching
   const fetchAdminData = useCallback(async () => {
     try {
@@ -699,6 +733,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#FAFFFE' }}>
+      <Toaster position="top-center" richColors />
       {/* ─── SCROLL PROGRESS BAR ─── */}
       <motion.div
         className="fixed top-0 left-0 right-0 z-[100]"
@@ -734,6 +769,19 @@ export default function Home() {
             <a href="#" className="hover:text-white transition-colors" aria-label="YouTube">
               <Youtube className="size-3.5" />
             </a>
+            <a href="#" className="hover:text-white transition-colors" aria-label="Instagram">
+              <Instagram className="size-3.5" />
+            </a>
+            <span className="text-white/40 hidden sm:inline">|</span>
+            {/* Language Toggle */}
+            <button
+              onClick={() => setIsBengali(!isBengali)}
+              className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/15 hover:bg-white/25 transition-colors"
+              aria-label="Toggle language"
+            >
+              <Globe className="size-3" />
+              <span className="text-[11px] font-medium">{isBengali ? 'EN' : 'বাংলা'}</span>
+            </button>
             <span className="text-white/40 hidden sm:inline">|</span>
             <div className="text-white/80 text-[11px] tracking-wide uppercase hidden sm:block">
               Sister Concern of HAYAT HOLDINGS
@@ -863,17 +911,51 @@ export default function Home() {
               priority
             />
           </motion.div>
-          {/* Gradient overlay */}
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(13,148,136,0.6) 50%, rgba(16,185,129,0.4) 100%)' }} />
+          {/* Animated gradient overlay */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              background: [
+                'linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(13,148,136,0.6) 50%, rgba(16,185,129,0.4) 100%)',
+                'linear-gradient(135deg, rgba(15,23,42,0.88) 0%, rgba(13,148,136,0.55) 50%, rgba(16,185,129,0.45) 100%)',
+                'linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(13,148,136,0.6) 50%, rgba(16,185,129,0.4) 100%)',
+              ],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          />
           {/* Noise texture */}
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+
+          {/* Floating medical crosses / particles */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[
+              { x: '10%', y: '20%', size: 18, delay: 0, duration: 6 },
+              { x: '80%', y: '15%', size: 14, delay: 1, duration: 7 },
+              { x: '25%', y: '70%', size: 12, delay: 2, duration: 8 },
+              { x: '70%', y: '60%', size: 16, delay: 0.5, duration: 5 },
+              { x: '50%', y: '40%', size: 10, delay: 1.5, duration: 9 },
+              { x: '90%', y: '80%', size: 13, delay: 3, duration: 6 },
+              { x: '15%', y: '50%', size: 11, delay: 2.5, duration: 7 },
+              { x: '60%', y: '25%', size: 15, delay: 0.8, duration: 8 },
+            ].map((p, i) => (
+              <motion.div
+                key={i}
+                className="absolute text-white/10"
+                style={{ left: p.x, top: p.y, fontSize: p.size }}
+                animate={{ y: [0, -20, 0], rotate: [0, 180, 360], opacity: [0.08, 0.15, 0.08] }}
+                transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                ✚
+              </motion.div>
+            ))}
+          </div>
 
           <motion.div
             className="relative z-10 max-w-7xl mx-auto px-4 py-32 text-center"
             style={{ opacity: heroOpacity }}
           >
             <FadeIn delay={0.1}>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-sm mb-8">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm mb-8" style={{ boxShadow: '0 0 20px rgba(13,148,136,0.3), 0 0 40px rgba(13,148,136,0.1)' }}>
                 <span className="text-lg">🏥</span>
                 One Stop Service for Healthcare &amp; Daily Essentials
               </div>
@@ -945,7 +1027,8 @@ export default function Home() {
                 ].map((stat, i) => (
                   <div
                     key={i}
-                    className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-4 md:p-5 text-center"
+                    className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-4 md:p-5 text-center transition-all duration-300 hover:bg-white/15 hover:border-white/30"
+                    style={{ boxShadow: '0 0 15px rgba(13,148,136,0.1)' }}
                   >
                     <div
                       ref={i === 0 ? stat1.ref : i === 1 ? stat2.ref : i === 2 ? stat3.ref : stat4.ref}
@@ -985,8 +1068,14 @@ export default function Home() {
               transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
               className="flex flex-col items-center gap-2 text-white/60"
             >
-              <span className="text-xs tracking-widest uppercase">Scroll</span>
-              <ChevronDown className="size-5" />
+              <div className="w-6 h-10 rounded-full border-2 border-white/40 flex items-start justify-center p-1.5">
+                <motion.div
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                  className="w-1.5 h-1.5 rounded-full bg-white/80"
+                />
+              </div>
+              <span className="text-[10px] tracking-[0.2em] uppercase">Scroll Down</span>
             </motion.div>
           </div>
         </section>
@@ -1264,10 +1353,16 @@ export default function Home() {
         </section>
 
         {/* ─── 7. LEADERSHIP SECTION ─── */}
-        <section id="leadership" className="py-20 md:py-28" style={{ background: '#FAFFFE' }}>
-          <div className="max-w-7xl mx-auto px-4">
+        <section id="leadership" className="py-20 md:py-28 relative overflow-hidden" style={{ background: '#FAFFFE' }}>
+          {/* Subtle dot pattern */}
+          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(#0D9488 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+          <div className="relative max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Users className="size-3" />
+                  LEADERSHIP
+                </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   Meet the Visionaries
                 </h2>
@@ -1276,17 +1371,25 @@ export default function Home() {
               </div>
             </FadeIn>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
               {/* Chairman */}
               <FadeIn direction="right">
-                <div className="relative bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden">
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  className="group relative bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                >
                   <div className="h-2" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
-                  <div className="p-8 text-center">
-                    <div
-                      className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 text-2xl font-bold text-white"
-                      style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
-                    >
-                      CS
+                  <div className="p-10 text-center">
+                    <div className="relative inline-block mb-6">
+                      <div
+                        className="inline-flex items-center justify-center w-24 h-24 rounded-full text-3xl font-bold text-white ring-4 ring-teal-100 group-hover:ring-teal-200 transition-all duration-300"
+                        style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                      >
+                        CS
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center">
+                        <Star className="size-4 text-white fill-white" />
+                      </div>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-1">
                       Capt. Md Showkat Hossain Chowdhury
@@ -1294,25 +1397,41 @@ export default function Home() {
                     <p className="text-sm font-semibold mb-4" style={{ color: '#0D9488' }}>
                       Chairman
                     </p>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-gray-600 text-sm leading-relaxed mb-5">
                       Seasoned Master Mariner and Chairman of Marinus Pvt. Ltd. and Hayat Holdings.
                       With decades of leadership experience in maritime and business sectors, he brings
                       strategic vision and unwavering commitment to Hayat Life Care&apos;s mission.
                     </p>
+                    <div className="flex justify-center gap-3">
+                      <a href="#" className="w-9 h-9 rounded-full bg-gray-100 hover:bg-teal-100 flex items-center justify-center transition-colors" aria-label="LinkedIn">
+                        <Linkedin className="size-4 text-gray-500 hover:text-teal-600" />
+                      </a>
+                      <a href="#" className="w-9 h-9 rounded-full bg-gray-100 hover:bg-teal-100 flex items-center justify-center transition-colors" aria-label="Facebook">
+                        <Facebook className="size-4 text-gray-500 hover:text-teal-600" />
+                      </a>
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               </FadeIn>
 
               {/* Managing Director */}
               <FadeIn direction="left">
-                <div className="relative bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden">
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  className="group relative bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                >
                   <div className="h-2" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
-                  <div className="p-8 text-center">
-                    <div
-                      className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 text-2xl font-bold text-white"
-                      style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
-                    >
-                      DA
+                  <div className="p-10 text-center">
+                    <div className="relative inline-block mb-6">
+                      <div
+                        className="inline-flex items-center justify-center w-24 h-24 rounded-full text-3xl font-bold text-white ring-4 ring-teal-100 group-hover:ring-teal-200 transition-all duration-300"
+                        style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                      >
+                        DA
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center">
+                        <Stethoscope className="size-4 text-white" />
+                      </div>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-1">
                       Dr. Mohammad Azizul Haque
@@ -1320,13 +1439,21 @@ export default function Home() {
                     <p className="text-sm font-semibold mb-4" style={{ color: '#0D9488' }}>
                       Managing Director
                     </p>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-gray-600 text-sm leading-relaxed mb-5">
                       Associate Professor at Chattogram Medical College and Founder Director of
                       multiple hospitals. A distinguished medical professional with a passion for
                       accessible, quality healthcare driving Hayat Life Care&apos;s clinical excellence.
                     </p>
+                    <div className="flex justify-center gap-3">
+                      <a href="#" className="w-9 h-9 rounded-full bg-gray-100 hover:bg-teal-100 flex items-center justify-center transition-colors" aria-label="LinkedIn">
+                        <Linkedin className="size-4 text-gray-500 hover:text-teal-600" />
+                      </a>
+                      <a href="#" className="w-9 h-9 rounded-full bg-gray-100 hover:bg-teal-100 flex items-center justify-center transition-colors" aria-label="Facebook">
+                        <Facebook className="size-4 text-gray-500 hover:text-teal-600" />
+                      </a>
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               </FadeIn>
             </div>
           </div>
@@ -1374,6 +1501,115 @@ export default function Home() {
                 </StaggerItem>
               ))}
             </StaggerContainer>
+          </div>
+        </section>
+
+        {/* ─── DOCTOR DIRECTORY SECTION ─── */}
+        <section id="doctors" className="py-20 md:py-28 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Stethoscope className="size-3" />
+                  OUR SPECIALISTS
+                </div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+                  Doctor Directory
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <p className="mt-4 text-gray-500 max-w-xl mx-auto">
+                  Meet our team of expert physicians and specialists dedicated to your health.
+                </p>
+              </div>
+            </FadeIn>
+
+            {/* Search & Filter */}
+            <FadeIn>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto mb-10">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder="Search by doctor name or specialty..."
+                    className="pl-10 h-12 rounded-xl border-gray-200"
+                    value={doctorSearch}
+                    onChange={e => setDoctorSearch(e.target.value)}
+                  />
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  {['All', 'Cardiology', 'Oncology', 'Gynecology', 'General', 'Dental'].map(cat => (
+                    <Button
+                      key={cat}
+                      variant={doctorFilter === cat ? 'default' : 'outline'}
+                      size="sm"
+                      className="rounded-full"
+                      style={doctorFilter === cat ? { background: 'linear-gradient(135deg, #0D9488, #10B981)', color: 'white' } : {}}
+                      onClick={() => setDoctorFilter(cat)}
+                    >
+                      {cat}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+
+            <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {doctorsData
+                .filter(d => doctorFilter === 'All' || d.specialty === doctorFilter)
+                .filter(d => doctorSearch === '' || d.name.toLowerCase().includes(doctorSearch.toLowerCase()) || d.specialty.toLowerCase().includes(doctorSearch.toLowerCase()))
+                .map((doc, i) => (
+                <StaggerItem key={i}>
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="group bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
+                  >
+                    <div className="h-32 relative" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.08), rgba(16,185,129,0.08))' }}>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div
+                          className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-lg"
+                          style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                        >
+                          {doc.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                        </div>
+                      </div>
+                      <div className="absolute top-3 right-3">
+                        <span className="px-2 py-1 rounded-full text-[10px] font-semibold text-white" style={{ background: '#D97706' }}>
+                          {doc.floor}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-5 text-center">
+                      <h3 className="text-lg font-bold text-gray-900 mb-1">{doc.name}</h3>
+                      <p className="text-sm font-medium mb-2" style={{ color: '#0D9488' }}>{doc.specialty}</p>
+                      {doc.designation && <p className="text-xs text-gray-500 mb-3">{doc.designation}</p>}
+                      <div className="flex items-center justify-center gap-2 text-xs text-gray-400 mb-4">
+                        <Clock className="size-3" />
+                        <span>{doc.schedule}</span>
+                      </div>
+                      <Button
+                        size="sm"
+                        className="rounded-full w-full text-white text-xs"
+                        style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                        onClick={() => {
+                          setAppointmentDoctor(doc.name)
+                          setIsAppointmentOpen(true)
+                        }}
+                      >
+                        <CalendarCheck className="size-3.5 mr-1" />
+                        Book Appointment
+                      </Button>
+                    </div>
+                  </motion.div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+
+            {doctorsData.filter(d => doctorFilter === 'All' || d.specialty === doctorFilter).filter(d => doctorSearch === '' || d.name.toLowerCase().includes(doctorSearch.toLowerCase()) || d.specialty.toLowerCase().includes(doctorSearch.toLowerCase())).length === 0 && (
+              <div className="text-center py-10 text-gray-400">
+                <Stethoscope className="size-12 mx-auto mb-3 opacity-30" />
+                <p>No doctors found matching your criteria.</p>
+              </div>
+            )}
           </div>
         </section>
 
@@ -1714,7 +1950,7 @@ export default function Home() {
                         min="1"
                         max="10"
                         value={investShares}
-                        onChange={e => setInvestShares(Number(e.target.value) || 1)}
+                        onChange={e => { const v = parseInt(e.target.value); setInvestShares(isNaN(v) ? 1 : Math.min(10, Math.max(1, v))) }}
                         className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
                       />
                     </div>
@@ -1726,7 +1962,7 @@ export default function Home() {
                         max="20"
                         step="0.5"
                         value={investRate}
-                        onChange={e => setInvestRate(Number(e.target.value) || 10)}
+                        onChange={e => { const v = parseFloat(e.target.value); setInvestRate(isNaN(v) ? 10 : Math.min(20, Math.max(5, v))) }}
                         className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
                       />
                     </div>
@@ -1792,6 +2028,10 @@ export default function Home() {
           <div className="max-w-3xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <HelpCircle className="size-3" />
+                  GOT QUESTIONS?
+                </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   Frequently Asked Questions
                 </h2>
@@ -1825,6 +2065,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Mail className="size-3" />
+                  CONTACT US
+                </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   Get In Touch
                 </h2>
@@ -1835,7 +2079,9 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-10">
               {/* Contact form */}
               <FadeIn direction="right">
-                <div className="bg-white rounded-2xl border shadow-sm p-8">
+                <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+                  <div className="h-1.5" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                  <div className="p-8">
                   <h3 className="text-xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
                   <form
                     onSubmit={async (e) => {
@@ -1919,6 +2165,7 @@ export default function Home() {
                       {isFormSubmitting ? 'Sending...' : 'Send Message'}
                     </Button>
                   </form>
+                  </div>
                 </div>
               </FadeIn>
 
@@ -1951,8 +2198,14 @@ export default function Home() {
                       details: ['Hayat Holdings'],
                       color: '#0D9488',
                     },
+                    {
+                      icon: Mail,
+                      title: 'Email',
+                      details: ['info@hayatlifecare.com'],
+                      color: '#10B981',
+                    },
                   ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-4 p-5 bg-white rounded-2xl border shadow-sm">
+                    <div key={i} className="flex items-start gap-4 p-5 bg-white rounded-2xl border shadow-sm border-l-4" style={{ borderLeftColor: item.color }}>
                       <div
                         className="flex items-center justify-center w-12 h-12 rounded-xl shrink-0"
                         style={{ background: `${item.color}15` }}
@@ -1969,6 +2222,19 @@ export default function Home() {
                       </div>
                     </div>
                   ))}
+
+                  {/* Quick appointment button */}
+                  <Button
+                    className="w-full rounded-xl text-white font-semibold h-12"
+                    style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                    onClick={() => {
+                      setAppointmentDoctor('')
+                      setIsAppointmentOpen(true)
+                    }}
+                  >
+                    <CalendarCheck className="size-5 mr-2" />
+                    Book an Appointment
+                  </Button>
 
                   {/* Map */}
                   <div className="rounded-2xl overflow-hidden border shadow-sm h-64">
@@ -1992,6 +2258,50 @@ export default function Home() {
 
       {/* ─── 12. FOOTER ─── */}
       <footer style={{ background: '#0F172A' }}>
+        {/* Newsletter section */}
+        <div className="border-b border-white/10">
+          <div className="max-w-7xl mx-auto px-4 py-10">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-center md:text-left">
+                <h4 className="text-xl font-bold text-white mb-2">Stay Updated with Hayat Life Care</h4>
+                <p className="text-sm text-gray-400">Get the latest news, investment updates, and health tips delivered to your inbox.</p>
+              </div>
+              <div className="flex w-full md:w-auto gap-2">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 h-12 rounded-xl md:w-72"
+                  value={newsletterEmail}
+                  onChange={e => setNewsletterEmail(e.target.value)}
+                  onKeyDown={async (e) => {
+                    if (e.key === 'Enter' && newsletterEmail) {
+                      setIsNewsletterSubmitting(true)
+                      await new Promise(r => setTimeout(r, 1000))
+                      toast.success('Thank you for subscribing!')
+                      setNewsletterEmail('')
+                      setIsNewsletterSubmitting(false)
+                    }
+                  }}
+                />
+                <Button
+                  className="rounded-xl h-12 px-6 text-white font-semibold shrink-0"
+                  style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                  disabled={isNewsletterSubmitting || !newsletterEmail}
+                  onClick={async () => {
+                    setIsNewsletterSubmitting(true)
+                    await new Promise(r => setTimeout(r, 1000))
+                    toast.success('Thank you for subscribing!')
+                    setNewsletterEmail('')
+                    setIsNewsletterSubmitting(false)
+                  }}
+                >
+                  {isNewsletterSubmitting ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             {/* Logo & description */}
@@ -2005,17 +2315,32 @@ export default function Home() {
                   <div className="text-[10px] tracking-widest uppercase text-gray-500">Chattogram</div>
                 </div>
               </div>
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="text-sm text-gray-400 leading-relaxed mb-5">
                 A premium healthcare &amp; lifestyle complex — a one-stop destination for world-class
                 medical services, daily essentials, dining, and family entertainment.
               </p>
+              {/* Social links */}
+              <div className="flex items-center gap-3">
+                <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-colors group" aria-label="Facebook">
+                  <Facebook className="size-4 text-gray-500 group-hover:text-teal-400" />
+                </a>
+                <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-colors group" aria-label="YouTube">
+                  <Youtube className="size-4 text-gray-500 group-hover:text-teal-400" />
+                </a>
+                <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-colors group" aria-label="Instagram">
+                  <Instagram className="size-4 text-gray-500 group-hover:text-teal-400" />
+                </a>
+                <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-colors group" aria-label="LinkedIn">
+                  <Linkedin className="size-4 text-gray-500 group-hover:text-teal-400" />
+                </a>
+              </div>
             </div>
 
             {/* Quick Links */}
             <div>
               <h4 className="text-white font-semibold mb-4">Quick Links</h4>
               <div className="space-y-2">
-                {navLinks.map((link) => (
+                {navLinks.slice(0, 6).map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
@@ -2027,17 +2352,17 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Services */}
+            {/* More Links */}
             <div>
-              <h4 className="text-white font-semibold mb-4">Our Services</h4>
-              <div className="space-y-2 max-h-64 overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin', scrollbarColor: '#374151 transparent' }}>
-                {services.map((s, i) => (
+              <h4 className="text-white font-semibold mb-4">More Links</h4>
+              <div className="space-y-2">
+                {navLinks.slice(6).map((link) => (
                   <a
-                    key={i}
-                    href="#services"
+                    key={link.href}
+                    href={link.href}
                     className="block text-sm text-gray-400 hover:text-teal-400 transition-colors"
                   >
-                    {s.title}
+                    {link.label}
                   </a>
                 ))}
               </div>
@@ -2053,6 +2378,10 @@ export default function Home() {
                     <div>01332-850348</div>
                     <div>01335-074949</div>
                   </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Mail className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
+                  <div>info@hayatlifecare.com</div>
                 </div>
                 <div className="flex items-start gap-2">
                   <MapPin className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
@@ -2209,6 +2538,121 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ─── APPOINTMENT BOOKING DIALOG ─── */}
+      <Dialog open={isAppointmentOpen} onOpenChange={setIsAppointmentOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <CalendarCheck className="size-5" style={{ color: '#0D9488' }} />
+              Book Appointment
+            </DialogTitle>
+            <DialogDescription>
+              {appointmentDoctor ? `Schedule an appointment with ${appointmentDoctor}` : 'Schedule your appointment at Hayat Life Care'}
+            </DialogDescription>
+          </DialogHeader>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault()
+              if (isAppointmentSubmitting) return
+              setIsAppointmentSubmitting(true)
+              try {
+                const res = await fetch('/api/inquiries', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    name: appointmentForm.name,
+                    phone: appointmentForm.phone,
+                    subject: `Appointment Request - ${appointmentDoctor || 'General'}`,
+                    message: `Date: ${appointmentForm.date}, Time: ${appointmentForm.time}. ${appointmentForm.message}`,
+                  }),
+                })
+                if (res.ok) {
+                  toast.success('Appointment request submitted! We will confirm your booking shortly.')
+                  setAppointmentForm({ name: '', phone: '', date: '', time: '', message: '' })
+                  setIsAppointmentOpen(false)
+                } else {
+                  toast.error('Failed to submit. Please try again.')
+                }
+              } catch {
+                toast.error('Network error. Please try again later.')
+              } finally {
+                setIsAppointmentSubmitting(false)
+              }
+            }}
+            className="space-y-4 pt-2"
+          >
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-1 block">Full Name *</Label>
+              <Input
+                placeholder="Your full name"
+                required
+                value={appointmentForm.name}
+                onChange={e => setAppointmentForm(p => ({ ...p, name: e.target.value }))}
+              />
+            </div>
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-1 block">Phone Number *</Label>
+              <Input
+                type="tel"
+                placeholder="+880 1XXX-XXXXXX"
+                required
+                value={appointmentForm.phone}
+                onChange={e => setAppointmentForm(p => ({ ...p, phone: e.target.value }))}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="text-sm font-medium text-gray-700 mb-1 block">Preferred Date *</Label>
+                <Input
+                  type="date"
+                  required
+                  value={appointmentForm.date}
+                  onChange={e => setAppointmentForm(p => ({ ...p, date: e.target.value }))}
+                />
+              </div>
+              <div>
+                <Label className="text-sm font-medium text-gray-700 mb-1 block">Preferred Time *</Label>
+                <Select value={appointmentForm.time} onValueChange={v => setAppointmentForm(p => ({ ...p, time: v }))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="9:00 AM">9:00 AM</SelectItem>
+                    <SelectItem value="10:00 AM">10:00 AM</SelectItem>
+                    <SelectItem value="11:00 AM">11:00 AM</SelectItem>
+                    <SelectItem value="12:00 PM">12:00 PM</SelectItem>
+                    <SelectItem value="2:00 PM">2:00 PM</SelectItem>
+                    <SelectItem value="3:00 PM">3:00 PM</SelectItem>
+                    <SelectItem value="4:00 PM">4:00 PM</SelectItem>
+                    <SelectItem value="5:00 PM">5:00 PM</SelectItem>
+                    <SelectItem value="6:00 PM">6:00 PM</SelectItem>
+                    <SelectItem value="7:00 PM">7:00 PM</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-1 block">Additional Notes</Label>
+              <Textarea
+                placeholder="Any specific concerns or questions..."
+                className="min-h-[80px]"
+                value={appointmentForm.message}
+                onChange={e => setAppointmentForm(p => ({ ...p, message: e.target.value }))}
+              />
+            </div>
+            <Button
+              type="submit"
+              className="w-full text-white font-semibold"
+              style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+              disabled={isAppointmentSubmitting}
+            >
+              {isAppointmentSubmitting ? <Loader2 className="size-4 animate-spin mr-2" /> : <CalendarCheck className="size-4 mr-2" />}
+              {isAppointmentSubmitting ? 'Booking...' : 'Confirm Appointment'}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       {/* ─── ADMIN LOGIN DIALOG ─── */}
       <Dialog open={isAdminOpen && !isLoggedIn} onOpenChange={(open) => { if (!open) setIsAdminOpen(false) }}>

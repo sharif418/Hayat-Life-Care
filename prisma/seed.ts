@@ -336,6 +336,29 @@ async function main() {
   }
   console.log('✓ Created leaders');
 
+  // 7. Doctors
+  const doctorsData = [
+    { name: 'Dr. Mohammad Azizul Haque', specialty: 'General', designation: 'Associate Professor, CMCH', floor: 'Level 5', schedule: 'Sat-Thu, 5PM-9PM', bio: 'Managing Director of Hayat Life Care and Associate Professor at Chattogram Medical College.', order: 1, active: true },
+    { name: 'Dr. Fatima Begum', specialty: 'Gynecology', designation: 'Senior Consultant', floor: 'Level 7', schedule: 'Sat-Wed, 10AM-2PM', bio: 'Experienced gynecologist specializing in women\'s health and fertility treatments.', order: 2, active: true },
+    { name: 'Dr. Rashid Ahmed', specialty: 'Cardiology', designation: 'Professor & Head', floor: 'Level 4', schedule: 'Sun-Thu, 4PM-8PM', bio: 'Leading cardiologist with over 20 years of experience in interventional cardiology.', order: 3, active: true },
+    { name: 'Dr. Nasreen Akter', specialty: 'Oncology', designation: 'Consultant Oncologist', floor: 'Level 6', schedule: 'Sat-Tue, 9AM-1PM', bio: 'Specialist in cancer diagnosis and treatment with expertise in chemotherapy protocols.', order: 4, active: true },
+    { name: 'Dr. Kamal Hossain', specialty: 'Dental', designation: 'Dental Surgeon', floor: 'Level 8', schedule: 'Sat-Thu, 10AM-6PM', bio: 'Experienced dental surgeon providing comprehensive oral healthcare services.', order: 5, active: true },
+    { name: 'Dr. Sharmin Sultana', specialty: 'Gynecology', designation: 'Fertility Specialist', floor: 'Level 7', schedule: 'Sun-Thu, 3PM-7PM', bio: 'Fertility specialist with advanced training in reproductive medicine and IVF.', order: 6, active: true },
+    { name: 'Dr. Imran Khan', specialty: 'Cardiology', designation: 'Interventional Cardiologist', floor: 'Level 4', schedule: 'Sat-Wed, 5PM-9PM', bio: 'Board-certified interventional cardiologist specializing in cardiac catheterization.', order: 7, active: true },
+    { name: 'Dr. Tahmina Chowdhury', specialty: 'Oncology', designation: 'Radiation Oncologist', floor: 'Level 6', schedule: 'Mon-Fri, 9AM-3PM', bio: 'Radiation oncology expert with focus on precision radiation therapy.', order: 8, active: true },
+    { name: 'Dr. Rezaul Karim', specialty: 'General', designation: 'General Physician', floor: 'Level 5', schedule: 'Sat-Thu, 10AM-5PM', bio: 'General physician providing primary care and preventive health services.', order: 9, active: true },
+  ];
+
+  for (const doctor of doctorsData) {
+    const existing = await prisma.doctor.findFirst({
+      where: { name: doctor.name },
+    });
+    if (!existing) {
+      await prisma.doctor.create({ data: doctor });
+    }
+  }
+  console.log('✓ Created doctors');
+
   console.log('\n🌱 Seeding completed successfully!');
 }
 
