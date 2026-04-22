@@ -61,6 +61,11 @@ import {
   Globe,
   Instagram,
   Linkedin,
+  BookOpen,
+  Lightbulb,
+  ZoomIn,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react'
 import { toast, Toaster } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -68,6 +73,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import {
   Accordion,
@@ -204,11 +210,10 @@ const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Floors', href: '#floors' },
   { label: 'Doctors', href: '#doctors' },
-  { label: 'Timeline', href: '#timeline' },
-  { label: 'Leadership', href: '#leadership' },
-  { label: 'Investment', href: '#investment' },
+  { label: 'Timeline', href: '#leadership' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Reviews', href: '#testimonials' },
+  { label: 'Health Tips', href: '#health-tips' },
+  { label: 'Investment', href: '#investment' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contact', href: '#contact' },
 ]
@@ -543,6 +548,22 @@ export default function Home() {
   // Language toggle state
   const [isBengali, setIsBengali] = useState(false)
 
+  // Dark mode state
+  const [isDarkMode, setIsDarkMode] = useState(false)
+
+  // Gallery lightbox state
+  const [lightboxIndex, setLightboxIndex] = useState(-1)
+  const lightboxImages = [
+    { src: '/images/hero-building.png', alt: 'Hayat Life Care Exterior' },
+    { src: '/images/interior-lobby.png', alt: 'Grand Lobby & Reception' },
+    { src: '/images/medical-lab.png', alt: 'Advanced Diagnostic Lab' },
+    { src: '/images/doctor-chamber.png', alt: 'Doctor Consultation Chamber' },
+    { src: '/images/super-shop.png', alt: 'Super Shop' },
+    { src: '/images/restaurant.png', alt: 'Restaurant & Dining' },
+    { src: '/images/children-park.png', alt: 'Children Amusement Park' },
+    { src: '/images/about-aerial.png', alt: 'Aerial View - O.R. Nizam Road' },
+  ]
+
   const doctorsData = [
     { name: 'Dr. Mohammad Azizul Haque', specialty: 'General', designation: 'Associate Professor, CMCH', floor: 'Level 5', schedule: 'Sat-Thu, 5PM-9PM' },
     { name: 'Dr. Fatima Begum', specialty: 'Gynecology', designation: 'Senior Consultant', floor: 'Level 7', schedule: 'Sat-Wed, 10AM-2PM' },
@@ -829,6 +850,15 @@ export default function Home() {
                 {link.label}
               </a>
             ))}
+            <Button
+              className="ml-2 rounded-full px-3 font-semibold shadow-lg h-9 w-9 p-0"
+              style={{ background: scrolled ? '#1e293b' : 'rgba(255,255,255,0.15)', color: 'white' }}
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              aria-label="Toggle dark mode"
+              title="Toggle dark mode"
+            >
+              {isDarkMode ? '☀️' : '🌙'}
+            </Button>
             <Button
               className="ml-3 rounded-full px-5 font-semibold text-white shadow-lg"
               style={{ background: '#D97706' }}
@@ -1151,6 +1181,59 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── STATS COUNTER SECTION ─── */}
+        <section className="relative py-16 md:py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+          <div className="relative max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+              <FadeIn delay={0}>
+                <div className="text-center group">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 transition-colors">
+                    <Sparkles className="size-7 text-white/90" />
+                  </div>
+                  <div ref={stat1.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
+                    {stat1.count}+
+                  </div>
+                  <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Business Wings</div>
+                </div>
+              </FadeIn>
+              <FadeIn delay={0.15}>
+                <div className="text-center group">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 transition-colors">
+                    <MapPin className="size-7 text-white/90" />
+                  </div>
+                  <div ref={stat2.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
+                    {stat2.count}
+                  </div>
+                  <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Katha Land Area</div>
+                </div>
+              </FadeIn>
+              <FadeIn delay={0.3}>
+                <div className="text-center group">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 transition-colors">
+                    <Building2 className="size-7 text-white/90" />
+                  </div>
+                  <div ref={stat3.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
+                    {stat3.count}+
+                  </div>
+                  <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Floors</div>
+                </div>
+              </FadeIn>
+              <FadeIn delay={0.45}>
+                <div className="text-center group">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 transition-colors">
+                    <Users className="size-7 text-white/90" />
+                  </div>
+                  <div ref={stat4.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
+                    {stat4.count.toLocaleString()}
+                  </div>
+                  <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Total Shares</div>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </section>
+
         {/* ─── 5. FLOOR PLAN SECTION ─── */}
         <section id="floors" className="py-20 md:py-28 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4">
@@ -1332,11 +1415,14 @@ export default function Home() {
                     {/* Glow effect on hover */}
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: '0 0 30px rgba(13,148,136,0.15)' }} />
                     <div className="relative">
-                      <div
-                        className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4"
-                        style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.25), rgba(16,185,129,0.25))' }}
-                      >
-                        <service.icon className="size-6" style={{ color: '#34D399' }} />
+                      <div className="flex items-center gap-3 mb-4">
+                        <div
+                          className="inline-flex items-center justify-center w-12 h-12 rounded-xl"
+                          style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.25), rgba(16,185,129,0.25))' }}
+                        >
+                          <service.icon className="size-6" style={{ color: '#34D399' }} />
+                        </div>
+                        <span className="text-3xl font-black text-white/10">{String(i + 1).padStart(2, '0')}</span>
                       </div>
                       <h3 className="text-lg font-semibold text-white mb-2">
                         {service.title}
@@ -1627,26 +1713,27 @@ export default function Home() {
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
-                  Explore our world-class facilities designed for comfort, care, and convenience.
+                  Explore our world-class facilities designed for comfort, care, and convenience. Click any image to view full size.
                 </p>
               </div>
             </FadeIn>
 
             <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
-                { src: '/images/hero-building.png', alt: 'Hayat Life Care Exterior', span: 'col-span-2 row-span-2' },
-                { src: '/images/interior-lobby.png', alt: 'Grand Lobby & Reception' },
-                { src: '/images/medical-lab.png', alt: 'Advanced Diagnostic Lab' },
-                { src: '/images/doctor-chamber.png', alt: 'Doctor Consultation Chamber' },
-                { src: '/images/super-shop.png', alt: 'Super Shop' },
-                { src: '/images/restaurant.png', alt: 'Restaurant & Dining' },
-                { src: '/images/children-park.png', alt: 'Children Amusement Park' },
-                { src: '/images/about-aerial.png', alt: 'Aerial View - O.R. Nizam Road', span: 'col-span-2' },
+                { src: '/images/hero-building.png', alt: 'Hayat Life Care Exterior', span: 'col-span-2 row-span-2', idx: 0 },
+                { src: '/images/interior-lobby.png', alt: 'Grand Lobby & Reception', idx: 1 },
+                { src: '/images/medical-lab.png', alt: 'Advanced Diagnostic Lab', idx: 2 },
+                { src: '/images/doctor-chamber.png', alt: 'Doctor Consultation Chamber', idx: 3 },
+                { src: '/images/super-shop.png', alt: 'Super Shop', idx: 4 },
+                { src: '/images/restaurant.png', alt: 'Restaurant & Dining', idx: 5 },
+                { src: '/images/children-park.png', alt: 'Children Amusement Park', idx: 6 },
+                { src: '/images/about-aerial.png', alt: 'Aerial View - O.R. Nizam Road', span: 'col-span-2', idx: 7 },
               ].map((img, i) => (
                 <StaggerItem key={i} className={img.span || ''}>
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     className="relative group rounded-2xl overflow-hidden border border-gray-200 shadow-sm cursor-pointer aspect-video"
+                    onClick={() => setLightboxIndex(img.idx)}
                   >
                     <Image
                       src={img.src}
@@ -1655,6 +1742,11 @@ export default function Home() {
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <ZoomIn className="size-4 text-white" />
+                      </div>
+                    </div>
                     <div className="absolute bottom-0 left-0 right-0 p-3 text-white text-sm font-medium translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                       {img.alt}
                     </div>
@@ -1664,6 +1756,53 @@ export default function Home() {
             </StaggerContainer>
           </div>
         </section>
+
+        {/* ─── GALLERY LIGHTBOX ─── */}
+        <AnimatePresence>
+          {lightboxIndex >= 0 && (
+            <motion.div
+              key="lightbox"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[110] bg-black/95 flex items-center justify-center"
+              onClick={() => setLightboxIndex(-1)}
+            >
+              <button
+                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
+                onClick={() => setLightboxIndex(-1)}
+                aria-label="Close lightbox"
+              >
+                <X className="size-6" />
+              </button>
+              <button
+                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
+                onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length) }}
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="size-6" />
+              </button>
+              <button
+                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
+                onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex + 1) % lightboxImages.length) }}
+                aria-label="Next image"
+              >
+                <ChevronRight className="size-6" />
+              </button>
+              <div className="relative w-full h-full max-w-6xl max-h-[80vh] mx-4" onClick={e => e.stopPropagation()}>
+                <Image
+                  src={lightboxImages[lightboxIndex]?.src || ''}
+                  alt={lightboxImages[lightboxIndex]?.alt || ''}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm">
+                {lightboxIndex + 1} / {lightboxImages.length} — {lightboxImages[lightboxIndex]?.alt}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* ─── 8. VISION & MISSION ─── */}
         <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
@@ -1793,6 +1932,107 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+        </section>
+
+        {/* ─── HEALTH TIPS & BLOG SECTION ─── */}
+        <section id="health-tips" className="py-20 md:py-28 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Lightbulb className="size-3" />
+                  HEALTH & WELLNESS
+                </div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+                  Health Tips & Insights
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <p className="mt-4 text-gray-500 max-w-xl mx-auto">
+                  Stay informed with expert health advice and wellness guidance from our medical team.
+                </p>
+              </div>
+            </FadeIn>
+
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: Heart,
+                  category: 'Cardiology',
+                  title: '5 Habits for a Healthy Heart',
+                  excerpt: 'Simple lifestyle changes that can significantly reduce your risk of heart disease. From diet modifications to daily exercise routines recommended by our cardiologists.',
+                  color: '#EF4444',
+                },
+                {
+                  icon: Shield,
+                  category: 'Preventive Care',
+                  title: 'Why Annual Health Checkups Matter',
+                  excerpt: 'Regular health screenings can detect potential issues early when they are most treatable. Learn which tests you should prioritize based on your age and family history.',
+                  color: '#0D9488',
+                },
+                {
+                  icon: Sparkles,
+                  category: 'Wellness',
+                  title: 'Managing Stress in Daily Life',
+                  excerpt: 'Chronic stress affects both mental and physical health. Discover evidence-based techniques from our specialists for maintaining balance and well-being.',
+                  color: '#D97706',
+                },
+                {
+                  icon: Baby,
+                  category: 'Pediatrics',
+                  title: 'Childhood Nutrition Essentials',
+                  excerpt: 'Proper nutrition during childhood sets the foundation for lifelong health. Our pediatricians share guidelines for balanced meals and healthy eating habits.',
+                  color: '#8B5CF6',
+                },
+                {
+                  icon: Microscope,
+                  category: 'Diagnostics',
+                  title: 'Understanding Your Lab Results',
+                  excerpt: 'Lab reports can be confusing. Our diagnostic experts break down the key numbers and what they mean for your health in simple, understandable terms.',
+                  color: '#06B6D4',
+                },
+                {
+                  icon: Users,
+                  category: 'Family Health',
+                  title: 'Creating a Family Health Plan',
+                  excerpt: 'A proactive approach to family wellness involves regular checkups, emergency preparedness, and open communication about health concerns across generations.',
+                  color: '#10B981',
+                },
+              ].map((tip, i) => (
+                <StaggerItem key={i}>
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="group bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
+                  >
+                    <div className="h-2" style={{ background: `linear-gradient(90deg, ${tip.color}, ${tip.color}88)` }} />
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div
+                          className="flex items-center justify-center w-10 h-10 rounded-xl"
+                          style={{ background: `${tip.color}15` }}
+                        >
+                          <tip.icon className="size-5" style={{ color: tip.color }} />
+                        </div>
+                        <span className="text-xs font-semibold px-2 py-1 rounded-full" style={{ background: `${tip.color}10`, color: tip.color }}>
+                          {tip.category}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors">
+                        {tip.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                        {tip.excerpt}
+                      </p>
+                      <div className="flex items-center gap-2 text-sm font-medium" style={{ color: tip.color }}>
+                        <BookOpen className="size-4" />
+                        Read More
+                        <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </motion.div>
                 </StaggerItem>
               ))}
             </StaggerContainer>
@@ -2422,12 +2662,13 @@ export default function Home() {
         href="https://wa.me/8801617977232"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-20 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 group"
+        className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 group"
         style={{ background: '#25D366' }}
         aria-label="Chat on WhatsApp"
       >
         <MessageSquare className="size-6" />
         <span className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full animate-pulse" style={{ boxShadow: '0 0 6px rgba(37,211,102,0.5)' }} />
+        <span className="absolute right-16 bg-gray-900 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">WhatsApp</span>
       </a>
 
       {/* ─── CHAT WIDGET FLOATING BUTTON ─── */}
@@ -2439,12 +2680,13 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsChatOpen(true)}
-            className="fixed bottom-36 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer"
+            className="fixed bottom-44 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer group"
             style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
-            aria-label="Open Chat"
+            aria-label="Open AI Chat"
           >
             <MessageCircle className="size-6" />
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-amber-500 rounded-full animate-pulse" />
+            <span className="absolute right-16 bg-gray-900 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">AI Chat</span>
           </motion.button>
         )}
       </AnimatePresence>
