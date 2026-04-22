@@ -214,6 +214,7 @@ const navLinks = [
   { label: 'Gallery', href: '#gallery' },
   { label: 'Wellness', href: '#health-tips' },
   { label: 'Investment', href: '#investment' },
+  { label: 'Compare', href: '#comparison-table' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contact', href: '#contact' },
 ]
@@ -529,6 +530,9 @@ const translations: Record<string, Record<string, string>> = {
     'WORLD-CLASS FACILITIES': 'বিশ্বমানের সুবিধা',
     'TESTIMONIALS': 'প্রশংসাপত্র',
     'INVESTMENT OPPORTUNITY': 'বিনিয়োগের সুযোগ',
+    'How We Compare': 'আমাদের তুলনা',
+    'THE HAYAT DIFFERENCE': 'হায়াতের পার্থক্য',
+    'Compare': 'তুলনা',
     'Stay Updated with Hayat Life Care': 'হায়াত লাইফ কেয়ারের সাথে আপডেট থাকুন',
   },
 }
@@ -1021,7 +1025,8 @@ export default function Home() {
 
       {/* ─── EMERGENCY CONTACT STRIP ─── */}
       <div className="relative overflow-hidden" style={{ background: 'linear-gradient(90deg, #DC2626, #D97706, #DC2626)' }}>
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center gap-3 text-white text-sm font-medium">
+        <div className="absolute inset-0 animate-pulse opacity-20" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)' }} />
+        <div className="relative max-w-7xl mx-auto px-4 py-2 flex items-center justify-center gap-3 text-white text-sm font-medium">
           <motion.div
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
@@ -1040,43 +1045,40 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ─── SHARE PRICE TICKER ─── */}
-      <div className="overflow-hidden py-2" style={{ background: '#0F172A' }}>
+      {/* ─── INFO TICKER ─── */}
+      <div className="overflow-hidden py-2 border-y border-white/5" style={{ background: '#0F172A' }}>
         <div className="flex items-center gap-8 animate-marquee whitespace-nowrap">
           {[...Array(3)].map((_, i) => (
             <React.Fragment key={i}>
               <span className="text-white/60 text-xs font-medium flex items-center gap-2">
-                <TrendingUp className="size-3 text-emerald-400" />
-                HLC Share: <span className="text-emerald-400 font-bold">৳10.00 Lacs</span>
-              </span>
-              <span className="text-white/20">•</span>
-              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
-                <Shield className="size-3 text-teal-400" />
-                Buyback: <span className="text-teal-400 font-bold">+5% after 3 yrs</span>
-              </span>
-              <span className="text-white/20">•</span>
-              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
-                <Users className="size-3 text-amber-400" />
-                Shares: <span className="text-amber-400 font-bold">4,950 max</span>
+                <Stethoscope className="size-3 text-emerald-400" />
+                <span className="text-white/80">AI-Powered Diagnostics</span>
               </span>
               <span className="text-white/20">•</span>
               <span className="text-white/60 text-xs font-medium flex items-center gap-2">
                 <Building2 className="size-3 text-emerald-400" />
-                11 Business Wings
+                <span className="text-white/80">11 Business Wings</span>
               </span>
               <span className="text-white/20">•</span>
               <span className="text-white/60 text-xs font-medium flex items-center gap-2">
                 <MapPin className="size-3 text-teal-400" />
-                55 Katha Complex
+                <span className="text-white/80">55 Katha · O.R. Nizam Road</span>
               </span>
               <span className="text-white/20">•</span>
               <span className="text-white/60 text-xs font-medium flex items-center gap-2">
+                <Shield className="size-3 text-teal-400" />
+                <span className="text-white/80">Zero Bank Loan</span>
+              </span>
+              <span className="text-white/20">•</span>
+              <span className="text-white/60 text-xs font-medium flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <TrendingUp className="size-3 text-emerald-400" />
-                HLC Share: <span className="text-emerald-400 font-bold">৳10.00 Lacs</span>
+                <span className="text-white/80">Investment:</span> <span className="text-emerald-400 font-bold">৳10 Lacs/Share</span>
               </span>
               <span className="text-white/20">•</span>
               <span className="text-white/60 text-xs font-medium flex items-center gap-2">
-                No Bank Loan
+                <Heart className="size-3 text-rose-400" />
+                <span className="text-white/80">Specialized Hospital Coming Soon</span>
               </span>
               <span className="text-white/20">•</span>
             </React.Fragment>
@@ -1145,7 +1147,7 @@ export default function Home() {
             style={{ opacity: heroOpacity }}
           >
             <FadeIn delay={0.1}>
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 backdrop-blur-lg border border-white/30 text-white text-sm font-medium mb-8" style={{ boxShadow: '0 0 20px rgba(13,148,136,0.3), 0 0 40px rgba(13,148,136,0.1)' }}>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full backdrop-blur-lg border border-white/40 text-white text-sm md:text-base font-medium mb-8 animate-pulse" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.2), rgba(16,185,129,0.1))', boxShadow: '0 0 30px rgba(13,148,136,0.4), 0 0 40px rgba(13,148,136,0.1)' }}>
                 <Sparkles className="size-4" />
                 One Stop Service for Healthcare &amp; Daily Essentials
               </div>
@@ -1158,26 +1160,27 @@ export default function Home() {
               <h1
                 className="relative text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-4"
                 style={{
-                  background: 'linear-gradient(135deg, #5EEAD4, #A7F3D0, #D1FAE5)',
+                  background: 'linear-gradient(135deg, #FFFFFF, #CCFBF1, #A7F3D0)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
+                  textShadow: '0 0 40px rgba(13,148,136,0.3), 0 2px 10px rgba(0,0,0,0.3)',
                 }}
               >
                 {t('HAYAT LIFE CARE')}
               </h1>
-              <div className="text-xl md:text-2xl tracking-[0.4em] text-white/70 font-light mt-2">
+              <div className="text-xl md:text-2xl tracking-[0.4em] text-white/90 font-light mt-2">
                 {t('CHATTOGRAM')}
               </div>
             </FadeIn>
 
             <FadeIn delay={0.5}>
-              <p className="text-xl md:text-2xl text-white/80 italic mb-4 font-light">
+              <p className="text-xl md:text-2xl text-white/90 italic mb-4 font-medium">
                 {t('Your Trusted Partner in Health, Wellness & Daily Essentials')}
               </p>
             </FadeIn>
 
             <FadeIn delay={0.7}>
-              <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+              <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto mb-10 leading-relaxed">
                 We&apos;re proud to establish Hayat Life Care in one of Chittagong&apos;s most
                 trusted healthcare zones — a one-stop destination for world-class medical
                 services, daily essentials, dining, and family entertainment.
@@ -1251,6 +1254,18 @@ export default function Home() {
                   </div>
                 ))}
               </div>
+              <div className="flex flex-wrap justify-center gap-3 mt-4">
+                {[
+                  { icon: FileCheck, text: 'RJSC Registered' },
+                  { icon: Building2, text: 'CDA Approved' },
+                  { icon: Shield, text: 'Govt. Audited' },
+                ].map((badge, i) => (
+                  <div key={i} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/8 text-white/60 text-[11px] backdrop-blur-sm border border-white/8">
+                    <badge.icon className="size-3" />
+                    <span>{badge.text}</span>
+                  </div>
+                ))}
+              </div>
             </FadeIn>
           </motion.div>
 
@@ -1273,15 +1288,27 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Wave divider */}
+        <div className="relative -mt-1">
+          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
+            <path d="M0 60V30C240 0 480 0 720 30C960 60 1200 60 1440 30V60H0Z" fill="#FAFFFE"/>
+          </svg>
+        </div>
+
         {/* ─── 4. ABOUT / AT A GLANCE ─── */}
-        <section id="about" className="py-20 md:py-28" style={{ background: '#FAFFFE' }}>
+        <section id="about" className="py-20 md:py-28 relative overflow-hidden" style={{ background: '#FAFFFE' }}>
+          <div className="absolute top-20 right-10 w-32 h-32 rounded-full opacity-5 animate-float-slow" style={{ background: 'radial-gradient(circle, #0D9488, transparent)' }} />
+          <div className="absolute bottom-20 left-10 w-24 h-24 rounded-full opacity-5 animate-float-slow" style={{ background: 'radial-gradient(circle, #10B981, transparent)', animationDelay: '2s' }} />
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   {t('At A Glance')}
                 </h2>
-                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <div className="relative">
+                  <div className="w-24 h-1.5 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                  <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-30" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                </div>
               </div>
             </FadeIn>
 
@@ -1347,14 +1374,35 @@ export default function Home() {
         {/* ─── STATS COUNTER SECTION ─── */}
         <section className="relative py-16 md:py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+          {/* Radial gradient overlay for depth */}
+          <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, rgba(13,148,136,0.15) 0%, transparent 70%)' }} />
+          {/* Animated particles */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[
+              { x: '15%', y: '30%', size: 6, delay: 0, duration: 8 },
+              { x: '75%', y: '20%', size: 8, delay: 1, duration: 10 },
+              { x: '45%', y: '70%', size: 5, delay: 2, duration: 7 },
+              { x: '85%', y: '60%', size: 7, delay: 0.5, duration: 9 },
+            ].map((p, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full bg-white/10"
+                style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
+                animate={{ y: [0, -15, 0], opacity: [0.1, 0.3, 0.1] }}
+                transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: 'easeInOut' }}
+              />
+            ))}
+          </div>
           <div className="relative max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 relative">
+              {/* Connecting dotted lines between stat cards on desktop */}
+              <div className="hidden md:block absolute top-1/2 left-[22%] right-[22%] border-t-2 border-dotted border-white/20 -translate-y-1/2" />
               <FadeIn delay={0}>
                 <div className="text-center group">
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <Sparkles className="size-7 text-white/90" />
                   </div>
-                  <div ref={stat1.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
+                  <div ref={stat1.ref} className="text-4xl md:text-5xl font-black text-white mb-2" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                     {stat1.count}+
                   </div>
                   <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Business Wings</div>
@@ -1365,7 +1413,7 @@ export default function Home() {
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <MapPin className="size-7 text-white/90" />
                   </div>
-                  <div ref={stat2.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
+                  <div ref={stat2.ref} className="text-4xl md:text-5xl font-black text-white mb-2" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                     {stat2.count}
                   </div>
                   <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Katha Land Area</div>
@@ -1376,7 +1424,7 @@ export default function Home() {
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <Building2 className="size-7 text-white/90" />
                   </div>
-                  <div ref={stat3.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
+                  <div ref={stat3.ref} className="text-4xl md:text-5xl font-black text-white mb-2" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                     {stat3.count}+
                   </div>
                   <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Floors</div>
@@ -1387,10 +1435,10 @@ export default function Home() {
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <Users className="size-7 text-white/90" />
                   </div>
-                  <div ref={stat4.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
-                    {stat4.count.toLocaleString()}
+                  <div ref={stat4.ref} className="text-4xl md:text-5xl font-black text-white mb-2 animate-pulse" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+                    4,950
                   </div>
-                  <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Total Shares</div>
+                  <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Max Shares</div>
                 </div>
               </FadeIn>
             </div>
@@ -1405,7 +1453,10 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   {t('Floor-wise Facilities')}
                 </h2>
-                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <div className="relative">
+                  <div className="w-24 h-1.5 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                  <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-30" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                </div>
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
                   Explore each floor of Hayat Life Care — from parking to specialized medical institutes.
                 </p>
@@ -1421,7 +1472,7 @@ export default function Home() {
                       <TabsTrigger
                         key={floor.id}
                         value={floor.id}
-                        className="lg:w-full lg:justify-start text-[10px] md:text-xs lg:text-sm whitespace-nowrap min-w-fit data-[state=active]:text-white data-[state=active]:shadow-md"
+                        className="lg:w-full lg:justify-start text-[10px] md:text-xs lg:text-sm whitespace-nowrap min-w-fit data-[state=active]:text-white data-[state=active]:shadow-md data-[state=active]:bg-gradient-to-r data-[state=active]:from-teal-600 data-[state=active]:to-emerald-600 data-[state=active]:font-bold"
                         style={{
                           // @ts-expect-error CSS custom property
                           '--tw-ring-color': '#0D9488',
@@ -1709,7 +1760,10 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
                   {t('Our 11 Business Wings')}
                 </h2>
-                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <div className="relative">
+                  <div className="w-24 h-1.5 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                  <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-30" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                </div>
                 <p className="mt-4 text-gray-400 max-w-xl mx-auto">
                   Comprehensive services designed to serve every aspect of your health and daily life.
                 </p>
@@ -1726,7 +1780,10 @@ export default function Home() {
                   >
                     <div className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                     {/* Glow effect on hover */}
-                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: '0 0 30px rgba(13,148,136,0.15)' }} />
+                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: '0 0 40px rgba(13,148,136,0.2), 0 8px 30px rgba(0,0,0,0.3)' }} />
+                    <div className="absolute inset-0 rounded-2xl overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute inset-0 animate-shimmer" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent)' }} />
+                    </div>
                     <div className="relative">
                       <div className="flex items-center gap-3 mb-4">
                         <div
@@ -1900,6 +1957,66 @@ export default function Home() {
                 </StaggerItem>
               ))}
             </StaggerContainer>
+          </div>
+        </section>
+
+        {/* ─── COMPARISON SECTION ─── */}
+        <section id="comparison-table" className="py-20 md:py-28" style={{ background: '#FAFFFE' }}>
+          <div className="max-w-5xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Sparkles className="size-3" />
+                  THE HAYAT DIFFERENCE
+                </div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+                  How We Compare
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <p className="mt-4 text-gray-500 max-w-xl mx-auto">
+                  See what sets Hayat Life Care apart from traditional healthcare facilities
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn>
+              <div className="bg-white rounded-2xl border shadow-lg overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                        <th className="px-6 py-4 text-left text-white font-semibold">Feature</th>
+                        <th className="px-6 py-4 text-center text-white font-semibold">Hayat Life Care</th>
+                        <th className="px-6 py-4 text-center text-gray-300 font-semibold">Traditional Hospitals</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { feature: 'Healthcare + Daily Essentials', us: true, them: false },
+                        { feature: '11 Business Wings Under One Roof', us: true, them: false },
+                        { feature: 'No Bank Loan / Zero Debt', us: true, them: false },
+                        { feature: 'Buyback Guarantee (+5%)', us: true, them: false },
+                        { feature: 'Family Entertainment Zone', us: true, them: false },
+                        { feature: 'AI-Powered Diagnostics', us: true, them: false },
+                        { feature: 'Restaurant & Juice Bar On-Site', us: true, them: false },
+                        { feature: 'Super Shop & Pharmacy', us: true, them: false },
+                        { feature: 'Children Amusement Park', us: true, them: false },
+                        { feature: 'Transparent Profit Sharing', us: true, them: false },
+                      ].map((row, i) => (
+                        <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                          <td className="px-6 py-3.5 font-medium text-gray-800">{row.feature}</td>
+                          <td className="px-6 py-3.5 text-center">
+                            <Check className="size-5 mx-auto text-emerald-500" />
+                          </td>
+                          <td className="px-6 py-3.5 text-center">
+                            <X className="size-5 mx-auto text-gray-300" />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </section>
 
@@ -2116,6 +2233,97 @@ export default function Home() {
                 </StaggerItem>
               ))}
             </StaggerContainer>
+          </div>
+        </section>
+
+        {/* ─── VIRTUAL BUILDING TOUR ─── */}
+        <section id="virtual-tour" className="py-20 md:py-28 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-14">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Building2 className="size-3" />
+                  EXPLORE OUR BUILDING
+                </div>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+                  Virtual Building Tour
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <p className="mt-4 text-gray-500 max-w-xl mx-auto">
+                  Click on any floor to explore the facilities available at each level
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn>
+              <div className="flex flex-col-reverse lg:flex-row gap-8 items-center">
+                {/* Building visualization */}
+                <div className="w-full lg:w-1/2">
+                  <div className="relative mx-auto" style={{ maxWidth: '400px' }}>
+                    {/* Building structure */}
+                    <div className="space-y-1.5">
+                      {[
+                        { label: 'L8', color: '#0D9488', active: true },
+                        { label: 'L7', color: '#0F766E', active: true },
+                        { label: 'L6', color: '#115E59', active: true },
+                        { label: 'L5', color: '#134E4A', active: true },
+                        { label: 'L4', color: '#0D9488', active: true },
+                        { label: 'L3', color: '#0F766E', active: true },
+                        { label: 'L2', color: '#115E59', active: true },
+                        { label: 'L1', color: '#134E4A', active: true },
+                        { label: 'B1/B2', color: '#1E293B', active: true },
+                      ].map((floor, i) => (
+                        <motion.button
+                          key={i}
+                          whileHover={{ scale: 1.03, x: 10 }}
+                          className="w-full py-3 px-6 rounded-lg text-white text-sm font-semibold flex items-center justify-between transition-all duration-200 hover:shadow-lg"
+                          style={{ background: floor.color }}
+                          onClick={() => {
+                            const floorsSection = document.getElementById('floors');
+                            if (floorsSection) floorsSection.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                        >
+                          <span>{floor.label}</span>
+                          <ArrowRight className="size-4 opacity-60" />
+                        </motion.button>
+                      ))}
+                    </div>
+                    {/* Building base */}
+                    <div className="mt-2 py-3 rounded-b-2xl text-center text-xs text-gray-500 font-medium" style={{ background: '#F1F5F9' }}>
+                      55 Katha · O.R. Nizam Road · Chattogram
+                    </div>
+                  </div>
+                </div>
+                {/* Info panel */}
+                <div className="w-full lg:w-1/2">
+                  <div className="bg-white rounded-2xl border shadow-lg p-8">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">8+ Floors of Excellence</h3>
+                    <p className="text-gray-600 leading-relaxed mb-6">
+                      Hayat Life Care is designed as a vertical healthcare city, with each floor dedicated to specific services. From secure basement parking to specialized medical institutes on the upper floors, every level is purpose-built for your convenience and care.
+                    </p>
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { icon: Car, label: 'Basement Parking', count: '150+' },
+                        { icon: ShoppingBag, label: 'Retail & Shopping', count: '5 Wings' },
+                        { icon: UtensilsCrossed, label: 'Food & Dining', count: '3 Wings' },
+                        { icon: Stethoscope, label: 'Medical Services', count: '3 Floors' },
+                        { icon: Microscope, label: 'Diagnostics', count: 'AI-Powered' },
+                        { icon: Baby, label: 'Family Fun', count: 'Play Zone' },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50">
+                          <div className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style={{ background: 'rgba(13,148,136,0.1)' }}>
+                            <item.icon className="size-4" style={{ color: '#0D9488' }} />
+                          </div>
+                          <div>
+                            <div className="text-xs text-gray-500">{item.label}</div>
+                            <div className="text-sm font-bold text-gray-800">{item.count}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </section>
 
@@ -2414,7 +2622,10 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   {t('Pathways to Prestige Ownership')}
                 </h2>
-                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <div className="relative">
+                  <div className="w-24 h-1.5 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                  <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-30" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                </div>
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
                   Invest in Chattogram&apos;s premier healthcare &amp; lifestyle complex with guaranteed benefits and transparent returns.
                 </p>
@@ -2680,7 +2891,10 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   {t('Frequently Asked Questions')}
                 </h2>
-                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <div className="relative">
+                  <div className="w-24 h-1.5 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                  <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-30" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                </div>
               </div>
             </FadeIn>
 
@@ -2717,14 +2931,17 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
                   {t('Get In Touch')}
                 </h2>
-                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <div className="relative">
+                  <div className="w-24 h-1.5 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                  <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-30" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                </div>
               </div>
             </FadeIn>
 
             <div className="grid lg:grid-cols-2 gap-10">
               {/* Contact form */}
               <FadeIn direction="right">
-                <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+                <div className="bg-gradient-to-b from-white to-teal-50/30 rounded-2xl border shadow-sm overflow-hidden">
                   <div className="h-2" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                   <div className="p-8">
                   <h3 className="text-xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
@@ -2764,13 +2981,13 @@ export default function Home() {
                         <label className="text-sm font-medium text-gray-700 mb-1 block">
                           Name
                         </label>
-                        <Input placeholder="Your full name" required value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} />
+                        <Input placeholder="Your full name" required value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
                       </div>
                       <div>
                         <label className="text-sm font-medium text-gray-700 mb-1 block">
                           Email
                         </label>
-                        <Input type="email" placeholder="you@example.com" required value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} />
+                        <Input type="email" placeholder="you@example.com" required value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
                       </div>
                     </div>
                     <div className="grid sm:grid-cols-2 gap-4">
@@ -2778,13 +2995,13 @@ export default function Home() {
                         <label className="text-sm font-medium text-gray-700 mb-1 block">
                           Phone
                         </label>
-                        <Input type="tel" placeholder="+880 1XXX-XXXXXX" value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} />
+                        <Input type="tel" placeholder="+880 1XXX-XXXXXX" value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
                       </div>
                       <div>
                         <label className="text-sm font-medium text-gray-700 mb-1 block">
                           Subject
                         </label>
-                        <Input placeholder="How can we help?" value={formData.subject} onChange={(e) => setFormData(p => ({ ...p, subject: e.target.value }))} />
+                        <Input placeholder="How can we help?" value={formData.subject} onChange={(e) => setFormData(p => ({ ...p, subject: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
                       </div>
                     </div>
                     <div>
@@ -2793,7 +3010,7 @@ export default function Home() {
                       </label>
                       <Textarea
                         placeholder="Tell us about your inquiry..."
-                        className="min-h-[120px]"
+                        className="min-h-[120px] focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500"
                         required
                         value={formData.message}
                         onChange={(e) => setFormData(p => ({ ...p, message: e.target.value }))}
@@ -2809,6 +3026,9 @@ export default function Home() {
                       {isFormSubmitting ? <Loader2 className="size-4 mr-2 animate-spin" /> : <Send className="size-4 mr-2" />}
                       {isFormSubmitting ? 'Sending...' : t('Send Message')}
                     </Button>
+                    <p className="text-center text-xs text-gray-400 mt-3 flex items-center justify-center gap-1">
+                      <Clock className="size-3" /> We'll respond within 24 hours
+                    </p>
                   </form>
                   </div>
                 </div>
@@ -2901,9 +3121,16 @@ export default function Home() {
         </section>
       </main>
 
+      {/* Wave divider before footer */}
+      <div className="relative -mt-1">
+        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
+          <path d="M0 0V20C240 50 480 50 720 20C960 -10 1200 -10 1440 20V0H0Z" fill="#0F172A"/>
+        </svg>
+      </div>
+
       {/* ─── 12. FOOTER ─── */}
       <footer className="relative" style={{ background: '#0F172A' }}>
-        <div className="h-1" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981, #D97706)' }} />
+        <div className="h-1.5" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981, #D97706)' }} />
         {/* Newsletter section */}
         <div className="border-b border-white/10">
           <div className="max-w-7xl mx-auto px-4 py-10">
@@ -2949,7 +3176,7 @@ export default function Home() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
             {/* Logo & description */}
             <div>
               <div className="flex items-center gap-2 mb-4">
@@ -2990,9 +3217,25 @@ export default function Home() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="block text-sm text-gray-400 hover:text-teal-400 transition-colors"
+                    className="block text-sm text-gray-400 hover:text-teal-400 hover:translate-x-1 transition-all duration-200"
                   >
                     {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Services List */}
+            <div>
+              <h4 className="text-white font-semibold mb-4">Services</h4>
+              <div className="space-y-2 max-h-56 overflow-y-auto dark-scrollbar">
+                {['Car Parking', 'ATM Booth', 'Pharmacy', 'Optical Shop', 'Super Shop', 'Coffee Shop', 'Juice Bar', 'Restaurant', 'Children Park', "Doctor's Chamber", 'Diagnostic Center'].map((svc, i) => (
+                  <a
+                    key={i}
+                    href="#services"
+                    className="block text-sm text-gray-400 hover:text-teal-400 hover:translate-x-1 transition-all duration-200"
+                  >
+                    {svc}
                   </a>
                 ))}
               </div>
@@ -3006,7 +3249,7 @@ export default function Home() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="block text-sm text-gray-400 hover:text-teal-400 transition-colors"
+                    className="block text-sm text-gray-400 hover:text-teal-400 hover:translate-x-1 transition-all duration-200"
                   >
                     {link.label}
                   </a>
@@ -3039,6 +3282,10 @@ export default function Home() {
                   <Building2 className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
                   <div>Sister Concern of Hayat Holdings</div>
                 </div>
+                <div className="flex items-start gap-2">
+                  <Clock className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
+                  <div>Sat-Thu: 9AM - 9PM<br/>Friday: Closed</div>
+                </div>
               </div>
             </div>
           </div>
@@ -3047,7 +3294,7 @@ export default function Home() {
         {/* Bottom bar */}
         <div className="border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
-            <div className="flex items-center gap-2 font-medium">&copy; 2026 Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; Back to Top</button></div>
+            <div className="flex items-center gap-2 font-medium">&copy; {new Date().getFullYear()} Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; Back to Top</button></div>
             <div className="flex items-center gap-4">
               <span>A sister concern of Hayat Holdings</span>
               <button
@@ -3755,10 +4002,12 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-36 right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white"
-          style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+          className="fixed bottom-36 right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white bg-white/80 backdrop-blur-sm border border-gray-200/50 group"
+          style={{ color: '#0D9488' }}
+          aria-label="Back to Top"
         >
           <ChevronUp className="size-5" />
+          <span className="absolute right-16 bg-gray-900 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Back to Top</span>
         </motion.button>
       )}
     </div>

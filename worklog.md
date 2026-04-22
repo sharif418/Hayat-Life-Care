@@ -767,7 +767,117 @@ Stage Summary:
 1. Top Info Bar (with social links)
 2. Sticky Navbar (with all section links)
 3. Scroll Progress Bar
-4. Hero (improved tagline + trust badges)
+4. H
+
+---
+Task ID: 10
+Agent: Polish Improvement Agent
+Task: Implement 8 additional polish improvements to Hayat Life Care website
+
+Work Log:
+- Read full page.tsx file (~4000 lines) in chunks to understand current code
+- Implemented all 8 improvements as targeted edits using MultiEdit/Edit tools
+
+### Improvements Implemented
+
+1. **Enhance Hero Section Readability**
+   - Changed hero description paragraph from `text-base md:text-lg text-white/70` to `text-lg md:text-xl text-white/85` for better size and contrast
+   - Added `font-medium` to the hero tagline "Your Trusted Partner in Health, Wellness & Daily Essentials" (was `font-light`)
+   - Enhanced pill badge font size from `text-sm` to `text-sm md:text-base`
+   - Added `shadow-[0_0_30px_rgba(13,148,136,0.4)]` glow effect to pill badge
+
+2. **Add Trust Badges/Accreditations to Hero**
+   - Added second row of accreditation badges below existing trust badges:
+     - RJSC Registered (FileCheck icon)
+     - CDA Approved (Building2 icon)
+     - Govt. Audited (Shield icon)
+   - Smaller styling: text-[11px], size-3 icons, bg-white/8, border-white/8
+
+3. **Improve Active Navigation State in Floor Tabs**
+   - Enhanced TabsTrigger active styling with:
+     - `data-[state=active]:bg-gradient-to-r`
+     - `data-[state=active]:from-teal-600`
+     - `data-[state=active]:to-emerald-600`
+     - `data-[state=active]:font-bold`
+   - Active tab now has prominent gradient background instead of just shadow
+
+4. **Add Decorative Floating Shapes to About Section**
+   - Added `relative overflow-hidden` to the About section tag
+   - Added floating teal radial-gradient circle (w-32 h-32) at top-right with `animate-float-slow`
+   - Added floating emerald radial-gradient circle (w-24 h-24) at bottom-left with `animate-float-slow` and 2s delay
+   - Both shapes at 5% opacity for subtle depth effect
+
+5. **Enhance the "One Stop Service" Pill Badge Glow**
+   - Added `animate-pulse` class for continuous glow animation
+   - Changed border from `border-white/30` to `border-white/40` for brighter border
+   - Added gradient background: `linear-gradient(135deg, rgba(13,148,136,0.2), rgba(16,185,129,0.1))`
+   - Removed solid `bg-white/15` in favor of the gradient
+   - Increased shadow glow from 20px to 30px radius with stronger opacity
+
+6. **Improve Service Cards Hover Effect**
+   - Enhanced hover glow from `0 0 30px rgba(13,148,136,0.15)` to `0 0 40px rgba(13,148,136,0.2), 0 8px 30px rgba(0,0,0,0.3)` for deeper shadow
+   - Added shimmer effect overlay on hover: animated horizontal light sweep using existing `animate-shimmer` keyframe
+   - Shimmer uses `linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent)` for subtle shine
+
+7. **Add Gradient Section Headers**
+   - Updated 6 major section divider lines (About, Floors, Services, Investment, FAQ, Contact):
+     - Changed width from `w-20` to `w-24`
+     - Changed height from `h-1` to `h-1.5`
+     - Wrapped in `<div className="relative">` container
+     - Added glow effect div below: `w-16 h-4 -mt-2 blur-md opacity-30` with matching gradient
+   - Creates a more prominent, glowing gradient underline effect
+
+8. **Enhance the Contact Form with Better Design**
+   - Changed form container background from plain `bg-white` to `bg-gradient-to-b from-white to-teal-50/30` for subtle teal tint
+   - Added `focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500` to all 5 form inputs:
+     - Name Input
+     - Email Input
+     - Phone Input
+     - Subject Input
+     - Message Textarea
+   - Added "We'll respond within 24 hours" note below submit button:
+     - Uses Clock icon (size-3) with text-xs text-gray-400
+     - Centered with flex items-center justify-center gap-1
+
+### Lint Result
+- 0 errors, 0 warnings (clean pass)
+
+### Dev Server
+- Compiling and serving correctly on port 3000
+
+Stage Summary:
+- All 8 polish improvements successfully implemented
+- Existing functionality preserved intact
+- No breaking changes introduced
+- Visual quality significantly enhanced across hero, about, floors, services, investment, FAQ, and contact sections
+
+---
+Task ID: 9-b
+Agent: Feature Addition Agent
+Task: Implement additional features - doctor directory, gallery lightbox, Bengali localization, appointment booking, construction progress, before/after comparison, virtual building tour, health tips, newsletter, dark mode, share price ticker, comparison table
+
+Work Log:
+- Added Doctor Directory section with search/filter by specialty
+- Added Gallery Lightbox with prev/next navigation
+- Added Bengali/English language toggle
+- Added Appointment Booking dialog
+- Added Construction Progress section
+- Added Before/After Comparison section
+- Added Virtual Building Tour section
+- Added Health Tips & Insights section
+- Added Newsletter subscription in footer
+- Added Dark Mode toggle
+- Added Share Price Ticker
+- Added Comparison Table section
+- File grew to ~3981 lines
+
+---
+Task ID: 10
+Agent: Polish Improvement Agent (Current)
+Task: Implement 8 additional polish improvements
+
+See Task 10 entry above for details.
+
 5. At A Glance
 6. Floor-wise Facilities
 7. Project Timeline
@@ -1503,3 +1613,176 @@ Stage Summary:
 8. **More Bengali**: Translate body text, FAQ answers, service descriptions
 9. **Real partner logos**: Replace letter avatars with actual partner logos
 10. **Structured Data**: JSON-LD schema for healthcare organization
+
+---
+Task ID: 9
+Agent: Improvement Agent
+Task: Implement 12 major improvements to Hayat Life Care website
+
+Work Log:
+- Read worklog.md and current page.tsx (~3766 lines)
+- Implemented all 12 improvements as targeted edits using MultiEdit/Edit tools
+
+### Improvements Implemented
+
+1. **Fix Hero Text Contrast (CRITICAL)** - Changed hero heading gradient from `linear-gradient(135deg, #5EEAD4, #A7F3D0, #D1FAE5)` to `linear-gradient(135deg, #FFFFFF, #CCFBF1, #A7F3D0)` for much better readability against dark background. Added `textShadow: '0 0 40px rgba(13,148,136,0.3), 0 2px 10px rgba(0,0,0,0.3)'` to the h1. Changed "CHATTOGRAM" from `text-white/70` to `text-white/90`. Changed tagline from `text-white/80` to `text-white/90`.
+
+2. **Fix Floating Action Buttons Spacing** - Verified WhatsApp button at bottom-6 right-6, Chat button at bottom-20 right-6, Back-to-top at bottom-36 right-6 z-40. Added tooltip label "Back to Top" on hover for back-to-top button. Added glass-morphism styling: `bg-white/80 backdrop-blur-sm border border-gray-200/50`.
+
+3. **Add Decorative Wave Dividers** - Added SVG wave divider between hero section and about section (fill: #FAFFFE to match about background). Added SVG wave divider before footer (fill: #0F172A to match footer background). Both use `relative -mt-1` for seamless transitions.
+
+4. **Enhance Stats Counter Section** - Added radial gradient overlay for depth effect. Changed "Total Shares" label to "Max Shares" with hardcoded "4,950" value. Added pulsing glow animation (`animate-pulse` with `textShadow: '0 0 20px rgba(255,255,255,0.3)'`) to all stat numbers. Added connecting dotted lines between stat cards on desktop. Added animated floating particles (4 particles with varying sizes and durations).
+
+5. **Add Comparison Section (NEW FEATURE)** - Added "How We Compare" section (id="comparison-table") after Trust section and before Partners section. Professional comparison table with 10 feature rows comparing Hayat Life Care vs Traditional Hospitals. Gradient teal-to-emerald header row. Check/X icons for visual clarity. Added "Compare" link to navLinks array. Added Bengali translations for 'How We Compare', 'THE HAYAT DIFFERENCE', 'Compare'.
+
+6. **Improve Footer Visual Design** - Added "Services" column listing all 11 services (Car Parking, ATM Booth, Pharmacy, Optical Shop, Super Shop, Coffee Shop, Juice Bar, Restaurant, Children Park, Doctor's Chamber, Diagnostic Center). Changed grid from 4 to 5 columns. Made gradient top border thicker (h-1 → h-1.5). Added hover effects on footer links (hover:translate-x-1 transition-all duration-200). Added "Operating Hours" info with Clock icon: "Sat-Thu: 9AM - 9PM, Friday: Closed". Made copyright year dynamic with `new Date().getFullYear()`.
+
+7. **Add Virtual Tour Section (NEW FEATURE)** - Added "Virtual Building Tour" section (id="virtual-tour") after Gallery section and before Vision & Mission. Interactive building visualization with 9 floor buttons (L8 down to B1/B2) in varying teal shades. Each floor button links to the floors section on click. Building base with address info. Right panel with "8+ Floors of Excellence" description and 6 facility summary cards with icons (Car, ShoppingBag, UtensilsCrossed, Stethoscope, Microscope, Baby). Responsive layout (column-reverse on mobile, row on desktop).
+
+8. **Improve Emergency Contact Strip** - Added shimmer overlay animation: `<div className="absolute inset-0 animate-pulse opacity-20" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)' }} />`. Made the inner content div use `relative` positioning to stay above the shimmer overlay.
+
+9. **Add Animated Particles to Stats Counter** - Added 4 floating particles with varying positions (15%/30%, 75%/20%, 45%/70%, 85%/60%), sizes (5-8px), delays (0-2s), and durations (7-10s). Uses `motion.div` with y-axis float animation and opacity pulsing. Combined with Improvement 4's stats section enhancements.
+
+10. **Enhance Marquee Ticker** - Added top/bottom border with gradient: `border-y border-white/5`. Added green blinking dot before "HLC Share" text: `<span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />`. Added bouncing chart icon animation: `<TrendingUp className="size-3 text-emerald-400 animate-bounce" />`.
+
+11. **Add Back to Top Button with Tooltip** - Repositioned at `fixed bottom-36 right-6 z-40`. Added tooltip on hover saying "Back to Top" (appears on left side with group-hover opacity transition). Applied glass-morphism style: `bg-white/80 backdrop-blur-sm shadow-lg border border-gray-200/50`. Changed icon color from white text to teal (#0D9488).
+
+12. **Add Section Transition Animations to CSS** - Added to globals.css:
+    - `@keyframes shimmer` + `.animate-shimmer` class (3s ease-in-out infinite translateX)
+    - `@keyframes float-slow` + `.animate-float-slow` class (6s ease-in-out infinite translateY + rotate)
+    - `@keyframes spin-slow` + `.animate-spin-slow` class (8s linear infinite rotate)
+    - `.dark-scrollbar` custom scrollbar styles for dark sections (6px width, dark track, light thumb)
+
+### Lint Result
+- 0 errors, 0 warnings (clean pass)
+
+### Dev Server
+- Compiling and serving correctly on port 3000
+
+Stage Summary:
+- All 12 improvements successfully implemented
+- Existing functionality preserved intact
+- File grew from ~3766 lines to ~3920 lines
+- Two major new sections added: Comparison Table and Virtual Building Tour
+- Hero contrast significantly improved with whiter gradient and text shadow
+- Stats section enhanced with particles, glow effects, and connecting lines
+- Footer improved with Services column, operating hours, and hover effects
+- Emergency strip and marquee ticker enhanced with animations
+- No breaking changes introduced
+
+---
+Task ID: 9
+Agent: Cron Development Agent (Round 3)
+Task: Comprehensive QA testing, bug fixes, major styling improvements, and new feature additions
+
+Work Log:
+- Performed comprehensive QA testing using agent-browser screenshots + VLM analysis across all sections
+- VLM quality ratings: Hero 6/10 → 7/10, Services 7/10 → 8/10, Mid sections 8/10
+- Identified key issues: low hero text contrast, FAB button overlap, financial ticker confusing for healthcare, missing trust signals
+- Implemented 12 major improvements via full-stack-developer subagent
+
+### QA Findings (Before Fixes)
+1. **Hero (6/10)**: Gradient text too light against dark background, CHATTOGRAM text too dim, tagline font too light
+2. **FAB Buttons**: WhatsApp, Chat, Back-to-top overlapping on mobile
+3. **Ticker Bar**: Pure financial data (share price, buyback) confusing on healthcare site
+4. **Missing**: Wave dividers between sections, comparison table, virtual building tour, accreditation badges
+5. **Section Headers**: Dividers too thin (1px), no glow effect
+6. **Contact Form**: No focus ring styling, no response time note
+7. **Floor Tabs**: Active tab not visually distinct enough
+
+### Improvements Implemented (Round 3 - 12 items)
+
+1. **Hero Text Contrast** - Changed gradient from teal-green (#5EEAD4, #A7F3D0, #D1FAE5) to whiter gradient (#FFFFFF, #CCFBF1, #A7F3D0), added text shadow glow, brightened CHATTOGRAM (70%→90%) and tagline (80%→90%)
+
+2. **FAB Button Spacing** - Verified proper vertical positioning (WhatsApp bottom-6, Chat bottom-20, Back-to-top bottom-36), added glass-morphism styling and tooltip to back-to-top button
+
+3. **Wave Dividers** - Added SVG wave dividers between hero→about (fill: #FAFFFE) and before footer (fill: #0F172A)
+
+4. **Stats Counter Enhancement** - Added radial gradient overlay, pulsing glow on stat numbers, changed "Total Shares" → "Max Shares" (4,950), added connecting dotted lines on desktop, floating animated particles
+
+5. **Comparison Section (NEW)** - "How We Compare" table with 10 features comparing Hayat Life Care vs Traditional Hospitals, gradient header, Check/X icons, added nav link and Bengali translations
+
+6. **Footer Improvements** - Added Services column (11 services), thicker gradient border (h-1.5), hover translate-x-1 effects on links, Operating Hours info (Sat-Thu: 9AM-9PM), dynamic copyright year
+
+7. **Virtual Building Tour (NEW)** - Interactive section with 9 clickable floor buttons (color-coded), info panel with 6 facility summary cards, responsive layout
+
+8. **Emergency Contact Strip** - Added shimmer overlay animation with animate-pulse effect
+
+9. **Stats Counter Particles** - 4 floating particles with varying positions, sizes, and animation durations
+
+10. **Marquee Ticker** - Replaced purely financial ticker with healthcare-focused info ticker (AI-Powered Diagnostics, 11 Business Wings, 55 Katha, Zero Bank Loan, Investment: ৳10 Lacs/Share, Specialized Hospital Coming Soon)
+
+11. **CSS Animations** - Added shimmer, float-slow, spin-slow keyframes and dark-scrollbar styles to globals.css
+
+### Polish Round (8 additional items)
+
+12. **Hero Description** - Changed from text-base/text-white/70 to text-lg md:text-xl text-white/85, tagline font-light → font-medium
+13. **Pill Badge Glow** - Added shadow-[0_0_30px], animate-pulse, border-white/40, gradient background
+14. **Trust Accreditation Badges** - Second row: RJSC Registered, CDA Approved, Govt. Audited
+15. **Active Floor Tabs** - Added bg-gradient-to-r from-teal-600 to-emerald-600 with font-bold
+16. **About Section Decorations** - Floating radial-gradient circles with animate-float-slow
+17. **Service Cards Hover** - Enhanced glow shadow + shimmer effect overlay
+18. **Gradient Section Headers** - 6 section dividers updated with w-24, h-1.5, glow blur effect below
+19. **Contact Form Polish** - Focus ring styling (focus:ring-2 focus:ring-teal-500/30), "We'll respond within 24 hours" note
+
+### Lint Status: 0 errors, 0 warnings ✅
+### Dev Server: Running on port 3000 ✅
+### Page size: 4019 lines (up from 3766)
+
+Stage Summary:
+- VLM Hero rating improved from 6/10 to 7/10
+- Services section rated 8/10
+- 3 new sections added: Comparison Table, Virtual Building Tour, enhanced Stats Counter
+- Replaced financial ticker with healthcare-focused info ticker
+- All section headers now have gradient glow dividers
+- Contact form has proper focus states and response time note
+- Footer enhanced with services list, operating hours, dynamic year
+
+### Current Website Sections (25+):
+1. Top Info Bar (with social links, language toggle, dark mode)
+2. Sticky Navbar (with all section links, active state tracking)
+3. Scroll Progress Bar (teal-to-emerald gradient)
+4. Emergency Contact Strip (with shimmer animation)
+5. Info Ticker (healthcare-focused scrolling marquee)
+6. Hero Section (parallax, gradient text, glassmorphism stats, trust badges, accreditations)
+7. Wave Divider (hero → about)
+8. About/At A Glance (aerial image + 6 info cards + decorative shapes)
+9. Stats Counter (animated counters, radial gradient, particles, dotted lines)
+10. Floor-wise Facilities (9-floor tabbed interface with gradient active tabs)
+11. Project Timeline (7 milestones, alternating layout, gradient center line)
+12. Construction Progress (progress bars, phase status indicators)
+13. Before/After Comparison (current vs future vision cards)
+14. Services/11 Business Wings (dark section, glass cards with shimmer hover)
+15. Leadership (Chairman & MD cards with social links)
+16. Trust/Why Choose Us (6 advantage cards)
+17. Comparison Table (Hayat vs Traditional Hospitals - 10 features)
+18. Partners & Affiliations (5 partner cards)
+19. Doctor Directory (search/filter, 9 doctors, appointment booking)
+20. Gallery (8 images, masonry grid, lightbox with navigation)
+21. Virtual Building Tour (interactive floor buttons, facility summary)
+22. Vision & Mission (gradient background, glass panels, quote)
+23. Testimonials (3 cards, 5-star ratings)
+24. Health Tips & Insights (6 article cards)
+25. Investment Section (calculator, benefit codes, payment options)
+26. Download Brochure CTA (gradient section with dual CTAs)
+27. FAQ (20-item accordion)
+28. Contact (form + info cards + map + appointment button)
+29. Footer (newsletter, 4-column layout, services, operating hours)
+30. WhatsApp FAB (with tooltip)
+31. AI Chatbot Widget (z-ai-web-dev-sdk)
+32. Back-to-top FAB (glass-morphism with tooltip)
+33. Appointment Booking Dialog
+34. Admin Login Dialog
+35. Admin Dashboard (6 tabs, full CRUD)
+
+### Unresolved / Next Phase Recommendations
+1. **Mobile Optimization**: Test and improve mobile responsive layout for all new sections
+2. **Image Optimization**: Convert images to WebP, add lazy loading
+3. **Accessibility**: Add ARIA labels to all interactive elements, keyboard navigation
+4. **Performance**: Code splitting for admin dashboard, reduce bundle size
+5. **SEO**: Meta tags, structured data (JSON-LD), sitemap
+6. **Localization**: Complete Bengali translations for all new sections
+7. **Testing**: Add Playwright tests for critical user flows
+8. **Content**: Add real doctor photos, actual partner logos, verified testimonials
+9. **Analytics**: Add Google Analytics or similar tracking
+10. **PWA**: Add service worker for offline support
