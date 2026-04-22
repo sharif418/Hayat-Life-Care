@@ -292,3 +292,13 @@
   background: rgba(255,255,255,0.2);
   border-radius: 3px;
 }
+
+/* Float gentle animation */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 4s ease-in-out infinite;
+}
