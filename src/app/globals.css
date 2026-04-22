@@ -302,3 +302,13 @@
 .animate-float-gentle {
   animation: float-gentle 4s ease-in-out infinite;
 }
+
+/* Count glow animation for stat numbers */
+@keyframes count-glow {
+  0% { text-shadow: 0 0 0px transparent; }
+  50% { text-shadow: 0 0 20px rgba(13,148,136,0.5); }
+  100% { text-shadow: 0 0 0px transparent; }
+}
+.animate-count-glow {
+  animation: count-glow 1s ease-out;
+}

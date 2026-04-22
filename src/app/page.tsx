@@ -66,6 +66,7 @@ import {
   ZoomIn,
   ChevronLeft,
   ChevronRight,
+  Ship,
 } from 'lucide-react'
 import { toast, Toaster } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -112,6 +113,7 @@ function formatNumber(num: string | number): string {
 
 function useCounter(end: number, duration = 2000) {
   const [count, setCount] = useState(0)
+  const [done, setDone] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true })
 
@@ -123,6 +125,7 @@ function useCounter(end: number, duration = 2000) {
       start += step
       if (start >= end) {
         setCount(end)
+        setDone(true)
         clearInterval(timer)
       } else {
         setCount(Math.floor(start))
@@ -131,7 +134,7 @@ function useCounter(end: number, duration = 2000) {
     return () => clearInterval(timer)
   }, [inView, end, duration])
 
-  return { count: inView ? count : ('' as string | number), ref }
+  return { count: inView ? count : ('' as string | number), ref, done }
 }
 
 function FadeIn({
@@ -645,6 +648,10 @@ export default function Home() {
   // Dark mode state
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [isPageLoaded, setIsPageLoaded] = useState(false)
+
+  // Typing animation state
+  const [typedText, setTypedText] = useState('')
+  const fullText = isBengali ? translations.bengali['Your Trusted Partner in Health, Wellness & Daily Essentials'] || 'Your Trusted Partner in Health, Wellness & Daily Essentials' : 'Your Trusted Partner in Health, Wellness & Daily Essentials'
   const [showMobileBar, setShowMobileBar] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
 
@@ -660,6 +667,21 @@ export default function Home() {
     const timer = setTimeout(() => setIsPageLoaded(true), 100)
     return () => clearTimeout(timer)
   }, [])
+
+  // Typing animation effect
+  useEffect(() => {
+    if (!isPageLoaded) return
+    let index = 0
+    const timer = setInterval(() => {
+      if (index <= fullText.length) {
+        setTypedText(fullText.slice(0, index))
+        index++
+      } else {
+        clearInterval(timer)
+      }
+    }, 40)
+    return () => clearInterval(timer)
+  }, [isPageLoaded, fullText])
 
   // Smooth scroll for all anchor links
   useEffect(() => {
@@ -1140,6 +1162,25 @@ export default function Home() {
       </div>
 
       <main className="flex-1">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Hospital',
+              name: 'Hayat Life Care',
+              description: 'One Stop Service for Healthcare & Daily Essentials in Chattogram',
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Chattogram',
+                addressRegion: 'Chattogram',
+                addressCountry: 'BD'
+              },
+              telephone: '+8801332850348',
+              url: 'https://hayatlifecare.com'
+            })
+          }}
+        />
         {/* ─── 3. HERO SECTION ─── */}
         <section
           id="home"
@@ -1228,7 +1269,7 @@ export default function Home() {
 
             <FadeIn delay={0.5}>
               <p className="text-xl md:text-2xl text-white/90 italic mb-4 font-medium">
-                {t('Your Trusted Partner in Health, Wellness & Daily Essentials')}
+                {typedText}<span className="animate-pulse">|</span>
               </p>
             </FadeIn>
 
@@ -1394,7 +1435,7 @@ export default function Home() {
                       { icon: TrendingUp, label: 'Future', value: '14-18 Floor Expansion' },
                     ].map((item, i) => (
                       <StaggerItem key={i}>
-                        <div className="flex items-start gap-3 p-4 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="flex items-start gap-3 p-4 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:border-teal-200 transition-all duration-300">
                           <div
                             className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0"
                             style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}
@@ -1423,6 +1464,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Section divider */}
+        <div className="w-full py-1" style={{ background: 'linear-gradient(90deg, transparent, #0D948820, #10B98120, transparent)' }} />
 
         {/* ─── STATS COUNTER SECTION ─── */}
         <section className="relative py-16 md:py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>
@@ -1455,7 +1499,7 @@ export default function Home() {
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <Sparkles className="size-7 text-white/90" />
                   </div>
-                  <div ref={stat1.ref} className="text-4xl md:text-5xl font-black text-white mb-2" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+                  <div ref={stat1.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat1.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                     {stat1.count}+
                   </div>
                   <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Business Wings</div>
@@ -1466,7 +1510,7 @@ export default function Home() {
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <MapPin className="size-7 text-white/90" />
                   </div>
-                  <div ref={stat2.ref} className="text-4xl md:text-5xl font-black text-white mb-2" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+                  <div ref={stat2.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat2.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                     {stat2.count}
                   </div>
                   <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Katha Land Area</div>
@@ -1477,7 +1521,7 @@ export default function Home() {
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <Building2 className="size-7 text-white/90" />
                   </div>
-                  <div ref={stat3.ref} className="text-4xl md:text-5xl font-black text-white mb-2" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+                  <div ref={stat3.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat3.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                     {stat3.count}+
                   </div>
                   <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Floors</div>
@@ -1488,7 +1532,7 @@ export default function Home() {
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <Users className="size-7 text-white/90" />
                   </div>
-                  <div ref={stat4.ref} className="text-4xl md:text-5xl font-black text-white mb-2 animate-pulse" style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+                  <div ref={stat4.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat4.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                     4,950
                   </div>
                   <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Max Shares</div>
@@ -1499,7 +1543,7 @@ export default function Home() {
         </section>
 
         {/* ─── 5. FLOOR PLAN SECTION ─── */}
-        <section id="floors" className="py-20 md:py-28 bg-gray-50">
+        <section id="floors" className="py-20 md:py-28" style={{ background: 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }}>
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
@@ -1531,6 +1575,12 @@ export default function Home() {
                           '--tw-ring-color': '#0D9488',
                         }}
                       >
+                        <span className={`inline-block w-2 h-2 rounded-full mr-1.5 shrink-0 ${
+                          floor.id === 'basement' ? 'bg-gray-400' :
+                          ['level1', 'level2'].includes(floor.id) ? 'bg-amber-400' :
+                          ['level3', 'level4', 'level5'].includes(floor.id) ? 'bg-teal-400' :
+                          'bg-emerald-400'
+                        }`} />
                         {floor.label}
                       </TabsTrigger>
                     ))}
@@ -1647,7 +1697,7 @@ export default function Home() {
         </section>
 
         {/* ─── CONSTRUCTION PROGRESS ─── */}
-        <section id="progress" className="py-16 bg-gray-50">
+        <section id="progress" className="py-16" style={{ background: 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }}>
           <div className="max-w-5xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-10">
@@ -1817,7 +1867,7 @@ export default function Home() {
                   <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                   <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 </div>
-                <p className="mt-4 text-gray-400 max-w-xl mx-auto">
+                <p className="mt-4 text-gray-300 max-w-xl mx-auto">
                   Comprehensive services designed to serve every aspect of your health and daily life.
                 </p>
               </div>
@@ -1999,7 +2049,7 @@ export default function Home() {
                     className="group bg-white rounded-2xl border shadow-sm p-6 hover:shadow-lg hover:border-teal-300 transition-all duration-300"
                   >
                     <div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4 transition-shadow duration-300 group-hover:shadow-md"
                       style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}
                     >
                       <item.icon className="size-7" style={{ color: '#0D9488' }} />
@@ -2032,14 +2082,14 @@ export default function Home() {
               </div>
             </FadeIn>
             <FadeIn>
-              <div className="bg-white rounded-2xl border shadow-lg overflow-hidden">
+              <div className="bg-white rounded-2xl border shadow-xl overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
                         <th className="px-6 py-4 text-left text-white font-semibold">Feature</th>
                         <th className="px-6 py-4 text-center text-white font-semibold">Hayat Life Care</th>
-                        <th className="px-6 py-4 text-center text-gray-300 font-semibold">Traditional Hospitals</th>
+                        <th className="px-6 py-4 text-center text-white/80 font-semibold">Traditional Hospitals</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -2055,13 +2105,13 @@ export default function Home() {
                         { feature: 'Children Amusement Park', us: true, them: false },
                         { feature: 'Transparent Profit Sharing', us: true, them: false },
                       ].map((row, i) => (
-                        <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                        <tr key={i} className={i % 2 === 0 ? 'bg-teal-50/30' : 'bg-white'}>
                           <td className="px-6 py-3.5 font-medium text-gray-800">{row.feature}</td>
                           <td className="px-6 py-3.5 text-center">
-                            <Check className="size-5 mx-auto text-emerald-500" />
+                            <Check className="size-5 mx-auto text-green-500" />
                           </td>
                           <td className="px-6 py-3.5 text-center">
-                            <X className="size-5 mx-auto text-gray-300" />
+                            <X className="size-5 mx-auto text-red-400" />
                           </td>
                         </tr>
                       ))}
@@ -2074,10 +2124,10 @@ export default function Home() {
         </section>
 
         {/* ─── PARTNERS & AFFILIATIONS ─── */}
-        <section id="partners" className="py-16" style={{ background: '#FAFFFE' }}>
+        <section id="partners" className="py-16" style={{ background: 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }}>
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
-              <div className="text-center mb-10">
+              <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
                   <Award className="size-3" />
                   TRUSTED PARTNERS
@@ -2091,22 +2141,25 @@ export default function Home() {
             <FadeIn>
               <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
                 {[
-                  { name: 'Hayat Holdings', desc: 'Parent Company' },
-                  { name: 'Marinus Pvt. Ltd.', desc: 'Maritime & Logistics' },
-                  { name: 'CMCH', desc: 'Medical College Hospital' },
-                  { name: 'RJSC', desc: 'Registered with Joint Stock' },
-                  { name: 'CDA Approved', desc: 'Chittagong Development Authority' },
+                  { name: 'Hayat Holdings', desc: 'Parent Company', icon: Building2 },
+                  { name: 'Marinus Pvt. Ltd.', desc: 'Maritime & Logistics', icon: Ship },
+                  { name: 'CMCH', desc: 'Medical College Hospital', icon: Stethoscope },
+                  { name: 'RJSC', desc: 'Registered with Joint Stock', icon: FileCheck },
+                  { name: 'CDA Approved', desc: 'Chittagong Development Authority', icon: Shield },
                 ].map((partner, i) => (
                   <motion.div
                     key={i}
-                    whileHover={{ y: -3, scale: 1.03 }}
-                    className="flex flex-col items-center gap-2 p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300 min-w-[140px]"
+                    whileHover={{ y: -5, scale: 1.03 }}
+                    className="group flex flex-col items-center gap-3 p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-teal-200 transition-all duration-300 min-w-[160px]"
+                    style={{ boxShadow: '0 0 0 rgba(13,148,136,0)' }}
+                    onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 20px rgba(13,148,136,0.1), 0 8px 25px rgba(0,0,0,0.08)')}
+                    onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 0 0 rgba(13,148,136,0)')}
                   >
-                    <div className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-bold text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
-                      {partner.name[0]}
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                      <partner.icon className="size-7 text-white" />
                     </div>
-                    <div className="text-sm font-bold text-gray-800 text-center">{partner.name}</div>
-                    <div className="text-[11px] text-gray-500 text-center">{partner.desc}</div>
+                    <div className="text-sm font-bold text-gray-900 text-center">{partner.name}</div>
+                    <div className="text-xs text-gray-700 text-center leading-snug">{partner.desc}</div>
                   </motion.div>
                 ))}
               </div>
@@ -2115,7 +2168,7 @@ export default function Home() {
         </section>
 
         {/* ─── DOCTOR DIRECTORY SECTION ─── */}
-        <section id="doctors" className="py-20 md:py-28 bg-gray-50">
+        <section id="doctors" className="py-20 md:py-28" style={{ background: 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 40%, #FAFFFE 100%)' }}>
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
@@ -2171,7 +2224,7 @@ export default function Home() {
                 <StaggerItem key={i}>
                   <motion.div
                     whileHover={{ y: -5 }}
-                    className="group bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
+                    className="group bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden hover:shadow-xl hover:border-teal-200 transition-all duration-300"
                   >
                     <div className="h-32 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.06))' }}>
                       <div className="absolute top-0 right-0 w-24 h-24 rounded-full -translate-y-1/2 translate-x-1/2" style={{ background: 'rgba(13,148,136,0.06)' }} />
@@ -2224,6 +2277,9 @@ export default function Home() {
             )}
           </div>
         </section>
+
+        {/* Section divider */}
+        <div className="w-full py-1" style={{ background: 'linear-gradient(90deg, transparent, #0D948820, #10B98120, transparent)' }} />
 
         {/* ─── GALLERY SECTION ─── */}
         <section id="gallery" className="py-20 md:py-28" style={{ background: '#FAFFFE' }}>
@@ -2290,7 +2346,7 @@ export default function Home() {
         </section>
 
         {/* ─── VIRTUAL BUILDING TOUR ─── */}
-        <section id="virtual-tour" className="py-20 md:py-28 bg-gray-50">
+        <section id="virtual-tour" className="py-20 md:py-28" style={{ background: 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }}>
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
@@ -2327,8 +2383,8 @@ export default function Home() {
                       ].map((floor, i) => (
                         <motion.button
                           key={i}
-                          whileHover={{ scale: 1.03, x: 10 }}
-                          className="w-full py-3 px-6 rounded-lg text-white text-sm font-semibold flex items-center justify-between transition-all duration-200 hover:shadow-lg"
+                          whileHover={{ scale: 1.04, x: 12 }}
+                          className="w-full py-3 px-6 rounded-lg text-white text-sm font-semibold flex items-center justify-between transition-all duration-300 hover:shadow-lg hover:brightness-110 border border-white/10 hover:border-white/25"
                           style={{ background: floor.color }}
                           onClick={() => {
                             const floorsSection = document.getElementById('floors');
@@ -2336,7 +2392,7 @@ export default function Home() {
                           }}
                         >
                           <span>{floor.label}</span>
-                          <ArrowRight className="size-4 opacity-60" />
+                          <ArrowRight className="size-4 opacity-50 group-hover:opacity-100 transition-opacity" />
                         </motion.button>
                       ))}
                     </div>
@@ -2362,13 +2418,13 @@ export default function Home() {
                         { icon: Microscope, label: 'Diagnostics', count: 'AI-Powered' },
                         { icon: Baby, label: 'Family Fun', count: 'Play Zone' },
                       ].map((item, i) => (
-                        <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50">
-                          <div className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style={{ background: 'rgba(13,148,136,0.1)' }}>
+                        <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100 hover:border-teal-200 hover:shadow-sm transition-all duration-200">
+                          <div className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0" style={{ background: 'rgba(13,148,136,0.12)' }}>
                             <item.icon className="size-4" style={{ color: '#0D9488' }} />
                           </div>
                           <div>
-                            <div className="text-xs text-gray-500">{item.label}</div>
-                            <div className="text-sm font-bold text-gray-800">{item.count}</div>
+                            <div className="text-xs text-gray-600 font-medium">{item.label}</div>
+                            <div className="text-sm font-bold text-gray-900">{item.count}</div>
                           </div>
                         </div>
                       ))}
@@ -2508,7 +2564,7 @@ export default function Home() {
         </section>
 
         {/* ─── TESTIMONIALS SECTION ─── */}
-        <section id="testimonials" className="py-20 md:py-28 bg-gray-50">
+        <section id="testimonials" className="py-20 md:py-28" style={{ background: 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 40%, #FAFFFE 100%)' }}>
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
@@ -2575,7 +2631,7 @@ export default function Home() {
         </section>
 
         {/* ─── HEALTH TIPS & BLOG SECTION ─── */}
-        <section id="health-tips" className="py-20 md:py-28 bg-gray-50">
+        <section id="health-tips" className="py-20 md:py-28" style={{ background: 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }}>
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
@@ -2641,9 +2697,9 @@ export default function Home() {
                 <StaggerItem key={i}>
                   <motion.div
                     whileHover={{ y: -5 }}
-                    className="group bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
+                    className="group bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden hover:shadow-xl hover:border-teal-300 transition-all duration-300"
                   >
-                    <div className="h-2" style={{ background: `linear-gradient(90deg, ${tip.color}, ${tip.color}88)` }} />
+                    <div className="h-1.5" style={{ background: `linear-gradient(90deg, ${tip.color}, ${tip.color}88)` }} />
                     <div className="p-6">
                       <div className="flex items-center gap-3 mb-4">
                         <div
@@ -2662,10 +2718,10 @@ export default function Home() {
                       <p className="text-sm text-gray-600 leading-relaxed mb-4">
                         {tip.excerpt}
                       </p>
-                      <div className="flex items-center gap-2 text-sm font-medium" style={{ color: tip.color }}>
+                      <div className="flex items-center gap-2 text-sm font-bold" style={{ color: tip.color }}>
                         <BookOpen className="size-4" />
                         Read More
-                        <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="size-4 group-hover:translate-x-1.5 transition-transform" />
                       </div>
                     </div>
                   </motion.div>
@@ -2675,8 +2731,11 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Section divider */}
+        <div className="w-full py-1" style={{ background: 'linear-gradient(90deg, transparent, #0D948820, #10B98120, transparent)' }} />
+
         {/* ─── 9. INVESTMENT SECTION ─── */}
-        <section id="investment" className="py-20 md:py-28 bg-gray-50">
+        <section id="investment" className="py-20 md:py-28" style={{ background: 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }}>
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
@@ -2837,7 +2896,7 @@ export default function Home() {
                 <StaggerItem key={benefit.code}>
                   <motion.div
                     whileHover={{ y: -3 }}
-                    className="p-5 bg-white rounded-2xl border shadow-sm text-center hover:shadow-md transition-shadow"
+                    className="p-5 bg-white rounded-2xl border shadow-sm text-center hover:shadow-lg hover:border-teal-200 transition-all duration-300"
                   >
                     <div
                       className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-3"
@@ -3031,7 +3090,7 @@ export default function Home() {
         </section>
 
         {/* ─── 11. CONTACT SECTION ─── */}
-        <section id="contact" className="py-20 md:py-28 bg-gray-50">
+        <section id="contact" className="py-20 md:py-28" style={{ background: 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }}>
           <div className="max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-14">
@@ -3113,7 +3172,19 @@ export default function Home() {
                         <label className="text-sm font-medium text-gray-700 mb-1 block">
                           Subject
                         </label>
-                        <Input placeholder="How can we help?" value={formData.subject} onChange={(e) => setFormData(p => ({ ...p, subject: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
+                        <Select value={formData.subject} onValueChange={(v) => setFormData(p => ({ ...p, subject: v }))}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select a subject" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Investment Inquiry">Investment Inquiry</SelectItem>
+                            <SelectItem value="Appointment Booking">Appointment Booking</SelectItem>
+                            <SelectItem value="General Information">General Information</SelectItem>
+                            <SelectItem value="Partnership Opportunity">Partnership Opportunity</SelectItem>
+                            <SelectItem value="Feedback">Feedback</SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
                     <div>
@@ -3241,10 +3312,25 @@ export default function Home() {
       </div>
 
       {/* ─── 12. FOOTER ─── */}
-      <footer className="relative" style={{ background: '#0F172A' }}>
+      <footer className="relative overflow-hidden" style={{ background: '#0F172A' }}>
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#0D9488 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        {/* Gradient overlay for depth */}
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at top, rgba(13,148,136,0.08) 0%, transparent 60%)' }} />
         <div className="h-2" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981, #D97706)' }} />
+        {/* Back to Top indicator */}
+        <div className="relative">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform z-10 border border-white/20"
+            style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+            aria-label="Back to Top"
+          >
+            <ChevronUp className="size-5" />
+          </button>
+        </div>
         {/* Newsletter section */}
-        <div className="border-b border-white/10">
+        <div className="relative border-b border-white/10">
           <div className="max-w-7xl mx-auto px-4 py-10">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="text-center md:text-left">
@@ -3287,7 +3373,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="relative max-w-7xl mx-auto px-4 py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
             {/* Logo & description */}
             <div>
@@ -3306,16 +3392,16 @@ export default function Home() {
               </p>
               {/* Social links */}
               <div className="flex items-center gap-3">
-                <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-colors group" aria-label="Facebook">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-all duration-200 hover:scale-110 group" aria-label="Facebook">
                   <Facebook className="size-4 text-gray-500 group-hover:text-teal-400" />
                 </a>
-                <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-colors group" aria-label="YouTube">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-all duration-200 hover:scale-110 group" aria-label="YouTube">
                   <Youtube className="size-4 text-gray-500 group-hover:text-teal-400" />
                 </a>
-                <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-colors group" aria-label="Instagram">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-all duration-200 hover:scale-110 group" aria-label="Instagram">
                   <Instagram className="size-4 text-gray-500 group-hover:text-teal-400" />
                 </a>
-                <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-colors group" aria-label="LinkedIn">
+                <a href="#" className="w-10 h-10 rounded-full bg-white/5 hover:bg-teal-500/20 flex items-center justify-center transition-all duration-200 hover:scale-110 group" aria-label="LinkedIn">
                   <Linkedin className="size-4 text-gray-500 group-hover:text-teal-400" />
                 </a>
               </div>
@@ -3407,7 +3493,7 @@ export default function Home() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10">
+        <div className="relative border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
             <div className="flex items-center gap-2 font-medium">&copy; {new Date().getFullYear()} Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; Back to Top</button></div>
             <div className="flex items-center gap-4">
@@ -3432,7 +3518,7 @@ export default function Home() {
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 group"
         style={{ background: '#25D366' }}
-        aria-label="Chat on WhatsApp"
+        aria-label="Contact us on WhatsApp"
       >
         <MessageSquare className="size-6" />
         <span className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full animate-pulse" style={{ boxShadow: '0 0 6px rgba(37,211,102,0.5)' }} />
@@ -3450,7 +3536,7 @@ export default function Home() {
             onClick={() => setIsChatOpen(true)}
             className="fixed bottom-20 right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer group"
             style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
-            aria-label="Open AI Chat"
+            aria-label="Open AI Chat Assistant"
           >
             <MessageCircle className="size-6" />
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-amber-500 rounded-full animate-pulse" />
@@ -3492,12 +3578,21 @@ export default function Home() {
             {/* Chat messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ height: '370px', scrollbarWidth: 'thin', scrollbarColor: '#d1d5db transparent' }}>
               {chatMessages.length === 0 && (
-                <div className="text-center py-10">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ background: 'rgba(13,148,136,0.1)' }}>
-                    <MessageCircle className="size-8" style={{ color: '#0D9488' }} />
+                <div className="space-y-3">
+                  <div className="bg-gray-100 rounded-2xl rounded-tl-sm p-3 text-sm text-gray-700 max-w-[85%]">
+                    👋 Hello! I'm the Hayat Life Care assistant. How can I help you today?
                   </div>
-                  <p className="text-sm text-gray-500">Hi! How can I help you today?</p>
-                  <p className="text-xs text-gray-400 mt-1">Ask about our services, investment, or location</p>
+                  <div className="flex flex-wrap gap-2">
+                    {['Tell me about investment', 'What services are available?', 'How to book appointment?'].map((q) => (
+                      <button
+                        key={q}
+                        onClick={() => { setChatInput(q); }}
+                        className="text-xs px-3 py-1.5 rounded-full border border-teal-200 text-teal-700 hover:bg-teal-50 transition-colors"
+                      >
+                        {q}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
               {chatMessages.map((msg, i) => (
@@ -4144,7 +4239,7 @@ export default function Home() {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="fixed bottom-36 right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white bg-white/80 backdrop-blur-sm border border-gray-200/50 group"
           style={{ color: '#0D9488' }}
-          aria-label="Back to Top"
+          aria-label="Scroll back to top"
         >
           <ChevronUp className="size-5" />
           <span className="absolute right-16 bg-gray-900 text-white text-xs px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Back to Top</span>

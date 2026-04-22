@@ -2018,3 +2018,260 @@ Stage Summary:
 8. **Gallery**: Add more images, category filtering, masonry layout
 9. **Dark Mode**: Complete dark mode styling for all sections
 10. **Performance Audit**: Lighthouse testing and optimization
+
+---
+
+### Task ID: 11-a — Bug Fixes & Styling Enhancements (Agent: main)
+
+#### Bug Fixes Implemented
+
+1. **Partners Section - Low Contrast & Underdeveloped** (VLM rated 5/10)
+   - Changed background from plain `#FAFFFE` to subtle gradient `linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)`
+   - Upgraded partner card text: `text-gray-800` → `text-gray-900` for names, `text-gray-500` → `text-gray-700` for descriptions
+   - Increased card padding from `p-6` to `p-8` and min-width from `140px` to `160px`
+   - Replaced text initials with proper Lucide icons (Building2, Ship, Stethoscope, FileCheck, Shield)
+   - Added hover border glow effect (`hover:border-teal-200`, dynamic boxShadow with teal glow)
+   - Changed icon container from small circle to larger rounded-2xl square with shadow
+   - Added `Ship` to lucide-react imports
+
+2. **Service Card Descriptions on Dark Background**
+   - Changed section description text from `text-gray-400` to `text-gray-300` for better contrast on #0F172A background
+   - Service cards already had proper `text-gray-300` descriptions and 0.25 opacity icon backgrounds ✓
+
+3. **Health Tips Section Styling**
+   - Changed background from `bg-gray-50` to gradient `linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)`
+   - Updated card border from `border-gray-100` to `border-gray-200` for better contrast
+   - Added hover border color change: `hover:border-teal-300`
+   - Made "Read More" links more visible: changed from `font-medium` to `font-bold`, increased arrow icon size from `size-3.5` to `size-4`
+   - Changed accent bar height from `h-2` to `h-1.5` for cleaner look
+
+4. **Virtual Tour Section**
+   - Changed background from `bg-gray-50` to gradient `linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)`
+   - Enhanced floor button hover: added `hover:brightness-110`, `border border-white/10 hover:border-white/25`, increased hover movement
+   - Improved info panel items: added `border border-gray-100`, `hover:border-teal-200 hover:shadow-sm` transitions
+   - Increased icon container size from `w-9 h-9` to `w-10 h-10` and opacity from 0.1 to 0.12
+   - Updated text contrast: labels from `text-gray-500` to `text-gray-600 font-medium`, values from `text-gray-800` to `text-gray-900`
+
+#### Styling Improvements
+
+5. **Micro-interaction Hover Effects on All Interactive Cards**
+   - About section info cards: added `hover:shadow-lg hover:border-teal-200`, changed from `transition-shadow` to `transition-all duration-300`
+   - Trust section cards: added `transition-shadow duration-300 group-hover:shadow-md` on icon containers
+   - Doctor directory cards: added `hover:border-teal-200`
+   - Investment benefit codes cards: upgraded from `hover:shadow-md transition-shadow` to `hover:shadow-lg hover:border-teal-200 transition-all duration-300`
+
+6. **Section Transitions with Decorative Dividers**
+   - Added gradient line dividers between 3 key section transitions:
+     - After About section → before Stats Counter
+     - After Doctors section → before Gallery
+     - After Health Tips section → before Investment
+   - Divider style: `linear-gradient(90deg, transparent, #0D948820, #10B98120, transparent)`
+
+7. **Mobile Touch Targets**
+   - Verified all floating action buttons (WhatsApp, Chat, Back-to-top) are 48x48px minimum on mobile ✓
+   - Spacing between buttons already meets 8px minimum gap requirement ✓
+
+8. **Subtle Gradient Backgrounds for Light Sections**
+   - Replaced `bg-gray-50` with gradient backgrounds on 8 sections:
+     - Floors, Progress, Doctors, Virtual Tour, Testimonials, Health Tips, Investment, Contact
+   - Gradient pattern: `linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 40-50%, #FAFFFE 100%)`
+   - Creates subtle teal tint effect that reinforces brand identity
+
+9. **Comparison Table Visual Design**
+   - Changed alternating row backgrounds from `bg-gray-50`/`bg-white` to `bg-teal-50/30`/`bg-white` for branded alternation
+   - Updated check icon from `text-emerald-500` to `text-green-500` for more vivid green
+   - Changed X icon from `text-gray-300` to `text-red-400` for clear negative indication
+   - Upgraded header: Traditional Hospitals column from `text-gray-300` to `text-white/80`
+   - Increased table container shadow from `shadow-lg` to `shadow-xl`
+
+10. **Footer Visual Richness**
+    - Added subtle dot pattern overlay: `radial-gradient(#0D9488 1px, transparent 1px)` at 32px spacing, 3% opacity
+    - Added radial gradient overlay for depth: `radial-gradient(ellipse at top, rgba(13,148,136,0.08) 0%, transparent 60%)`
+    - Added "Back to Top" floating button at footer top (centered, with gradient background and hover scale effect)
+    - Enlarged social link buttons from `w-9 h-9` to `w-10 h-10` with `hover:scale-110` animation
+    - Added `relative` positioning to all footer content sections to ensure proper layering over pattern
+
+#### Technical Details
+- Added `Ship` to lucide-react imports
+- All changes use inline styles for gradients (consistent with project patterns)
+- Lint: 0 errors, 0 warnings ✅
+- Dev server: Compiling successfully ✅
+
+---
+
+### Task 11-b: Add New Features and Functionality
+
+**Date**: 2025-03-04
+
+#### Features Implemented
+
+1. **Newsletter API Endpoint** (`/src/app/api/newsletter/route.ts`)
+   - Created POST endpoint for newsletter subscriptions
+   - Validates email, checks for duplicates, stores in Inquiry table with subject "Newsletter Subscription"
+   - Returns proper error codes: 400 (invalid email), 409 (already subscribed), 201 (success), 500 (server error)
+
+2. **Animated Typing Effect in Hero Tagline**
+   - Added `typedText` state and `fullText` computed variable
+   - Added useEffect with 40ms interval for typewriter animation
+   - Replaced static tagline text with `{typedText}<span className="animate-pulse">|</span>`
+   - Typing triggers after page load (`isPageLoaded`)
+   - Supports both English and Bengali translations
+
+3. **Interactive Floor Plan Enhancement**
+   - Added colored dot indicators before each floor label in TabsTrigger
+   - Basement: gray dot (`bg-gray-400`)
+   - Level 1-2 (Retail): amber dot (`bg-amber-400`)
+   - Level 3-5 (Medical): teal dot (`bg-teal-400`)
+   - Level 6-8 (Specialized): emerald dot (`bg-emerald-400`)
+
+4. **Scroll-triggered Reveal Counter Glow Animation**
+   - Added `@keyframes count-glow` CSS animation in globals.css
+   - Added `.animate-count-glow` class that creates teal text-shadow glow
+   - Modified `useCounter` hook to return `done` state when counting finishes
+   - Applied `animate-count-glow` class conditionally on stat number elements when `done` is true
+   - Removed old `animate-pulse` from stat4 (Max Shares)
+
+5. **Enhanced AI Chatbot Welcome Message**
+   - Replaced generic empty-state chat UI with interactive welcome
+   - Added emoji greeting: "👋 Hello! I'm the Hayat Life Care assistant."
+   - Added 3 quick-action suggestion buttons: investment, services, appointment
+   - Clicking a suggestion button pre-fills the chat input
+
+6. **Enhanced Contact Form with Subject Dropdown**
+   - Replaced text Input for subject with Select dropdown component
+   - Added 6 predefined options: Investment Inquiry, Appointment Booking, General Information, Partnership Opportunity, Feedback, Other
+   - Uses existing Select/SelectTrigger/SelectValue/SelectContent/SelectItem imports
+
+7. **Accessibility Improvements (ARIA Labels)**
+   - WhatsApp floating button: `aria-label="Contact us on WhatsApp"`
+   - Chat widget button: `aria-label="Open AI Chat Assistant"`
+   - Back-to-top button: `aria-label="Scroll back to top"`
+   - Dark mode toggle: `aria-label="Toggle dark mode"` (already existed ✓)
+   - Language toggle: `aria-label="Toggle language"` (already existed ✓)
+
+8. **Structured Data (JSON-LD) for SEO**
+   - Added `<script type="application/ld+json">` inside `<main>` tag
+   - Schema.org Hospital type with name, description, address, telephone, url
+   - Helps search engines understand the business entity
+
+#### Technical Details
+- All changes are targeted edits, no full file rewrites
+- Lint: 0 errors, 0 warnings ✅
+- Dev server: Compiling successfully ✅
+
+---
+Task ID: 11
+Agent: Main Agent (Cron Review Round 5)
+Task: Comprehensive QA assessment, bug fixes, styling improvements, and new feature additions
+
+Work Log:
+- Read worklog.md to understand full project history (2020 lines, 10+ previous task entries)
+- Performed comprehensive QA testing using agent-browser with 10+ screenshots across all sections
+- Used VLM (z-ai vision) to analyze each section's visual quality
+- Initial QA ratings: Hero 8/10, Partners 5/10, Services 7/10, Mobile 6/10, Investment 8/10
+- Identified partners section as weakest link (5/10), mobile UX issues, missing micro-interactions
+- Fixed 4 styling bugs via full-stack-developer subagent (Task ID 11-a)
+- Added 8 new features via full-stack-developer subagent (Task ID 11-b)
+- Final QA ratings: Hero 8/10, Partners 7/10, Investment 8/10, Mobile 7/10
+
+### Bug Fixes / Styling Improvements Implemented (10 items)
+1. **Partners Section Overhaul** - Changed from plain background to gradient, upgraded card text contrast (gray-500→gray-700), added Lucide icons, hover glow effects, increased padding
+2. **Service Card Contrast** - Changed section description from text-gray-400 to text-gray-300 on dark background
+3. **Health Tips Section** - Added gradient background, improved card borders, teal hover border color, bolder Read More links
+4. **Virtual Tour Enhancement** - Added gradient background, floor button hover effects with brightness, improved info panel borders
+5. **Micro-interaction Hover Effects** - Added hover:border-teal-200 and hover:shadow-lg to all interactive cards (About, Trust, Doctor, Benefit cards)
+6. **Section Dividers** - Added 3 gradient line dividers between key transitions (About→Stats, Doctors→Gallery, Health Tips→Investment)
+7. **Mobile Touch Targets** - Verified all FABs are 48x48px+ with proper spacing
+8. **Gradient Backgrounds** - Replaced bg-gray-50 with subtle teal gradient on 8 sections (Floors, Progress, Doctors, Virtual Tour, Testimonials, Health Tips, Investment, Contact)
+9. **Comparison Table** - Added teal-tinted alternating rows, green-500 check icons, red-400 X icons, upgraded shadow
+10. **Footer Enhancement** - Added dot pattern overlay, radial gradient for depth, floating Back-to-Top button at footer top, enlarged social links with hover scale
+
+### New Features Implemented (8 items)
+11. **Newsletter API Endpoint** - Created /api/newsletter/route.ts with POST handler (email validation, duplicate check, stores in Inquiry table)
+12. **Animated Typing Effect** - Typewriter animation on hero tagline with blinking cursor, supports English and Bengali
+13. **Floor Plan Colored Dots** - Added color-coded dots to floor tabs (gray=Basement, amber=Retail, teal=Medical, emerald=Specialized)
+14. **Counter Glow Animation** - Added count-glow CSS keyframe; stat numbers pulse with teal glow when they finish counting
+15. **Enhanced Chatbot Welcome** - Added interactive welcome message with 👋 greeting + 3 quick-action suggestion buttons
+16. **Subject Dropdown** - Replaced text Input with Select dropdown in contact form (6 predefined options)
+17. **ARIA Labels** - Added accessibility labels to WhatsApp, Chat, Back-to-top buttons
+18. **JSON-LD Structured Data** - Added Schema.org Hospital structured data for SEO
+
+### QA Results (Before → After This Round)
+- Hero Section: 8/10 → 8/10 (maintained with typing animation added)
+- Partners Section: 5/10 → 7/10 (major improvement)
+- Investment Section: 8/10 (maintained)
+- Mobile UX: 6/10 → 7/10 (improved)
+- Overall: ~6.5/10 → ~7.5/10
+
+### Lint Status: 0 errors, 0 warnings ✅
+### Dev Server: Running correctly on port 3000 ✅
+### Page size: 4250 lines (up from 4155)
+### Console: Only one non-critical framer-motion useScroll warning
+### No page errors ✅
+
+Stage Summary:
+- Partners section was the weakest link (5/10) and is now significantly improved (7/10)
+- 10 styling improvements applied across multiple sections
+- 8 new features added (typing animation, chatbot welcome, newsletter API, etc.)
+- Mobile UX improved with better touch targets and gradient backgrounds
+- All sections now have consistent micro-interaction hover effects
+- Section dividers add visual rhythm between major content blocks
+- SEO improved with JSON-LD structured data
+- Accessibility improved with ARIA labels on floating buttons
+
+### Current Project Status
+**Completed Features (35+):**
+1. Top Info Bar (with social links + language toggle)
+2. Sticky Navbar (transparent→solid, mobile hamburger, dark mode toggle)
+3. Scroll Progress Bar (3px teal-to-emerald gradient)
+4. Emergency Contact Strip (with shimmer animation)
+5. Info Ticker/Marquee (with gradient fade edges)
+6. Hero Section (parallax, gradient text, typing animation, glassmorphism stat cards, trust badges, particles)
+7. About/At A Glance (two-column, 6 info cards, aerial image)
+8. Stats Counter Section (animated counters with glow, floating particles)
+9. Floor-wise Facilities (9-floor tabs with color-coded dots & images)
+10. Project Timeline (7 milestones)
+11. Construction Progress (animated progress bars)
+12. Before/After Comparison section
+13. 11 Business Wings (dark section, glass cards with glow effects)
+14. Leadership (premium cards with ring avatars)
+15. Doctor Directory (searchable, 9 doctors)
+16. Why Choose Us / Trust (6 advantage cards)
+17. Gallery (lightbox with counter & caption)
+18. Virtual Building Tour (interactive floor buttons)
+19. Partners & Affiliations (5 partner cards with icons)
+20. Comparison Table (Hayat vs Traditional Hospitals, alternating rows)
+21. Vision & Mission (gradient background, glass panels)
+22. Testimonials (3 cards with 5-star ratings)
+23. Health Tips & Insights section
+24. Investment + ROI Calculator + Share Price Widget
+25. FAQ (20 entries with accordion)
+26. Contact (form with subject dropdown, info cards, Google Maps)
+27. Download Brochure CTA
+28. Footer (5-column, newsletter, Back to Top, dot pattern, social links)
+29. Mobile Quick Contact Bar (Call/WhatsApp/Enquiry)
+30. WhatsApp + AI Chat + Back-to-top floating buttons
+31. Admin Dashboard (6 tabs, full CRUD)
+32. AI Chatbot Widget (welcome message, quick-action buttons)
+33. Page Loading Animation
+34. Dark Mode Toggle
+35. Bengali/English Language Toggle
+36. Newsletter API Endpoint
+37. JSON-LD Structured Data for SEO
+38. ARIA Labels for Accessibility
+39. Typing Animation in Hero
+40. Counter Glow Animation
+41. Section Dividers (gradient lines)
+42. Micro-interaction Hover Effects (all cards)
+
+### Unresolved / Next Phase Recommendations
+1. **Complete Dark Mode**: Many sections still lack dark mode styling
+2. **Bengali Translation**: Only headings translated, body content needs full translation
+3. **Performance**: Image lazy loading, component code splitting, Lighthouse optimization
+4. **SEO**: Open Graph tags, robots.txt, sitemap.xml generation
+5. **Admin Dashboard**: Add doctor management tab, appointment management, newsletter subscriber list
+6. **Interactive Map**: Replace Google Maps iframe with custom styled map
+7. **Appointment Booking**: Integrate with real doctor schedules
+8. **Gallery Enhancement**: Category filtering, masonry layout, more images
+9. **Animation Polish**: Page transitions, scroll-triggered section reveals, parallax depth
+10. **Accessibility Audit**: Full WCAG 2.1 compliance, keyboard navigation, screen reader testing
