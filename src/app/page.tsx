@@ -126,7 +126,7 @@ function useCounter(end: number, duration = 2000) {
     return () => clearInterval(timer)
   }, [inView, end, duration])
 
-  return { count, ref }
+  return { count: inView ? count : ('' as string | number), ref }
 }
 
 function FadeIn({
@@ -212,7 +212,7 @@ const navLinks = [
   { label: 'Doctors', href: '#doctors' },
   { label: 'Timeline', href: '#leadership' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Health Tips', href: '#health-tips' },
+  { label: 'Wellness', href: '#health-tips' },
   { label: 'Investment', href: '#investment' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contact', href: '#contact' },
@@ -473,6 +473,32 @@ const faqs = [
   },
 ]
 
+const translations: Record<string, Record<string, string>> = {
+  bengali: {
+    'HAYAT LIFE CARE': 'হায়াত লাইফ কেয়ার',
+    'CHATTOGRAM': 'চট্টগ্রাম',
+    'Your Trusted Partner in Health, Wellness & Daily Essentials': 'স্বাস্থ্য, সুস্থতা ও দৈনন্দিন প্রয়োজনে আপনার বিশ্বস্ত সঙ্গী',
+    'At A Glance': 'এক নজরে',
+    'Our 11 Business Wings': 'আমাদের ১১টি বিজনেস উইং',
+    'Floor-wise Facilities': 'তলা অনুযায়ী সুবিধা',
+    'Meet the Visionaries': 'দূরদর্শী নেতাদের সাথে পরিচিত হন',
+    'Why Choose Hayat Life Care?': 'হায়াত লাইফ কেয়ার কেন বেছে নেবেন?',
+    'Our Facilities': 'আমাদের সুবিধাসমূহ',
+    'Vision & Mission': 'লক্ষ্য ও উদ্দেশ্য',
+    'What People Say': 'মানুষ কি বলে',
+    'Health Tips & Insights': 'স্বাস্থ্য পরামর্শ ও তথ্য',
+    'Pathways to Prestige Ownership': 'প্রেস্টিজ মালিকানার পথ',
+    'Frequently Asked Questions': 'সচরাচর জিজ্ঞাসা',
+    'Get In Touch': 'যোগাযোগ করুন',
+    'Doctor Directory': 'ডাক্তার ডিরেক্টরি',
+    'Project Timeline': 'প্রজেক্ট টাইমলাইন',
+    'Book a Visit': 'ভিজিট বুক করুন',
+    'Explore Services': 'সেবা দেখুন',
+    'Invest Now': 'ইনভেস্ট করুন',
+    'Send Message': 'মেসেজ পাঠান',
+  },
+}
+
 /* ─────────────────────── main page ─────────────────────── */
 
 export default function Home() {
@@ -547,6 +573,12 @@ export default function Home() {
 
   // Language toggle state
   const [isBengali, setIsBengali] = useState(false)
+
+  // Translation helper
+  const t = useCallback((key: string) => {
+    if (isBengali && translations.bengali[key]) return translations.bengali[key]
+    return key
+  }, [isBengali])
 
   // Dark mode state
   const [isDarkMode, setIsDarkMode] = useState(false)
@@ -745,10 +777,10 @@ export default function Home() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ settings: allSettings }),
       })
-      alert('Settings saved successfully!')
+      toast.success('Settings saved successfully!')
     } catch (err) {
       console.error('Failed to save settings:', err)
-      alert('Failed to save settings.')
+      toast.error('Failed to save settings.')
     }
   }
 
@@ -864,7 +896,7 @@ export default function Home() {
               style={{ background: '#D97706' }}
               asChild
             >
-              <a href="#contact">Book a Visit</a>
+              <a href="#contact">{t('Book a Visit')}</a>
             </Button>
           </div>
 
@@ -904,7 +936,7 @@ export default function Home() {
                       style={{ background: '#D97706' }}
                       asChild
                     >
-                      <a href="#contact">Book a Visit</a>
+                      <a href="#contact">{t('Book a Visit')}</a>
                     </Button>
                   </div>
                   <div className="mt-4 p-4 rounded-xl bg-teal-50">
@@ -923,6 +955,27 @@ export default function Home() {
           </div>
         </div>
       </nav>
+
+      {/* ─── EMERGENCY CONTACT STRIP ─── */}
+      <div className="relative overflow-hidden" style={{ background: 'linear-gradient(90deg, #DC2626, #D97706, #DC2626)' }}>
+        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center gap-3 text-white text-sm font-medium">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+            className="flex items-center gap-2"
+          >
+            <Phone className="size-4" />
+            <span className="font-bold">24/7 Hotline:</span>
+          </motion.div>
+          <a href="tel:01332-850348" className="hover:underline font-bold">01332-850348</a>
+          <span className="text-white/40">|</span>
+          <a href="tel:01335-074949" className="hover:underline font-bold">01335-074949</a>
+          <span className="text-white/40 hidden sm:inline">|</span>
+          <a href="https://wa.me/8801617977232" className="hidden sm:flex items-center gap-1 hover:underline" target="_blank" rel="noopener noreferrer">
+            <MessageSquare className="size-3.5" /> WhatsApp
+          </a>
+        </div>
+      </div>
 
       <main className="flex-1">
         {/* ─── 3. HERO SECTION ─── */}
@@ -985,8 +1038,8 @@ export default function Home() {
             style={{ opacity: heroOpacity }}
           >
             <FadeIn delay={0.1}>
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm mb-8" style={{ boxShadow: '0 0 20px rgba(13,148,136,0.3), 0 0 40px rgba(13,148,136,0.1)' }}>
-                <span className="text-lg">🏥</span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 backdrop-blur-lg border border-white/30 text-white text-sm font-medium mb-8" style={{ boxShadow: '0 0 20px rgba(13,148,136,0.3), 0 0 40px rgba(13,148,136,0.1)' }}>
+                <Sparkles className="size-4" />
                 One Stop Service for Healthcare &amp; Daily Essentials
               </div>
             </FadeIn>
@@ -1000,16 +1053,16 @@ export default function Home() {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                HAYAT LIFE CARE
+                {t('HAYAT LIFE CARE')}
               </h1>
               <div className="text-xl md:text-2xl tracking-[0.4em] text-white/70 font-light mt-2">
-                CHATTOGRAM
+                {t('CHATTOGRAM')}
               </div>
             </FadeIn>
 
             <FadeIn delay={0.5}>
               <p className="text-xl md:text-2xl text-white/80 italic mb-4 font-light">
-                Your Trusted Partner in Health, Wellness &amp; Daily Essentials
+                {t('Your Trusted Partner in Health, Wellness & Daily Essentials')}
               </p>
             </FadeIn>
 
@@ -1025,22 +1078,22 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 <Button
                   size="lg"
-                  className="rounded-full px-8 text-white font-semibold shadow-xl"
+                  className="rounded-full px-8 text-white font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
                   style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
                   asChild
                 >
                   <a href="#services">
-                    Explore Services <ArrowRight className="ml-2 size-4" />
+                    {t('Explore Services')} <ArrowRight className="ml-2 size-4" />
                   </a>
                 </Button>
                 <Button
                   size="lg"
-                  className="rounded-full px-8 text-white font-semibold shadow-xl"
+                  className="rounded-full px-8 text-white font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
                   style={{ background: '#D97706' }}
                   asChild
                 >
                   <a href="#investment">
-                    Invest Now <TrendingUp className="ml-2 size-4" />
+                    {t('Invest Now')} <TrendingUp className="ml-2 size-4" />
                   </a>
                 </Button>
               </div>
@@ -1082,7 +1135,7 @@ export default function Home() {
                   { icon: Users, text: '4,950 Shares' },
                   { icon: Clock, text: 'Dec 2028 Operation' },
                 ].map((badge, i) => (
-                  <div key={i} className="flex items-center gap-2 text-white/60 text-xs">
+                  <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white/80 text-xs backdrop-blur-sm border border-white/10">
                     <badge.icon className="size-3.5" />
                     <span>{badge.text}</span>
                   </div>
@@ -1098,14 +1151,14 @@ export default function Home() {
               transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
               className="flex flex-col items-center gap-2 text-white/60"
             >
-              <div className="w-6 h-10 rounded-full border-2 border-white/40 flex items-start justify-center p-1.5">
+              <div className="w-7 h-11 rounded-full border-2 border-white/40 flex items-start justify-center p-1.5">
                 <motion.div
                   animate={{ y: [0, 12, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-                  className="w-1.5 h-1.5 rounded-full bg-white/80"
+                  className="w-2 h-2 rounded-full bg-white/80"
                 />
               </div>
-              <span className="text-[10px] tracking-[0.2em] uppercase">Scroll Down</span>
+              <span className="text-[11px] tracking-[0.2em] uppercase">Scroll Down</span>
             </motion.div>
           </div>
         </section>
@@ -1116,7 +1169,7 @@ export default function Home() {
             <FadeIn>
               <div className="text-center mb-14">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  At A Glance
+                  {t('At A Glance')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               </div>
@@ -1148,7 +1201,7 @@ export default function Home() {
                       { icon: Building, label: 'Structure', value: '8 Storied + 2 Basement' },
                       { icon: Car, label: 'Parking', value: '150+ Paid Car Parking' },
                       { icon: Sparkles, label: 'Business Wings', value: '11 Comprehensive Wings' },
-                      { icon: TrendingUp, label: 'Future', value: '14-18 Floor Expansion Plan' },
+                      { icon: TrendingUp, label: 'Future', value: '14-18 Floor Expansion' },
                     ].map((item, i) => (
                       <StaggerItem key={i}>
                         <div className="flex items-start gap-3 p-4 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
@@ -1172,7 +1225,7 @@ export default function Home() {
                     located near Chittagong Medical College Hospital, it brings together healthcare,
                     daily essentials, dining, and entertainment into a single, world-class complex.
                   </p>
-                  <p className="text-lg italic font-medium" style={{ color: '#0D9488' }}>
+                  <p className="text-xl italic font-bold mt-4 px-4 py-2 rounded-xl inline-block" style={{ color: '#0D9488', background: 'rgba(13,148,136,0.08)' }}>
                     &ldquo;One destination. Every need.&rdquo;
                   </p>
                 </div>
@@ -1188,7 +1241,7 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
               <FadeIn delay={0}>
                 <div className="text-center group">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 transition-colors">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <Sparkles className="size-7 text-white/90" />
                   </div>
                   <div ref={stat1.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
@@ -1199,7 +1252,7 @@ export default function Home() {
               </FadeIn>
               <FadeIn delay={0.15}>
                 <div className="text-center group">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 transition-colors">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <MapPin className="size-7 text-white/90" />
                   </div>
                   <div ref={stat2.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
@@ -1210,7 +1263,7 @@ export default function Home() {
               </FadeIn>
               <FadeIn delay={0.3}>
                 <div className="text-center group">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 transition-colors">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <Building2 className="size-7 text-white/90" />
                   </div>
                   <div ref={stat3.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
@@ -1221,7 +1274,7 @@ export default function Home() {
               </FadeIn>
               <FadeIn delay={0.45}>
                 <div className="text-center group">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 transition-colors">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                     <Users className="size-7 text-white/90" />
                   </div>
                   <div ref={stat4.ref} className="text-4xl md:text-5xl font-black text-white mb-2">
@@ -1240,7 +1293,7 @@ export default function Home() {
             <FadeIn>
               <div className="text-center mb-14">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Floor-wise Facilities
+                  {t('Floor-wise Facilities')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
@@ -1253,12 +1306,12 @@ export default function Home() {
               <Tabs defaultValue="basement" className="w-full">
                 <div className="flex flex-col lg:flex-row gap-6">
                   {/* Vertical floor nav on large screens */}
-                  <TabsList className="lg:flex-col lg:h-auto lg:w-52 lg:shrink-0 bg-white border rounded-xl p-2 shadow-sm overflow-x-auto lg:overflow-x-visible">
+                  <TabsList className="lg:flex-col lg:h-auto lg:w-52 lg:shrink-0 bg-white border rounded-xl p-2 shadow-sm overflow-x-auto lg:overflow-x-visible scrollbar-hide scroll-smooth">
                     {floors.map((floor) => (
                       <TabsTrigger
                         key={floor.id}
                         value={floor.id}
-                        className="lg:w-full lg:justify-start text-xs md:text-sm whitespace-nowrap data-[state=active]:text-white data-[state=active]:shadow-md"
+                        className="lg:w-full lg:justify-start text-[10px] md:text-xs lg:text-sm whitespace-nowrap min-w-fit data-[state=active]:text-white data-[state=active]:shadow-md"
                         style={{
                           // @ts-expect-error CSS custom property
                           '--tw-ring-color': '#0D9488',
@@ -1325,7 +1378,7 @@ export default function Home() {
                   OUR JOURNEY
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Project Timeline
+                  {t('Project Timeline')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
@@ -1367,7 +1420,7 @@ export default function Home() {
                           {item.date}
                         </span>
                       </div>
-                      <div className="bg-white rounded-2xl border shadow-md p-5 hover:shadow-lg transition-shadow">
+                      <div className="bg-white rounded-2xl border shadow-md p-5 hover:shadow-lg transition-all duration-300 hover:border-teal-200 border-l-4" style={{ borderLeftColor: '#0D9488' }}>
                         <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
                         <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
                       </div>
@@ -1376,6 +1429,88 @@ export default function Home() {
                 </FadeIn>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ─── CONSTRUCTION PROGRESS ─── */}
+        <section id="progress" className="py-16 bg-gray-50">
+          <div className="max-w-5xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <TrendingUp className="size-3" />
+                  CONSTRUCTION UPDATE
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                  Building Progress
+                </h2>
+                <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+              </div>
+            </FadeIn>
+
+            <FadeIn>
+              <div className="bg-white rounded-2xl border shadow-lg p-6 md:p-8">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-900">Overall Completion</h3>
+                  <span className="text-2xl font-black" style={{ color: '#0D9488' }}>35%</span>
+                </div>
+                <div className="h-4 rounded-full bg-gray-100 overflow-hidden mb-8">
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }}
+                    initial={{ width: 0 }}
+                    whileInView={{ width: '35%' }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, ease: 'easeOut' }}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    { phase: 'Land Acquisition', status: 'completed', percent: 100 },
+                    { phase: 'Design & Approval', status: 'completed', percent: 100 },
+                    { phase: 'Foundation Work', status: 'in-progress', percent: 60 },
+                    { phase: 'Structural Construction', status: 'upcoming', percent: 15 },
+                    { phase: 'Interior Finishing', status: 'upcoming', percent: 0 },
+                    { phase: 'Equipment Installation', status: 'upcoming', percent: 0 },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: item.status === 'completed' ? 'rgba(16,185,129,0.05)' : item.status === 'in-progress' ? 'rgba(13,148,136,0.05)' : 'rgba(107,114,128,0.03)' }}>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                        item.status === 'completed' ? 'bg-emerald-100' :
+                        item.status === 'in-progress' ? 'bg-teal-100 animate-pulse' :
+                        'bg-gray-100'
+                      }`}>
+                        {item.status === 'completed' ? (
+                          <Check className="size-4 text-emerald-600" />
+                        ) : item.status === 'in-progress' ? (
+                          <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#0D9488' }} />
+                        ) : (
+                          <Clock className="size-4 text-gray-400" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-semibold text-gray-800">{item.phase}</div>
+                        <div className="h-1.5 rounded-full bg-gray-100 mt-1.5 overflow-hidden">
+                          <motion.div
+                            className="h-full rounded-full"
+                            style={{ background: item.status === 'completed' ? '#10B981' : item.status === 'in-progress' ? '#0D9488' : '#D1D5DB' }}
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${item.percent}%` }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: i * 0.15, ease: 'easeOut' }}
+                          />
+                        </div>
+                      </div>
+                      <span className={`text-xs font-bold shrink-0 ${
+                        item.status === 'completed' ? 'text-emerald-600' :
+                        item.status === 'in-progress' ? 'text-teal-600' :
+                        'text-gray-400'
+                      }`}>{item.percent}%</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </section>
 
@@ -1395,7 +1530,7 @@ export default function Home() {
                   COMPREHENSIVE CARE
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
-                  Our 11 Business Wings
+                  {t('Our 11 Business Wings')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <p className="mt-4 text-gray-400 max-w-xl mx-auto">
@@ -1412,6 +1547,7 @@ export default function Home() {
                     className="group relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/30 hover:bg-white/10 border-l-4"
                     style={{ borderLeftColor: '#0D9488' }}
                   >
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                     {/* Glow effect on hover */}
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: '0 0 30px rgba(13,148,136,0.15)' }} />
                     <div className="relative">
@@ -1450,7 +1586,7 @@ export default function Home() {
                   LEADERSHIP
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Meet the Visionaries
+                  {t('Meet the Visionaries')}
                 </h2>
                 <p className="text-gray-500 text-lg">Steering Our Journey</p>
                 <div className="w-20 h-1 mx-auto rounded-full mt-3" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
@@ -1462,7 +1598,7 @@ export default function Home() {
               <FadeIn direction="right">
                 <motion.div
                   whileHover={{ y: -6 }}
-                  className="group relative bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                  className="group relative bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-teal-200"
                 >
                   <div className="h-2" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                   <div className="p-10 text-center">
@@ -1504,7 +1640,7 @@ export default function Home() {
               <FadeIn direction="left">
                 <motion.div
                   whileHover={{ y: -6 }}
-                  className="group relative bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                  className="group relative bg-white rounded-3xl border border-gray-100 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-teal-200"
                 >
                   <div className="h-2" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                   <div className="p-10 text-center">
@@ -1555,7 +1691,7 @@ export default function Home() {
                   WHY CHOOSE US
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Why Choose Hayat Life Care?
+                  {t('Why Choose Hayat Life Care?')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               </div>
@@ -1563,12 +1699,12 @@ export default function Home() {
 
             <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { emoji: '🏆', title: 'Largest in Chattogram', desc: 'The biggest diagnostic and doctor consultation center in the region' },
-                { emoji: '🏥', title: 'Prime Location', desc: 'Near Chittagong Medical College Hospital, the most trusted healthcare zone' },
-                { emoji: '🔒', title: 'No Bank Loan', desc: 'Entirely funded by shareholder investments - zero debt burden' },
-                { emoji: '👨‍👩‍👧‍👦', title: 'Family-Focused', desc: 'Converting waiting time into quality family time with entertainment facilities' },
-                { emoji: '🔄', title: 'Buyback Guarantee', desc: 'After 3 years at 5% higher price - secure exit option' },
-                { emoji: '📊', title: 'Transparent Operations', desc: 'Govt. approved third-party audit, regular financial reporting' },
+                { icon: Award, title: 'Largest in Chattogram', desc: 'The biggest diagnostic and doctor consultation center in the region' },
+                { icon: MapPin, title: 'Prime Location', desc: 'Near Chittagong Medical College Hospital, the most trusted healthcare zone' },
+                { icon: Shield, title: 'No Bank Loan', desc: 'Entirely funded by shareholder investments - zero debt burden' },
+                { icon: Heart, title: 'Family-Focused', desc: 'Converting waiting time into quality family time with entertainment facilities' },
+                { icon: TrendingUp, title: 'Buyback Guarantee', desc: 'After 3 years at 5% higher price - secure exit option' },
+                { icon: FileCheck, title: 'Transparent Operations', desc: 'Govt. approved third-party audit, regular financial reporting' },
               ].map((item, i) => (
                 <StaggerItem key={i}>
                   <motion.div
@@ -1576,10 +1712,10 @@ export default function Home() {
                     className="group bg-white rounded-2xl border shadow-sm p-6 hover:shadow-lg hover:border-teal-300 transition-all duration-300"
                   >
                     <div
-                      className="inline-flex items-center justify-center w-14 h-14 rounded-full text-2xl mb-4"
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4"
                       style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}
                     >
-                      {item.emoji}
+                      <item.icon className="size-7" style={{ color: '#0D9488' }} />
                     </div>
                     <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
                     <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
@@ -1587,6 +1723,47 @@ export default function Home() {
                 </StaggerItem>
               ))}
             </StaggerContainer>
+          </div>
+        </section>
+
+        {/* ─── PARTNERS & AFFILIATIONS ─── */}
+        <section id="partners" className="py-16" style={{ background: '#FAFFFE' }}>
+          <div className="max-w-7xl mx-auto px-4">
+            <FadeIn>
+              <div className="text-center mb-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold mb-4">
+                  <Award className="size-3" />
+                  TRUSTED PARTNERS
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                  Our Partners & Affiliations
+                </h2>
+                <div className="w-16 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+              </div>
+            </FadeIn>
+            <FadeIn>
+              <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+                {[
+                  { name: 'Hayat Holdings', desc: 'Parent Company' },
+                  { name: 'Marinus Pvt. Ltd.', desc: 'Maritime & Logistics' },
+                  { name: 'CMCH', desc: 'Medical College Hospital' },
+                  { name: 'RJSC', desc: 'Registered with Joint Stock' },
+                  { name: 'CDA Approved', desc: 'Chittagong Development Authority' },
+                ].map((partner, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ y: -3, scale: 1.03 }}
+                    className="flex flex-col items-center gap-2 p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-300 min-w-[140px]"
+                  >
+                    <div className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-bold text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                      {partner.name[0]}
+                    </div>
+                    <div className="text-sm font-bold text-gray-800 text-center">{partner.name}</div>
+                    <div className="text-[11px] text-gray-500 text-center">{partner.desc}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </FadeIn>
           </div>
         </section>
 
@@ -1600,7 +1777,7 @@ export default function Home() {
                   OUR SPECIALISTS
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Doctor Directory
+                  {t('Doctor Directory')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
@@ -1649,7 +1826,9 @@ export default function Home() {
                     whileHover={{ y: -5 }}
                     className="group bg-white rounded-2xl border border-gray-100 shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
                   >
-                    <div className="h-32 relative" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.08), rgba(16,185,129,0.08))' }}>
+                    <div className="h-32 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.06))' }}>
+                      <div className="absolute top-0 right-0 w-24 h-24 rounded-full -translate-y-1/2 translate-x-1/2" style={{ background: 'rgba(13,148,136,0.06)' }} />
+                      <div className="absolute bottom-0 left-0 w-16 h-16 rounded-full translate-y-1/2 -translate-x-1/2" style={{ background: 'rgba(16,185,129,0.06)' }} />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div
                           className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-lg"
@@ -1709,7 +1888,7 @@ export default function Home() {
                   WORLD-CLASS FACILITIES
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Our Facilities
+                  {t('Our Facilities')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
@@ -1814,7 +1993,7 @@ export default function Home() {
             <FadeIn>
               <div className="text-center mb-14">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
-                  Vision &amp; Mission
+                  {t('Vision & Mission')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full bg-white/50" />
               </div>
@@ -1882,7 +2061,7 @@ export default function Home() {
                   TESTIMONIALS
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  What People Say
+                  {t('What People Say')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               </div>
@@ -1948,7 +2127,7 @@ export default function Home() {
                   HEALTH & WELLNESS
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Health Tips & Insights
+                  {t('Health Tips & Insights')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
@@ -2049,7 +2228,7 @@ export default function Home() {
                   INVESTMENT OPPORTUNITY
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Pathways to Prestige Ownership
+                  {t('Pathways to Prestige Ownership')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <p className="mt-4 text-gray-500 max-w-xl mx-auto">
@@ -2208,22 +2387,26 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div className="p-3 rounded-xl text-center" style={{ background: 'rgba(13,148,136,0.05)' }}>
-                      <div className="text-xs text-gray-500">Investment</div>
-                      <div className="text-lg font-bold" style={{ color: '#0D9488' }}>৳{(investShares * 10).toFixed(0)}L</div>
-                    </div>
-                    <div className="p-3 rounded-xl text-center" style={{ background: 'rgba(16,185,129,0.05)' }}>
-                      <div className="text-xs text-gray-500">Annual Return</div>
-                      <div className="text-lg font-bold" style={{ color: '#10B981' }}>৳{(investShares * 10 * investRate / 100).toFixed(1)}L</div>
-                    </div>
-                    <div className="p-3 rounded-xl text-center" style={{ background: 'rgba(217,119,6,0.05)' }}>
-                      <div className="text-xs text-gray-500">3-Year Return</div>
-                      <div className="text-lg font-bold" style={{ color: '#D97706' }}>৳{(investShares * 10 * investRate / 100 * 3).toFixed(1)}L</div>
-                    </div>
-                    <div className="p-3 rounded-xl text-center" style={{ background: 'rgba(13,148,136,0.05)' }}>
-                      <div className="text-xs text-gray-500">Buyback Value</div>
-                      <div className="text-lg font-bold" style={{ color: '#0D9488' }}>৳{(investShares * 10.5).toFixed(1)}L</div>
-                    </div>
+                    {[
+                      { label: 'Investment', value: `৳${(investShares * 10).toFixed(0)}L`, color: '#0D9488', percent: (investShares / 10) * 100 },
+                      { label: 'Annual Return', value: `৳${(investShares * 10 * investRate / 100).toFixed(1)}L`, color: '#10B981', percent: Math.min((investShares * investRate / 200) * 100, 100) },
+                      { label: '3-Year Return', value: `৳${(investShares * 10 * investRate / 100 * 3).toFixed(1)}L`, color: '#D97706', percent: Math.min((investShares * investRate * 3 / 200) * 100, 100) },
+                      { label: 'Buyback Value', value: `৳${(investShares * 10.5).toFixed(1)}L`, color: '#0D9488', percent: (investShares * 10.5 / 105) * 100 },
+                    ].map((item, i) => (
+                      <div key={i} className="p-4 rounded-xl text-center relative overflow-hidden" style={{ background: `${item.color}08` }}>
+                        <div className="text-xs text-gray-500 mb-1">{item.label}</div>
+                        <div className="text-lg font-bold mb-2" style={{ color: item.color }}>{item.value}</div>
+                        <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
+                          <motion.div
+                            className="h-full rounded-full"
+                            style={{ background: item.color }}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${Math.max(item.percent, 5)}%` }}
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                   <p className="text-xs text-gray-400 mt-3 text-center">* Based on projected profit rate. Actual returns may vary. Buyback after 3 years at 5% premium.</p>
                 </div>
@@ -2263,6 +2446,44 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ─── DOWNLOAD BROCHURE CTA ─── */}
+        <section className="relative py-14 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+          <div className="relative max-w-4xl mx-auto px-4 text-center">
+            <FadeIn>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Ready to Learn More?
+              </h2>
+              <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
+                Download our comprehensive brochure for detailed information about investment opportunities, floor plans, and business wing details.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  size="lg"
+                  className="rounded-full px-8 text-white font-semibold shadow-xl"
+                  style={{ background: '#D97706' }}
+                  asChild
+                >
+                  <a href="#contact">
+                    <BookOpen className="size-5 mr-2" />
+                    Download Brochure
+                  </a>
+                </Button>
+                <Button
+                  size="lg"
+                  className="rounded-full px-8 text-white font-semibold shadow-xl bg-white/15 backdrop-blur-sm border border-white/20 hover:bg-white/25"
+                  asChild
+                >
+                  <a href="tel:01332-850348">
+                    <Phone className="size-5 mr-2" />
+                    Call Us Now
+                  </a>
+                </Button>
+              </div>
+            </FadeIn>
+          </div>
+        </section>
+
         {/* ─── 10. FAQ SECTION ─── */}
         <section id="faq" className="py-20 md:py-28" style={{ background: '#FAFFFE' }}>
           <div className="max-w-3xl mx-auto px-4">
@@ -2273,7 +2494,7 @@ export default function Home() {
                   GOT QUESTIONS?
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Frequently Asked Questions
+                  {t('Frequently Asked Questions')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               </div>
@@ -2310,7 +2531,7 @@ export default function Home() {
                   CONTACT US
                 </div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-                  Get In Touch
+                  {t('Get In Touch')}
                 </h2>
                 <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               </div>
@@ -2402,7 +2623,7 @@ export default function Home() {
                       style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
                     >
                       {isFormSubmitting ? <Loader2 className="size-4 mr-2 animate-spin" /> : <Send className="size-4 mr-2" />}
-                      {isFormSubmitting ? 'Sending...' : 'Send Message'}
+                      {isFormSubmitting ? 'Sending...' : t('Send Message')}
                     </Button>
                   </form>
                   </div>
@@ -2497,7 +2718,8 @@ export default function Home() {
       </main>
 
       {/* ─── 12. FOOTER ─── */}
-      <footer style={{ background: '#0F172A' }}>
+      <footer className="relative" style={{ background: '#0F172A' }}>
+        <div className="h-1" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981, #D97706)' }} />
         {/* Newsletter section */}
         <div className="border-b border-white/10">
           <div className="max-w-7xl mx-auto px-4 py-10">
@@ -2510,7 +2732,7 @@ export default function Home() {
                 <Input
                   type="email"
                   placeholder="Enter your email"
-                  className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 h-12 rounded-xl md:w-72"
+                  className="bg-white/10 border-white/15 text-white placeholder:text-gray-400 h-12 rounded-xl md:w-72"
                   value={newsletterEmail}
                   onChange={e => setNewsletterEmail(e.target.value)}
                   onKeyDown={async (e) => {
@@ -2640,8 +2862,8 @@ export default function Home() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
-            <div>&copy; 2026 Hayat Life Care. All Rights Reserved.</div>
+          <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
+            <div className="font-medium">&copy; 2026 Hayat Life Care. All Rights Reserved.</div>
             <div className="flex items-center gap-4">
               <span>A sister concern of Hayat Holdings</span>
               <button
@@ -2662,7 +2884,7 @@ export default function Home() {
         href="https://wa.me/8801617977232"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 group"
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 group"
         style={{ background: '#25D366' }}
         aria-label="Chat on WhatsApp"
       >
@@ -2680,7 +2902,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsChatOpen(true)}
-            className="fixed bottom-44 right-6 z-50 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer group"
+            className="fixed bottom-20 right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white cursor-pointer group"
             style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
             aria-label="Open AI Chat"
           >
@@ -3349,7 +3571,7 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-52 right-6 z-40 w-12 h-12 rounded-full shadow-xl flex items-center justify-center text-white"
+          className="fixed bottom-36 right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-xl flex items-center justify-center text-white"
           style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
         >
           <ChevronUp className="size-5" />
