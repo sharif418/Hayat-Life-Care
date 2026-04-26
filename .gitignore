@@ -52,3 +52,22 @@ prompt
 server.log
 # Skills directory
 /skills/
+
+# Dev/build artifacts
+/agent-ctx/
+/examples/
+/download/
+/upload/
+/mini-services/
+/.zscripts/
+/venv/
+/db/
+*.db
+bun.lock
+Caddyfile
+worklog.md
+brochure_text.txt
+*.json.bak
+drdfbd.json
+dreameducationbd.json
+read-pdf.js
