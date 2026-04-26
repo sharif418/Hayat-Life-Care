@@ -100,3 +100,15 @@ model ChatMessage {
   content   String
   createdAt DateTime @default(now())
 }
+
+model Video {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  youtubeId   String
+  thumbnail   String?
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
