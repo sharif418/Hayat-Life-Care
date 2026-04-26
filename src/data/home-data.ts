@@ -176,12 +176,12 @@ export const doctorsData = [
 ]
 
 export const lightboxImages = [
-  { src: '/images/wings/floor_above9_hospital_1777181082667.png', alt: 'Hayat Life Care Complex', category: 'Exterior' },
-  { src: '/images/wings/gallery_lobby.png', alt: 'Premium Reception & Waiting Area', category: 'Interior' },
-  { src: '/images/wings/floor_level5_doctors_1777180964055.png', alt: 'Modern Doctor Consultation Room', category: 'Facilities' },
-  { src: '/images/wings/floor_level3_diagnostic_1777180930090.png', alt: 'Advanced Pathology Laboratory', category: 'Facilities' },
-  { src: '/images/wings/gallery_pharmacy.png', alt: '24/7 Pharmacy', category: 'Services' },
-  { src: '/images/wings/floor_level2_restaurant_1777180900345.png', alt: 'Hygienic Restaurant & Cafe', category: 'Services' },
-  { src: '/images/wings/gallery_supershop.png', alt: 'Super Shop & Daily Needs', category: 'Services' },
-  { src: '/images/wings/floor_basement_parking_1777180869390.png', alt: 'Spacious Basement Parking', category: 'Exterior' },
+  { src: '/images/wings/floor_above9_hospital_1777181082667.png', alt: 'Hayat Life Care Complex', category: 'Healthcare' },
+  { src: '/images/wings/gallery_lobby.png', alt: 'Premium Reception & Waiting Area', category: 'Facilities' },
+  { src: '/images/wings/floor_level5_doctors_1777180964055.png', alt: 'Modern Doctor Consultation Room', category: 'Healthcare' },
+  { src: '/images/wings/floor_level3_diagnostic_1777180930090.png', alt: 'Advanced Pathology Laboratory', category: 'Healthcare' },
+  { src: '/images/wings/gallery_pharmacy.png', alt: '24/7 Pharmacy', category: 'Retail' },
+  { src: '/images/wings/floor_level2_restaurant_1777180900345.png', alt: 'Hygienic Restaurant & Cafe', category: 'Dining' },
+  { src: '/images/wings/gallery_supershop.png', alt: 'Super Shop & Daily Needs', category: 'Retail' },
+  { src: '/images/wings/floor_basement_parking_1777180869390.png', alt: 'Spacious Basement Parking', category: 'Facilities' },
 ]

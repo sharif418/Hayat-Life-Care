@@ -76,12 +76,12 @@ export default function GallerySection({ isDarkMode }: GallerySectionProps) {
             ))}
           </div>
 
-          <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <StaggerContainer key={galleryFilter} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {lightboxImages
               .map((img, i) => ({ ...img, idx: i, span: i === 0 ? 'col-span-2 row-span-2' : i === 7 ? 'col-span-2' : '' }))
               .filter((img) => galleryFilter === 'All' || img.category === galleryFilter)
-              .map((img, i) => (
-              <StaggerItem key={i} className={img.span || ''}>
+              .map((img) => (
+              <StaggerItem key={img.idx} className={img.span || ''}>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   className="relative group rounded-2xl overflow-hidden border border-gray-200 shadow-sm cursor-pointer aspect-video"

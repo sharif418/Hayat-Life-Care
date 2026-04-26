@@ -72,9 +72,9 @@ export default function DoctorsSection({ isDarkMode }: DoctorsSectionProps) {
           </div>
         </FadeIn>
 
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredDoctors.map((doc, i) => (
-            <StaggerItem key={i}>
+        <StaggerContainer key={doctorFilter + doctorSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredDoctors.map((doc) => (
+            <StaggerItem key={doc.name}>
               <motion.div
                 whileHover={{ y: -5 }}
                 className="group bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-md overflow-hidden hover:shadow-xl hover:border-teal-200 transition-all duration-300"
