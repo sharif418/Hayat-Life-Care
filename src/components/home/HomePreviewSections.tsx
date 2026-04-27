@@ -45,7 +45,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
             <FadeIn direction="right">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
                 <Image
-                  src="/images/about-aerial.png"
+                  src="/images/hayat-exterior-new.jpg"
                   alt="Hayat Life Care Aerial View"
                   width={700}
                   height={450}

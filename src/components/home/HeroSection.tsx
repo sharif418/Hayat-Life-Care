@@ -46,10 +46,10 @@ const headlines = [
 
 // ─── Background images that cycle with headlines ───
 const heroBgImages = [
-  '/images/hero-building.png',
+  '/images/hayat-exterior-new.jpg',
   '/images/interior-lobby.png',
   '/images/medical-lab.png',
-  '/images/about-aerial.png',
+  '/images/hayat-exterior-new.jpg',
 ]
 
 interface HeroSectionProps {

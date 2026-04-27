@@ -34,7 +34,7 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
             <FadeIn direction="right">
               <div className="relative rounded-2xl overflow-hidden border border-gray-200 shadow-xl">
                 <Image
-                  src="/images/about-aerial.png"
+                  src="/images/hayat-exterior-new.jpg"
                   alt="Hayat Life Care Aerial View"
                   width={800}
                   height={500}

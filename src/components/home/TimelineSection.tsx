@@ -186,7 +186,7 @@ export default function TimelineSection({ isDarkMode }: TimelineSectionProps) {
                   UNDER CONSTRUCTION
                 </div>
                 <Image
-                  src="/images/hero-building.png"
+                  src="/images/hayat-exterior-new.jpg"
                   alt="Hayat Life Care Construction"
                   width={600}
                   height={400}
@@ -208,7 +208,7 @@ export default function TimelineSection({ isDarkMode }: TimelineSectionProps) {
                   COMPLETED VISION
                 </div>
                 <Image
-                  src="/images/about-aerial.png"
+                  src="/images/hayat-exterior-new.jpg"
                   alt="Hayat Life Care Future Vision"
                   width={600}
                   height={400}
