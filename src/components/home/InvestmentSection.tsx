@@ -83,12 +83,12 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                         <TrendingUp className="size-4 text-white" />
                       </div>
                       <div>
-                        <div className="text-sm font-bold text-gray-900 dark:text-white">HLC Share Price</div>
-                        <div className="text-[11px] text-gray-500">1st Phase</div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-white">HLC Share Price</div>
+                        <div className="text-[11px] text-gray-500 dark:text-gray-400">1st Phase</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-black" style={{ color: '#0D9488' }}>৳10 <span className="text-sm font-medium text-gray-500">Lacs</span></div>
+                      <div className="text-2xl font-black" style={{ color: '#0D9488' }}>৳10 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Lacs</span></div>
                       <div className="flex items-center justify-end gap-1 text-xs">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         <span className="text-emerald-600 font-semibold">Live</span>
@@ -96,18 +96,18 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     </div>
                   </div>
                   <div className="grid grid-cols-3 gap-3 mt-3">
-                    <div className="bg-gray-50 rounded-lg p-2.5 text-center">
-                      <div className="text-[10px] text-gray-500 mb-0.5">Phase 1</div>
+                    <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-2.5 text-center">
+                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">Phase 1</div>
                       <div className="text-sm font-bold text-gray-900 dark:text-white">৳10L</div>
                       <div className="text-[10px] text-emerald-600">2,500 shares</div>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-2.5 text-center">
-                      <div className="text-[10px] text-gray-500 mb-0.5">Phase 2</div>
+                    <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-2.5 text-center">
+                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">Phase 2</div>
                       <div className="text-sm font-bold text-gray-900 dark:text-white">৳15L</div>
                       <div className="text-[10px] text-amber-600">500 shares</div>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-2.5 text-center">
-                      <div className="text-[10px] text-gray-500 mb-0.5">Phase 3</div>
+                    <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-2.5 text-center">
+                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">Phase 3</div>
                       <div className="text-sm font-bold text-gray-900 dark:text-white">৳20L</div>
                       <div className="text-[10px] text-rose-600">1,000 shares</div>
                     </div>
@@ -129,7 +129,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
             <FadeIn delay={0.1}>
               <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-sm">
                 <HandCoins className="size-8 mx-auto mb-3" style={{ color: '#D97706' }} />
-                <div className="text-sm text-gray-500 mb-1">Share Price</div>
+                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Share Price</div>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">10 Lacs BDT</div>
                 <div className="text-xs text-gray-400 mt-1">Per Share</div>
               </div>
@@ -137,7 +137,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
             <FadeIn delay={0.2}>
               <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-sm">
                 <Users className="size-8 mx-auto mb-3" style={{ color: '#0D9488' }} />
-                <div className="text-sm text-gray-500 mb-1">Total Shares</div>
+                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Total Shares</div>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">4,950</div>
                 <div className="text-xs text-gray-400 mt-1">Maximum Available</div>
               </div>
@@ -145,7 +145,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
             <FadeIn delay={0.3}>
               <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-sm">
                 <Shield className="size-8 mx-auto mb-3" style={{ color: '#10B981' }} />
-                <div className="text-sm text-gray-500 mb-1">Buyback Policy</div>
+                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Buyback Policy</div>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">+5% After 3 Yrs</div>
                 <div className="text-xs text-gray-400 mt-1">Guaranteed Exit</div>
               </div>
@@ -253,7 +253,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     { label: 'Buyback Value', value: `৳${(investShares * 10.5).toFixed(1)}L`, color: '#0D9488', percent: (investShares * 10.5 / 210) * 100 },
                   ].map((item, i) => (
                     <div key={i} className="p-4 rounded-xl text-center relative overflow-hidden" style={{ background: `${item.color}08` }}>
-                      <div className="text-xs text-gray-500 mb-1">{item.label}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{item.label}</div>
                       <div className="text-lg font-bold mb-2" style={{ color: item.color }}>{item.value}</div>
                       <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
                         <motion.div
@@ -409,7 +409,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                         </div>
                       </div>
                       <div className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-0.5">{tier.amount}</div>
-                      <div className="text-xs text-gray-500">Minimum: {tier.minShares}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Minimum: {tier.minShares}</div>
                     </div>
                     {/* Benefits */}
                     <div className="px-5 pb-5">
@@ -439,7 +439,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   { icon: TrendingUp, text: 'Buyback at 5% higher after 3 years' },
                   { icon: Users, text: 'Maximum 4,950 shares' },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 p-4 bg-white rounded-xl border shadow-sm">
+                  <div key={i} className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border dark:border-slate-700 shadow-sm">
                     <item.icon className="size-5 shrink-0" style={{ color: '#0D9488' }} />
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{item.text}</span>
                   </div>
