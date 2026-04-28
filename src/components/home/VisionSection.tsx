@@ -1,86 +1,109 @@
 'use client'
 
 import React from 'react'
-import { Sparkles, Shield, Check } from 'lucide-react'
+import { Sparkles, Target, Heart } from 'lucide-react'
 import { FadeIn } from '@/components/ui/animations'
-
 export default function VisionSection() {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
-      {/* Decorative circles */}
-      <div className="absolute top-10 right-10 w-64 h-64 rounded-full border border-white/10" />
-      <div className="absolute bottom-10 left-10 w-40 h-40 rounded-full border border-white/10" />
+    <>
+      {/* ZONE 1: Vision & Mission (Psychology: Clarity, Transparency, Purpose) */}
+      <section id="vision" className="relative py-20 md:py-28 bg-gray-50 dark:bg-slate-900/50 overflow-hidden">
+        {/* Subtle medical/clean background accents */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-teal-100 dark:bg-teal-900/20 rounded-bl-full blur-3xl opacity-60" />
+        <div className="absolute bottom-0 left-0 w-1/4 h-3/4 bg-emerald-100 dark:bg-emerald-900/20 rounded-tr-full blur-3xl opacity-60" />
 
-      <div className="relative max-w-7xl mx-auto px-4">
-        <FadeIn>
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
-              Vision & Mission
-            </h2>
-            <div className="w-20 h-1 mx-auto rounded-full bg-white/50" />
-          </div>
-        </FadeIn>
-
-        <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-          <FadeIn direction="right">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-8">
-              <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                <Sparkles className="size-6" /> Our Vision
-              </h3>
-              <p className="text-white/90 leading-relaxed text-sm">
-                To redefine healthcare as a fully integrated, people-focused ecosystem where patients and families can access expert medical care, international-standard diagnostics, and specialized hospital treatment alongside daily essentials and wellness services—all under one roof.
-              </p>
+        <div className="relative max-w-7xl mx-auto px-4">
+          <FadeIn>
+            <div className="text-center mb-16">
+              <span className="text-teal-600 dark:text-teal-400 font-semibold tracking-wider uppercase text-sm mb-3 block">Corporate Identity</span>
+              <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight">Our Core Philosophy</h2>
+              <div className="w-24 h-1.5 mx-auto rounded-full bg-linear-to-r from-teal-500 to-emerald-500" />
             </div>
-          </FadeIn>
 
-          <FadeIn direction="left">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-8">
-              <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                <Shield className="size-6" /> Our Mission
-              </h3>
-              <p className="text-white/90 leading-relaxed text-sm">
-                To design a space and offer services where patients and families can access expert medical care, international-standard diagnostics, specialized hospital treatment, and daily essentials under one roof. Through a holistic approach, we are committed to transforming waiting time during doctor visits into quality family time, while ensuring a seamless, comfortable, and dignified international experience for all, including a dedicated female diagnostic facility.
-              </p>
+            <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+              {/* Vision Card */}
+              <div className="group bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none border border-gray-100 dark:border-slate-700 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(13,148,136,0.15)] relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 dark:bg-teal-900/20 rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150" />
+                <div className="p-3.5 inline-block rounded-2xl bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 mb-6 border border-teal-100 dark:border-teal-800/50 relative z-10">
+                  <Sparkles className="size-6" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">Vision</h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] relative z-10">
+                  To redefine healthcare as a fully integrated, people-focused ecosystem where patients and families can access expert medical care, international-standard diagnostics, and specialized hospital treatment alongside daily essentials and wellness services—all under one roof.
+                </p>
+              </div>
+
+              {/* Mission Card */}
+              <div className="group bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none border border-gray-100 dark:border-slate-700 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)] relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 dark:bg-emerald-900/20 rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150" />
+                <div className="p-3.5 inline-block rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-6 border border-emerald-100 dark:border-emerald-800/50 relative z-10">
+                  <Target className="size-6" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">Mission</h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] relative z-10">
+                  To deliver comprehensive healthcare, AI-based diagnostic technology, specialized treatment, and essential services in a single, integrated environment for patients and families.
+                </p>
+              </div>
+
+              {/* Ethical Vision Card */}
+              <div className="group bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none border border-gray-100 dark:border-slate-700 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(244,63,94,0.15)] relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-rose-50 dark:bg-rose-900/20 rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150" />
+                <div className="p-3.5 inline-block rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 mb-6 border border-rose-100 dark:border-rose-800/50 relative z-10">
+                  <Heart className="size-6" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">Ethical Vision</h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] relative z-10">
+                  Through a holistic and patient-centered approach, we aim to transform waiting time during medical visits into meaningful family time, while delivering a seamless, dignified, and comfortable healthcare experience for all. We are committed to privacy, care, and accessibility, including dedicated women-focused diagnostic services.
+                </p>
+              </div>
             </div>
           </FadeIn>
         </div>
+      </section>
 
-        {/* Message from Founder Directors */}
-        <FadeIn>
-          <div className="mt-14 max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-8 md:p-10">
-            <h3 className="text-xl md:text-2xl font-bold text-white mb-4 text-center">
-              Message From Founder Directors
-            </h3>
-            <div className="space-y-4 text-white/85 text-sm leading-relaxed">
-              <p>
-                At Hayat, we believe healthcare should be more than just treatment — it should be a complete experience of care, convenience, and compassion. This belief drives everything we do.
-              </p>
-              <p>
-                We envisioned a space where a patient&apos;s visit doesn&apos;t just mean medical tests and prescriptions. It means a place where their family can enjoy quality time, where daily needs are met without stepping out, and where every service — from diagnostics to dining — is designed with dignity and comfort in mind.
-              </p>
-              <p>
-                Hayat Life Care isn&apos;t just our project — it&apos;s our promise. A promise to deliver international-standard healthcare, create sustainable investment opportunities, and serve the people of Chattogram with purpose and integrity.
-              </p>
+      {/* ZONE 2: Founder's Message (Psychology: Authority, Trust, Leadership, Warmth) */}
+      <section className="relative py-20 md:py-28 bg-teal-950 overflow-hidden">
+        {/* Deep, authoritative premium background */}
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 mix-blend-overlay" />
+        <div className="absolute top-0 left-0 w-full h-full" style={{ background: 'radial-gradient(circle at 50% 0%, rgba(16,185,129,0.15) 0%, transparent 70%)' }} />
+        
+        <div className="relative max-w-4xl mx-auto px-4">
+          <FadeIn>
+            <div className="text-center mb-10">
+              <span className="text-emerald-400 font-medium tracking-widest uppercase text-xs mb-3 block">Leadership Voice</span>
+              <h3 className="text-3xl md:text-4xl font-bold text-white">
+                Message From Founder Directors
+              </h3>
             </div>
-            <div className="mt-6 pt-4 border-t border-white/20 text-center">
-              <p className="text-white font-semibold text-sm">Capt. Md Showkat Hossain Chowdhury</p>
-              <p className="text-white/60 text-xs">Chairman, Hayat Life Care Ltd.</p>
-              <p className="text-white font-semibold text-sm mt-2">Dr. Mohammad Azizul Haque</p>
-              <p className="text-white/60 text-xs">Managing Director, Hayat Life Care Ltd.</p>
+            
+            <div className="relative">
+              {/* Decorative Quote Marks */}
+              <div className="absolute -top-6 -left-4 md:-left-10 text-6xl text-teal-800/50 font-serif leading-none select-none">"</div>
+              <div className="absolute -bottom-10 -right-4 md:-right-10 text-6xl text-teal-800/50 font-serif leading-none select-none rotate-180">"</div>
+              
+              <div className="space-y-6 text-gray-200 text-base md:text-lg leading-relaxed relative z-10">
+                <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-emerald-400 first-letter:mr-2 first-letter:float-left">
+                  At Hayat, we believe healthcare should be more than just treatment—it should be a complete, comfortable, and caring experience. We are building this complex to meet the growing need for advanced, accessible, and people-focused healthcare services in Chattogram.
+                </p>
+                <p>
+                  Our goal is to create a place where families can access expert medical care, trusted diagnostics, daily essentials, and wellness services—all under one roof. Whether it is consulting a top physician, collecting medicine, enjoying a healthy meal, or visiting with children in a stress-free environment, Hayat Life Care is designed to make life easier, healthier, and more connected.
+                </p>
+                <p>
+                  This is not just a healthcare facility—it is a lifestyle destination, built with purpose, driven by innovation, and guided by heart:
+                </p>
+                
+                <div className="pt-8 pb-4 text-center">
+                  <div className="w-16 h-px bg-linear-to-r from-transparent via-emerald-500 to-transparent mx-auto mb-6" />
+                  <strong className="inline-block text-transparent bg-clip-text bg-linear-to-r from-emerald-200 via-white to-emerald-200 italic text-2xl md:text-3xl font-playfair tracking-wide leading-tight">
+                    &ldquo;To Save and Serve the Generation.&rdquo;
+                  </strong>
+                  <div className="w-16 h-px bg-linear-to-r from-transparent via-emerald-500 to-transparent mx-auto mt-6" />
+                </div>
+              </div>
             </div>
-          </div>
-        </FadeIn>
-
-        <FadeIn>
-          <div className="mt-10 text-center">
-            <blockquote className="text-xl md:text-2xl text-white font-light italic leading-relaxed max-w-3xl mx-auto">
-              &ldquo;This isn&apos;t just a health facility — it&apos;s a lifestyle destination. Built with
-              purpose, driven by innovation and guided by heart —{' '}
-              <span className="font-semibold">&lsquo;To Save and Serve The Generation.&rsquo;</span>&rdquo;
-            </blockquote>
-          </div>
-        </FadeIn>
-      </div>
-    </section>
+          </FadeIn>
+        </div>
+      </section>
+    </>
   )
 }

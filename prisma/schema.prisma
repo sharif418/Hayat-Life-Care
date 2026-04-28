@@ -112,3 +112,32 @@ model Video {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model DownloadLead {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  source    String   @default("brochure") // which download triggered this
+  createdAt DateTime @default(now())
+}
+
+model DownloadEvent {
+  id        String   @id @default(cuid())
+  type      String   @default("brochure") // what was downloaded
+  hasLead   Boolean  @default(false) // did user provide info or skip?
+  leadId    String?  // reference to DownloadLead if provided
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+model SiteVisit {
+  id          String   @id @default(cuid())
+  visitorId   String   // fingerprint/cookie-based unique visitor
+  page        String   @default("/")
+  referrer    String?
+  ip          String?
+  userAgent   String?
+  isUnique    Boolean  @default(false) // first visit from this visitorId today
+  createdAt   DateTime @default(now())
+}

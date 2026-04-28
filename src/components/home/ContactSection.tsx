@@ -154,37 +154,42 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                 {
                   icon: PhoneCall,
                   title: 'Phone',
-                  details: ['01335-074940', '01335-074941'],
+                  details: [{ text: '01335-074940' }, { text: '01335-074941' }],
                   color: '#0D9488',
                 },
                 {
                   icon: MapPinned,
                   title: 'Office',
-                  details: ['Probortok Circle Mishmak Manjuri,', 'Badshah Miah Road, Ameerbag, Chattogram'],
+                  details: [
+                    { text: 'Probortok Circle Mishmak Manjuri,', href: 'https://maps.app.goo.gl/SC7xcBp4kXEyqByw8' },
+                    { text: 'Badshah Miah Road, Ameerbag, Chattogram', href: 'https://maps.app.goo.gl/SC7xcBp4kXEyqByw8' }
+                  ],
                   color: '#10B981',
                 },
                 {
                   icon: Building,
                   title: 'Project Site',
-                  details: ['Manashi, O.R. Nizam Road, Chattogram'],
+                  details: [
+                    { text: 'Manashi, O.R. Nizam Road, Chattogram', href: 'https://maps.app.goo.gl/hw3GhvmdACjjoWua7' }
+                  ],
                   color: '#D97706',
                 },
                 {
                   icon: Building2,
                   title: 'Sister Concern',
-                  details: ['Hayat Holdings'],
+                  details: [{ text: 'Hayat Holdings' }],
                   color: '#0D9488',
                 },
                 {
                   icon: Mail,
                   title: 'Email',
-                  details: ['info@hayatlifecare.com'],
+                  details: [{ text: 'info@hayatlifecare.com' }],
                   color: '#10B981',
                 },
                 {
                   icon: Clock,
                   title: 'Operating Hours',
-                  details: ['Sat–Thu: 9:00 AM – 9:00 PM', 'Friday: Closed', 'Emergency: 24/7'],
+                  details: [{ text: 'Sat–Thu: 9:00 AM – 9:00 PM' }, { text: 'Friday: Closed' }, { text: 'Emergency: 24/7' }],
                   color: '#0D9488',
                 },
               ].map((item, i) => (
@@ -200,12 +205,16 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                     {item.details.map((d, j) => (
                       <div key={j} className="text-sm text-gray-600 dark:text-gray-400">
                         {item.title === 'Phone' ? (
-                          <a href={`https://wa.me/880${d.replace(/-/g, '').replace(/^0/, '')}`} target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 transition-colors flex items-center gap-1.5">
-                            {d} <span className="text-[10px] px-1.5 py-0.5 bg-green-100 text-green-700 rounded-full font-medium">WhatsApp</span>
+                          <a href={`https://wa.me/880${d.text.replace(/-/g, '').replace(/^0/, '')}`} target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 transition-colors flex items-center gap-1.5">
+                            {d.text} <span className="text-[10px] px-1.5 py-0.5 bg-green-100 text-green-700 rounded-full font-medium">WhatsApp</span>
                           </a>
                         ) : item.title === 'Email' ? (
-                          <a href={`mailto:${d}`} className="hover:text-teal-600 transition-colors">{d}</a>
-                        ) : d}
+                          <a href={`mailto:${d.text}`} className="hover:text-teal-600 transition-colors">{d.text}</a>
+                        ) : d.href ? (
+                          <a href={d.href} target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 transition-colors underline decoration-dotted underline-offset-2">
+                            {d.text}
+                          </a>
+                        ) : d.text}
                       </div>
                     ))}
                   </div>
@@ -222,18 +231,38 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                 Book an Appointment
               </Button>
 
-              {/* Map */}
-              <div className="rounded-2xl overflow-hidden border shadow-sm h-64">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.7!2d91.8!3d22.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sO.R.+Nizam+Road%2C+Chattogram!5e0!3m2!1sen!2sbd!4v1"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Hayat Life Care Location"
-                />
+              {/* Maps Section */}
+              <div className="rounded-2xl overflow-hidden border shadow-sm bg-white dark:bg-slate-800 p-2">
+                <div className="flex gap-2 mb-2">
+                  <a 
+                    href="https://maps.app.goo.gl/SC7xcBp4kXEyqByw8" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl text-sm font-medium border border-teal-200 bg-teal-50 text-teal-800 hover:bg-teal-100 hover:text-teal-900 transition-colors dark:bg-teal-900/30 dark:border-teal-800 dark:text-teal-200 dark:hover:bg-teal-900/50"
+                  >
+                    <MapPinned className="size-4" /> View Office Map
+                  </a>
+                  <a 
+                    href="https://maps.app.goo.gl/hw3GhvmdACjjoWua7" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl text-sm font-medium border border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100 hover:text-amber-900 transition-colors dark:bg-amber-900/30 dark:border-amber-800 dark:text-amber-200 dark:hover:bg-amber-900/50"
+                  >
+                    <Building className="size-4" /> View Site Map
+                  </a>
+                </div>
+                <div className="h-64 rounded-xl overflow-hidden">
+                  <iframe
+                    src="https://maps.google.com/maps?q=22.3574657,91.8273716&z=16&output=embed"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Hayat Life Care Office Location"
+                  />
+                </div>
               </div>
             </div>
           </FadeIn>

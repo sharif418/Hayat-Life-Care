@@ -27,7 +27,7 @@ export default function AboutPage() {
       <AboutSection isDarkMode={isDarkMode} />
       <VisionSection />
       <LeadershipSection isDarkMode={isDarkMode} />
-      <TimelineSection isDarkMode={isDarkMode} />
+      {/* <TimelineSection isDarkMode={isDarkMode} /> */}
     </PageWrapper>
   );
 }

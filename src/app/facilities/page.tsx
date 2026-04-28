@@ -12,6 +12,7 @@ const FloorsSection = dynamic(() => import('@/components/home/FloorsSection'));
 const DoctorsSection = dynamic(() => import('@/components/home/DoctorsSection'));
 const GallerySection = dynamic(() => import('@/components/home/GallerySection'));
 const HealthTipsSection = dynamic(() => import('@/components/home/HealthTipsSection'));
+const VirtualTourSection = dynamic(() => import('@/components/home/VirtualTourSection'));
 
 export default function FacilitiesPage() {
   const { theme } = useTheme();
@@ -27,7 +28,8 @@ export default function FacilitiesPage() {
       />
       <ServicesSection />
       <FloorsSection isDarkMode={isDarkMode} />
-      <DoctorsSection isDarkMode={isDarkMode} />
+      {/* <VirtualTourSection isDarkMode={isDarkMode} /> */}
+      {/* <DoctorsSection isDarkMode={isDarkMode} /> */}
       <GallerySection isDarkMode={isDarkMode} />
       <HealthTipsSection isDarkMode={isDarkMode} />
     </PageWrapper>

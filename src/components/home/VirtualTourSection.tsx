@@ -73,11 +73,11 @@ export default function VirtualTourSection({ isDarkMode }: VirtualTourSectionPro
               <div className="bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-lg p-8">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">9+ Floors of Excellence</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                  Hayat Life Care is designed as a vertical healthcare city, with each floor dedicated to specific services. From secure basement parking to specialized medical institutes on the upper floors — a one-stop destination for healthcare and daily essentials.
+                  Hayat Life Care is designed as a vertical healthcare city, with each floor dedicated to specific services. From secure basement paid parking to specialized medical institutes on the upper floors — a one-stop destination for healthcare and daily essentials.
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { icon: Car, label: 'Basement Parking', count: '150+' },
+                    { icon: Car, label: 'Paid Parking', count: '150+' },
                     { icon: ShoppingBag, label: 'Retail & Shopping', count: '5 Wings' },
                     { icon: UtensilsCrossed, label: 'Food & Dining', count: '3 Wings' },
                     { icon: Stethoscope, label: 'Medical Services', count: '3 Floors' },

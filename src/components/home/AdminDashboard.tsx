@@ -4,7 +4,8 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   X, LayoutDashboard, Inbox, Building2, HelpCircle, UserPlus, Settings,
-  Loader2, LogOut, Trash2, Plus, ArrowRight, Save, Wrench, Users, Phone, TrendingUp
+  Loader2, LogOut, Trash2, Plus, ArrowRight, Save, Wrench, Users, Phone, TrendingUp,
+  Download, Eye, BarChart3, UserCheck, SkipForward, CalendarCheck, PlayCircle, Pencil
 } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -32,32 +33,74 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
   const [adminServices, setAdminServices] = useState<any[]>([])
   const [adminFaqs, setAdminFaqs] = useState<any[]>([])
   const [leaders, setLeaders] = useState<any[]>([])
+  const [appointments, setAppointments] = useState<any[]>([])
+  const [adminVideos, setAdminVideos] = useState<any[]>([])
   const [siteSettings, setSiteSettings] = useState<Record<string, any[]>>({})
+
+  // Analytics state
+  const [downloadLeads, setDownloadLeads] = useState<any[]>([])
+  const [downloadStats, setDownloadStats] = useState({ totalDownloads: 0, leadsCount: 0, skippedCount: 0 })
+  const [visitStats, setVisitStats] = useState({
+    totalPageViews: 0, totalUniqueVisitors: 0,
+    todayPageViews: 0, todayUniqueVisitors: 0,
+    weekPageViews: 0, weekUniqueVisitors: 0,
+    monthPageViews: 0, monthUniqueVisitors: 0,
+  })
+  const [recentVisits, setRecentVisits] = useState<any[]>([])
 
   // New item forms
   const [newService, setNewService] = useState({ title: '', slug: '', description: '', icon: '', floor: '', category: '' })
   const [newFaq, setNewFaq] = useState({ question: '', answer: '', category: 'general' })
   const [newLeader, setNewLeader] = useState({ name: '', designation: '', bio: '' })
+  const [newVideo, setNewVideo] = useState({ title: '', youtubeId: '', description: '' })
+
+  // Password change
+  const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
+  const [isChangingPassword, setIsChangingPassword] = useState(false)
+
+  // Editing state
+  const [editingVideo, setEditingVideo] = useState<string | null>(null)
+  const [editVideoForm, setEditVideoForm] = useState({ title: '', youtubeId: '', description: '' })
+  const [editingFaq, setEditingFaq] = useState<string | null>(null)
+  const [editFaqForm, setEditFaqForm] = useState({ question: '', answer: '', category: '' })
 
   const fetchAdminData = useCallback(async () => {
     try {
-      const [inqRes, svcRes, faqRes, ldrRes, setRes] = await Promise.all([
+      const [inqRes, svcRes, faqRes, ldrRes, setRes, dlRes, visitRes, apptRes, vidRes] = await Promise.all([
         fetch('/api/inquiries'),
         fetch('/api/services'),
         fetch('/api/faqs'),
         fetch('/api/leaders'),
         fetch('/api/site-settings'),
+        fetch('/api/downloads'),
+        fetch('/api/visits'),
+        fetch('/api/appointments'),
+        fetch('/api/videos', { headers: { 'x-admin-auth': 'true' } }),
       ])
       const inqData = await inqRes.json()
       const svcData = await svcRes.json()
       const faqData = await faqRes.json()
       const ldrData = await ldrRes.json()
       const setData = await setRes.json()
+      const dlData = await dlRes.json()
+      const visitData = await visitRes.json()
+      const apptData = await apptRes.json()
+      const vidData = await vidRes.json()
       if (inqData.data) setInquiries(inqData.data)
       if (svcData.data) setAdminServices(svcData.data)
       if (faqData.data) setAdminFaqs(faqData.data)
       if (ldrData.data) setLeaders(ldrData.data)
       if (setData.data) setSiteSettings(setData.data)
+      if (dlData.data) {
+        setDownloadLeads(dlData.data.leads || [])
+        setDownloadStats(dlData.data.stats || { totalDownloads: 0, leadsCount: 0, skippedCount: 0 })
+      }
+      if (visitData.data) {
+        setVisitStats(visitData.data.stats || {})
+        setRecentVisits(visitData.data.recentVisits || [])
+      }
+      if (apptData.data) setAppointments(apptData.data)
+      if (vidData.data) setAdminVideos(vidData.data)
     } catch (err) {
       console.error('Failed to fetch admin data:', err)
     }
@@ -113,8 +156,50 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
     try {
       await fetch(`/api/faqs/${id}`, { method: 'DELETE' })
       setAdminFaqs(prev => prev.filter(f => f.id !== id))
+      toast.success('FAQ deleted')
     } catch (err) {
       console.error('Failed to delete FAQ:', err)
+      toast.error('Failed to delete FAQ')
+    }
+  }
+
+  const updateFaq = async (id: string) => {
+    if (!editFaqForm.question || !editFaqForm.answer) { toast.error('Question and Answer are required'); return }
+    try {
+      const res = await fetch(`/api/faqs/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editFaqForm),
+      })
+      const data = await res.json()
+      if (data.success && data.data) {
+        setAdminFaqs(prev => prev.map(f => f.id === id ? data.data : f))
+        setEditingFaq(null)
+        toast.success('FAQ updated!')
+      }
+    } catch (err) {
+      console.error('Failed to update FAQ:', err)
+      toast.error('Failed to update FAQ')
+    }
+  }
+
+  const updateVideo = async (id: string) => {
+    if (!editVideoForm.title || !editVideoForm.youtubeId) { toast.error('Title and YouTube ID are required'); return }
+    try {
+      const res = await fetch(`/api/videos/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editVideoForm),
+      })
+      const data = await res.json()
+      if (data.success && data.data) {
+        setAdminVideos(prev => prev.map(v => v.id === id ? data.data : v))
+        setEditingVideo(null)
+        toast.success('Video updated!')
+      }
+    } catch (err) {
+      console.error('Failed to update video:', err)
+      toast.error('Failed to update video')
     }
   }
 
@@ -137,7 +222,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
   }
 
   const addFaq = async () => {
-    if (!newFaq.question || !newFaq.answer) return
+    if (!newFaq.question || !newFaq.answer) { toast.error('Question and Answer are required'); return }
     try {
       const res = await fetch('/api/faqs', {
         method: 'POST',
@@ -148,9 +233,58 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
       if (data.success && data.data) {
         setAdminFaqs(prev => [...prev, data.data])
         setNewFaq({ question: '', answer: '', category: 'general' })
+        toast.success('FAQ added successfully!')
+      } else {
+        toast.error(data.error || 'Failed to add FAQ')
       }
     } catch (err) {
       console.error('Failed to add FAQ:', err)
+      toast.error('Network error. Please try again.')
+    }
+  }
+
+  const addVideo = async () => {
+    if (!newVideo.title || !newVideo.youtubeId) { toast.error('Title and YouTube ID are required'); return }
+    try {
+      const res = await fetch('/api/videos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newVideo),
+      })
+      const data = await res.json()
+      if (data.success && data.data) {
+        setAdminVideos(prev => [...prev, data.data])
+        setNewVideo({ title: '', youtubeId: '', description: '' })
+        toast.success('Video added successfully!')
+      } else {
+        toast.error(data.error || 'Failed to add video')
+      }
+    } catch (err) {
+      console.error('Failed to add video:', err)
+      toast.error('Network error. Please try again.')
+    }
+  }
+
+  const deleteVideo = async (id: string) => {
+    try {
+      await fetch(`/api/videos/${id}`, { method: 'DELETE' })
+      setAdminVideos(prev => prev.filter(v => v.id !== id))
+      toast.success('Video deleted')
+    } catch (err) {
+      console.error('Failed to delete video:', err)
+    }
+  }
+
+  const toggleVideoActive = async (id: string, active: boolean) => {
+    try {
+      await fetch(`/api/videos/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ active: !active }),
+      })
+      setAdminVideos(prev => prev.map(v => v.id === id ? { ...v, active: !active } : v))
+    } catch (err) {
+      console.error('Failed to toggle video:', err)
     }
   }
 
@@ -288,10 +422,11 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                 <nav className="p-3 space-y-1">
                   {[
                     { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+                    { id: 'analytics', icon: BarChart3, label: 'Analytics' },
                     { id: 'inquiries', icon: Inbox, label: 'Inquiries' },
-                    { id: 'services', icon: Wrench, label: 'Services' },
+                    { id: 'appointments', icon: CalendarCheck, label: 'Appointments' },
+                    { id: 'videos', icon: PlayCircle, label: 'Videos' },
                     { id: 'faqs', icon: HelpCircle, label: 'FAQs' },
-                    { id: 'leaders', icon: UserPlus, label: 'Leaders' },
                     { id: 'settings', icon: Settings, label: 'Settings' },
                   ].map((tab) => (
                     <button
@@ -315,10 +450,11 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
               <div className="md:hidden absolute bottom-0 left-0 right-0 border-t bg-white flex overflow-x-auto z-10">
                 {[
                   { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+                  { id: 'analytics', icon: BarChart3, label: 'Analytics' },
                   { id: 'inquiries', icon: Inbox, label: 'Inquiries' },
-                  { id: 'services', icon: Wrench, label: 'Services' },
+                  { id: 'appointments', icon: CalendarCheck, label: 'Appointments' },
+                  { id: 'videos', icon: PlayCircle, label: 'Videos' },
                   { id: 'faqs', icon: HelpCircle, label: 'FAQs' },
-                  { id: 'leaders', icon: UserPlus, label: 'Leaders' },
                   { id: 'settings', icon: Settings, label: 'Settings' },
                 ].map((tab) => (
                   <button
@@ -340,7 +476,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                 {adminTab === 'dashboard' && (
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Dashboard Overview</h2>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                       <div className="bg-white rounded-xl border p-5 shadow-sm">
                         <div className="text-sm text-gray-500 mb-1">Total Inquiries</div>
                         <div className="text-2xl font-bold text-gray-900 dark:text-white">{inquiries.length}</div>
@@ -364,6 +500,42 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                         <div className="text-sm text-gray-500 mb-1">Leaders</div>
                         <div className="text-2xl font-bold text-gray-900 dark:text-white">{leaders.length}</div>
                         <div className="text-xs text-teal-600 mt-2">Team members</div>
+                      </div>
+                    </div>
+
+                    {/* Analytics Quick View */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                      <div className="bg-linear-to-br from-indigo-500 to-purple-600 rounded-xl p-5 shadow-sm text-white">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Eye className="size-4 opacity-80" />
+                          <span className="text-sm opacity-90">Site Visitors</span>
+                        </div>
+                        <div className="text-2xl font-bold">{visitStats.totalUniqueVisitors}</div>
+                        <div className="text-xs opacity-75 mt-1">Today: {visitStats.todayUniqueVisitors}</div>
+                      </div>
+                      <div className="bg-linear-to-br from-emerald-500 to-teal-600 rounded-xl p-5 shadow-sm text-white">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Download className="size-4 opacity-80" />
+                          <span className="text-sm opacity-90">Downloads</span>
+                        </div>
+                        <div className="text-2xl font-bold">{downloadStats.totalDownloads}</div>
+                        <div className="text-xs opacity-75 mt-1">With lead: {downloadStats.leadsCount}</div>
+                      </div>
+                      <div className="bg-linear-to-br from-amber-500 to-orange-600 rounded-xl p-5 shadow-sm text-white">
+                        <div className="flex items-center gap-2 mb-1">
+                          <UserCheck className="size-4 opacity-80" />
+                          <span className="text-sm opacity-90">Leads Captured</span>
+                        </div>
+                        <div className="text-2xl font-bold">{downloadLeads.length}</div>
+                        <div className="text-xs opacity-75 mt-1">From brochure downloads</div>
+                      </div>
+                      <div className="bg-linear-to-br from-rose-500 to-pink-600 rounded-xl p-5 shadow-sm text-white">
+                        <div className="flex items-center gap-2 mb-1">
+                          <BarChart3 className="size-4 opacity-80" />
+                          <span className="text-sm opacity-90">Page Views</span>
+                        </div>
+                        <div className="text-2xl font-bold">{visitStats.totalPageViews}</div>
+                        <div className="text-xs opacity-75 mt-1">Today: {visitStats.todayPageViews}</div>
                       </div>
                     </div>
 
@@ -398,6 +570,145 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                             ))}
                             {inquiries.length === 0 && (
                               <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-400">No inquiries yet</td></tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ── Analytics Tab ── */}
+                {adminTab === 'analytics' && (
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Analytics & Lead Management</h2>
+
+                    {/* Stats Cards */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                      <div className="bg-white rounded-xl border p-5 shadow-sm">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center">
+                            <Eye className="size-4 text-indigo-600" />
+                          </div>
+                          <span className="text-sm text-gray-500">Total Visitors</span>
+                        </div>
+                        <div className="text-2xl font-bold text-gray-900">{visitStats.totalUniqueVisitors}</div>
+                        <div className="flex gap-2 mt-2 flex-wrap">
+                          <Badge className="bg-indigo-50 text-indigo-700 border-0 text-[10px]">Today: {visitStats.todayUniqueVisitors}</Badge>
+                          <Badge className="bg-blue-50 text-blue-700 border-0 text-[10px]">Week: {visitStats.weekUniqueVisitors}</Badge>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl border p-5 shadow-sm">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center">
+                            <BarChart3 className="size-4 text-teal-600" />
+                          </div>
+                          <span className="text-sm text-gray-500">Page Views</span>
+                        </div>
+                        <div className="text-2xl font-bold text-gray-900">{visitStats.totalPageViews}</div>
+                        <div className="flex gap-2 mt-2 flex-wrap">
+                          <Badge className="bg-teal-50 text-teal-700 border-0 text-[10px]">Today: {visitStats.todayPageViews}</Badge>
+                          <Badge className="bg-emerald-50 text-emerald-700 border-0 text-[10px]">Month: {visitStats.monthPageViews}</Badge>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl border p-5 shadow-sm">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                            <Download className="size-4 text-emerald-600" />
+                          </div>
+                          <span className="text-sm text-gray-500">Total Downloads</span>
+                        </div>
+                        <div className="text-2xl font-bold text-gray-900">{downloadStats.totalDownloads}</div>
+                        <div className="flex gap-2 mt-2 flex-wrap">
+                          <Badge className="bg-emerald-50 text-emerald-700 border-0 text-[10px]">With Info: {downloadStats.leadsCount}</Badge>
+                          <Badge className="bg-orange-50 text-orange-700 border-0 text-[10px]">Skipped: {downloadStats.skippedCount}</Badge>
+                        </div>
+                      </div>
+                      <div className="bg-white rounded-xl border p-5 shadow-sm">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
+                            <UserCheck className="size-4 text-amber-600" />
+                          </div>
+                          <span className="text-sm text-gray-500">Leads Captured</span>
+                        </div>
+                        <div className="text-2xl font-bold text-gray-900">{downloadLeads.length}</div>
+                        <div className="text-xs text-gray-500 mt-2">Conversion: {downloadStats.totalDownloads > 0 ? ((downloadStats.leadsCount / downloadStats.totalDownloads) * 100).toFixed(1) : 0}%</div>
+                      </div>
+                    </div>
+
+                    {/* Download Leads Table */}
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <UserCheck className="size-5" style={{ color: '#0D9488' }} />
+                      Download Leads (Name & Phone)
+                    </h3>
+                    <div className="bg-white rounded-xl border shadow-sm overflow-hidden mb-8">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm">
+                          <thead>
+                            <tr className="border-b bg-gray-50">
+                              <th className="text-left px-4 py-3 font-medium text-gray-600">#</th>
+                              <th className="text-left px-4 py-3 font-medium text-gray-600">Name</th>
+                              <th className="text-left px-4 py-3 font-medium text-gray-600">Phone</th>
+                              <th className="text-left px-4 py-3 font-medium text-gray-600">Source</th>
+                              <th className="text-left px-4 py-3 font-medium text-gray-600">Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {downloadLeads.map((lead, i) => (
+                              <tr key={lead.id} className="border-b last:border-0 hover:bg-gray-50">
+                                <td className="px-4 py-3 text-gray-400">{i + 1}</td>
+                                <td className="px-4 py-3 font-medium text-gray-900">{lead.name}</td>
+                                <td className="px-4 py-3">
+                                  <a href={`tel:${lead.phone}`} className="text-teal-600 hover:underline flex items-center gap-1">
+                                    <Phone className="size-3" />
+                                    {lead.phone}
+                                  </a>
+                                </td>
+                                <td className="px-4 py-3">
+                                  <Badge className="bg-teal-50 text-teal-700 border-0 text-[10px] capitalize">{lead.source}</Badge>
+                                </td>
+                                <td className="px-4 py-3 text-gray-500 text-xs">{new Date(lead.createdAt).toLocaleString()}</td>
+                              </tr>
+                            ))}
+                            {downloadLeads.length === 0 && (
+                              <tr><td colSpan={5} className="px-4 py-8 text-center text-gray-400">No leads captured yet. They will appear here when visitors fill the download form.</td></tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* Recent Site Visits */}
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <Eye className="size-5" style={{ color: '#6366F1' }} />
+                      Recent Site Visits
+                    </h3>
+                    <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm">
+                          <thead>
+                            <tr className="border-b bg-gray-50">
+                              <th className="text-left px-4 py-3 font-medium text-gray-600">Page</th>
+                              <th className="text-left px-4 py-3 font-medium text-gray-600">Visitor</th>
+                              <th className="text-left px-4 py-3 font-medium text-gray-600">Type</th>
+                              <th className="text-left px-4 py-3 font-medium text-gray-600">Time</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {recentVisits.slice(0, 20).map((visit) => (
+                              <tr key={visit.id} className="border-b last:border-0 hover:bg-gray-50">
+                                <td className="px-4 py-3 font-medium text-gray-900">{visit.page}</td>
+                                <td className="px-4 py-3 text-gray-500 text-xs font-mono">{visit.visitorId?.slice(0, 12)}...</td>
+                                <td className="px-4 py-3">
+                                  <Badge className={`border-0 text-[10px] ${visit.isUnique ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                                    {visit.isUnique ? 'New Visitor' : 'Returning'}
+                                  </Badge>
+                                </td>
+                                <td className="px-4 py-3 text-gray-500 text-xs">{new Date(visit.createdAt).toLocaleString()}</td>
+                              </tr>
+                            ))}
+                            {recentVisits.length === 0 && (
+                              <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-400">No visits recorded yet</td></tr>
                             )}
                           </tbody>
                         </table>
@@ -453,50 +764,210 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                   </div>
                 )}
 
-                {/* ── Services Tab ── */}
-                {adminTab === 'services' && (
+                {/* ── Videos Tab ── */}
+                {adminTab === 'videos' && (
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Manage Services</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Manage YouTube Videos</h2>
 
-                    {/* Add Service Form */}
+                    {/* Add Video Form */}
                     <div className="bg-white rounded-xl border shadow-sm p-5 mb-6">
                       <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                        <Plus className="size-4" style={{ color: '#0D9488' }} /> Add New Service
+                        <Plus className="size-4" style={{ color: '#0D9488' }} /> Add New Video
                       </h3>
-                      <div className="grid sm:grid-cols-3 gap-3">
-                        <Input placeholder="Title" value={newService.title} onChange={(e) => setNewService(p => ({ ...p, title: e.target.value }))} />
-                        <Input placeholder="Slug (e.g. car-parking)" value={newService.slug} onChange={(e) => setNewService(p => ({ ...p, slug: e.target.value }))} />
-                        <Input placeholder="Icon name" value={newService.icon} onChange={(e) => setNewService(p => ({ ...p, icon: e.target.value }))} />
-                        <Input placeholder="Floor" value={newService.floor} onChange={(e) => setNewService(p => ({ ...p, floor: e.target.value }))} />
-                        <Input placeholder="Category" value={newService.category} onChange={(e) => setNewService(p => ({ ...p, category: e.target.value }))} />
-                        <div className="sm:col-span-2">
-                          <Input placeholder="Description" value={newService.description} onChange={(e) => setNewService(p => ({ ...p, description: e.target.value }))} />
+                      <div className="space-y-3">
+                        <Input placeholder="Video Title" value={newVideo.title} onChange={(e) => setNewVideo(p => ({ ...p, title: e.target.value }))} />
+                        <Input placeholder="YouTube Video ID (e.g. dQw4w9WgXcQ)" value={newVideo.youtubeId} onChange={(e) => setNewVideo(p => ({ ...p, youtubeId: e.target.value }))} />
+                        <Input placeholder="Description (optional)" value={newVideo.description} onChange={(e) => setNewVideo(p => ({ ...p, description: e.target.value }))} />
+                        <div className="flex items-center gap-3">
+                          <Button onClick={addVideo} className="text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }} size="sm">
+                            <Plus className="size-4 mr-1" /> Add Video
+                          </Button>
+                          {newVideo.youtubeId && (
+                            <span className="text-xs text-gray-400">Preview: youtube.com/watch?v={newVideo.youtubeId}</span>
+                          )}
                         </div>
                       </div>
-                      <Button onClick={addService} className="mt-3 text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }} size="sm">
-                        <Plus className="size-4 mr-1" /> Add Service
-                      </Button>
                     </div>
 
-                    {/* Services List */}
+                    {/* Videos List */}
                     <div className="space-y-3">
-                      {adminServices.map((svc) => (
-                        <div key={svc.id} className="bg-white rounded-xl border shadow-sm p-4 flex items-start justify-between gap-4">
-                          <div className="flex-1 min-w-0">
-                            <div className="font-semibold text-gray-900 dark:text-white">{svc.title}</div>
-                            <div className="text-sm text-gray-500 truncate">{svc.description}</div>
-                            <div className="flex gap-2 mt-1">
-                              {svc.floor && <Badge className="border-0 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-[10px]">{svc.floor}</Badge>}
-                              {svc.category && <Badge className="border-0 bg-gray-100 text-gray-600 text-[10px]">{svc.category}</Badge>}
+                      {adminVideos.map((vid) => (
+                        <div key={vid.id} className="bg-white rounded-xl border shadow-sm p-4">
+                          {editingVideo === vid.id ? (
+                            /* ── Edit Mode ── */
+                            <div className="space-y-3">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Pencil className="size-4" style={{ color: '#0D9488' }} />
+                                <span className="font-semibold text-gray-900 text-sm">Edit Video</span>
+                              </div>
+                              <Input placeholder="Video Title" value={editVideoForm.title} onChange={(e) => setEditVideoForm(p => ({ ...p, title: e.target.value }))} />
+                              <Input placeholder="YouTube Video ID" value={editVideoForm.youtubeId} onChange={(e) => setEditVideoForm(p => ({ ...p, youtubeId: e.target.value }))} />
+                              <Input placeholder="Description (optional)" value={editVideoForm.description} onChange={(e) => setEditVideoForm(p => ({ ...p, description: e.target.value }))} />
+                              {editVideoForm.youtubeId && (
+                                <div className="flex items-center gap-3">
+                                  <div className="shrink-0 w-24 h-14 rounded-lg overflow-hidden bg-gray-100">
+                                    <img src={`https://img.youtube.com/vi/${editVideoForm.youtubeId}/mqdefault.jpg`} alt="Preview" className="w-full h-full object-cover" />
+                                  </div>
+                                  <span className="text-xs text-gray-400">Preview thumbnail</span>
+                                </div>
+                              )}
+                              <div className="flex gap-2">
+                                <Button onClick={() => updateVideo(vid.id)} className="text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }} size="sm">
+                                  <Save className="size-4 mr-1" /> Save Changes
+                                </Button>
+                                <Button variant="outline" size="sm" onClick={() => setEditingVideo(null)}>Cancel</Button>
+                              </div>
                             </div>
-                          </div>
-                          <Button variant="ghost" size="icon" onClick={() => deleteService(svc.id)} className="text-gray-400 hover:text-red-500 shrink-0">
-                            <Trash2 className="size-4" />
-                          </Button>
+                          ) : (
+                            /* ── View Mode ── */
+                            <div className="flex items-start gap-4">
+                              {/* Thumbnail */}
+                              <div className="shrink-0 w-32 h-20 rounded-lg overflow-hidden bg-gray-100 relative">
+                                <img
+                                  src={`https://img.youtube.com/vi/${vid.youtubeId}/mqdefault.jpg`}
+                                  alt={vid.title}
+                                  className="w-full h-full object-cover"
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                                  <PlayCircle className="size-8 text-white/90" />
+                                </div>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="font-semibold text-gray-900 truncate">{vid.title}</span>
+                                  <Badge className={vid.active ? 'bg-green-100 text-green-700 border-0' : 'bg-red-100 text-red-700 border-0'}>
+                                    {vid.active ? 'Active' : 'Hidden'}
+                                  </Badge>
+                                </div>
+                                {vid.description && <div className="text-sm text-gray-500 line-clamp-1">{vid.description}</div>}
+                                <div className="text-xs text-gray-400 mt-1">ID: {vid.youtubeId}</div>
+                              </div>
+                              <div className="flex gap-1 shrink-0">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-xs"
+                                  onClick={() => {
+                                    setEditingVideo(vid.id)
+                                    setEditVideoForm({ title: vid.title, youtubeId: vid.youtubeId, description: vid.description || '' })
+                                  }}
+                                >
+                                  <Pencil className="size-3 mr-1" /> Edit
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-xs"
+                                  onClick={() => toggleVideoActive(vid.id, vid.active)}
+                                >
+                                  {vid.active ? 'Hide' : 'Show'}
+                                </Button>
+                                <Button variant="ghost" size="icon" onClick={() => deleteVideo(vid.id)} className="text-gray-400 hover:text-red-500">
+                                  <Trash2 className="size-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
-                      {adminServices.length === 0 && (
-                        <div className="text-center py-8 text-gray-400">No services found</div>
+                      {adminVideos.length === 0 && (
+                        <div className="text-center py-12 text-gray-400">
+                          <PlayCircle className="size-12 mx-auto mb-3 opacity-30" />
+                          <p>No videos yet</p>
+                          <p className="text-xs mt-1">Add YouTube video IDs to display on the website</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* ── Appointments Tab ── */}
+                {adminTab === 'appointments' && (
+                  <div>
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="text-2xl font-bold text-gray-900">Appointments</h2>
+                      <Badge className="bg-amber-100 text-amber-700">{appointments.length} Total</Badge>
+                    </div>
+                    <div className="space-y-3">
+                      {appointments.map((appt) => {
+                        const dateParts = appt.message?.match(/Date: ([^,]+)/)
+                        const timeParts = appt.message?.match(/Time: ([^,]+)/)
+                        const notesParts = appt.message?.match(/Notes: (.+)/)
+                        const doctorName = appt.subject?.replace('Appointment: ', '') || 'General'
+                        return (
+                          <div key={appt.id} className="bg-white rounded-xl border shadow-sm p-5">
+                            <div className="flex items-start justify-between gap-4">
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="font-semibold text-gray-900">{appt.name}</span>
+                                  <Badge className={appt.status === 'new' ? 'bg-green-100 text-green-700' : appt.status === 'read' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}>
+                                    {appt.status}
+                                  </Badge>
+                                </div>
+                                <div className="text-sm text-gray-500 space-y-1">
+                                  <div className="flex items-center gap-2">
+                                    <CalendarCheck className="size-3.5" style={{ color: '#0D9488' }} />
+                                    <span>{dateParts?.[1] || 'N/A'} at {timeParts?.[1] || 'N/A'}</span>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <Users className="size-3.5" style={{ color: '#0D9488' }} />
+                                    <span>Doctor: {doctorName}</span>
+                                  </div>
+                                  {appt.phone && (
+                                    <div className="flex items-center gap-2">
+                                      <Phone className="size-3.5" style={{ color: '#0D9488' }} />
+                                      <a href={`tel:${appt.phone}`} className="hover:text-teal-600">{appt.phone}</a>
+                                    </div>
+                                  )}
+                                  {notesParts?.[1] && (
+                                    <div className="text-xs text-gray-400 mt-1 italic">Notes: {notesParts[1]}</div>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="flex gap-1">
+                                {appt.status === 'new' && (
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="text-xs"
+                                    onClick={async () => {
+                                      await fetch(`/api/inquiries/${appt.id}`, {
+                                        method: 'PATCH',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ status: 'read' }),
+                                      })
+                                      fetchAdminData()
+                                    }}
+                                  >
+                                    Mark Read
+                                  </Button>
+                                )}
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="text-xs text-green-600"
+                                  onClick={async () => {
+                                    await fetch(`/api/inquiries/${appt.id}`, {
+                                      method: 'PATCH',
+                                      headers: { 'Content-Type': 'application/json' },
+                                      body: JSON.stringify({ status: 'replied' }),
+                                    })
+                                    fetchAdminData()
+                                  }}
+                                >
+                                  Confirmed
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                      {appointments.length === 0 && (
+                        <div className="text-center py-12 text-gray-400">
+                          <CalendarCheck className="size-12 mx-auto mb-3 opacity-30" />
+                          <p>No appointments yet</p>
+                          <p className="text-xs mt-1">Appointments booked via "Book a Visit" will appear here</p>
+                        </div>
                       )}
                     </div>
                   </div>
@@ -528,16 +999,49 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                     <div className="space-y-3">
                       {adminFaqs.map((faq) => (
                         <div key={faq.id} className="bg-white rounded-xl border shadow-sm p-4">
-                          <div className="flex items-start justify-between gap-4">
-                            <div className="flex-1 min-w-0">
-                              <div className="font-semibold text-gray-900 text-sm">{faq.question}</div>
-                              <div className="text-sm text-gray-500 mt-1 line-clamp-2">{faq.answer}</div>
-                              <Badge className="border-0 bg-gray-100 text-gray-600 text-[10px] mt-2">{faq.category}</Badge>
+                          {editingFaq === faq.id ? (
+                            /* ── Edit Mode ── */
+                            <div className="space-y-3">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Pencil className="size-4" style={{ color: '#0D9488' }} />
+                                <span className="font-semibold text-gray-900 text-sm">Edit FAQ</span>
+                              </div>
+                              <Input placeholder="Question" value={editFaqForm.question} onChange={(e) => setEditFaqForm(p => ({ ...p, question: e.target.value }))} />
+                              <Textarea placeholder="Answer" value={editFaqForm.answer} onChange={(e) => setEditFaqForm(p => ({ ...p, answer: e.target.value }))} className="min-h-[80px]" />
+                              <Input placeholder="Category" value={editFaqForm.category} onChange={(e) => setEditFaqForm(p => ({ ...p, category: e.target.value }))} className="max-w-[200px]" />
+                              <div className="flex gap-2">
+                                <Button onClick={() => updateFaq(faq.id)} className="text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }} size="sm">
+                                  <Save className="size-4 mr-1" /> Save Changes
+                                </Button>
+                                <Button variant="outline" size="sm" onClick={() => setEditingFaq(null)}>Cancel</Button>
+                              </div>
                             </div>
-                            <Button variant="ghost" size="icon" onClick={() => deleteFaq(faq.id)} className="text-gray-400 hover:text-red-500 shrink-0">
-                              <Trash2 className="size-4" />
-                            </Button>
-                          </div>
+                          ) : (
+                            /* ── View Mode ── */
+                            <div className="flex items-start justify-between gap-4">
+                              <div className="flex-1 min-w-0">
+                                <div className="font-semibold text-gray-900 text-sm">{faq.question}</div>
+                                <div className="text-sm text-gray-500 mt-1 line-clamp-2">{faq.answer}</div>
+                                <Badge className="border-0 bg-gray-100 text-gray-600 text-[10px] mt-2">{faq.category}</Badge>
+                              </div>
+                              <div className="flex gap-1 shrink-0">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-xs"
+                                  onClick={() => {
+                                    setEditingFaq(faq.id)
+                                    setEditFaqForm({ question: faq.question, answer: faq.answer, category: faq.category || 'general' })
+                                  }}
+                                >
+                                  <Pencil className="size-3 mr-1" /> Edit
+                                </Button>
+                                <Button variant="ghost" size="icon" onClick={() => deleteFaq(faq.id)} className="text-gray-400 hover:text-red-500">
+                                  <Trash2 className="size-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
                       {adminFaqs.length === 0 && (
@@ -547,92 +1051,98 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                   </div>
                 )}
 
-                {/* ── Leaders Tab ── */}
-                {adminTab === 'leaders' && (
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Manage Leaders</h2>
-
-                    {/* Add Leader Form */}
-                    <div className="bg-white rounded-xl border shadow-sm p-5 mb-6">
-                      <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                        <Plus className="size-4" style={{ color: '#0D9488' }} /> Add New Leader
-                      </h3>
-                      <div className="grid sm:grid-cols-3 gap-3">
-                        <Input placeholder="Name" value={newLeader.name} onChange={(e) => setNewLeader(p => ({ ...p, name: e.target.value }))} />
-                        <Input placeholder="Designation" value={newLeader.designation} onChange={(e) => setNewLeader(p => ({ ...p, designation: e.target.value }))} />
-                      </div>
-                      <Textarea placeholder="Bio" value={newLeader.bio} onChange={(e) => setNewLeader(p => ({ ...p, bio: e.target.value }))} className="mt-3 min-h-[80px]" />
-                      <Button onClick={addLeader} className="mt-3 text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }} size="sm">
-                        <Plus className="size-4 mr-1" /> Add Leader
-                      </Button>
-                    </div>
-
-                    {/* Leaders List */}
-                    <div className="space-y-3">
-                      {leaders.map((ldr) => (
-                        <div key={ldr.id} className="bg-white rounded-xl border shadow-sm p-4 flex items-start gap-4">
-                          <div className="flex items-center justify-center w-12 h-12 rounded-full shrink-0 text-white font-bold text-lg" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
-                            {ldr.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="font-semibold text-gray-900 dark:text-white">{ldr.name}</div>
-                            <div className="text-sm" style={{ color: '#0D9488' }}>{ldr.designation}</div>
-                            <div className="text-sm text-gray-500 mt-1 line-clamp-2">{ldr.bio}</div>
-                          </div>
-                        </div>
-                      ))}
-                      {leaders.length === 0 && (
-                        <div className="text-center py-8 text-gray-400">No leaders found</div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
                 {/* ── Settings Tab ── */}
                 {adminTab === 'settings' && (
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Site Settings</h2>
-                    <div className="space-y-6">
-                      {Object.entries(siteSettings).map(([group, settings]) => (
-                        <div key={group} className="bg-white rounded-xl border shadow-sm p-5">
-                          <h3 className="font-semibold text-gray-900 mb-4 capitalize flex items-center gap-2">
-                            {group === 'general' && <Building2 className="size-4" style={{ color: '#0D9488' }} />}
-                            {group === 'contact' && <Phone className="size-4" style={{ color: '#0D9488' }} />}
-                            {group === 'social' && <Users className="size-4" style={{ color: '#0D9488' }} />}
-                            {group === 'investment' && <TrendingUp className="size-4" style={{ color: '#0D9488' }} />}
-                            {group} Settings
-                          </h3>
-                          <div className="space-y-3">
-                            {(settings as any[]).map((s: any) => (
-                              <div key={s.id || s.key}>
-                                <Label className="text-xs text-gray-500 mb-1 block">{s.label || s.key}</Label>
-                                <Input
-                                  value={s.value}
-                                  onChange={(e) => {
-                                    setSiteSettings(prev => ({
-                                      ...prev,
-                                      [group]: (prev[group] || []).map((item: any) =>
-                                        item.key === s.key ? { ...item, value: e.target.value } : item
-                                      ),
-                                    }))
-                                  }}
-                                  className="text-sm"
-                                />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                      <Button
-                        onClick={saveSettings}
-                        className="text-white font-semibold"
-                        style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Settings</h2>
+                    
+                    {/* Change Password */}
+                    <div className="bg-white rounded-xl border shadow-sm p-6 max-w-lg">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-1">Change Password</h3>
+                      <p className="text-sm text-gray-500 mb-5">Update your admin password for security</p>
+                      <form
+                        onSubmit={async (e) => {
+                          e.preventDefault()
+                          if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+                            toast.error('New passwords do not match')
+                            return
+                          }
+                          if (passwordForm.newPassword.length < 6) {
+                            toast.error('Password must be at least 6 characters')
+                            return
+                          }
+                          setIsChangingPassword(true)
+                          try {
+                            const res = await fetch('/api/admin/change-password', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({
+                                email: adminEmail,
+                                currentPassword: passwordForm.currentPassword,
+                                newPassword: passwordForm.newPassword,
+                              }),
+                            })
+                            const data = await res.json()
+                            if (res.ok) {
+                              toast.success('Password changed successfully!')
+                              setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' })
+                            } else {
+                              toast.error(data.error || 'Failed to change password')
+                            }
+                          } catch {
+                            toast.error('Network error. Please try again.')
+                          } finally {
+                            setIsChangingPassword(false)
+                          }
+                        }}
+                        className="space-y-4"
                       >
-                        <Settings className="size-4 mr-2" /> Save All Settings
-                      </Button>
+                        <div>
+                          <Label className="mb-1">Current Password</Label>
+                          <Input
+                            type="password"
+                            required
+                            value={passwordForm.currentPassword}
+                            onChange={e => setPasswordForm(p => ({ ...p, currentPassword: e.target.value }))}
+                            placeholder="Enter current password"
+                          />
+                        </div>
+                        <div>
+                          <Label className="mb-1">New Password</Label>
+                          <Input
+                            type="password"
+                            required
+                            minLength={6}
+                            value={passwordForm.newPassword}
+                            onChange={e => setPasswordForm(p => ({ ...p, newPassword: e.target.value }))}
+                            placeholder="Enter new password (min 6 chars)"
+                          />
+                        </div>
+                        <div>
+                          <Label className="mb-1">Confirm New Password</Label>
+                          <Input
+                            type="password"
+                            required
+                            value={passwordForm.confirmPassword}
+                            onChange={e => setPasswordForm(p => ({ ...p, confirmPassword: e.target.value }))}
+                            placeholder="Confirm new password"
+                          />
+                        </div>
+                        <Button
+                          type="submit"
+                          disabled={isChangingPassword}
+                          className="w-full text-white rounded-xl"
+                          style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                        >
+                          {isChangingPassword ? <Loader2 className="size-4 mr-2 animate-spin" /> : <Save className="size-4 mr-2" />}
+                          {isChangingPassword ? 'Changing...' : 'Change Password'}
+                        </Button>
+                      </form>
                     </div>
                   </div>
                 )}
+
+
               </div>
             </div>
           </motion.div>

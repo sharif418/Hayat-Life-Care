@@ -32,7 +32,6 @@ export default function PartnersSection({ isDarkMode }: TrustSectionProps) {
               { name: 'Marinus Pvt. Ltd.', desc: 'Maritime & Logistics', icon: Ship },
               { name: 'CMCH', desc: 'Medical College Hospital', icon: Stethoscope },
               { name: 'RJSC', desc: 'Registered with Joint Stock', icon: FileCheck },
-              { name: 'CDA Approved', desc: 'Chittagong Development Authority', icon: Shield },
             ].map((partner, i) => (
               <StaggerItem key={i}
                 whileHover={{ y: -5, scale: 1.03 }}

@@ -5,12 +5,14 @@ import { motion } from 'framer-motion'
 import { Phone, MessageSquare, Mail, Download, MapPin, Clock, Building2, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
+import { useDownload } from '@/components/providers/DownloadProvider'
 
 interface HomeCTASectionProps {
   isDarkMode: boolean
 }
 
 export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
+  const { openDownloadPopup } = useDownload()
   return (
     <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A, #1E293B)' }}>
       {/* Decorative elements */}
@@ -80,10 +82,10 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
               className="rounded-full px-6 py-3 h-auto font-semibold shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm"
               asChild
             >
-              <a href="/Hayat-Life-Care-Brochure.pdf" download className="flex items-center gap-2">
+              <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex items-center gap-2">
                 <Download className="size-4" />
                 Download Brochure
-              </a>
+              </button>
             </Button>
           </div>
         </FadeIn>

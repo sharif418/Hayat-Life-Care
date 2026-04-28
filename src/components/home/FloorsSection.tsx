@@ -51,7 +51,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
               />
             </div>
             <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-              Explore each floor of Hayat Life Care — from parking to specialized medical institutes.
+              Explore each floor of Hayat Life Care — from paid parking to specialized medical institutes.
             </p>
           </div>
         </FadeIn>

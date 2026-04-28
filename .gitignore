@@ -71,3 +71,7 @@ brochure_text.txt
 drdfbd.json
 dreameducationbd.json
 read-pdf.js
+# logs
+dev.log
+server.log
+*.log

@@ -54,8 +54,8 @@ const uniqueFeatures = [
   },
   {
     icon: Car,
-    title: 'Secure & Spacious Parking (150+)',
-    desc: '150+ parking spaces with 24/7 CCTV surveillance, valet service, and dedicated accessibility spots.',
+    title: 'Secure & Spacious Paid Parking (150+)',
+    desc: '150+ paid parking spaces with 24/7 CCTV surveillance, valet service, and dedicated accessibility spots.',
     color: '#6366F1',
   },
   {
@@ -73,7 +73,7 @@ const uniqueFeatures = [
   {
     icon: Building2,
     title: 'Single Management — 11 Wings',
-    desc: 'A fully managed ecosystem including Parking, ATM, Pharmacy, Optical, Super Shop, Coffee Shop, Juice Bar, Restaurant, Children\'s Amusement Park, Doctors\' Chambers, Diagnostic Center and Specialized Hospital—all seamlessly connected under one roof and single management.',
+    desc: 'A fully managed ecosystem including Paid Parking, ATM, Pharmacy, Optical, Super Shop, Coffee Shop, Juice Bar, Restaurant, Children\'s Amusement Park, Doctors\' Chambers, Diagnostic Center and Specialized Hospital—all seamlessly connected under one roof and single management.',
     color: '#0F766E',
   },
 ]

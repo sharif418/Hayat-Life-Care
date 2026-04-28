@@ -12,17 +12,31 @@ export default function FooterSection() {
   const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false)
 
   const handleSubscribe = async () => {
+    if (!newsletterEmail || !newsletterEmail.includes('@')) return
     setIsNewsletterSubmitting(true)
-    await new Promise(r => setTimeout(r, 1000))
-    toast.success('Thank you for subscribing!')
-    setNewsletterEmail('')
-    setIsNewsletterSubmitting(false)
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newsletterEmail }),
+      })
+      if (res.ok) {
+        toast.success('Thank you for subscribing!')
+        setNewsletterEmail('')
+      } else if (res.status === 409) {
+        toast.info('You are already subscribed!')
+      } else {
+        toast.error('Failed to subscribe. Please try again.')
+      }
+    } catch {
+      toast.error('Network error. Please try again later.')
+    } finally {
+      setIsNewsletterSubmitting(false)
+    }
   }
 
   return (
     <>
-      {/* Smooth gradient transition to footer */}
-      <div style={{ height: '80px', background: 'linear-gradient(to bottom, transparent 0%, #0F172A 100%)' }} />
 
       <footer className="relative overflow-hidden" style={{ background: '#0F172A' }}>
         {/* Subtle background pattern */}
@@ -130,7 +144,7 @@ export default function FooterSection() {
             <div>
               <h4 className="text-white font-semibold mb-4">Services</h4>
               <div className="space-y-2 max-h-56 overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: '#334155 transparent' }}>
-                {['Car Parking', 'ATM Booth', 'Pharmacy', 'Optical Shop', 'Super Shop', 'Coffee Shop', 'Juice Bar', 'Restaurant', "Kid's Park", "Doctor's Chambers", 'Diagnostic Center'].map((svc, i) => (
+                {['Paid Parking', 'ATM Booth', 'Pharmacy', 'Optical Shop', 'Super Shop', 'Coffee Shop', 'Juice Bar', 'Restaurant', "Kid's Park", "Doctor's Chambers", 'Diagnostic Center'].map((svc, i) => (
                   <a
                     key={i}
                     href="/facilities"

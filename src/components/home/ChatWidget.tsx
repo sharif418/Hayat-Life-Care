@@ -28,7 +28,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
         body: JSON.stringify({ message: userMsg, sessionId: chatSessionId }),
       })
       const data = await res.json()
-      setChatMessages(prev => [...prev, { role: 'assistant', content: data.reply || 'Sorry, I could not process that.' }])
+      setChatMessages(prev => [...prev, { role: 'assistant', content: data?.data?.reply || data?.reply || 'Sorry, I could not process that.' }])
     } catch {
       setChatMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, something went wrong. Please try again.' }])
     } finally {
@@ -121,7 +121,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
                     ].map((item) => (
                       <button
                         key={item.q}
-                        onClick={() => { setChatInput(item.q); }}
+                      onClick={() => { setChatInput(item.q); setTimeout(() => { setChatInput(''); setChatMessages(prev => [...prev, { role: 'user', content: item.q }]); setIsChatLoading(true); fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: item.q, sessionId: chatSessionId }) }).then(r => r.json()).then(data => { setChatMessages(prev => [...prev, { role: 'assistant', content: data?.data?.reply || data?.reply || 'Sorry, I could not process that.' }]); }).catch(() => { setChatMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, something went wrong.' }]); }).finally(() => setIsChatLoading(false)); }, 50); }}
                         className="text-xs px-3 py-1.5 rounded-full border border-teal-200 text-teal-700 dark:text-teal-300 dark:border-teal-800 hover:bg-teal-50 dark:hover:bg-teal-900/30 hover:border-teal-300 transition-all duration-200 flex items-center gap-1"
                       >
                         <span>{item.icon}</span> {item.q}

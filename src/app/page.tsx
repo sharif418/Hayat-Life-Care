@@ -85,10 +85,10 @@ export default function Home() {
         <HomePreviewSections isDarkMode={isDarkMode} />
 
         {/* 4. Virtual Floor Tour */}
-        <VirtualTourSection isDarkMode={isDarkMode} />
+        {/* <VirtualTourSection isDarkMode={isDarkMode} /> */}
 
         {/* 5. International Partners */}
-        <PartnersBar isDarkMode={isDarkMode} />
+        {/* <PartnersBar isDarkMode={isDarkMode} /> */}
 
         {/* 6. Video Showcase */}
         <VideoSection isDarkMode={isDarkMode} />

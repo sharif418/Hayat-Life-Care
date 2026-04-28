@@ -27,7 +27,7 @@ export default function UniquenessPage() {
       <UniquenessSection isDarkMode={isDarkMode} />
       <ComparisonSection isDarkMode={isDarkMode} />
       <TrustSection isDarkMode={isDarkMode} />
-      <PartnersSection isDarkMode={isDarkMode} />
+      {/* <PartnersSection isDarkMode={isDarkMode} /> */}
     </PageWrapper>
   );
 }

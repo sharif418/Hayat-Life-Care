@@ -2,7 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion, MotionValue, AnimatePresence } from 'framer-motion'
-import { ArrowRight, TrendingUp, Sparkles } from 'lucide-react'
+import { ArrowRight, TrendingUp, Sparkles, Award } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState, useRef, useEffect } from 'react'
 import { useInView } from 'framer-motion'
@@ -38,10 +38,9 @@ function useCounter(end: number, duration = 2000) {
 
 // ─── Dynamic Headlines (Dream Education style: thin top + BOLD highlight) ───
 const headlines = [
-  { top: 'Gateway to your', highlight: 'Health, Lifestyle &\nFinancial Growth' },
-  { top: 'Your dream to be', highlight: 'A Prestigious Owner of the\nLargest Diagnostic and Hospital' },
-  { top: 'Your engagement', highlight: 'To Gift an Innovative Healthcare\nFacility to the Society and Generations' },
-  { top: 'Your Step', highlight: 'Toward a Secure and\nSustainable Financial Tomorrow' },
+  { top: 'To Gift an Innovative Healthcare Facility to', highlight: 'the Society and Generations.' },
+  { top: 'Toward a Secure and Sustainable', highlight: 'Financial Future' },
+  { top: 'Your dream to be "a prestigious owner of the', highlight: 'largest diagnostic and Hospital"' },
 ]
 
 // ─── Background images that cycle with headlines ───
@@ -67,7 +66,7 @@ export default function HeroSection({
 }: HeroSectionProps) {
   const stat1 = useCounter(11, 1800)
   const stat2 = useCounter(55, 2000)
-  const stat3 = useCounter(9, 1500)
+  const stat3 = useCounter(16, 1500)
   const stat4 = useCounter(150, 2200)
 
   // ─── Rotating headline state ───
@@ -109,11 +108,11 @@ export default function HeroSection({
           </AnimatePresence>
         </motion.div>
 
-        {/* Dark overlay — cleaner like Dream Education */}
+        {/* Overlay — Light at the top for logo visibility, transitioning to dark */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(180deg, rgba(15,23,42,0.75) 0%, rgba(15,23,42,0.85) 50%, rgba(15,23,42,0.92) 100%)',
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(200,210,230,0.6) 15%, rgba(15,23,42,0.7) 35%, rgba(15,23,42,0.95) 100%)',
           }}
         />
 
@@ -124,16 +123,23 @@ export default function HeroSection({
           className="relative z-10 max-w-5xl mx-auto px-4 pt-4 pb-8 md:pt-6 md:pb-10 text-center flex flex-col items-center justify-center"
           style={{ opacity: heroOpacity }}
         >
-          {/* Eyebrow Badge — Dream Education style pill */}
+          {/* Eyebrow Badge — Official "Brochure Approve" style */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/20 text-white/90 text-xs md:text-sm font-medium mb-6 backdrop-blur-sm"
-            style={{ background: 'rgba(255,255,255,0.08)' }}
+            className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full text-slate-800 text-[11px] md:text-sm font-semibold mb-6 backdrop-blur-md shadow-[0_4px_15px_rgba(0,0,0,0.08)]"
+            style={{ 
+              background: 'linear-gradient(90deg, rgba(255,255,255,0.85) 0%, rgba(248,250,252,0.95) 50%, rgba(255,255,255,0.85) 100%)',
+              border: '1px solid rgba(13, 148, 136, 0.2)', // Subtle teal border
+            }}
           >
-            <Sparkles className="size-3.5 text-amber-400" />
-            The First Cancer Diagnostic &amp; Specialized Hospital in Chattogram · One of the Largest at Medical Hub
+            <div className="flex items-center justify-center bg-linear-to-br from-amber-400 to-amber-500 rounded-full p-1.5 shadow-sm">
+              <Award className="size-3.5 md:size-4 text-slate-900" />
+            </div>
+            <span className="tracking-wide">
+              The First Cancer Diagnostic &amp; Specialized Hospital in Chattogram, with One of the Largest Facilities.
+            </span>
           </motion.div>
 
           {/* ─── Rotating Headlines — Dream Education Style ─── */}
@@ -149,24 +155,24 @@ export default function HeroSection({
               >
                 {/* Premium Editorial Top Line */}
                 <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                  <div className="h-px w-8 sm:w-16 bg-linear-to-r from-transparent to-amber-500/50" />
+                  <div className="h-[2px] w-8 sm:w-16 bg-linear-to-r from-transparent to-teal-400/60" />
                   <h2 
-                    className="text-[10px] sm:text-xs md:text-sm text-amber-400 font-semibold tracking-[0.3em] uppercase" 
+                    className="text-xs sm:text-sm md:text-lg lg:text-xl text-teal-50 font-bold tracking-[0.2em] uppercase drop-shadow-md" 
                     style={{ fontFamily: 'var(--font-outfit), sans-serif' }}
                   >
                     {headlines[headlineIndex].top}
                   </h2>
-                  <div className="h-px w-8 sm:w-16 bg-linear-to-l from-transparent to-amber-500/50" />
+                  <div className="h-[2px] w-8 sm:w-16 bg-linear-to-l from-transparent to-teal-400/60" />
                 </div>
-                {/* BOLD highlight — like "Across 8 Countries" */}
+                {/* BOLD highlight — Premium Teal/Emerald Gradient */}
                 <h1
-                  className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] whitespace-pre-line"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black tracking-tight leading-[1.1] whitespace-pre-line"
                   style={{
                     fontFamily: 'var(--font-playfair), Georgia, serif',
-                    background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #F59E0B 100%)',
+                    background: 'linear-gradient(135deg, #2DD4BF 0%, #0D9488 50%, #115E59 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
-                    filter: 'drop-shadow(0 4px 24px rgba(245,158,11,0.35))',
+                    filter: 'drop-shadow(0 4px 20px rgba(13,148,136,0.3))',
                   }}
                 >
                   {headlines[headlineIndex].highlight}
@@ -180,11 +186,10 @@ export default function HeroSection({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-white/60 text-sm md:text-base max-w-xl mx-auto mb-7 leading-relaxed"
+            className="text-slate-200/95 text-[13px] sm:text-sm md:text-base lg:text-[17px] max-w-3xl mx-auto mb-8 leading-relaxed font-medium"
           >
-            One of the Largest Healthcare &amp; Lifestyle Complex at Chattogram&apos;s
-            most trusted Medical Hub — world-class medical services, daily essentials,
-            dining, and family entertainment.
+            One of the Largest Healthcare &amp; Lifestyle Complexes in Chattogram&apos;s Medical Hub—<br className="hidden md:block" />
+            Offering World-class Healthcare Services, Daily Essentials, Dining, and Family Entertainment.
           </motion.p>
 
           {/* CTA Buttons — Dream Education style */}
@@ -203,7 +208,7 @@ export default function HeroSection({
               }}
               asChild
             >
-              <a href="#services">
+              <a href="/facilities#services">
                 Explore Services <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
@@ -218,7 +223,7 @@ export default function HeroSection({
               }}
               asChild
             >
-              <a href="#investment">
+              <a href="/investment#investment">
                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-amber-500/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                 <TrendingUp className="mr-2 size-4 group-hover:scale-110 transition-transform" /> Invest Now
               </a>
@@ -240,7 +245,7 @@ export default function HeroSection({
                 { label: 'BUSINESS WINGS', value: stat1.count, suffix: '' },
                 { label: 'KATHA LAND', value: stat2.count, suffix: '' },
                 { label: 'FLOORS', value: stat3.count, suffix: '+' },
-                { label: 'PARKING', value: stat4.count, suffix: '+' },
+                { label: 'PAID PARKING', value: stat4.count, suffix: '+' },
               ].map((stat, i) => (
                 <div
                   key={i}

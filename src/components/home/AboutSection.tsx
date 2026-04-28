@@ -55,7 +55,7 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
                     { icon: MapPin, label: 'Location', value: 'O.R. Nizam Road, Chattogram' },
                     { icon: Building2, label: 'Land Area', value: '55 Katha' },
                     { icon: Building, label: 'Structure', value: '9 Levels + 3 Basements' },
-                    { icon: Car, label: 'Parking', value: '150+ Parking Spaces' },
+                    { icon: Car, label: 'Paid Parking', value: '150+ Paid Parking Spaces' },
                     { icon: Sparkles, label: 'Business Wings', value: '11 Comprehensive Wings' },
                     { icon: TrendingUp, label: 'Future', value: '14-18 Floor Expansion' },
                   ].map((item, i) => (
@@ -90,8 +90,6 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
                     { icon: Users, text: '4,950 Shares' },
                     { icon: Clock, text: 'Dec 2028 Operation' },
                     { icon: FileCheck, text: 'RJSC Registered' },
-                    { icon: Building2, text: 'CDA Approved' },
-                    { icon: Shield, text: 'Govt. Audited' },
                   ].map((badge, i) => (
                     <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors" style={{ background: 'rgba(13,148,136,0.06)', borderColor: 'rgba(13,148,136,0.15)', color: '#0D9488' }}>
                       <badge.icon className="size-3" />
@@ -101,7 +99,7 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
                 </div>
 
                 <p className="text-xl italic font-bold mt-2 px-4 py-2 rounded-xl inline-block" style={{ color: '#0D9488', background: 'rgba(13,148,136,0.08)' }}>
-                  &ldquo;One destination. Every need.&rdquo;
+                  &ldquo;A one-stop service for healthcare &amp; daily essentials&rdquo;
                 </p>
               </div>
             </FadeIn>

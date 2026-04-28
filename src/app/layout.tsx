@@ -25,6 +25,8 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { AppointmentProvider } from "@/components/providers/AppointmentProvider";
 import Navbar from "@/components/layout/Navbar";
 import GlobalUI from "@/components/layout/GlobalUI";
+import { DownloadProvider } from "@/components/providers/DownloadProvider";
+import SiteVisitTracker from "@/components/ui/SiteVisitTracker";
 
 export const metadata: Metadata = {
   title: 'Hayat Life Care - One Stop Healthcare & Lifestyle Destination | Chattogram',
@@ -56,10 +58,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AppointmentProvider>
-            <Navbar />
-            {children}
-            <GlobalUI />
-            <Toaster richColors position="top-right" />
+            <DownloadProvider>
+              <SiteVisitTracker />
+              <Navbar />
+              {children}
+              <GlobalUI />
+              <Toaster richColors position="top-right" />
+            </DownloadProvider>
           </AppointmentProvider>
         </ThemeProvider>
       </body>

@@ -6,20 +6,24 @@ import {
 
 export const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
+  { label: 'About', href: '/about', children: [
+    { label: 'About Us', href: '/about' },
+    { label: 'Vision & Mission', href: '/about#vision' },
+    { label: 'Leadership', href: '/about#leadership' },
+    // { label: 'Timeline', href: '/about#timeline' }, // Hidden per client request
+  ]},
   { label: 'Facilities', href: '/facilities', children: [
     { label: '11 Business Wings', href: '/facilities#services' },
     { label: 'Floor Plan', href: '/facilities#floors' },
-    { label: 'Doctors', href: '/facilities#doctors' },
+    // { label: 'Doctors', href: '/facilities#doctors' }, // Hidden per client request
     { label: 'Gallery', href: '/facilities#gallery' },
-    { label: 'Virtual Tour', href: '/facilities#virtual-tour' },
+    // { label: 'Virtual Tour', href: '/facilities#virtual-tour' }, // Hidden per client request
   ]},
-  { label: 'Uniqueness', href: '/uniqueness' },
-  { label: 'Investment', href: '/investment', children: [
-    { label: 'Why Invest', href: '/investment#investment' },
-    { label: 'Compare', href: '/investment#comparison-table' },
-    { label: 'Timeline', href: '/investment#timeline' },
+  { label: 'Uniqueness', href: '/uniqueness', children: [
+    { label: 'Why Choose Us', href: '/uniqueness' },
+    { label: 'Comparison Table', href: '/uniqueness#comparison-table' },
   ]},
+  { label: 'Investment', href: '/investment' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ]
@@ -35,8 +39,8 @@ export const floors = [
     id: 'basement',
     label: 'Basement',
     image: '/images/wings/floor_basement_parking_1777180869390.png',
-    description: 'Secure and spacious parking facility with state-of-the-art surveillance and valet service for your convenience.',
-    facilities: ['3 basements with 150+ parking spaces'],
+    description: 'Secure and spacious paid parking facility with state-of-the-art surveillance and valet service for your convenience.',
+    facilities: ['3 basements with 150+ paid parking spaces'],
   },
   {
     id: 'level1',
@@ -111,7 +115,7 @@ export const floors = [
 ]
 
 export const services = [
-  { icon: Car, title: 'Car Parking', desc: '150+ parking spaces across 3 basements with CCTV surveillance' },
+  { icon: Car, title: 'Paid Parking', desc: '150+ paid parking spaces across 3 basements with CCTV surveillance' },
   { icon: CreditCard, title: 'ATM Booth', desc: 'On-site ATM for secure cash access & payments' },
   { icon: Pill, title: 'Pharmacy', desc: 'Authentic medicines from authorized manufacturers' },
   { icon: Glasses, title: 'Optical Shop', desc: 'Prescription glasses, frames & contact lenses' },
@@ -183,5 +187,5 @@ export const lightboxImages = [
   { src: '/images/wings/gallery_pharmacy.png', alt: '24/7 Pharmacy', category: 'Retail' },
   { src: '/images/wings/floor_level2_restaurant_1777180900345.png', alt: 'Hygienic Restaurant & Cafe', category: 'Dining' },
   { src: '/images/wings/gallery_supershop.png', alt: 'Super Shop & Daily Needs', category: 'Retail' },
-  { src: '/images/wings/floor_basement_parking_1777180869390.png', alt: 'Spacious Basement Parking', category: 'Facilities' },
+  { src: '/images/wings/floor_basement_parking_1777180869390.png', alt: 'Spacious Basement Paid Parking', category: 'Facilities' },
 ]

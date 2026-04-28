@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { useAppointment } from '@/components/providers/AppointmentProvider'
+import { useDownload } from '@/components/providers/DownloadProvider'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -20,7 +21,9 @@ export default function Navbar() {
   const { theme, setTheme } = useTheme()
   const isDarkMode = theme === 'dark'
   const { openAppointmentDialog } = useAppointment()
+  const { openDownloadPopup } = useDownload()
   const pathname = usePathname()
+  const isHomePage = pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,14 +46,14 @@ export default function Navbar() {
           
           {/* Static Contact Info (Hidden on Mobile) */}
           <div className="hidden lg:flex items-center gap-4 px-4 h-full bg-hayat-dark z-20 relative shadow-[10px_0_15px_-3px_rgba(15,23,42,1)]">
-            <div className="flex items-center gap-1.5 text-white/80">
-              <Phone className="size-3 text-emerald-400" />
-              <span>01335-074940</span>
+            <div className="flex items-center gap-1.5 text-white/90 font-medium">
+              <Phone className="size-4 text-emerald-400" />
+              <span className="text-sm">01335-074940</span>
             </div>
-            <a href="mailto:info@hayatlifecare.com" className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors">
+            {/* <a href="mailto:info@hayatlifecare.com" className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors">
               <Mail className="size-3 text-amber-400" />
               <span>info@hayatlifecare.com</span>
-            </a>
+            </a> */}
           </div>
 
           {/* Marquee Ticker */}
@@ -121,13 +124,39 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 h-16 md:h-20 flex items-center justify-between">
-          {/* Logo */}
-          <a href="/" className="flex items-center shrink-0">
+          {/* Logo & Tagline — Premium Glass Container */}
+          <a
+            href="/"
+            className={`flex items-center shrink-0 relative group rounded-2xl px-4 py-2 -ml-4 transition-all duration-300 ${
+              scrolled
+                ? isDarkMode ? 'bg-white/3 border border-white/6' : 'bg-teal-50/50 border border-teal-100/50'
+                : isHomePage ? 'bg-white/6 border border-white/8 backdrop-blur-sm' : 'bg-white/6 border border-white/8 backdrop-blur-sm'
+            }`}
+          >
+            {/* Subtle glow behind logo */}
+            <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full opacity-20 blur-xl pointer-events-none" style={{ background: 'radial-gradient(circle, #0D9488, transparent)' }} />
             <img
               src="/images/logo.svg"
               alt="Hayat Life Care"
-              className="h-12 md:h-[60px] w-auto object-contain"
+              className="h-11 md:h-12 w-auto object-contain relative z-10 drop-shadow-sm"
             />
+            <div className="hidden sm:flex items-center ml-4">
+              <div
+                className="h-8 w-px rounded-full transition-colors duration-300"
+                style={{
+                  background: scrolled
+                    ? (isDarkMode ? 'rgba(13,148,136,0.3)' : 'rgba(13,148,136,0.35)')
+                    : isHomePage ? 'rgba(13,148,136,0.3)' : 'rgba(255,255,255,0.25)'
+                }}
+              />
+              <span className={`ml-3.5 text-[8.5px] md:text-[9.5px] font-bold tracking-[0.15em] uppercase relative z-10 font-outfit leading-snug max-w-[130px] transition-colors duration-300 ${
+                scrolled
+                  ? (isDarkMode ? 'text-teal-400/80' : 'text-teal-700')
+                  : isHomePage ? 'text-teal-800' : 'text-white/70'
+              }`}>
+                To Save & Serve the Generation
+              </span>
+            </div>
           </a>
 
           {/* Desktop nav — consolidated 7 items with Dream Education-style underline */}
@@ -144,10 +173,10 @@ export default function Navbar() {
                     href={link.href}
                     className={`relative px-3 xl:px-4 py-2.5 text-[12px] xl:text-[13px] uppercase tracking-widest font-semibold font-outfit rounded-lg transition-all duration-300 flex items-center gap-1.5 ${
                       isActive
-                        ? isDarkMode ? 'text-teal-400' : (scrolled ? 'text-teal-700' : 'text-teal-400 drop-shadow-md')
+                        ? isDarkMode ? 'text-teal-400' : (scrolled ? 'text-teal-400' : isHomePage ? 'text-teal-800 font-bold' : 'text-teal-300 font-bold')
                       : isDarkMode
                         ? 'text-slate-300 hover:text-teal-400'
-                        : scrolled ? 'text-slate-600 hover:text-teal-700' : 'text-white/80 hover:text-white drop-shadow-sm'
+                        : scrolled ? 'text-slate-300 hover:text-teal-400' : isHomePage ? 'text-slate-800 hover:text-teal-800 font-medium' : 'text-white/80 hover:text-teal-300 font-medium'
                   }`}
                 >
                   {link.label}
@@ -195,7 +224,7 @@ export default function Navbar() {
               className={`ml-1 xl:ml-2 rounded-full h-9 w-9 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                 scrolled
                   ? isDarkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-teal-400' : 'bg-white border-gray-100 hover:bg-gray-50 text-teal-600'
-                  : 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md'
+                  : isHomePage ? 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md' : 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md'
               }`}
               onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
               aria-label="Toggle dark mode"
@@ -221,9 +250,9 @@ export default function Navbar() {
               }`}
               asChild
             >
-              <a href="/Hayat-Life-Care-Brochure.pdf" download className="flex items-center gap-1.5">
+              <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex items-center gap-1.5">
                 <Download className="size-3.5" /> Brochure
-              </a>
+              </button>
             </Button>
             <Button
               className={`ml-2 rounded-full px-5 font-semibold transition-all duration-300 shadow-lg relative overflow-hidden group ${
@@ -231,12 +260,10 @@ export default function Navbar() {
                   ? 'bg-amber-600 hover:bg-amber-700 text-white border border-transparent'
                   : 'bg-amber-500/90 hover:bg-amber-500 text-white border border-amber-400/50 backdrop-blur-sm shadow-[0_0_20px_rgba(245,158,11,0.3)]'
               }`}
-              asChild
+              onClick={() => openAppointmentDialog()}
             >
-              <a href="#contact">
-                <span className="relative z-10">Book a Visit</span>
-                <div className="absolute inset-0 h-full w-full bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
-              </a>
+              <span className="relative z-10">Book a Visit</span>
+              <div className="absolute inset-0 h-full w-full bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
             </Button>
           </div>
 
@@ -246,7 +273,7 @@ export default function Navbar() {
               className={`rounded-full h-8 w-8 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                 scrolled
                   ? isDarkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-teal-400' : 'bg-white border-gray-100 hover:bg-gray-50 text-teal-600'
-                  : 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md'
+                  : isHomePage ? 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md' : 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md'
               }`}
               onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
               aria-label="Toggle dark mode"
@@ -269,7 +296,7 @@ export default function Navbar() {
                   className={`rounded-xl h-9 w-9 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                     scrolled
                       ? isDarkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-white' : 'bg-white border-gray-100 hover:bg-gray-50 text-slate-800'
-                      : 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md'
+                      : isHomePage ? 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md' : 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md'
                   }`}
                   aria-label="Menu"
                 >
@@ -367,9 +394,9 @@ export default function Navbar() {
                   <SheetClose asChild>
                     <Button
                       className="w-full rounded-xl font-semibold text-white h-12 shadow-lg hover:shadow-xl transition-all bg-amber-500 hover:bg-amber-600 border border-amber-400"
-                      asChild
+                      onClick={() => openAppointmentDialog()}
                     >
-                      <a href="#contact">Book a Visit</a>
+                      Book a Visit
                     </Button>
                   </SheetClose>
                   <SheetClose asChild>
@@ -377,9 +404,9 @@ export default function Navbar() {
                       className="w-full rounded-xl font-semibold text-teal-600 dark:text-teal-400 h-12 bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/50 dark:hover:bg-teal-900 border border-teal-200 dark:border-teal-800/50 transition-all"
                       asChild
                     >
-                      <a href="/Hayat-Life-Care-Brochure.pdf" download className="flex items-center justify-center gap-2">
+                      <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex items-center justify-center gap-2">
                         <Download className="size-4" /> Download Brochure
-                      </a>
+                      </button>
                     </Button>
                   </SheetClose>
                 </div>

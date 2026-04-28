@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes'
 import { ChevronUp, MessageSquare, Phone, Download, Mail } from 'lucide-react'
 import FooterSection from '@/components/home/FooterSection'
 import ChatWidget from '@/components/home/ChatWidget'
+import { useDownload } from '@/components/providers/DownloadProvider'
 
 export default function GlobalUI() {
   const [scrolled, setScrolled] = useState(false)
@@ -13,6 +14,7 @@ export default function GlobalUI() {
   const [chatSessionId] = useState(() => crypto.randomUUID())
   const { theme } = useTheme()
   const isDarkMode = theme === 'dark'
+  const { openDownloadPopup } = useDownload()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,12 +95,12 @@ export default function GlobalUI() {
                 <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>Call Us</span>
               </a>
               <div className="w-px h-6" style={{ background: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
-              <a href="/Hayat-Life-Care-Brochure.pdf" download className="flex flex-col items-center justify-center gap-0.5 py-1 rounded-xl text-current flex-1 transition-all active:scale-95 hover:bg-black/5 dark:hover:bg-white/5">
+              <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex flex-col items-center justify-center gap-0.5 py-1 rounded-xl text-current flex-1 transition-all active:scale-95 hover:bg-black/5 dark:hover:bg-white/5">
                 <div className="w-7 h-7 rounded-full bg-indigo-500/10 flex items-center justify-center mb-0.5">
                   <Download className="size-3.5 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>Brochure</span>
-              </a>
+              </button>
               <div className="w-px h-6" style={{ background: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
               <a href="/contact" className="flex flex-col items-center justify-center gap-0.5 py-1 rounded-xl text-current flex-1 transition-all active:scale-95 hover:bg-black/5 dark:hover:bg-white/5">
                 <div className="w-7 h-7 rounded-full bg-amber-500/10 flex items-center justify-center mb-0.5">
