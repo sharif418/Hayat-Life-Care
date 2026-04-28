@@ -59,5 +59,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Run db push to create tables then start the server
-CMD ["sh", "-c", "node node_modules/prisma/build/index.js db push --accept-data-loss --skip-generate 2>&1; node server.js"]
+# Run db push to create tables, seed admin user, then start the server
+CMD ["sh", "-c", "node node_modules/prisma/build/index.js db push --accept-data-loss --skip-generate 2>&1; node prisma/seed-prod.js 2>&1; node server.js"]
