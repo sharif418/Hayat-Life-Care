@@ -36,7 +36,7 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
-                className="bg-white rounded-xl border shadow-sm px-6 overflow-hidden"
+                className="bg-white dark:bg-slate-800 rounded-xl border dark:border-slate-700 shadow-sm px-6 overflow-hidden"
               >
                 <AccordionTrigger className="text-left font-semibold text-gray-800 dark:text-gray-200 hover:text-teal-600 hover:no-underline py-5">
                   <span className="flex items-center gap-2">

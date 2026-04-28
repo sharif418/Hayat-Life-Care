@@ -156,7 +156,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
           <FadeIn>
             <div className="max-w-xl mx-auto mb-12">
               <div className="p-6 bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-sm">
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <CreditCard className="size-5" style={{ color: '#0D9488' }} />
                   Payment Schedule
                 </h4>
@@ -180,7 +180,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
 
           {/* Benefit codes */}
           <FadeIn>
-            <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
+            <h3 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-8">
               Shareholder Benefit Codes
             </h3>
           </FadeIn>
@@ -201,7 +201,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   <div className="text-xs font-bold mb-1 px-2 py-0.5 rounded-full inline-block" style={{ background: 'rgba(13,148,136,0.1)', color: '#0D9488' }}>
                     {benefit.code}
                   </div>
-                  <div className="text-sm font-medium text-gray-800 mt-2">
+                  <div className="text-sm font-medium text-gray-800 dark:text-gray-200 mt-2">
                     {benefit.title}
                   </div>
                 </motion.div>
@@ -222,18 +222,18 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
               <div className="p-6">
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">Number of Shares</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">Number of Shares</label>
                     <input
                       type="number"
                       min="1"
                       max="20"
                       value={investShares}
                       onChange={e => { const v = parseInt(e.target.value); setInvestShares(isNaN(v) ? 1 : Math.min(20, Math.max(1, v))) }}
-                      className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
+                      className="w-full px-4 py-2 border dark:border-slate-600 rounded-lg text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">Expected Profit Rate (%)</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">Expected Profit Rate (%)</label>
                     <input
                       type="number"
                       min="5"
@@ -241,7 +241,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                       step="0.5"
                       value={investRate}
                       onChange={e => { const v = parseFloat(e.target.value); setInvestRate(isNaN(v) ? 10 : Math.min(20, Math.max(5, v))) }}
-                      className="w-full px-4 py-2 border rounded-lg text-gray-800 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
+                      className="w-full px-4 py-2 border dark:border-slate-600 rounded-lg text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
                     />
                   </div>
                 </div>

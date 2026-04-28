@@ -51,7 +51,7 @@ export default function ComparisonSection({ isDarkMode }: ComparisonSectionProps
                     { feature: "Kid's Amusement Park", us: true, them: false },
                     { feature: 'Transparent Profit Sharing', us: true, them: false },
                   ].map((row, i) => (
-                    <tr key={i} className={i % 2 === 0 ? 'bg-teal-50/30' : 'bg-white'}>
+                    <tr key={i} className={i % 2 === 0 ? 'bg-teal-50/30 dark:bg-teal-900/10' : 'bg-white dark:bg-slate-800'}>
                       <td className="px-6 py-3.5 font-medium text-gray-800 dark:text-gray-200">{row.feature}</td>
                       <td className="px-6 py-3.5 text-center">
                         <Check className="size-5 mx-auto text-green-500" />

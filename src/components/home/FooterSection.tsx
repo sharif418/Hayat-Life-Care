@@ -191,7 +191,7 @@ export default function FooterSection() {
                 <div className="flex items-start gap-2">
                   <MapPin className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
                   <div>
-                    Probortok Circle, Badshah Miah Road, Ameerbag, Chattogram
+                    Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram
                   </div>
                 </div>
                 <div className="flex items-start gap-2">

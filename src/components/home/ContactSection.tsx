@@ -40,7 +40,7 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
         <div className="grid lg:grid-cols-2 gap-10">
           {/* Contact form */}
           <FadeIn direction="right">
-            <div className="bg-linear-to-b from-white to-teal-50/30 rounded-2xl border shadow-lg overflow-hidden" style={{ borderTop: '3px solid', borderImage: 'linear-gradient(90deg, #0D9488, #10B981) 1' }}>
+            <div className="bg-white dark:bg-slate-800/90 rounded-2xl border dark:border-slate-700 shadow-lg overflow-hidden" style={{ borderTop: '3px solid', borderImage: 'linear-gradient(90deg, #0D9488, #10B981) 1' }}>
               <div className="h-2" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               <div className="p-8">
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Send Us a Message</h3>
@@ -78,13 +78,13 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
               >
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
                       Name
                     </label>
                     <Input placeholder="Your full name" required value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
                       Email
                     </label>
                     <Input type="email" placeholder="you@example.com" required value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
@@ -92,13 +92,13 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
                       Phone
                     </label>
                     <Input type="tel" placeholder="+880 1XXX-XXXXXX" value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
                       Subject
                     </label>
                     <Select value={formData.subject} onValueChange={(v) => setFormData(p => ({ ...p, subject: v }))}>
@@ -161,8 +161,8 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                   icon: MapPinned,
                   title: 'Office',
                   details: [
-                    { text: 'Probortok Circle Mishmak Manjuri,', href: 'https://maps.app.goo.gl/SC7xcBp4kXEyqByw8' },
-                    { text: 'Badshah Miah Road, Ameerbag, Chattogram', href: 'https://maps.app.goo.gl/SC7xcBp4kXEyqByw8' }
+                    { text: 'Mishmak Manjuri, Badshah Miah Road,', href: 'https://maps.app.goo.gl/SC7xcBp4kXEyqByw8' },
+                    { text: 'Ameerbag, Chattogram', href: 'https://maps.app.goo.gl/SC7xcBp4kXEyqByw8' }
                   ],
                   color: '#10B981',
                 },
@@ -206,7 +206,7 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                       <div key={j} className="text-sm text-gray-600 dark:text-gray-400">
                         {item.title === 'Phone' ? (
                           <a href={`https://wa.me/880${d.text.replace(/-/g, '').replace(/^0/, '')}`} target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 transition-colors flex items-center gap-1.5">
-                            {d.text} <span className="text-[10px] px-1.5 py-0.5 bg-green-100 text-green-700 rounded-full font-medium">WhatsApp</span>
+                            {d.text} <span className="text-[10px] px-1.5 py-0.5 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-full font-medium">WhatsApp</span>
                           </a>
                         ) : item.title === 'Email' ? (
                           <a href={`mailto:${d.text}`} className="hover:text-teal-600 transition-colors">{d.text}</a>

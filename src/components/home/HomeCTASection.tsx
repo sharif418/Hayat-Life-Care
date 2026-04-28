@@ -96,7 +96,7 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
             {
               icon: MapPin,
               title: 'Head Office',
-              detail: 'Probortok Circle Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram',
+              detail: 'Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram',
               color: '#0D9488',
             },
             {

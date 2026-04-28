@@ -13,7 +13,7 @@ const FAQ_DATABASE = [
   { q: 'What are the profit expectations?', keywords: ['profit expect', 'how much profit', 'return on investment', 'roi', 'expected return'], a: 'Profit expectations are based on the revenue generated from all 11 business wings. As the complex becomes fully operational, returns are expected to grow significantly. Detailed projections are available upon request.' },
   { q: 'How is transparency ensured?', keywords: ['transparency', 'transparent', 'audit', 'reporting', 'স্বচ্ছতা'], a: 'Transparency is maintained through regular audits, open financial reporting, shareholder meetings, and an administrative office on Level 9 for direct investor engagement.' },
   { q: 'Is there a buyback policy?', keywords: ['buyback', 'buy back', 'exit', 'sell back', 'return policy', 'ফেরত'], a: 'Yes! After 3 years, shares can be bought back at 5% higher than the purchase price, providing a guaranteed exit option for investors.' },
-  { q: 'How to book a space?', keywords: ['book', 'appointment', 'contact', 'visit', 'বুকিং', 'যোগাযোগ'], a: 'You can book a space by contacting our office at 01335-074940 or 01335-074941, or by visiting our office at Probortok Circle, Badshah Miah Road, Ameerbag, Chattogram.' },
+  { q: 'How to book a space?', keywords: ['book', 'appointment', 'contact', 'visit', 'বুকিং', 'যোগাযোগ'], a: 'You can book a space by contacting our office at 01335-074940 or 01335-074941, or by visiting our office at Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram.' },
   { q: 'What documents are required from the shareholder?', keywords: ['document required', 'documents needed', 'shareholder document', 'what documents', 'কাগজপত্র দরকার'], a: 'Required documents: (1) National ID card (photocopy), (2) Nominee national ID card (photocopy), (3) 2 passport-size photographs, (4) Completed application form with TK 10,000 application fee. Our team will guide you through the entire process.' },
   { q: 'What documents are provided by Hayat Life Care?', keywords: ['documents provided', 'what will i get', 'certificate', 'কি কাগজ পাবো'], a: 'You will receive: (1) Share certificate, (2) Share transfer form, (3) Receipt of payment, (4) Memorandum of Understanding, (5) Company registration documents. All documents are legally binding and government-recognized.' },
   { q: 'What is the expected handover date?', keywords: ['handover', 'completion', 'when ready', 'delivery', 'launch date', 'কবে হস্তান্তর'], a: 'The commercial operations are targeted to begin by December 2028. Construction is progressing on schedule. Shareholders will be notified with regular updates.' },
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       if (faqAnswer) {
         aiReply = faqAnswer;
       } else {
-        aiReply = "Thank you for your question! For detailed information on this topic, please contact our office directly at 📞 01335-074940 or 01335-074941, or visit us at Probortok Circle, Badshah Miah Road, Ameerbag, Chattogram. Our team will be happy to assist you!";
+        aiReply = "Thank you for your question! For detailed information on this topic, please contact our office directly at 📞 01335-074940 or 01335-074941, or visit us at Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram. Our team will be happy to assist you!";
       }
     }
 

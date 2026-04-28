@@ -32,7 +32,7 @@ async function main() {
     { key: 'phone_secondary', value: '01335-074949', type: 'text', group: 'contact', label: 'Secondary Phone' },
     { key: 'email', value: 'info@hayatlifecare.com', type: 'text', group: 'contact', label: 'Email' },
     { key: 'address', value: 'O.R. Nizam Road, Chattogram (Near Chittagong Medical College Hospital)', type: 'text', group: 'contact', label: 'Address' },
-    { key: 'office_address', value: 'Probortok Circle, Badshah Miah Road, Ameerbag, Chattogram', type: 'text', group: 'contact', label: 'Office Address' },
+    { key: 'office_address', value: 'Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram', type: 'text', group: 'contact', label: 'Office Address' },
     { key: 'facebook', value: 'https://facebook.com/hayatlifecare', type: 'text', group: 'social', label: 'Facebook' },
     { key: 'youtube', value: '', type: 'text', group: 'social', label: 'YouTube' },
     { key: 'instagram', value: '', type: 'text', group: 'social', label: 'Instagram' },
@@ -198,7 +198,7 @@ async function main() {
     },
     {
       question: 'Where is Hayat Life Care located?',
-      answer: 'Hayat Life Care is located at O.R. Nizam Road, Chattogram, near Chittagong Medical College Hospital. The corporate office is at Probortok Circle, Badshah Miah Road, Ameerbag, Chattogram.',
+      answer: 'Hayat Life Care is located at O.R. Nizam Road, Chattogram, near Chittagong Medical College Hospital. The corporate office is at Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram.',
       category: 'general',
       order: 2,
       active: true,
@@ -289,7 +289,7 @@ async function main() {
     },
     {
       question: 'How do I contact Hayat Life Care?',
-      answer: 'You can reach us at: Phone: 01332-850348, 01335-074949 | Office: Probortok Circle, Badshah Miah Road, Ameerbag, Chattogram | Project Site: Manashi, O.R. Nizam Road, Chattogram. You can also fill out the contact form on our website.',
+      answer: 'You can reach us at: Phone: 01332-850348, 01335-074949 | Office: Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram | Project Site: Manashi, O.R. Nizam Road, Chattogram. You can also fill out the contact form on our website.',
       category: 'general',
       order: 15,
       active: true,
