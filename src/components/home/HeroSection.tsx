@@ -46,7 +46,7 @@ const headlines = [
 // ─── Background images that cycle with headlines ───
 const heroBgImages = [
   '/images/hayat-exterior-new.jpg',
-  '/images/interior-lobby.png',
+  '/images/wings/floor_level2.jpg',
   '/images/medical-lab.png',
   '/images/hayat-exterior-new.jpg',
 ]
