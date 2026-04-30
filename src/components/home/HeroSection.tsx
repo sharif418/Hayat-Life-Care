@@ -108,11 +108,11 @@ export default function HeroSection({
           </AnimatePresence>
         </motion.div>
 
-        {/* Overlay — Light at the top for logo visibility, transitioning to dark */}
+        {/* Overlay — Dark gradient for readability */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(200,210,230,0.6) 15%, rgba(15,23,42,0.7) 35%, rgba(15,23,42,0.95) 100%)',
+            background: 'linear-gradient(180deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.6) 20%, rgba(15,23,42,0.7) 50%, rgba(15,23,42,0.95) 100%)',
           }}
         />
 
