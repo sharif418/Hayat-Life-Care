@@ -130,7 +130,7 @@ export default function Navbar() {
             className={`flex items-center shrink-0 relative group rounded-2xl px-4 py-2 -ml-4 transition-all duration-300 ${
               scrolled
                 ? isDarkMode ? 'bg-white/3 border border-white/6' : 'bg-teal-50/50 border border-teal-100/50'
-                : isHomePage ? 'bg-white/6 border border-white/8 backdrop-blur-sm' : 'bg-white/6 border border-white/8 backdrop-blur-sm'
+                : 'bg-white/6 border border-white/8 backdrop-blur-sm'
             }`}
           >
             {/* Subtle glow behind logo */}
@@ -146,13 +146,13 @@ export default function Navbar() {
                 style={{
                   background: scrolled
                     ? (isDarkMode ? 'rgba(13,148,136,0.3)' : 'rgba(13,148,136,0.35)')
-                    : isHomePage ? 'rgba(13,148,136,0.3)' : 'rgba(255,255,255,0.25)'
+                    : 'rgba(255,255,255,0.3)'
                 }}
               />
               <span className={`ml-3.5 text-[8.5px] md:text-[9.5px] font-bold tracking-[0.15em] uppercase relative z-10 font-outfit leading-snug max-w-[130px] transition-colors duration-300 ${
                 scrolled
                   ? (isDarkMode ? 'text-teal-400/80' : 'text-teal-700')
-                  : isHomePage ? 'text-teal-800' : 'text-white/70'
+                  : 'text-white/80'
               }`}>
                 To Save & Serve the Generation
               </span>
@@ -173,11 +173,11 @@ export default function Navbar() {
                     href={link.href}
                     className={`relative px-3 xl:px-4 py-2.5 text-[12px] xl:text-[13px] uppercase tracking-widest font-semibold font-outfit rounded-lg transition-all duration-300 flex items-center gap-1.5 ${
                       isActive
-                        ? isDarkMode ? 'text-teal-400' : (scrolled ? 'text-teal-400' : isHomePage ? 'text-teal-800 font-bold' : 'text-teal-300 font-bold')
+                        ? isDarkMode ? 'text-teal-400' : (scrolled ? 'text-teal-600 font-bold' : 'text-teal-300 font-bold')
                       : isDarkMode
                         ? 'text-slate-300 hover:text-teal-400'
-                        : scrolled ? 'text-slate-300 hover:text-teal-400' : isHomePage ? 'text-slate-800 hover:text-teal-800 font-medium' : 'text-white/80 hover:text-teal-300 font-medium'
-                  }`}
+                        : scrolled ? 'text-slate-700 hover:text-teal-600 font-medium' : 'text-white/80 hover:text-teal-300 font-medium'
+                    }`}
                 >
                   {link.label}
                   {link.children && (
