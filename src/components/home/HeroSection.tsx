@@ -123,22 +123,25 @@ export default function HeroSection({
           className="relative z-10 max-w-5xl mx-auto px-4 pt-4 pb-8 md:pt-6 md:pb-10 text-center flex flex-col items-center justify-center"
           style={{ opacity: heroOpacity }}
         >
-          {/* Eyebrow Badge — Official "Brochure Approve" style */}
+          {/* Eyebrow Badge — Enhanced Premium Style */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full text-slate-800 text-[11px] md:text-sm font-semibold mb-6 backdrop-blur-md shadow-[0_4px_15px_rgba(0,0,0,0.08)]"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
+            className="group relative flex items-center gap-3 px-5 py-2.5 md:px-7 md:py-3 rounded-full overflow-hidden cursor-default mb-6 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-white/40 hover:border-teal-400/50 transition-all duration-500"
             style={{ 
-              background: 'linear-gradient(90deg, rgba(255,255,255,0.85) 0%, rgba(248,250,252,0.95) 50%, rgba(255,255,255,0.85) 100%)',
-              border: '1px solid rgba(13, 148, 136, 0.2)', // Subtle teal border
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,249,255,0.85) 100%)',
             }}
           >
-            <div className="flex items-center justify-center bg-linear-to-br from-amber-400 to-amber-500 rounded-full p-1.5 shadow-sm">
-              <Award className="size-3.5 md:size-4 text-slate-900" />
+            {/* Automatic subtle shimmer effect */}
+            <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/60 to-transparent animate-[shimmer_2.5s_infinite]" />
+            
+            <div className="relative flex items-center justify-center bg-linear-to-br from-amber-400 via-amber-500 to-amber-600 rounded-full p-1.5 md:p-2 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+              <Award className="size-3.5 md:size-4 text-white" />
             </div>
-            <span className="tracking-wide">
-              The First Cancer Diagnostic &amp; Specialized Hospital in Chattogram, with One of the Largest Facilities.
+            
+            <span className="relative text-[11px] md:text-[14px] font-extrabold tracking-wide text-transparent bg-clip-text bg-linear-to-r from-teal-950 to-slate-800 uppercase">
+              The First Cancer Diagnostic &amp; Specialized Hospital in Chattogram
             </span>
           </motion.div>
 
