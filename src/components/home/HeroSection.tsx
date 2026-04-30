@@ -225,7 +225,7 @@ export default function HeroSection({
             >
               <a href="/investment#investment">
                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-amber-500/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                <TrendingUp className="mr-2 size-4 group-hover:scale-110 transition-transform" /> Invest Now
+                <TrendingUp className="mr-2 size-4 group-hover:scale-110 transition-transform" /> Be Owner Now
               </a>
             </Button>
           </motion.div>
