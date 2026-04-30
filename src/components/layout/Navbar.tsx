@@ -44,8 +44,8 @@ export default function Navbar() {
       >
         <div className="w-full max-w-7xl mx-auto flex items-center justify-between text-xs text-white h-full relative">
           
-          {/* Static Contact Info (Hidden on Mobile) */}
-          <div className="hidden lg:flex items-center gap-4 px-4 h-full bg-hayat-dark z-20 relative shadow-[10px_0_15px_-3px_rgba(15,23,42,1)]">
+          {/* Static Contact Info (Hidden on Mobile/Tablet) */}
+          <div className="hidden xl:flex items-center gap-4 px-4 h-full bg-hayat-dark z-20 relative shadow-[10px_0_15px_-3px_rgba(15,23,42,1)]">
             <div className="flex items-center gap-1.5 text-white/90 font-medium">
               <Phone className="size-4 text-emerald-400" />
               <span className="text-sm">01335-074940</span>
@@ -59,11 +59,11 @@ export default function Navbar() {
           {/* Marquee Ticker */}
           <div className="flex-1 relative h-full overflow-hidden flex items-center">
             {/* Left fade for ticker */}
-            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(90deg, #0F172A, transparent)' }} />
+            <div className="hidden xl:block absolute left-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(90deg, #0F172A, transparent)' }} />
             {/* Right fade */}
             <div className="absolute right-0 top-0 bottom-0 w-12 z-10" style={{ background: 'linear-gradient(270deg, #0F172A, transparent)' }} />
             
-            <div className="flex items-center gap-8 animate-marquee whitespace-nowrap pl-4 lg:pl-0">
+            <div className="flex items-center gap-8 animate-marquee whitespace-nowrap pl-4 xl:pl-0">
               {[...Array(3)].map((_, i) => (
                 <React.Fragment key={i}>
                   <span className="text-white/60 font-medium flex items-center gap-2">
@@ -97,8 +97,8 @@ export default function Navbar() {
             </div>
           </div>
           
-          {/* Socials (Hidden on Mobile) */}
-          <div className="hidden lg:flex items-center gap-3 px-4 h-full bg-hayat-dark z-20 relative shadow-[-10px_0_15px_-3px_rgba(15,23,42,1)]">
+          {/* Socials (Hidden on Mobile/Tablet) */}
+          <div className="hidden xl:flex items-center gap-3 px-4 h-full bg-hayat-dark z-20 relative shadow-[-10px_0_15px_-3px_rgba(15,23,42,1)]">
             <a href="https://www.facebook.com/hayatlifecareltd" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors hover:scale-110 transform" aria-label="Facebook">
               <Facebook className="size-3.5" />
             </a>
@@ -160,7 +160,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop nav — consolidated 7 items with Dream Education-style underline */}
-          <div className="hidden lg:flex items-center gap-0.5">
+          <div className="hidden xl:flex items-center gap-0.5">
             {navLinks.map((link) => {
               // Determine if the link is active based on the actual URL pathname
               const isActive = link.href === '/' 
@@ -268,7 +268,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu */}
-          <div className="lg:hidden flex items-center gap-2">
+          <div className="xl:hidden flex items-center gap-2">
             <button
               className={`rounded-full h-8 w-8 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                 scrolled
