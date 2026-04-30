@@ -31,7 +31,7 @@ export default function FacilitiesPage() {
       {/* <VirtualTourSection isDarkMode={isDarkMode} /> */}
       {/* <DoctorsSection isDarkMode={isDarkMode} /> */}
       <GallerySection isDarkMode={isDarkMode} />
-      <HealthTipsSection isDarkMode={isDarkMode} />
+      {/* <HealthTipsSection isDarkMode={isDarkMode} /> */}
     </PageWrapper>
   );
 }
