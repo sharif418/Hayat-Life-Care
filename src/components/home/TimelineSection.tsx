@@ -119,7 +119,7 @@ export default function TimelineSection({ isDarkMode }: TimelineSectionProps) {
                   { phase: 'Interior Finishing', status: 'upcoming', percent: 0 },
                   { phase: 'Equipment Installation', status: 'upcoming', percent: 0 },
                 ].map((item, i) => (
-                  <StaggerItem key={i} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: item.status === 'completed' ? 'rgba(16,185,129,0.05)' : item.status === 'in-progress' ? 'rgba(13,148,136,0.05)' : 'rgba(107,114,128,0.03)' }}>
+                  <div key={i} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: item.status === 'completed' ? 'rgba(16,185,129,0.05)' : item.status === 'in-progress' ? 'rgba(13,148,136,0.05)' : 'rgba(107,114,128,0.03)' }}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                       item.status === 'completed' ? 'bg-emerald-100' :
                       item.status === 'in-progress' ? 'bg-teal-100 animate-pulse' :
@@ -151,7 +151,7 @@ export default function TimelineSection({ isDarkMode }: TimelineSectionProps) {
                       item.status === 'in-progress' ? 'text-teal-600' :
                       'text-gray-400'
                     }`}>{item.percent}%</span>
-                  </StaggerItem>
+                  </div>
                 ))}
               </StaggerContainer>
             </div>

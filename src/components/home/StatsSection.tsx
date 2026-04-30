@@ -8,7 +8,7 @@ import { Sparkles, MapPin, Building2, Users } from 'lucide-react'
 function useCounter(end: number, duration = 2000) {
   const [count, setCount] = useState(0)
   const [done, setDone] = useState(false)
-  const ref = useRef<HTMLSpanElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true })
 
   useEffect(() => {

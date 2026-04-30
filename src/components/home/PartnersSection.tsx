@@ -33,7 +33,7 @@ export default function PartnersSection({ isDarkMode }: TrustSectionProps) {
               { name: 'CMCH', desc: 'Medical College Hospital', icon: Stethoscope },
               { name: 'RJSC', desc: 'Registered with Joint Stock', icon: FileCheck },
             ].map((partner, i) => (
-              <StaggerItem key={i}
+              <motion.div key={i}
                 whileHover={{ y: -5, scale: 1.03 }}
                 className="group flex flex-col items-center gap-3 p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-teal-200 transition-all duration-300 min-w-[160px]"
                 style={{ boxShadow: '0 0 0 rgba(13,148,136,0)' }}
@@ -45,7 +45,7 @@ export default function PartnersSection({ isDarkMode }: TrustSectionProps) {
                 </div>
                 <div className="text-sm font-bold text-gray-900 text-center">{partner.name}</div>
                 <div className="text-xs text-gray-700 text-center leading-snug">{partner.desc}</div>
-              </StaggerItem>
+              </motion.div>
             ))}
           </StaggerContainer>
         </FadeIn>

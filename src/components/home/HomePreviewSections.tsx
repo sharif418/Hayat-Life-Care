@@ -45,10 +45,10 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
             <FadeIn direction="right">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
                 <Image
-                  src="/images/hayat-exterior-new.jpg"
-                  alt="Hayat Life Care Aerial View"
-                  width={700}
-                  height={450}
+                  src="/images/hayat-exterior-vertical.jpg"
+                  alt="Hayat Life Care Building View"
+                  width={800}
+                  height={1000}
                   className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
                   loading="lazy"
                 />

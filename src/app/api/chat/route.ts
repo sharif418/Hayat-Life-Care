@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 
-// Complete FAQ knowledge base
-const FAQ_DATABASE = [
-  { q: 'What is Hayat Life Care?', keywords: ['what is', 'hayat life care', 'about', 'tell me about', 'company', 'কি', 'সম্পর্কে'], a: 'Hayat Life Care is a premium healthcare and lifestyle complex in Chattogram, Bangladesh — a one-stop destination for healthcare services, daily essentials, dining, and entertainment under one roof. It is a sister concern of Hayat Holdings.' },
+// Fallback FAQ knowledge base (used when database has no FAQs)
+const FALLBACK_FAQ_DATABASE = [
+  { q: 'What is Hayat Life Care?', keywords: ['what is', 'hayat life care', 'about', 'tell me about', 'company', 'কি', 'সম্পর্কে'], a: 'Hayat Life Care is a premium healthcare and lifestyle complex in Chattogram, Bangladesh — a one-stop destination for healthcare services, daily essentials, dining, and entertainment under one roof.' },
   { q: 'Where is it located?', keywords: ['where', 'location', 'address', 'situated', 'কোথায়', 'ঠিকানা'], a: 'Hayat Life Care is located at Manashi, O.R. Nizam Road, Chattogram — one of the most trusted healthcare zones in the city, near Chittagong Medical College Hospital.' },
   { q: 'What is the land area and structure?', keywords: ['land', 'area', 'structure', 'katha', 'floors', 'levels', 'building', 'size', 'জমি', 'তলা'], a: 'The complex spans 55 Katha of land with 9 levels plus 3 basements. Future plans include expansion to 14-18 floors.' },
   { q: 'Why invest in Hayat Life Care?', keywords: ['why invest', 'investment', 'invest', 'reason', 'benefit of investing', 'কেন বিনিয়োগ'], a: 'Hayat Life Care offers a unique investment opportunity in Chattogram\'s healthcare sector. With 11 business wings, a prime location, and no bank loans, your investment is secure with transparent profit distribution and a buyback guarantee after 3 years at 5% higher price.' },
@@ -25,33 +25,34 @@ const FAQ_DATABASE = [
   { q: 'What is the payment schedule?', keywords: ['payment', 'installment', 'pay', 'down payment', 'পেমেন্ট', 'কিস্তি'], a: 'Payment Schedule: 50% Down Payment at the time of booking, 25% within 30 days, and the remaining 25% within 60-90 days.' },
 ];
 
-// Simple keyword-based FAQ matching
-function findBestFAQMatch(userMessage: string): string | null {
-  const lowerMsg = userMessage.toLowerCase().trim();
-  
-  let bestMatch: { answer: string; score: number } | null = null;
+// Extract keywords from a question string automatically
+function extractKeywords(question: string): string[] {
+  const stopWords = new Set(['is', 'a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'from', 'it', 'this', 'that', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'can', 'what', 'how', 'when', 'where', 'who', 'which', 'there', 'here', 'i', 'you', 'we', 'they', 'my', 'your', 'our', 'their']);
+  const words = question.toLowerCase().replace(/[?!.,]/g, '').split(/\s+/);
+  return words.filter(w => w.length > 2 && !stopWords.has(w));
+}
 
-  for (const faq of FAQ_DATABASE) {
-    let score = 0;
-    for (const keyword of faq.keywords) {
-      if (lowerMsg.includes(keyword.toLowerCase())) {
-        score += keyword.length; // Longer keyword matches get higher scores
-      }
-    }
-    // Also check if question words match
-    const questionWords = faq.q.toLowerCase().split(' ');
-    for (const word of questionWords) {
-      if (word.length > 3 && lowerMsg.includes(word)) {
-        score += 1;
-      }
-    }
+// Score how well a user message matches a FAQ entry
+function scoreFAQMatch(userMsg: string, question: string, keywords: string[]): number {
+  const lowerMsg = userMsg.toLowerCase().trim();
+  let score = 0;
 
-    if (score > 0 && (!bestMatch || score > bestMatch.score)) {
-      bestMatch = { answer: faq.a, score };
+  // Check explicit keywords (higher weight)
+  for (const keyword of keywords) {
+    if (lowerMsg.includes(keyword.toLowerCase())) {
+      score += keyword.length * 2; // Keyword matches weighted x2
     }
   }
 
-  return bestMatch ? bestMatch.answer : null;
+  // Check question words (auto-extracted)
+  const questionKeywords = extractKeywords(question);
+  for (const word of questionKeywords) {
+    if (lowerMsg.includes(word)) {
+      score += word.length;
+    }
+  }
+
+  return score;
 }
 
 // Greeting detection
@@ -60,7 +61,18 @@ function isGreeting(msg: string): boolean {
   return greetings.some(g => msg.toLowerCase().includes(g));
 }
 
-// POST /api/chat - AI Chat endpoint (FAQ-based)
+// Contact fallback message
+const CONTACT_FALLBACK = `Thank you for your question! 🙏
+
+This is beyond my current knowledge base. For detailed and personalized assistance, please reach out to our team directly:
+
+📞 **Call:** 01335-074940 / 01335-074941
+🏢 **Visit:** Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram
+🕐 **Office Hours:** Saturday–Thursday, 10:00 AM – 6:00 PM
+
+Our team will be happy to assist you!`;
+
+// POST /api/chat - AI Chat endpoint (Dynamic FAQ + Fallback)
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -88,11 +100,47 @@ export async function POST(request: NextRequest) {
     if (isGreeting(message)) {
       aiReply = "Assalamualaikum! 👋 Welcome to Hayat Life Care. I'm here to help you with information about our healthcare complex, investment opportunities, facilities, and more. How can I assist you today?";
     } else {
-      const faqAnswer = findBestFAQMatch(message);
-      if (faqAnswer) {
-        aiReply = faqAnswer;
+      // Step 1: Try matching from DATABASE FAQs first (admin-managed, real-time)
+      let bestMatch: { answer: string; score: number } | null = null;
+
+      try {
+        const dbFaqs = await db.fAQ.findMany({
+          where: { active: true },
+          orderBy: { order: 'asc' },
+        });
+
+        if (dbFaqs.length > 0) {
+          for (const faq of dbFaqs) {
+            const autoKeywords = extractKeywords(faq.question);
+            // Also add category as a keyword
+            if (faq.category && faq.category !== 'general') {
+              autoKeywords.push(faq.category.toLowerCase());
+            }
+            const score = scoreFAQMatch(message, faq.question, autoKeywords);
+            if (score > 0 && (!bestMatch || score > bestMatch.score)) {
+              bestMatch = { answer: faq.answer, score };
+            }
+          }
+        }
+      } catch (dbError) {
+        console.warn('Could not fetch FAQs from database, falling back to hardcoded:', dbError);
+      }
+
+      // Step 2: If no DB match, try the hardcoded fallback FAQ database
+      if (!bestMatch) {
+        for (const faq of FALLBACK_FAQ_DATABASE) {
+          const score = scoreFAQMatch(message, faq.q, faq.keywords);
+          if (score > 0 && (!bestMatch || score > bestMatch.score)) {
+            bestMatch = { answer: faq.a, score };
+          }
+        }
+      }
+
+      // Step 3: Use match or show contact fallback
+      if (bestMatch && bestMatch.score > 3) {
+        aiReply = bestMatch.answer;
       } else {
-        aiReply = "Thank you for your question! For detailed information on this topic, please contact our office directly at 📞 01335-074940 or 01335-074941, or visit us at Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram. Our team will be happy to assist you!";
+        aiReply = CONTACT_FALLBACK;
       }
     }
 

@@ -13,6 +13,52 @@ interface InvestmentSectionProps {
   isDarkMode: boolean
 }
 
+const benefitNames: Record<string, string> = {
+  B1: 'Lifetime Financial Benefit',
+  B2: 'Self Health Access',
+  B3: 'Partner Health Access',
+  B4: 'Family Health Access',
+  B5: 'Family Health Access Including Parents',
+  B6: 'Family Health Access Including Parents-in-law',
+  B7: 'VIP Access to All Facilities of the Complex',
+  B8: 'Social Recognition & Share Certification',
+}
+
+function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradient: string, color: string }) {
+  const [hovered, setHovered] = useState<string | null>(null)
+  return (
+    <div className="px-5 pb-5">
+      <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2.5">Benefits Included</div>
+      <div className="flex flex-wrap gap-2">
+        {benefits.map((b) => (
+          <span
+            key={b}
+            onMouseEnter={() => setHovered(b)}
+            onMouseLeave={() => setHovered(null)}
+            className={`px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-sm cursor-pointer transition-all duration-200 ease-out ${
+              hovered === b
+                ? 'scale-110 -translate-y-1 shadow-lg ring-2 ring-white/40'
+                : hovered
+                  ? 'opacity-50 scale-95'
+                  : ''
+            }`}
+            style={{ background: gradient }}
+          >
+            {b}
+          </span>
+        ))}
+      </div>
+      {/* Inline benefit meaning display */}
+      <div className={`mt-3 overflow-hidden transition-all duration-200 ease-out ${hovered ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: `${color}10` }}>
+          <span className="font-bold shrink-0" style={{ color }}>{hovered}:</span>
+          <span className="text-gray-700 dark:text-gray-300 font-medium">{hovered ? benefitNames[hovered] : ''}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps) {
   const [investShares, setInvestShares] = useState(1)
   const [investRate, setInvestRate] = useState(10)
@@ -71,106 +117,121 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
             </div>
           </FadeIn>
 
-          {/* Share Price Widget */}
+          {/* Investment Value Proposition — Premium Unified Card */}
           <FadeIn delay={0.2}>
-            <div className="max-w-lg mx-auto mb-8">
-              <div className="bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-lg overflow-hidden">
-                <div className="h-1.5" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
-                <div className="p-5">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
-                        <TrendingUp className="size-4 text-white" />
+            <div className="max-w-5xl mx-auto mb-16">
+              <div className="relative bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
+                {/* Top gradient accent */}
+                <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #0D9488, #D97706, #10B981)' }} />
+
+                {/* Share Price Ticker Bar */}
+                <div className="px-6 md:px-10 pt-7 pb-5 border-b border-gray-100 dark:border-slate-700">
+                  <div className="flex items-center justify-between flex-wrap gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-xl" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                        <TrendingUp className="size-5 text-white" />
                       </div>
                       <div>
-                      <div className="text-sm font-bold text-gray-900 dark:text-white">HLC Share Price</div>
-                        <div className="text-[11px] text-gray-500 dark:text-gray-400">1st Phase</div>
+                        <div className="text-sm font-bold text-gray-900 dark:text-white">HLC Share Price</div>
+                        <div className="flex items-center gap-1.5 text-xs">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="text-emerald-600 font-semibold">Live · 1st Phase</span>
+                        </div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-black" style={{ color: '#0D9488' }}>৳10 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Lacs</span></div>
-                      <div className="flex items-center justify-end gap-1 text-xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span className="text-emerald-600 font-semibold">Live</span>
-                      </div>
+                      <div className="text-3xl font-black" style={{ color: '#0D9488' }}>৳10 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Lacs</span></div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-3 gap-3 mt-3">
-                    <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-2.5 text-center">
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">Phase 1</div>
-                      <div className="text-sm font-bold text-gray-900 dark:text-white">৳10L</div>
-                      <div className="text-[10px] text-emerald-600">2,500 shares</div>
+                  <div className="grid grid-cols-3 gap-3 mt-4">
+                    {[
+                      { phase: 'Phase 1', price: '৳10L', shares: '2,500 shares', color: 'text-emerald-600' },
+                      { phase: 'Phase 2', price: '৳15L', shares: '500 shares', color: 'text-amber-600' },
+                      { phase: 'Phase 3', price: '৳20L', shares: '1,000 shares', color: 'text-rose-600' },
+                    ].map((p, i) => (
+                      <div key={i} className="bg-gray-50 dark:bg-slate-700/50 rounded-xl p-3 text-center">
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">{p.phase}</div>
+                        <div className="text-sm font-bold text-gray-900 dark:text-white">{p.price}</div>
+                        <div className={`text-[10px] ${p.color}`}>{p.shares}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Main Content — 2 col */}
+                <div className="grid md:grid-cols-2 gap-0">
+                  {/* Left — Text */}
+                  <div className="p-8 md:p-10 flex flex-col justify-center">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-snug">
+                      More Than an Investment —<br />
+                      <span style={{ color: '#0D9488' }}>A Legacy of Lasting Value</span>
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
+                      Prestigious ownership offering sustainable income, lifetime healthcare access for your family, and proportionate ownership of land, structure &amp; all 11 business wings.
+                    </p>
+                    <div className="space-y-3">
+                      {[
+                        { icon: Shield, text: 'Tangible asset value with land ownership' },
+                        { icon: TrendingUp, text: 'Diversified income from 11 business wings' },
+                        { icon: Users, text: 'Lifetime healthcare for your entire family' },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(13,148,136,0.08)' }}>
+                            <item.icon className="size-4" style={{ color: '#0D9488' }} />
+                          </div>
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{item.text}</span>
+                        </div>
+                      ))}
                     </div>
-                    <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-2.5 text-center">
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">Phase 2</div>
-                      <div className="text-sm font-bold text-gray-900 dark:text-white">৳15L</div>
-                      <div className="text-[10px] text-amber-600">500 shares</div>
-                    </div>
-                    <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-2.5 text-center">
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">Phase 3</div>
-                      <div className="text-sm font-bold text-gray-900 dark:text-white">৳20L</div>
-                      <div className="text-[10px] text-rose-600">1,000 shares</div>
-                    </div>
+                  </div>
+                  {/* Right — Stats */}
+                  <div className="bg-linear-to-br from-gray-50 to-teal-50/30 dark:from-slate-800 dark:to-slate-700/50 p-8 md:p-10 flex flex-col justify-center gap-5 border-t md:border-t-0 md:border-l border-gray-100 dark:border-slate-700">
+                    {[
+                      { icon: HandCoins, label: 'Share Price', value: '10 Lacs BDT', sub: 'Per Share', color: '#D97706' },
+                      { icon: Users, label: 'Total Shares', value: '4,950', sub: 'Maximum Available', color: '#0D9488' },
+                      { icon: Shield, label: 'Buyback Policy', value: '+5% After 3 Yrs', sub: 'Guaranteed Exit', color: '#10B981' },
+                    ].map((stat, i) => (
+                      <motion.div key={i} whileHover={{ x: 4 }} className="flex items-center gap-4 group cursor-default">
+                        <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm group-hover:shadow-md transition-shadow duration-300" style={{ background: `${stat.color}15` }}>
+                          <stat.icon className="size-5" style={{ color: stat.color }} />
+                        </div>
+                        <div>
+                          <div className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">{stat.label}</div>
+                          <div className="text-lg font-bold text-gray-900 dark:text-white">{stat.value}</div>
+                          <div className="text-[11px] text-gray-400">{stat.sub}</div>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
           </FadeIn>
 
-          {/* Investment intro */}
-          <FadeIn>
-            <p className="text-center text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-              This is not just an investment, but the creation of lasting value—financially, socially, and through prestigious ownership, offering one of the most sustainable sources of income. It provides lifetime access to high-quality healthcare services for you, your family, and the future. Ownership includes all 11 business wings, along with proportionate ownership of land and structure—ensuring tangible asset value, diversified income streams, and long-term security for your investment.
-            </p>
-          </FadeIn>
-
-          {/* Key investment info */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
-            <FadeIn delay={0.1}>
-              <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-sm">
-                <HandCoins className="size-8 mx-auto mb-3" style={{ color: '#D97706' }} />
-                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Share Price</div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">10 Lacs BDT</div>
-                <div className="text-xs text-gray-400 mt-1">Per Share</div>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-sm">
-                <Users className="size-8 mx-auto mb-3" style={{ color: '#0D9488' }} />
-                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Total Shares</div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">4,950</div>
-                <div className="text-xs text-gray-400 mt-1">Maximum Available</div>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.3}>
-              <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-sm">
-                <Shield className="size-8 mx-auto mb-3" style={{ color: '#10B981' }} />
-                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Buyback Policy</div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">+5% After 3 Yrs</div>
-                <div className="text-xs text-gray-400 mt-1">Guaranteed Exit</div>
-              </div>
-            </FadeIn>
-          </div>
-
           {/* Payment options */}
           <FadeIn>
-            <div className="max-w-xl mx-auto mb-12">
-              <div className="p-6 bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-sm">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                  <CreditCard className="size-5" style={{ color: '#0D9488' }} />
-                  Payment Schedule
-                </h4>
-                <div className="space-y-3">
+            <div className="max-w-5xl mx-auto mb-16">
+              <div className="bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-lg overflow-hidden">
+                <div className="px-8 py-5 border-b border-gray-100 dark:border-slate-700 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                    <CreditCard className="size-4 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 dark:text-white text-sm">Payment Schedule</h4>
+                    <p className="text-[11px] text-gray-400">Flexible 3-step payment plan</p>
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-gray-100 dark:divide-slate-700">
                   {[
-                    '50% Down Payment',
-                    '25% Within 30 Days',
-                    '25% Within 60-90 Days',
+                    { step: '01', label: 'Down Payment', value: '50%', desc: 'At the time of booking' },
+                    { step: '02', label: '2nd Installment', value: '25%', desc: 'Within 30 days' },
+                    { step: '03', label: '3rd Installment', value: '25%', desc: 'Within 60-90 days' },
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
-                      <div className="flex items-center justify-center w-6 h-6 rounded-full" style={{ background: 'rgba(13,148,136,0.1)' }}>
-                        <Check className="size-3.5" style={{ color: '#0D9488' }} />
-                      </div>
-                      {item}
+                    <div key={i} className="p-6 text-center group hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-colors duration-300">
+                      <div className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#0D9488' }}>Step {item.step}</div>
+                      <div className="text-3xl font-black text-gray-900 dark:text-white mb-1">{item.value}</div>
+                      <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-0.5">{item.label}</div>
+                      <div className="text-xs text-gray-400">{item.desc}</div>
                     </div>
                   ))}
                 </div>
@@ -180,29 +241,42 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
 
           {/* Benefit codes */}
           <FadeIn>
-            <h3 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-8">
-              Shareholder Benefit Codes
-            </h3>
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
+                <Shield className="size-3" />
+                BENEFIT CODES
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                Shareholder Benefit Codes
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400 text-sm max-w-lg mx-auto">
+                Each benefit code represents a specific privilege. Your tier determines which codes you unlock.
+              </p>
+            </div>
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto mb-12">
             {benefitCodes.map((benefit) => (
               <StaggerItem key={benefit.code}>
                 <motion.div
-                  whileHover={{ y: -3 }}
-                  className="p-5 bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-sm text-center hover:shadow-lg hover:border-teal-200 transition-all duration-300"
+                  whileHover={{ y: -6, scale: 1.04 }}
+                  className="group relative p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-gray-100 dark:border-slate-700 shadow-sm text-center hover:shadow-[0_8px_30px_rgba(13,148,136,0.15)] hover:border-teal-400 dark:hover:border-teal-500 transition-all duration-300 cursor-default overflow-hidden"
                 >
-                  <div
-                    className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-3"
-                    style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}
-                  >
-                    <benefit.icon className="size-5" style={{ color: '#0D9488' }} />
-                  </div>
-                  <div className="text-xs font-bold mb-1 px-2 py-0.5 rounded-full inline-block" style={{ background: 'rgba(13,148,136,0.1)', color: '#0D9488' }}>
-                    {benefit.code}
-                  </div>
-                  <div className="text-sm font-medium text-gray-800 dark:text-gray-200 mt-2">
-                    {benefit.title}
+                  {/* Hover glow background */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'radial-gradient(circle at 50% 0%, rgba(13,148,136,0.06) 0%, transparent 70%)' }} />
+                  <div className="relative">
+                    <div
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-3 group-hover:scale-110 transition-transform duration-300"
+                      style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}
+                    >
+                      <benefit.icon className="size-6 group-hover:text-teal-500 transition-colors duration-300" style={{ color: '#0D9488' }} />
+                    </div>
+                    <div className="text-xs font-bold mb-1.5 px-3 py-1 rounded-full inline-block group-hover:shadow-md transition-shadow duration-300" style={{ background: 'rgba(13,148,136,0.1)', color: '#0D9488' }}>
+                      {benefit.code}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-800 dark:text-gray-200 mt-2 group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors duration-300">
+                      {benefit.title}
+                    </div>
                   </div>
                 </motion.div>
               </StaggerItem>
@@ -211,29 +285,33 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
 
           {/* Investment Calculator */}
           <FadeIn>
-            <div className="mt-12 max-w-2xl mx-auto bg-white dark:bg-slate-800 rounded-2xl border dark:border-slate-700 shadow-lg overflow-hidden">
-              <div className="p-6 text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
-                <h4 className="text-xl font-bold flex items-center gap-2">
-                  <HandCoins className="size-5" />
-                  Investment ROI Calculator
-                </h4>
-                <p className="text-sm text-white/80 mt-1">Estimate your potential returns</p>
-              </div>
-              <div className="p-6">
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
+            <div className="mt-16 max-w-5xl mx-auto bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
+              <div className="p-6 md:p-8 text-white" style={{ background: 'linear-gradient(135deg, #0D9488 0%, #065F46 100%)' }}>
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-white/15 flex items-center justify-center">
+                    <HandCoins className="size-5" />
+                  </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">Number of Shares</label>
+                    <h4 className="text-xl font-bold">Investment ROI Calculator</h4>
+                    <p className="text-sm text-white/70">Estimate your potential returns in real-time</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 md:p-8">
+                <div className="grid sm:grid-cols-2 gap-5 mb-8">
+                  <div>
+                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 block">Number of Shares</label>
                     <input
                       type="number"
                       min="1"
                       max="20"
                       value={investShares}
                       onChange={e => { const v = parseInt(e.target.value); setInvestShares(isNaN(v) ? 1 : Math.min(20, Math.max(1, v))) }}
-                      className="w-full px-4 py-2 border dark:border-slate-600 rounded-lg text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-600 rounded-xl text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all text-lg font-bold"
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">Expected Profit Rate (%)</label>
+                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 block">Expected Profit Rate (%)</label>
                     <input
                       type="number"
                       min="5"
@@ -241,21 +319,21 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                       step="0.5"
                       value={investRate}
                       onChange={e => { const v = parseFloat(e.target.value); setInvestRate(isNaN(v) ? 10 : Math.min(20, Math.max(5, v))) }}
-                      className="w-full px-4 py-2 border dark:border-slate-600 rounded-lg text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
+                      className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-600 rounded-xl text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all text-lg font-bold"
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {[
                     { label: 'Investment', value: `৳${(investShares * 10).toFixed(0)}L`, color: '#0D9488', percent: (investShares / 20) * 100 },
                     { label: 'Annual Return', value: `৳${(investShares * 10 * investRate / 100).toFixed(1)}L`, color: '#10B981', percent: Math.min((investShares * investRate / 200) * 100, 100) },
                     { label: '3-Year Return', value: `৳${(investShares * 10 * investRate / 100 * 3).toFixed(1)}L`, color: '#D97706', percent: Math.min((investShares * investRate * 3 / 200) * 100, 100) },
                     { label: 'Buyback Value', value: `৳${(investShares * 10.5).toFixed(1)}L`, color: '#0D9488', percent: (investShares * 10.5 / 210) * 100 },
                   ].map((item, i) => (
-                    <div key={i} className="p-4 rounded-xl text-center relative overflow-hidden" style={{ background: `${item.color}08` }}>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{item.label}</div>
-                      <div className="text-lg font-bold mb-2" style={{ color: item.color }}>{item.value}</div>
-                      <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
+                    <div key={i} className="p-4 rounded-2xl text-center relative overflow-hidden border border-gray-100 dark:border-slate-700 hover:shadow-md transition-shadow duration-300" style={{ background: `${item.color}06` }}>
+                      <div className="text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-1">{item.label}</div>
+                      <div className="text-xl font-black mb-2" style={{ color: item.color }}>{item.value}</div>
+                      <div className="h-1.5 rounded-full bg-gray-100 dark:bg-slate-700 overflow-hidden">
                         <motion.div
                           className="h-full rounded-full"
                           style={{ background: item.color }}
@@ -267,7 +345,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-gray-400 mt-3 text-center">* Based on projected profit rate. Actual returns may vary. Buyback after 3 years at 5% premium.</p>
+                <p className="text-[11px] text-gray-400 mt-4 text-center">* Based on projected profit rate. Actual returns may vary. Buyback after 3 years at 5% premium.</p>
 
                 {/* Additional Benefits — Dynamic based on shares */}
                 <div className="mt-6 pt-6 border-t border-gray-100 dark:border-slate-700">
@@ -309,14 +387,17 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
           {/* ═══════════════════════════════════════════════════════ */}
           <FadeIn>
             <div className="mt-20 mb-12">
-              <div className="text-center mb-10">
+              <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 text-xs font-semibold mb-4">
                   <Users className="size-3" />
                   SHAREHOLDER TIERS
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
                   Director Status & Benefits
                 </h3>
+                <div className="relative mb-4">
+                  <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #D97706, #B45309)' }} />
+                </div>
                 <p className="text-gray-500 dark:text-gray-400 text-sm max-w-xl mx-auto">
                   Your status and benefits grow with your investment. Choose the tier that best suits your vision.
                 </p>
@@ -387,43 +468,50 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                 ].map((tier, i) => (
                   <motion.div
                     key={i}
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    className={`relative bg-white dark:bg-slate-800 rounded-2xl border overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 ${
-                      tier.popular ? 'border-amber-300 dark:border-amber-600 ring-2 ring-amber-200/50' : 'border-gray-100 dark:border-slate-700'
+                    whileHover={{ y: -8, scale: 1.03 }}
+                    className={`group relative bg-white dark:bg-slate-800 rounded-2xl border-2 shadow-sm hover:shadow-2xl transition-all duration-300 cursor-default ${
+                      tier.popular ? 'border-amber-300 dark:border-amber-600 ring-2 ring-amber-200/50' : 'border-gray-100 dark:border-slate-700 hover:border-transparent'
                     }`}
+                    style={{
+                      // @ts-ignore
+                      '--tier-color': tier.color,
+                    }}
                   >
+                    {/* Hover ring glow */}
+                    {!tier.popular && (
+                      <div
+                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                        style={{ boxShadow: `inset 0 0 0 2px ${tier.color}, 0 0 20px ${tier.color}25` }}
+                      />
+                    )}
+                    {/* Hover gradient shimmer */}
+                    <div
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                      style={{ background: `radial-gradient(circle at 50% -20%, ${tier.color}12 0%, transparent 60%)` }}
+                    />
                     {tier.popular && (
-                      <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white" style={{ background: tier.gradient }}>
+                      <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white shadow-lg" style={{ background: tier.gradient }}>
                         Popular
                       </div>
                     )}
                     {/* Tier Header */}
-                    <div className="p-5 pb-4">
+                    <div className="relative p-5 pb-4">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-md" style={{ background: tier.gradient }}>
+                        <div className="w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300" style={{ background: tier.gradient }}>
                           <HandCoins className="size-5" />
                         </div>
                         <div>
-                          <div className="text-lg font-bold text-gray-900 dark:text-white">{tier.tier}</div>
-                          <div className="text-xs font-medium" style={{ color: tier.color }}>{tier.status}</div>
+                          <div className="text-lg font-bold text-gray-900 dark:text-white group-hover:tracking-wide transition-all duration-300">{tier.tier}</div>
+                          <div className="text-xs font-semibold" style={{ color: tier.color }}>{tier.status}</div>
                         </div>
                       </div>
                       <div className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-0.5">{tier.amount}</div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">Minimum: {tier.minShares}</div>
                     </div>
                     {/* Benefits */}
-                    <div className="px-5 pb-5">
-                      <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">Benefits Included</div>
-                      <div className="flex flex-wrap gap-1.5">
-                        {tier.benefits.map((b) => (
-                          <span key={b} className="px-2 py-0.5 rounded-full text-xs font-semibold text-white" style={{ background: tier.gradient }}>
-                            {b}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                    <TierBenefits benefits={tier.benefits} gradient={tier.gradient} color={tier.color} />
                     {/* Bottom bar */}
-                    <div className="h-1" style={{ background: tier.gradient }} />
+                    <div className="h-1.5 group-hover:h-2 transition-all duration-300 rounded-b-2xl" style={{ background: tier.gradient }} />
                   </motion.div>
                 ))}
               </div>
@@ -432,17 +520,19 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
 
           {/* Key highlights */}
           <FadeIn>
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-5xl mx-auto">
               <div className="grid sm:grid-cols-3 gap-4 mb-10">
                 {[
                   { icon: Shield, text: 'No bank loan will be taken' },
                   { icon: TrendingUp, text: 'Buyback at 5% higher after 3 years' },
                   { icon: Users, text: 'Maximum 4,950 shares' },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border dark:border-slate-700 shadow-sm">
-                    <item.icon className="size-5 shrink-0" style={{ color: '#0D9488' }} />
+                  <motion.div key={i} whileHover={{ y: -3 }} className="flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border-2 border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-300 dark:hover:border-teal-600 transition-all duration-300 cursor-default">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(13,148,136,0.08)' }}>
+                      <item.icon className="size-5" style={{ color: '#0D9488' }} />
+                    </div>
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{item.text}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 

@@ -110,7 +110,12 @@ export const floors = [
     label: 'Above Level 9',
     image: '/images/wings/floor_above9.jpg',
     description: 'Advanced specialized hospital facilities.',
-    facilities: ["Specialized Hospital (Cancer, Heart, Kidney, Gynecology & Obstetrics)"],
+    facilities: [
+      "Specialized Cancer Hospital",
+      "Specialized Heart Hospital",
+      "Specialized Kidney Hospital",
+      "Gynecology & Obstetrics"
+    ],
   },
 ]
 
@@ -148,7 +153,7 @@ export const faqCategoryConfig: Record<string, { color: string; icon: any }> = {
 }
 
 export const faqs = [
-  { q: 'What is Hayat Life Care?', a: 'Hayat Life Care is a premium healthcare and lifestyle complex in Chattogram, Bangladesh — a one-stop destination for healthcare services, daily essentials, dining, and entertainment under one roof. It is a sister concern of Hayat Holdings.', category: 'general' },
+  { q: 'What is Hayat Life Care?', a: 'Hayat Life Care is a premium healthcare and lifestyle complex in Chattogram, Bangladesh — a one-stop destination for healthcare services, daily essentials, dining, and entertainment under one roof.', category: 'general' },
   { q: 'Where is it located?', a: 'Hayat Life Care is located at Manashi, O.R. Nizam Road, Chattogram — one of the most trusted healthcare zones in the city, near Chittagong Medical College Hospital.', category: 'general' },
   { q: 'What is the land area and structure?', a: 'The complex spans 55 Katha of land with 9 levels plus 3 basements. Future plans include expansion to 14-18 floors.', category: 'general' },
   { q: 'Why invest in Hayat Life Care?', a: 'Hayat Life Care offers a unique investment opportunity in Chattogram\'s healthcare sector. With 11 business wings, a prime location, and no bank loans, your investment is secure with transparent profit distribution and a buyback guarantee after 3 years at 5% higher price.', category: 'investment' },

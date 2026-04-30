@@ -44,7 +44,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const results = [];
+    const results: Array<{ id: string; key: string; value: string; type: string; group: string; label: string | null; updatedAt: Date }> = [];
 
     for (const setting of settings) {
       const { key, value } = setting;

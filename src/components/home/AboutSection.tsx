@@ -34,10 +34,10 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
             <FadeIn direction="right">
               <div className="relative rounded-2xl overflow-hidden border border-gray-200 shadow-xl">
                 <Image
-                  src="/images/hayat-exterior-new.jpg"
-                  alt="Hayat Life Care Aerial View"
+                  src="/images/hayat-exterior-vertical.jpg"
+                  alt="Hayat Life Care Building View"
                   width={800}
-                  height={500}
+                  height={1000}
                   className="w-full h-auto object-cover"
                   loading="lazy"
                 />

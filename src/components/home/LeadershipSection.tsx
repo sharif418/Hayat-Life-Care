@@ -41,7 +41,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
                   src="/images/wings/Chairman-Sir-R-01.png"
                   alt="Capt. Md Showkat Hossain Chowdhury"
                   fill
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover object-bottom scale-[1.05] -translate-y-[2%] transition-transform duration-700 group-hover:scale-[1.10]"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
@@ -78,7 +78,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
                   src="/images/wings/MD-sir-R-01.png"
                   alt="Dr. Mohammad Azizul Haque"
                   fill
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover object-top scale-[1.18] translate-y-[9%] transition-transform duration-700 group-hover:scale-[1.22]"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">

@@ -175,12 +175,6 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                   color: '#D97706',
                 },
                 {
-                  icon: Building2,
-                  title: 'Sister Concern',
-                  details: [{ text: 'Hayat Holdings' }],
-                  color: '#0D9488',
-                },
-                {
                   icon: Mail,
                   title: 'Email',
                   details: [{ text: 'info@hayatlifecare.com' }],

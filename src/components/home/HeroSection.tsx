@@ -14,7 +14,7 @@ function formatNumber(num: string | number): string {
 
 function useCounter(end: number, duration = 2000) {
   const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true })
 
   useEffect(() => {
@@ -38,9 +38,9 @@ function useCounter(end: number, duration = 2000) {
 
 // ─── Dynamic Headlines (Dream Education style: thin top + BOLD highlight) ───
 const headlines = [
-  { top: 'To Gift an Innovative Healthcare Facility to', highlight: 'the Society and Generations.' },
+  { top: 'To Gift an Innovative Healthcare Facility to', highlight: 'The Society and Generations.' },
   { top: 'Toward a Secure and Sustainable', highlight: 'Financial Future' },
-  { top: 'Your dream to be "a prestigious owner of the', highlight: 'largest diagnostic and Hospital"' },
+  { top: 'Your Dream to Be a Prestigious Owner of the', highlight: 'Largest Diagnostic and Hospital' },
 ]
 
 // ─── Background images that cycle with headlines ───
@@ -128,9 +128,9 @@ export default function HeroSection({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-            className="group relative flex items-center gap-3 px-5 py-2.5 md:px-7 md:py-3 rounded-full overflow-hidden cursor-default mb-6 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-white/40 hover:border-teal-400/50 transition-all duration-500"
+            className="group relative flex items-center gap-3 px-5 py-2.5 md:px-7 md:py-3 rounded-full overflow-hidden cursor-default mb-6 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-white/30 hover:border-amber-400/50 transition-all duration-500"
             style={{ 
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,249,255,0.85) 100%)',
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(240,253,250,0.88) 100%)',
             }}
           >
             {/* Automatic subtle shimmer effect */}
@@ -140,7 +140,7 @@ export default function HeroSection({
               <Award className="size-3.5 md:size-4 text-white" />
             </div>
             
-            <span className="relative text-[11px] md:text-[14px] font-extrabold tracking-wide text-transparent bg-clip-text bg-linear-to-r from-teal-950 to-slate-800 uppercase">
+            <span className="relative text-[11px] md:text-[13.5px] font-bold tracking-wider" style={{ color: '#134e4a' }}>
               The First Cancer Diagnostic &amp; Specialized Hospital in Chattogram
             </span>
           </motion.div>
@@ -167,15 +167,15 @@ export default function HeroSection({
                   </h2>
                   <div className="h-[2px] w-8 sm:w-16 bg-linear-to-l from-transparent to-teal-400/60" />
                 </div>
-                {/* BOLD highlight — Premium Teal/Emerald Gradient */}
+                {/* BOLD highlight — Bright Teal/Emerald Gradient */}
                 <h1
                   className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black tracking-tight leading-[1.1] whitespace-pre-line"
                   style={{
                     fontFamily: 'var(--font-playfair), Georgia, serif',
-                    background: 'linear-gradient(135deg, #2DD4BF 0%, #0D9488 50%, #115E59 100%)',
+                    background: 'linear-gradient(135deg, #5EEAD4 0%, #2DD4BF 30%, #14B8A6 60%, #0D9488 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
-                    filter: 'drop-shadow(0 4px 20px rgba(13,148,136,0.3))',
+                    filter: 'drop-shadow(0 4px 20px rgba(13,148,136,0.4))',
                   }}
                 >
                   {headlines[headlineIndex].highlight}

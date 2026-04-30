@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ChevronUp, Send, Loader2, Phone, Mail, MapPin, Clock, Building2, Facebook, Youtube, Instagram, Linkedin } from 'lucide-react'
+import { ChevronUp, Send, Loader2, Phone, Mail, MapPin, Clock, Building2, Facebook, Youtube, Instagram, Linkedin, Github } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -194,10 +194,7 @@ export default function FooterSection() {
                     Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <Building2 className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
-                  <div>Sister Concern of Hayat Holdings</div>
-                </div>
+
                 <div className="flex items-start gap-2">
                   <Clock className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
                   <div>Sat-Thu: 9AM - 9PM<br/>Friday: Closed</div>
@@ -211,8 +208,17 @@ export default function FooterSection() {
         <div className="relative border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
             <div className="flex items-center gap-2 font-medium">&copy; {new Date().getFullYear()} Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; Back to Top</button></div>
-            <div className="flex items-center gap-4">
-              <span>A sister concern of Hayat Holdings</span>
+            <div className="flex items-center gap-4 lg:mr-12 xl:mr-16">
+              <a 
+                href="https://github.com/sharif418" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center gap-1.5 hover:text-teal-400 transition-colors"
+                title="System Version"
+              >
+                <Github className="size-3.5" />
+                <span className="tracking-wider">Build v1.0.0</span>
+              </a>
             </div>
           </div>
         </div>
