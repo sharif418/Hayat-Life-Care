@@ -41,32 +41,91 @@ const FALLBACK_FAQ_DATABASE = [
   { q: 'Will any bank loan be taken?', keywords: ['bank loan', 'loan', 'debt', 'borrow', 'ব্যাংক লোন', 'ঋণ'], a: 'No. Hayat Life Care will not take any bank loan. The project is entirely funded by shareholder investments, ensuring no debt burden on the company.' },
 ];
 
-// Extract keywords from a question string automatically
+// ─── Improved Fuzzy Matching Utilities ───
+
+// Normalize text for matching: lowercase, remove punctuation, collapse whitespace
+function normalize(text: string): string {
+  return text.toLowerCase().replace(/[?!.,;:'"()\[\]{}\-–—]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+// Extract meaningful keywords from a question string
 function extractKeywords(question: string): string[] {
-  const stopWords = new Set(['is', 'a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'from', 'it', 'this', 'that', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'can', 'what', 'how', 'when', 'where', 'who', 'which', 'there', 'here', 'i', 'you', 'we', 'they', 'my', 'your', 'our', 'their']);
-  const words = question.toLowerCase().replace(/[?!.,]/g, '').split(/\s+/);
+  const stopWords = new Set(['is', 'a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'from', 'it', 'this', 'that', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'can', 'what', 'how', 'when', 'where', 'who', 'which', 'there', 'here', 'i', 'you', 'we', 'they', 'my', 'your', 'our', 'their', 'any', 'not', 'about', 'tell', 'me', 'please', 'know', 'want', 'need', 'get']);
+  const words = normalize(question).split(/\s+/);
   return words.filter(w => w.length > 2 && !stopWords.has(w));
 }
 
-// Score how well a user message matches a FAQ entry
+// Generate n-grams (bigrams and trigrams) from text
+function generateNGrams(text: string, n: number): string[] {
+  const words = normalize(text).split(/\s+/);
+  const ngrams: string[] = [];
+  for (let i = 0; i <= words.length - n; i++) {
+    ngrams.push(words.slice(i, i + n).join(' '));
+  }
+  return ngrams;
+}
+
+// Calculate word overlap ratio between two texts
+function wordOverlapRatio(text1: string, text2: string): number {
+  const words1 = new Set(extractKeywords(text1));
+  const words2 = new Set(extractKeywords(text2));
+  if (words1.size === 0 || words2.size === 0) return 0;
+  let overlap = 0;
+  for (const w of words1) {
+    if (words2.has(w)) overlap++;
+  }
+  return overlap / Math.min(words1.size, words2.size);
+}
+
+// Score how well a user message matches a FAQ entry (improved algorithm)
 function scoreFAQMatch(userMsg: string, question: string, keywords: string[]): number {
-  const lowerMsg = userMsg.toLowerCase().trim();
+  const normalizedMsg = normalize(userMsg);
   let score = 0;
 
-  // Check explicit keywords (higher weight)
+  // 1. Exact question match (highest priority)
+  if (normalizedMsg === normalize(question)) {
+    return 1000;
+  }
+
+  // 2. Check explicit keywords (phrase-level matching)
   for (const keyword of keywords) {
-    if (lowerMsg.includes(keyword.toLowerCase())) {
-      score += keyword.length * 2; // Keyword matches weighted x2
+    const normalizedKeyword = normalize(keyword);
+    if (normalizedMsg.includes(normalizedKeyword)) {
+      // Multi-word keyword matches get higher score
+      const wordCount = normalizedKeyword.split(' ').length;
+      score += normalizedKeyword.length * 3 * wordCount;
     }
   }
 
-  // Check question words (auto-extracted)
+  // 3. Question word overlap (auto-extracted keywords from question)
   const questionKeywords = extractKeywords(question);
+  let questionWordsMatched = 0;
   for (const word of questionKeywords) {
-    if (lowerMsg.includes(word)) {
+    if (normalizedMsg.includes(word)) {
       score += word.length;
+      questionWordsMatched++;
     }
   }
+  // Bonus for matching a high percentage of question keywords
+  if (questionKeywords.length > 0) {
+    const matchRatio = questionWordsMatched / questionKeywords.length;
+    if (matchRatio >= 0.7) score += 20;
+    if (matchRatio >= 0.5) score += 10;
+  }
+
+  // 4. Bigram matching (catches 2-word phrases)
+  const msgBigrams = generateNGrams(normalizedMsg, 2);
+  const qBigrams = generateNGrams(question, 2);
+  for (const bigram of msgBigrams) {
+    for (const qBigram of qBigrams) {
+      if (bigram === qBigram) score += 8;
+    }
+  }
+
+  // 5. Word overlap ratio bonus
+  const overlap = wordOverlapRatio(userMsg, question);
+  if (overlap >= 0.6) score += 15;
+  if (overlap >= 0.4) score += 8;
 
   return score;
 }
@@ -74,7 +133,10 @@ function scoreFAQMatch(userMsg: string, question: string, keywords: string[]): n
 // Greeting detection
 function isGreeting(msg: string): boolean {
   const greetings = ['hello', 'hi', 'hey', 'assalamualaikum', 'salam', 'good morning', 'good afternoon', 'good evening', 'হ্যালো', 'হাই', 'আসসালামু'];
-  return greetings.some(g => msg.toLowerCase().includes(g));
+  const normalized = msg.toLowerCase().trim();
+  // Only consider as greeting if the message is short (greetings are short)
+  if (normalized.split(/\s+/).length > 5) return false;
+  return greetings.some(g => normalized.includes(g));
 }
 
 // Contact fallback message
@@ -116,9 +178,10 @@ export async function POST(request: NextRequest) {
     if (isGreeting(message)) {
       aiReply = "Assalamualaikum! 👋 Welcome to Hayat Life Care. I'm here to help you with information about our healthcare complex, investment opportunities, facilities, and more. How can I assist you today?";
     } else {
-      // Step 1: Try matching from DATABASE FAQs first (admin-managed, real-time)
-      let bestMatch: { answer: string; score: number } | null = null;
+      // Collect all matches from both DB and fallback, then pick the best
+      const allMatches: { answer: string; score: number; source: string }[] = [];
 
+      // Step 1: Try matching from DATABASE FAQs first (admin-managed, real-time)
       try {
         const dbFaqs = await db.fAQ.findMany({
           where: { active: true },
@@ -128,13 +191,18 @@ export async function POST(request: NextRequest) {
         if (dbFaqs.length > 0) {
           for (const faq of dbFaqs) {
             const autoKeywords = extractKeywords(faq.question);
-            // Also add category as a keyword
+            // Also add category as a keyword boost
             if (faq.category && faq.category !== 'general') {
               autoKeywords.push(faq.category.toLowerCase());
             }
-            const score = scoreFAQMatch(message, faq.question, autoKeywords);
-            if (score > 0 && (!bestMatch || score > bestMatch.score)) {
-              bestMatch = { answer: faq.answer, score };
+            // Also extract keywords from the answer for broader matching
+            const answerKeywords = extractKeywords(faq.answer).slice(0, 5);
+            const combinedKeywords = [...autoKeywords, ...answerKeywords];
+            
+            const score = scoreFAQMatch(message, faq.question, combinedKeywords);
+            if (score > 0) {
+              // DB FAQs get a 10% bonus to prioritize admin-managed content
+              allMatches.push({ answer: faq.answer, score: score * 1.1, source: 'db' });
             }
           }
         }
@@ -142,18 +210,20 @@ export async function POST(request: NextRequest) {
         console.warn('Could not fetch FAQs from database, falling back to hardcoded:', dbError);
       }
 
-      // Step 2: If no DB match, try the hardcoded fallback FAQ database
-      if (!bestMatch) {
-        for (const faq of FALLBACK_FAQ_DATABASE) {
-          const score = scoreFAQMatch(message, faq.q, faq.keywords);
-          if (score > 0 && (!bestMatch || score > bestMatch.score)) {
-            bestMatch = { answer: faq.a, score };
-          }
+      // Step 2: Also check the hardcoded fallback FAQ database
+      for (const faq of FALLBACK_FAQ_DATABASE) {
+        const score = scoreFAQMatch(message, faq.q, faq.keywords);
+        if (score > 0) {
+          allMatches.push({ answer: faq.a, score, source: 'fallback' });
         }
       }
 
-      // Step 3: Use match or show contact fallback
-      if (bestMatch && bestMatch.score > 3) {
+      // Step 3: Pick the best match across both sources
+      allMatches.sort((a, b) => b.score - a.score);
+      const bestMatch = allMatches[0] || null;
+
+      // Minimum score threshold of 5 to return a match
+      if (bestMatch && bestMatch.score >= 5) {
         aiReply = bestMatch.answer;
       } else {
         aiReply = CONTACT_FALLBACK;
