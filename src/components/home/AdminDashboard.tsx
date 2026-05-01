@@ -29,6 +29,29 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
   const [loginError, setLoginError] = useState('')
   const [isLoginLoading, setIsLoginLoading] = useState(false)
 
+  // ─── Restore session from localStorage on mount ───
+  useEffect(() => {
+    try {
+      const savedSession = localStorage.getItem('hlc_admin_session')
+      if (savedSession) {
+        const session = JSON.parse(savedSession)
+        if (session?.isLoggedIn) {
+          setIsLoggedIn(true)
+          setAdminEmail(session.email || '')
+        }
+      }
+    } catch {
+      // ignore corrupted localStorage
+    }
+  }, [])
+
+  // ─── Fetch admin data when logged in ───
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchAdminData()
+    }
+  }, [isLoggedIn, fetchAdminData])
+
   const [inquiries, setInquiries] = useState<any[]>([])
   const [adminServices, setAdminServices] = useState<any[]>([])
   const [adminFaqs, setAdminFaqs] = useState<any[]>([])
@@ -118,6 +141,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
       const data = await res.json()
       if (data.success) {
         setIsLoggedIn(true)
+        localStorage.setItem('hlc_admin_session', JSON.stringify({ isLoggedIn: true, email: adminEmail }))
         fetchAdminData()
       } else {
         setLoginError(data.error || 'Invalid credentials')
@@ -401,7 +425,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => { onClose(); setIsLoggedIn(false); setAdminEmail(''); setAdminPassword('') }}
+                  onClick={() => { localStorage.removeItem('hlc_admin_session'); onClose(); setIsLoggedIn(false); setAdminEmail(''); setAdminPassword('') }}
                   className="text-gray-400 hover:text-white hover:bg-white/10"
                 >
                   <LogOut className="size-4 mr-1" /> Exit

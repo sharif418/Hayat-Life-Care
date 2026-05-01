@@ -359,6 +359,44 @@ async function main() {
   }
   console.log('✓ Created doctors');
 
+  // 8. Videos — Default 3 videos for homepage
+  const videosData = [
+    {
+      title: 'Hayat Life Care — Official Overview',
+      description: 'Discover the vision behind Chattogram\'s most ambitious healthcare & lifestyle complex on 55 Katha.',
+      youtubeId: 'dQw4w9WgXcQ',
+      thumbnail: '',
+      order: 1,
+      active: true,
+    },
+    {
+      title: 'Our World-Class Facilities',
+      description: 'Explore 11 business wings, international-standard diagnostics, and premium amenities across 14+ floors.',
+      youtubeId: 'dQw4w9WgXcQ',
+      thumbnail: '',
+      order: 2,
+      active: true,
+    },
+    {
+      title: 'Investment Opportunity',
+      description: 'Learn about our transparent investment model — 4,950 shares, zero bank loans, buyback guarantee.',
+      youtubeId: 'dQw4w9WgXcQ',
+      thumbnail: '',
+      order: 3,
+      active: true,
+    },
+  ];
+
+  const existingVideos = await prisma.video.count();
+  if (existingVideos === 0) {
+    for (const video of videosData) {
+      await prisma.video.create({ data: video });
+    }
+    console.log('✓ Created default videos');
+  } else {
+    console.log('→ Videos already exist, skipping');
+  }
+
   console.log('\n🌱 Seeding completed successfully!');
 }
 
