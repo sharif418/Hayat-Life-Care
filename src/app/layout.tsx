@@ -37,6 +37,20 @@ export const metadata: Metadata = {
     description: '11 business wings under one roof. Premium healthcare, daily essentials, dining & entertainment in Chattogram.',
     type: 'website',
     locale: 'en_BD',
+    images: [
+      {
+        url: '/images/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Hayat Life Care Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hayat Life Care - One Stop Healthcare & Lifestyle Destination',
+    description: '11 business wings under one roof. Premium healthcare, daily essentials, dining & entertainment in Chattogram.',
+    images: ['/images/logo.png'],
   },
 };
 

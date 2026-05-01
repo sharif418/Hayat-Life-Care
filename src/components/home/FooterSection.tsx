@@ -144,7 +144,7 @@ export default function FooterSection() {
             <div>
               <h4 className="text-white font-semibold mb-4">Services</h4>
               <div className="space-y-2 max-h-56 overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: '#334155 transparent' }}>
-                {['Paid Parking', 'ATM Booth', 'Pharmacy', 'Optical Shop', 'Super Shop', 'Coffee Shop', 'Juice Bar', 'Restaurant', "Kid's Park", "Doctor's Chambers", 'Diagnostic Center'].map((svc, i) => (
+                {['Paid Parking', 'ATM Booth', 'Pharmacy', 'Optical Shop', 'Super Shop', 'Coffee Shop', 'Juice Bar', 'Restaurant', "Kid's Park", "Specialized Hospital", 'Diagnostic Center'].map((svc, i) => (
                   <a
                     key={i}
                     href="/facilities"

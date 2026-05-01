@@ -133,7 +133,6 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
               { icon: Utensils, name: 'Restaurant & Cafe', desc: 'Hygienic dining & juice bar', color: '#F59E0B' },
               { icon: Stethoscope, name: 'Diagnostic Center', desc: 'International-standard pathology', color: '#0D9488' },
               { icon: Heart, name: 'Specialized Hospital', desc: 'Cancer, Heart, Kidney, Gyne & Obs', color: '#EF4444' },
-              { icon: Users, name: "Doctor's Chambers", desc: '30+ specialist consultation rooms', color: '#3B82F6' },
               { icon: Crown, name: 'Female Diagnostic', desc: 'Dedicated women\'s healthcare wing', color: '#EC4899' },
               { icon: Sparkles, name: "Kid's Park & More", desc: 'Entertainment & optical shop', color: '#8B5CF6' },
             ].map((item, i) => (
