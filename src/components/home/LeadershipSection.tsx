@@ -34,34 +34,33 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
           <FadeIn direction="right">
             <motion.div
               whileHover={{ y: -6 }}
-              className="group relative bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-teal-200"
+              className="group relative flex flex-col h-full bg-white dark:bg-slate-800 rounded-[2rem] border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-teal-200"
             >
-              <div className="relative aspect-4/5 w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
+              <div className="relative aspect-[4/3.5] w-full overflow-hidden bg-slate-100 dark:bg-slate-700 shrink-0">
                 <Image
                   src="/images/wings/Chairman-Sir-R-01.png"
                   alt="Capt. Md Showkat Hossain Chowdhury"
                   fill
-                  className="object-cover object-bottom scale-[1.05] -translate-y-[2%] transition-transform duration-700 group-hover:scale-[1.10]"
+                  className="object-cover scale-105 transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 backdrop-blur-md border border-teal-500/30 text-teal-300 text-xs font-semibold mb-3">
-                    <Star className="size-3 fill-teal-400 text-teal-400" />
-                    Chairman
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1 leading-tight">
+                <div className="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+              <div className="p-8 sm:p-10 bg-white dark:bg-slate-800 relative grow flex flex-col items-center text-center">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-teal-100 dark:border-teal-800/50 shadow-[0_4px_20px_rgba(20,184,166,0.15)] text-teal-700 dark:text-teal-300 text-sm font-bold z-10">
+                  <Star className="size-4 fill-teal-500 text-teal-500" />
+                  Chairman
+                </div>
+                
+                <div className="mt-4 mb-5 h-[60px] flex items-center justify-center w-full">
+                  <h3 className="text-xl sm:text-[1.35rem] xl:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-snug">
                     Capt. Md Showkat Hossain Chowdhury
                   </h3>
                 </div>
-              </div>
-              <div className="p-8 bg-white dark:bg-slate-800 relative">
-                <div className="absolute top-0 left-8 right-8 h-px bg-linear-to-r from-teal-500/0 via-teal-500/20 to-teal-500/0" />
+                
+                <div className="w-12 h-1 bg-linear-to-r from-teal-500 to-emerald-400 rounded-full mb-6 mx-auto" />
+                
                 <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
-                  A seasoned Master Mariner and distinguished maritime professional with decades of
-                  international experience. Chairman of Marinus Pvt. Ltd. and Hayat Holdings, he brings
-                  unparalleled leadership in both maritime and business sectors. His strategic vision and
-                  commitment to community development have been instrumental in shaping Hayat Life Care
-                  into Chattogram&apos;s most comprehensive healthcare destination.
+                  A seasoned Master Mariner who currently serves as the Chairman of <strong>Marinus Pvt. Ltd.</strong>, <strong>Hayat Holdings</strong> and <strong>Hayat Life Care</strong>. He brings a distinguished track record of leadership spanning the marine and construction industries at both national and international levels.
                 </p>
               </div>
             </motion.div>
@@ -71,34 +70,33 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
           <FadeIn direction="left">
             <motion.div
               whileHover={{ y: -6 }}
-              className="group relative bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-teal-200"
+              className="group relative flex flex-col h-full bg-white dark:bg-slate-800 rounded-[2rem] border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-teal-200"
             >
-              <div className="relative aspect-4/5 w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
+              <div className="relative aspect-[4/3.5] w-full overflow-hidden bg-slate-100 dark:bg-slate-700 shrink-0">
                 <Image
                   src="/images/wings/MD-sir-R-01.png"
                   alt="Dr. Mohammad Azizul Haque"
                   fill
-                  className="object-cover object-top scale-[1.18] translate-y-[9%] transition-transform duration-700 group-hover:scale-[1.22]"
+                  className="object-cover object-top scale-105 transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 backdrop-blur-md border border-teal-500/30 text-teal-300 text-xs font-semibold mb-3">
-                    <Stethoscope className="size-3 text-teal-400" />
-                    Managing Director
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1 leading-tight">
+                <div className="absolute inset-0 bg-linear-to-t from-slate-900/40 via-slate-900/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+              <div className="p-8 sm:p-10 bg-white dark:bg-slate-800 relative grow flex flex-col items-center text-center">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-teal-100 dark:border-teal-800/50 shadow-[0_4px_20px_rgba(20,184,166,0.15)] text-teal-700 dark:text-teal-300 text-sm font-bold z-10">
+                  <Stethoscope className="size-4 text-teal-500" />
+                  Managing Director
+                </div>
+                
+                <div className="mt-4 mb-5 h-[60px] flex items-center justify-center w-full">
+                  <h3 className="text-xl sm:text-[1.35rem] xl:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-snug">
                     Dr. Mohammad Azizul Haque
                   </h3>
                 </div>
-              </div>
-              <div className="p-8 bg-white dark:bg-slate-800 relative">
-                <div className="absolute top-0 left-8 right-8 h-px bg-linear-to-r from-teal-500/0 via-teal-500/20 to-teal-500/0" />
+                
+                <div className="w-12 h-1 bg-linear-to-r from-teal-500 to-emerald-400 rounded-full mb-6 mx-auto" />
+                
                 <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
-                  Associate Professor at Chattogram Medical College Hospital (CMCH) and a distinguished
-                  medical professional with over 25 years of clinical experience. Founder Director of
-                  multiple healthcare institutions, Dr. Haque combines deep medical expertise with
-                  entrepreneurial acumen. His vision of making world-class healthcare accessible to all
-                  drives every aspect of Hayat Life Care&apos;s operations and clinical excellence.
+                  The Founder Director of <strong>Park View Hospital</strong>, <strong>Ekhusey Hospital</strong>, <strong>Delta Hospital</strong> and <strong>Treatment Hospital</strong> in Chattogram. He also serves as an Associate Professor at <strong>Chattogram Medical College & Hospital</strong>.
                 </p>
               </div>
             </motion.div>

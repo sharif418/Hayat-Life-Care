@@ -54,14 +54,13 @@ export default function AboutPage() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
-                    className="flex items-start gap-4 py-4 first:pt-0 last:pb-0 border-b border-gray-50 dark:border-slate-700/50 last:border-0 group"
+                    className="flex items-center gap-4 py-4 first:pt-0 last:pb-0 border-b border-gray-50 dark:border-slate-700/50 last:border-0 group"
                   >
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}>
                       <item.icon className="size-5" style={{ color: '#0D9488' }} />
                     </div>
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400">0{i + 1}</span>
-                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-snug mt-0.5">{item.text}</p>
+                    <div className="flex items-center">
+                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-snug">{item.text}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -74,14 +73,13 @@ export default function AboutPage() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
-                    className="flex items-start gap-4 py-4 first:pt-0 last:pb-0 border-b border-gray-50 dark:border-slate-700/50 last:border-0 group"
+                    className="flex items-center gap-4 py-4 first:pt-0 last:pb-0 border-b border-gray-50 dark:border-slate-700/50 last:border-0 group"
                   >
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}>
                       <item.icon className="size-5" style={{ color: '#0D9488' }} />
                     </div>
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400">0{i + 4}</span>
-                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-snug mt-0.5">{item.text}</p>
+                    <div className="flex items-center">
+                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-snug">{item.text}</p>
                     </div>
                   </motion.div>
                 ))}

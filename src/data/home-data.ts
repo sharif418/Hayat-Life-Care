@@ -1,6 +1,6 @@
 import {
   Building2, Car, CreditCard, Pill, Glasses, ShoppingBag, Coffee, CupSoda,
-  UtensilsCrossed, Baby, Stethoscope, Microscope, TrendingUp, Heart,
+  UtensilsCrossed, Baby, Stethoscope, Microscope, TrendingUp, Heart, HeartPulse,
   UserCheck, Users, Shield, Award, Star, FileCheck, Settings
 } from 'lucide-react'
 
@@ -120,17 +120,17 @@ export const floors = [
 ]
 
 export const services = [
+  { icon: Microscope, title: 'Diagnostic Center', desc: 'AI-powered advanced diagnostics with full pathology lab' },
   { icon: Car, title: 'Paid Parking', desc: '150+ paid parking spaces across 3 basements with CCTV surveillance' },
+  { icon: ShoppingBag, title: 'Super Shop', desc: 'Largest supershop in the complex' },
   { icon: CreditCard, title: 'ATM Booth', desc: 'On-site ATM for secure cash access & payments' },
   { icon: Pill, title: 'Pharmacy', desc: 'Authentic medicines from authorized manufacturers' },
   { icon: Glasses, title: 'Optical Shop', desc: 'Prescription glasses, frames & contact lenses' },
-  { icon: ShoppingBag, title: 'Super Shop', desc: 'Largest supershop in the complex' },
   { icon: Coffee, title: 'Coffee Shop', desc: 'Fresh brews & light snacks' },
   { icon: CupSoda, title: 'Juice Bar', desc: 'Fresh, nutrient-rich juices & smoothies' },
   { icon: UtensilsCrossed, title: 'Restaurant', desc: 'Nutritious meals with special diet options' },
   { icon: Baby, title: "Kid's Amusement Park", desc: 'Indoor play zone for kids' },
-  { icon: Stethoscope, title: "Doctor's Chamber", desc: 'Private chambers across specialities' },
-  { icon: Microscope, title: 'Diagnostic Center', desc: 'AI-powered advanced diagnostics' },
+  { icon: HeartPulse, title: 'Specialized Hospital', desc: 'Cancer, Heart, Kidney, Gyne & Obs — planned above Level 9' },
 ]
 
 export const benefitCodes = [
@@ -150,27 +150,74 @@ export const faqCategoryConfig: Record<string, { color: string; icon: any }> = {
   shares: { color: '#7C3AED', icon: FileCheck },
   operations: { color: '#2563EB', icon: Settings },
   legal: { color: '#DC2626', icon: Shield },
+  leadership: { color: '#059669', icon: Building2 },
+  medical: { color: '#EC4899', icon: Shield },
 }
 
 export const faqs = [
-  { q: 'What is Hayat Life Care?', a: 'Hayat Life Care is a premium healthcare and lifestyle complex in Chattogram, Bangladesh — a one-stop destination for healthcare services, daily essentials, dining, and entertainment under one roof.', category: 'general' },
-  { q: 'Where is it located?', a: 'Hayat Life Care is located at Manashi, O.R. Nizam Road, Chattogram — one of the most trusted healthcare zones in the city, near Chittagong Medical College Hospital.', category: 'general' },
-  { q: 'What is the land area and structure?', a: 'The complex spans 55 Katha of land with 9 levels plus 3 basements. Future plans include expansion to 14-18 floors.', category: 'general' },
-  { q: 'Why invest in Hayat Life Care?', a: 'Hayat Life Care offers a unique investment opportunity in Chattogram\'s healthcare sector. With 11 business wings, a prime location, and no bank loans, your investment is secure with transparent profit distribution and a buyback guarantee after 3 years at 5% higher price.', category: 'investment' },
-  { q: 'Will there be a hospital?', a: 'Yes, future expansion plans include a specialized hospital focusing on Cancer, Heart, Kidney, and Gyne & Obs departments — making it a comprehensive healthcare destination.', category: 'operations' },
-  { q: 'Who will operate the company?', a: 'The company is operated under the leadership of Chairman Capt. Md Showkat Hossain Chowdhury and Managing Director Dr. Mohammad Azizul Haque, both highly experienced professionals in their respective fields.', category: 'operations' },
-  { q: 'How will profit be distributed?', a: 'Profit will be distributed transparently among shareholders based on the benefit codes (B-1 to B-8). Financial statements will be audited and shared regularly with all investors.', category: 'investment' },
-  { q: 'What are the profit expectations?', a: 'Profit expectations are based on the revenue generated from all 11 business wings. As the complex becomes fully operational, returns are expected to grow significantly. Detailed projections are available upon request.', category: 'investment' },
-  { q: 'How is transparency ensured?', a: 'Transparency is maintained through regular audits, open financial reporting, shareholder meetings, and an administrative office on Level 9 for direct investor engagement.', category: 'operations' },
-  { q: 'Is there a buyback policy?', a: 'Yes! After 3 years, shares can be bought back at 5% higher than the purchase price, providing a guaranteed exit option for investors.', category: 'shares' },
-  { q: 'How to book a space?', a: 'You can book a space by contacting our office at 01335-074940 or 01335-074941, or by visiting our office at Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram.', category: 'general' },
-  { q: 'What documents are required from the shareholder?', a: 'Required documents: (1) National ID card (photocopy), (2) Nominee national ID card (photocopy), (3) 2 passport-size photographs, (4) Completed application form with TK 10,000 application fee. Our team will guide you through the entire process.', category: 'legal' },
-  { q: 'What documents are provided by Hayat Life Care?', a: 'You will receive: (1) Share certificate, (2) Share transfer form, (3) Receipt of payment, (4) Memorandum of Understanding, (5) Company registration documents. All documents are legally binding and government-recognized.', category: 'legal' },
-  { q: 'What is the expected handover date?', a: 'The commercial operations are targeted to begin by December 2028. Construction is progressing on schedule. Shareholders will be notified with regular updates.', category: 'operations' },
-  { q: 'Will any bank loan be taken?', a: 'No. Hayat Life Care will not take any bank loan. The project is entirely funded by shareholder investments, ensuring no debt burden on the company.', category: 'investment' },
-  { q: 'What is the maximum number of shares?', a: 'A total of 4,950 shares are available, each priced at 10 Lacs BDT. This limited number ensures exclusivity and higher per-share value.', category: 'shares' },
-  { q: 'Can I sell my shares/directorship?', a: 'Yes, shareholders can sell their shares with prior written approval from Hayat Life Care management. A royalty fee of 10% of profit is payable to Hayat Life Care before transaction completion. Original investment amount plus 90% of profit goes to the seller.', category: 'shares' },
-  { q: 'What is the share structure?', a: '1st Phase: 2,500 shares at 10 Lacs each = 250 Crores. 2nd Phase: 500 shares at 15 Lacs each = 75 Crores. 3rd Phase: 1,000 shares at 20 Lacs each = 200 Crores. Total shares will not exceed 4,950.', category: 'shares' },
+  // General (1-8)
+  { q: 'What is Hayat Life Care?', a: 'Hayat Life Care is a one-stop lifestyle destination set to become the largest diagnostic and specialized hospital center in Chattogram. It is going to be the first cancer diagnostic center and the first specialized hospital in the city. It offers a combination of healthcare, daily essentials, wellness, and leisure facilities — all under one roof.', category: 'general' },
+  { q: 'Is it a registered company?', a: 'Yes, Hayat Life Care is a registered company with RJSC (Registrar of Joint Stock Companies and Firms).', category: 'legal' },
+  { q: 'Where is it located?', a: 'Corner plot of O.R. Nizam Road & Badsha Mia Road (War Cemetery Road), Chattogram. West of Chattogram Medical College and Hospital (CMCH).', category: 'general' },
+  { q: 'What is the land area and structure?', a: 'Land Area: 55 Katha with 150+ paid parking spaces across 3 basements. Approximately 19,000 sft per floor, totaling around 266,000 sft up to the 14th level.', category: 'general' },
+  { q: 'Are you the owner of the full building?', a: 'Yes, Hayat Life Care will be the sole owner of the land, building, and all business wings. The entire structure and all businesses will be managed under a single management.', category: 'general' },
+  { q: 'What is the floor-wise plan?', a: 'Basement: 3 basements with 150+ parking spaces | Level 1: Reception, Super Shop, Pharmacy, Optical Shop, Coffee Shop & ATM Booth | Level 2: Restaurant, Juice Bar & Amusement Park | Level 3: Common Diagnostic Floor (Pathology, MRI, ECG, USG, X-Ray) | Level 4: Designated Female Diagnostic Floor | Level 5-8: Doctor\'s Chambers, Cancer Institute, Fertility Institute, Ophthalmology, Dental | Level 9: Mosque (Male & Female) & Office | Above Level 9: Specialized Hospital (Cancer, Heart, Kidney, Gynecology & Obstetrics)', category: 'operations' },
+  { q: 'What is the complete plan?', a: 'Development of super shop, ATM booth, children\'s indoor amusement park, coffee shop, juice bar, restaurant, doctor consultation, and diagnostic center up to Level 8. Level 9 includes offices and a mosque. A specialized hospital is planned above Level 9 (subject to approval). Construction will be completed in a single phase.', category: 'operations' },
+  { q: 'What is the expected handover/operation date?', a: 'Revenue generation: December 2028 (+9 months) | Diagnostic operations start: June 2029 (+9 months) | Full diagnostic operations: December 2029 (+9 months) | Hospital operations: March 2030 (+9 months)', category: 'operations' },
+  // Investment (9-16)
+  { q: 'Why invest in Hayat Life Care?', a: 'Largest diagnostic and consultation center in Chattogram. First Cancer diagnostic center and first Specialized Hospital in the city. Unique concept combining healthcare and lifestyle. Includes restaurants, supermarkets, amusement parks, cafés, ATM booths. 150+ car parking spaces. Prime location with high visibility. 11 business wings under one roof with single management.', category: 'investment' },
+  { q: 'Will there be a hospital?', a: 'Yes, a specialized hospital is planned above Level 9, subject to approval from relevant authorities. Construction will be completed in a single phase.', category: 'operations' },
+  { q: 'Who will operate the company?', a: 'The company will be run by highly skilled professionals (operational team), similar to organizations like Unilever, GSK, and Standard Chartered. A Management Committee from the Board of Directors will supervise operations closely.', category: 'operations' },
+  { q: 'Who is leading Hayat Life Care?', a: 'The project is led by Chairman Capt. Md Showkat Hossain Chowdhury and Managing Director Dr. Mohammad Azizul Haque, along with founding directors.', category: 'leadership' },
+  { q: 'Who is the Chairman?', a: 'Capt. Md Showkat Hossain Chowdhury — a seasoned Master Mariner who currently serves as the Chairman of Marinus Pvt. Ltd., Hayat Holdings and Hayat Life Care. He brings a distinguished track record of leadership spanning the marine and construction industries at both national and international levels.', category: 'leadership' },
+  { q: 'Who is the Managing Director?', a: 'Dr. Mohammad Azizul Haque — the Founder Director of Park View Hospital, Ekhusey Hospital, Delta Hospital and Treatment Hospital in Chattogram. He also serves as an Associate Professor at Chattogram Medical College & Hospital, demonstrating a strong commitment to both medical education and patient care.', category: 'leadership' },
+  { q: 'How will profit be distributed?', a: 'Profit will be distributed monthly to shareholders based on their share proportion after full operation begins and annually in the AGM.', category: 'investment' },
+  { q: 'What are the profit expectations?', a: 'Based on feasibility studies and market surveys, the project is expected to be financially strong, as healthcare is a leading source of sustainable income in Bangladesh. The expected distributable profit is around 10% from the 3rd year, with potential for steady growth.', category: 'investment' },
+  // Transparency & Legal (17-22)
+  { q: 'How will transparency and accountability be ensured?', a: 'The company will be audited by government-approved third-party audit firms.', category: 'legal' },
+  { q: 'Do I get registration of land/building?', a: 'For a company, all assets are always registered under the company name. All shareholders, including founder directors, are the combined owners of the spaces including land proportionately. So, you will not get separate registration but you are an owner.', category: 'legal' },
+  { q: 'Is there a buyback policy?', a: 'Yes, after 3 years of operation at 5% higher than the share value.', category: 'shares' },
+  { q: 'If my spouse/relative is a doctor, will they get benefits?', a: 'Yes. During allocation of chambers or job opportunities, if qualifications are equal or slightly lower, management may prioritize candidates recommended by shareholders. However, quality standards must be maintained and opportunities are subject to availability.', category: 'general' },
+  { q: 'Do I need to pay extra for the hospital?', a: 'No. You do not need to make any additional payments for hospital establishment or any other purpose. Your payment is fixed as per the agreement.', category: 'investment' },
+  { q: 'When will hospital work start?', a: 'Construction will be completed in a single phase; hospital operation depends on approvals from relevant authorities.', category: 'operations' },
+  // Shares & Booking (23-28)
+  { q: 'How to book a share?', a: 'Interested individuals must visit the office and proceed after satisfaction. Contact: 01335-074940 / 01335-074941.', category: 'shares' },
+  { q: 'What is the share price and benefit structure?', a: 'Bronze Shareholder (1 share, 10 Lacs): Benefits B1, B2, B8 | Silver Shareholder (2+ shares, 20-40 Lacs): Benefits B1, B2, B3, B8 | Gold Shareholder (5+ shares, 50-90 Lacs): Benefits B1, B2, B3, B4, B8 | Platinum Director (10+ shares, 1-1.4 Crore): Benefits B1-B5, B8 | Diamond Director (15+ shares, 1.5-1.9 Crore): Benefits B1-B6, B8 | VIP Director (20+ shares, 2+ Crore): All Benefits B1-B8', category: 'shares' },
+  { q: 'From where will hospital funding come?', a: '1st Phase: 2,500 shares × 10 Lacs = 250 Crore | 2nd Phase: 500 shares × 15 Lacs = 75 Crore | 3rd Phase: 1,000 shares × 20 Lacs = 200 Crore. No bank loans will be taken.', category: 'investment' },
+  { q: 'What is the maximum number of shares?', a: 'Maximum planned: 4,950 shares.', category: 'shares' },
+  { q: 'Can I sell my shares/directorship?', a: 'Yes, with prior approval and applicable royalty.', category: 'shares' },
+  { q: 'How many shares have been sold?', a: 'Currently, a significant number of shares have already been allocated. The first phase of share allocation is expected to be completed soon. Available shares are very limited and continue to change as sales are ongoing.', category: 'shares' },
+  // Documentation (29-32)
+  { q: 'What documents are required from the shareholder?', a: 'Shareholder\'s National ID card (photocopy) | Nominee\'s National ID card (photocopy) | 2 copies of passport-size photographs | Completed application form with BDT 60,000 application fee | Our team will guide you through the entire process.', category: 'legal' },
+  { q: 'What is the mode of payment?', a: '50% on deed date, 25% within 30 days, 25% within 60–90 days.', category: 'investment' },
+  { q: 'What documents will Hayat provide?', a: 'Agreement, Deposit slip, Receipt, Share certificate, and RJSC allotment letter.', category: 'legal' },
+  { q: 'When will construction start?', a: 'After LUC approval from CDA.', category: 'operations' },
+  // Advanced Questions (33-50)
+  { q: 'Is it bigger than Evercare and Imperial Hospital?', a: 'No, but it will be the largest within the main medical hub area in Chattogram.', category: 'general' },
+  { q: 'What is the minimum investment?', a: '1 share = BDT 10 Lacs.', category: 'investment' },
+  { q: 'What is the maximum investment?', a: 'Up to BDT 10 Crore per individual.', category: 'investment' },
+  { q: 'What is unique about this project?', a: 'Separate diagnostic floor for female patients, First PET scan in Chattogram, AI-based paperless healthcare, Largest parking facility, International collaborations, and 12 business wings under one roof.', category: 'general' },
+  { q: 'What regulatory approvals are required?', a: 'CDA approval is required for construction. Application has been submitted.', category: 'legal' },
+  { q: 'Has the project received approval from DGHS?', a: 'Hospital permission will be applied for after construction completion.', category: 'legal' },
+  { q: 'What is the projected return on investment (ROI)?', a: 'Estimated ROI payback period is 5.3 years.', category: 'investment' },
+  { q: 'What is the expected payback period?', a: 'Healthcare is a highly sustainable income sector in Bangladesh. Feasibility studies indicate profitability from the inception of operations. However, profit distribution is expected from the 3rd year onward.', category: 'investment' },
+  { q: 'What are the main revenue streams?', a: 'The project has 11 business wings. The main revenue stream will be the cancer diagnostic center, as it is the first of its kind in the second-largest city, supported by the other business wings.', category: 'investment' },
+  { q: 'Who are the key competitors?', a: 'There are no direct competitors with the same model. Most existing hospitals in Chattogram are traditional with limited recent modernization. Hayat Life Care is based on a new healthcare concept, giving it a unique position in the market.', category: 'general' },
+  { q: 'What competitive advantages does Hayat Life Care have?', a: 'Modern healthcare model compared to traditional hospitals, better infrastructure and ample parking, unique model combining healthcare with lifestyle, and first-mover advantage as the first specialized cancer diagnostic and advanced hospital in the second largest city.', category: 'general' },
+  { q: 'Is there a feasibility study available?', a: 'Yes, available at the office.', category: 'investment' },
+  { q: 'What international standards are targeted?', a: 'ISO standards and WHO guidelines, along with the standards of our collaborative international healthcare partners.', category: 'operations' },
+  { q: 'Will there be foreign partnerships?', a: 'Yes, we plan to collaborate with reputed hospitals and healthcare partners in countries where Bangladeshi patients frequently seek treatment, especially India, Thailand, and Singapore.', category: 'operations' },
+  { q: 'Will there be a dividend policy?', a: 'Yes, details are available at the office. Dividends will be distributed monthly and a portion will be during the AGM.', category: 'investment' },
+  { q: 'How frequently will financial reports be shared?', a: 'Annually through AGM.', category: 'legal' },
+  { q: 'What governance structure ensures investor protection?', a: 'Investors are considered partners in the company. All partners/shareholders will be duly registered with RJSC in accordance with the Companies Act, ensuring legal transparency and protection.', category: 'legal' },
+  { q: 'Are there exit options besides buyback?', a: 'Yes, a shareholder or director is completely free to sell or transfer their shares to anyone at any time. However, this is not applicable for the founding directors.', category: 'shares' },
+  { q: 'What is the legal structure of the company?', a: 'The company will be converted to a PLC (Public Limited Company) after final confirmation of the number of shares.', category: 'legal' },
+  { q: 'What is the plan for staff training?', a: 'Training is one of the most important key elements for success. Staff training and development will be carefully designed to ensure patients receive the highest level of care and professional service.', category: 'operations' },
+  { q: 'Are there lock-in periods for shareholders?', a: 'Yes, there is a lock-in period of up to 3 years from the start of operation. However, shareholders are free to sell or transfer their shares to others in accordance with the company policy.', category: 'shares' },
+  // Medical & Services
+  { q: 'Is pediatric and family care available?', a: 'Yes, family-focused healthcare is a key priority at Hayat Life Care.', category: 'medical' },
+  { q: 'What services are available?', a: 'Hayat Life Care has 11 Business Wings: Paid Parking, ATM Booth, Pharmacy, Optical Shop, Super Shop, Coffee Shop, Juice Bar, Restaurant, Kid\'s Amusement Park, Doctor\'s Chambers, and Diagnostic Center. Future expansion includes a specialized hospital.', category: 'general' },
+  { q: 'Within 2 years, is it not very optimistic?', a: 'We have 11 business wings; among them, 10 can be started within 8 months of construction beginning. Example: Well Food, GEC operates business under a construction building by Equity.', category: 'operations' },
 ]
 
 export const doctorsData = [

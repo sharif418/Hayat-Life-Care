@@ -183,7 +183,7 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                 {
                   icon: Clock,
                   title: 'Operating Hours',
-                  details: [{ text: 'Sat–Thu: 9:00 AM – 9:00 PM' }, { text: 'Friday: Closed' }, { text: 'Emergency: 24/7' }],
+                  details: [{ text: 'Open 24/7 (All Day)' }],
                   color: '#0D9488',
                 },
               ].map((item, i) => (

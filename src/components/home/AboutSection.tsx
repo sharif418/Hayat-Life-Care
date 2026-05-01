@@ -1,7 +1,7 @@
 "use client";
 import React from 'react'
 import Image from 'next/image'
-import { MapPin, Building2, Building, Car, Sparkles, TrendingUp, Shield, Award, Users, Clock, FileCheck } from 'lucide-react'
+import { MapPin, Building2, Building, Car, Sparkles, TrendingUp, Shield, Award, Users, FileCheck } from 'lucide-react'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
 
 interface AboutSectionProps {
@@ -88,7 +88,6 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
                     { icon: Shield, text: 'Registered Company' },
                     { icon: Award, text: 'No Bank Loan' },
                     { icon: Users, text: '4,950 Shares' },
-                    { icon: Clock, text: 'Dec 2028 Operation' },
                     { icon: FileCheck, text: 'RJSC Registered' },
                   ].map((badge, i) => (
                     <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors" style={{ background: 'rgba(13,148,136,0.06)', borderColor: 'rgba(13,148,136,0.15)', color: '#0D9488' }}>

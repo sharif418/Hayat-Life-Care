@@ -197,7 +197,7 @@ export default function FooterSection() {
 
                 <div className="flex items-start gap-2">
                   <Clock className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
-                  <div>Sat-Thu: 9AM - 9PM<br/>Friday: Closed</div>
+                  <div>Open 24/7 (All Day)</div>
                 </div>
               </div>
             </div>

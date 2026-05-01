@@ -108,7 +108,7 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
             {
               icon: Clock,
               title: 'Operating Hours',
-              detail: 'Sat – Thu: 9:00 AM – 9:00 PM\nFriday: Closed | Emergency: 24/7',
+              detail: 'Open 24/7 (All Day)',
               color: '#D97706',
             },
           ].map((item, i) => (

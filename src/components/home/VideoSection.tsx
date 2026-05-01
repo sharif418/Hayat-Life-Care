@@ -16,7 +16,7 @@ const fallbackVideos = [
   {
     id: 'fallback-2',
     title: 'Our World-Class Facilities',
-    description: 'Explore 11 business wings, international-standard diagnostics, and premium amenities across 16+ floors.',
+    description: 'Explore 11 business wings, international-standard diagnostics, and premium amenities across 14+ floors.',
     youtubeId: 'dQw4w9WgXcQ', // Replace with actual video ID
   },
   {

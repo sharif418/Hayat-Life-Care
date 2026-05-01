@@ -334,8 +334,8 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
 
               <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
                 {/* Vision Card */}
-                <div className="group bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none border border-gray-100 dark:border-slate-700 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(13,148,136,0.15)] relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 dark:bg-teal-900/20 rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150" />
+                <div className="group bg-white dark:bg-slate-800 hover:bg-teal-50/30 dark:hover:bg-teal-900/20 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none border border-gray-100 dark:border-slate-700 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(13,148,136,0.15)] hover:border-teal-200 dark:hover:border-teal-800/50 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 dark:bg-teal-900/20 rounded-full blur-2xl -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-[3]" />
                   <div className="p-3.5 inline-block rounded-2xl bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 mb-6 border border-teal-100 dark:border-teal-800/50 relative z-10">
                     <Sparkles className="size-6" />
                   </div>
@@ -346,8 +346,8 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                 </div>
 
                 {/* Mission Card */}
-                <div className="group bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none border border-gray-100 dark:border-slate-700 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)] relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 dark:bg-emerald-900/20 rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150" />
+                <div className="group bg-white dark:bg-slate-800 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none border border-gray-100 dark:border-slate-700 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)] hover:border-emerald-200 dark:hover:border-emerald-800/50 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 dark:bg-emerald-900/20 rounded-full blur-2xl -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-[3]" />
                   <div className="p-3.5 inline-block rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-6 border border-emerald-100 dark:border-emerald-800/50 relative z-10">
                     <Target className="size-6" />
                   </div>
@@ -358,8 +358,8 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                 </div>
 
                 {/* Ethical Vision Card */}
-                <div className="group bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none border border-gray-100 dark:border-slate-700 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(244,63,94,0.15)] relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-rose-50 dark:bg-rose-900/20 rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-150" />
+                <div className="group bg-white dark:bg-slate-800 hover:bg-rose-50/30 dark:hover:bg-rose-900/20 rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none border border-gray-100 dark:border-slate-700 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(244,63,94,0.15)] hover:border-rose-200 dark:hover:border-rose-800/50 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-rose-50 dark:bg-rose-900/20 rounded-full blur-2xl -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-[3]" />
                   <div className="p-3.5 inline-block rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 mb-6 border border-rose-100 dark:border-rose-800/50 relative z-10">
                     <Heart className="size-6" />
                   </div>
