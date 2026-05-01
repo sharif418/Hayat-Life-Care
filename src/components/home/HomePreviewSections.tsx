@@ -135,6 +135,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
               { icon: Heart, name: 'Specialized Hospital', desc: 'Cancer, Heart, Kidney, Gyne & Obs', color: '#EF4444' },
               { icon: Crown, name: 'Female Diagnostic', desc: 'Dedicated women\'s healthcare wing', color: '#EC4899' },
               { icon: Sparkles, name: "Kid's Park & More", desc: 'Entertainment & optical shop', color: '#8B5CF6' },
+              { icon: HandCoins, name: 'ATM & Banking', desc: '24/7 financial convenience', color: '#06B6D4' },
             ].map((item, i) => (
               <StaggerItem key={i}>
                 <motion.div
