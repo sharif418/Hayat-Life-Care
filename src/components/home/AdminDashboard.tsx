@@ -45,13 +45,6 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
     }
   }, [])
 
-  // ─── Fetch admin data when logged in ───
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchAdminData()
-    }
-  }, [isLoggedIn, fetchAdminData])
-
   const [inquiries, setInquiries] = useState<any[]>([])
   const [adminServices, setAdminServices] = useState<any[]>([])
   const [adminFaqs, setAdminFaqs] = useState<any[]>([])
@@ -128,6 +121,13 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
       console.error('Failed to fetch admin data:', err)
     }
   }, [])
+
+  // ─── Fetch admin data when logged in ───
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchAdminData()
+    }
+  }, [isLoggedIn, fetchAdminData])
 
   const handleAdminLogin = async () => {
     setLoginError('')

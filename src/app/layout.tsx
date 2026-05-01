@@ -29,6 +29,7 @@ import { DownloadProvider } from "@/components/providers/DownloadProvider";
 import SiteVisitTracker from "@/components/ui/SiteVisitTracker";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://hayatlifecare.duckdns.org'),
   title: 'Hayat Life Care - One Stop Healthcare & Lifestyle Destination | Chattogram',
   description: 'Hayat Life Care is Chattogram\'s premier healthcare and lifestyle complex offering 11 business wings including doctor chambers, diagnostic center, pharmacy, restaurant, super shop, and more. Invest in healthcare future with shares at 10 Lacs BDT.',
   keywords: ['Hayat Life Care', 'healthcare Chattogram', 'hospital Chattogram', 'diagnostic center', 'doctor chamber', 'investment Bangladesh', 'healthcare complex'],
