@@ -123,7 +123,7 @@ export default function Navbar() {
             : 'top-8 bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 h-16 md:h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 h-16 md:h-20 flex items-center">
           {/* Logo & Tagline — Premium Glass Container */}
           <a
             href="/"
@@ -143,7 +143,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop nav — consolidated 7 items with Dream Education-style underline */}
-          <div className="hidden xl:flex items-center gap-0 lg:gap-0.5">
+          <div className="hidden xl:flex items-center gap-0 lg:gap-0.5 ml-8 mr-auto">
             {navLinks.map((link) => {
               // Determine if the link is active based on the actual URL pathname
               const isActive = link.href === '/' 
@@ -203,8 +203,12 @@ export default function Navbar() {
                 )}
               </div>
             )})}
+          </div>
+
+          {/* Desktop Action Buttons */}
+          <div className="hidden xl:flex items-center gap-1 xl:gap-2">
             <button
-              className={`ml-1 rounded-full h-8 w-8 xl:h-9 xl:w-9 flex items-center justify-center transition-all duration-300 shadow-sm border ${
+              className={`rounded-full h-8 w-8 xl:h-9 xl:w-9 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                 scrolled
                   ? isDarkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-teal-400' : 'bg-white border-gray-100 hover:bg-gray-50 text-teal-600'
                   : isHomePage ? 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md' : 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md'
@@ -226,7 +230,7 @@ export default function Navbar() {
               </AnimatePresence>
             </button>
             <Button
-              className={`ml-1 xl:ml-2 rounded-full px-3 xl:px-4 font-semibold text-xs xl:text-sm transition-all duration-300 border ${
+              className={`rounded-full px-3 xl:px-4 font-semibold text-xs xl:text-sm transition-all duration-300 border ${
                 scrolled
                   ? 'bg-teal-600 hover:bg-teal-700 text-white border-transparent shadow-md'
                   : 'bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-sm shadow-[0_0_15px_rgba(255,255,255,0.1)]'
@@ -238,7 +242,7 @@ export default function Navbar() {
               </button>
             </Button>
             <Button
-              className={`ml-1 xl:ml-2 rounded-full px-3 xl:px-5 text-sm font-semibold transition-all duration-300 shadow-lg relative overflow-hidden group ${
+              className={`rounded-full px-3 xl:px-5 text-sm font-semibold transition-all duration-300 shadow-lg relative overflow-hidden group ${
                 scrolled
                   ? 'bg-amber-600 hover:bg-amber-700 text-white border border-transparent'
                   : 'bg-amber-500/90 hover:bg-amber-500 text-white border border-amber-400/50 backdrop-blur-sm shadow-[0_0_20px_rgba(245,158,11,0.3)]'
@@ -251,7 +255,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu */}
-          <div className="xl:hidden flex items-center gap-2">
+          <div className="xl:hidden flex items-center gap-2 ml-auto">
             <button
               className={`rounded-full h-8 w-8 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                 scrolled

@@ -67,6 +67,18 @@ export default function GlobalUI() {
         </a>
       </div>
 
+      {/* ─── FLOATING VISION STATEMENT (Left side, Desktop only) ─── */}
+      <div className="fixed bottom-6 left-6 z-40 hidden xl:flex">
+        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-teal-500/20 shadow-[0_8px_30px_rgba(13,148,136,0.15)] rounded-full px-5 py-2.5 flex items-center gap-3 relative overflow-hidden group hover:scale-[1.02] transition-all duration-300">
+          <div className="absolute inset-0 bg-linear-to-r from-teal-500/0 via-teal-500/10 to-teal-500/0 -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
+          <div className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse shadow-[0_0_8px_rgba(20,184,166,0.8)]" />
+          <p className="text-[11px] font-medium text-slate-700 dark:text-slate-300 tracking-[0.15em] uppercase" style={{ fontFamily: 'var(--font-outfit), sans-serif' }}>
+            <span className="text-teal-600 dark:text-teal-400 font-bold mr-2">Our Vision</span>
+            Vision with purpose, driven by innovation and guided by heart—to serve and uplift generations.
+          </p>
+        </div>
+      </div>
+
       {/* ─── CHAT WIDGET ─── */}
       <ChatWidget chatSessionId={chatSessionId} showMobileBar={showMobileBar} />
 
