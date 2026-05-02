@@ -612,8 +612,8 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     <HandCoins className="size-6" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold">Invest in Hayat Life Care</h3>
-                    <p className="text-sm text-white/80">Start your investment journey today</p>
+                    <h3 className="text-xl font-bold">{t('investment.investInHayat')}</h3>
+                    <p className="text-sm text-white/80">{t('investment.startJourney')}</p>
                   </div>
                 </div>
               </div>
@@ -623,32 +623,32 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center" style={{ background: 'rgba(13,148,136,0.1)' }}>
                     <Check className="size-8" style={{ color: '#0D9488' }} />
                   </div>
-                  <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Thank You!</h4>
-                  <p className="text-gray-500 dark:text-gray-400 mb-6">Your investment inquiry has been received. Our team will contact you within 24 hours.</p>
+                  <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t('investment.thankYou')}</h4>
+                  <p className="text-gray-500 dark:text-gray-400 mb-6">{t('investment.inquiryReceived')}</p>
                   <Button
                     className="rounded-full px-8 text-white"
                     style={{ background: '#0D9488' }}
                     onClick={() => { setShowInvestModal(false); setFormStatus('idle') }}
                   >
-                    Close
+                    {t('investment.close')}
                   </Button>
                 </div>
               ) : (
                 <form onSubmit={handleInvestSubmit} className="p-6 space-y-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">Full Name *</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">{t('investment.fullName')}</label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={e => setFormData(p => ({ ...p, name: e.target.value }))}
-                      placeholder="Enter your full name"
+                      placeholder={t('investment.enterName')}
                       className="w-full px-4 py-2.5 border border-gray-200 dark:border-slate-600 rounded-xl text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">Phone Number *</label>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">{t('investment.phoneNumber')}</label>
                       <input
                         type="tel"
                         required
@@ -659,7 +659,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">Email</label>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">{t('investment.emailLabel')}</label>
                       <input
                         type="email"
                         value={formData.email}
@@ -670,7 +670,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">Number of Shares Interested</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">{t('investment.sharesInterested')}</label>
                     <select
                       value={formData.shares}
                       onChange={e => setFormData(p => ({ ...p, shares: e.target.value }))}
@@ -685,17 +685,17 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     </select>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">Message (Optional)</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">{t('investment.messageOptional')}</label>
                     <textarea
                       value={formData.message}
                       onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
-                      placeholder="Any questions or specific requirements..."
+                      placeholder={t('investment.messagePlaceholder')}
                       rows={3}
                       className="w-full px-4 py-2.5 border border-gray-200 dark:border-slate-600 rounded-xl text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all resize-none"
                     />
                   </div>
                   {formStatus === 'error' && (
-                    <p className="text-sm text-red-500 text-center">Something went wrong. Please try again or call us directly.</p>
+                    <p className="text-sm text-red-500 text-center">{t('investment.somethingWrong')}</p>
                   )}
                   <Button
                     type="submit"
@@ -705,12 +705,12 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     style={{ background: 'linear-gradient(135deg, #D97706, #B45309)' }}
                   >
                     {formStatus === 'submitting' ? (
-                      <span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Submitting...</span>
+                      <span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('investment.submitting')}</span>
                     ) : (
-                      <span className="flex items-center gap-2"><Sparkles className="size-4" /> Submit Investment Inquiry</span>
+                      <span className="flex items-center gap-2"><Sparkles className="size-4" /> {t('investment.submitInquiry')}</span>
                     )}
                   </Button>
-                  <p className="text-[11px] text-gray-400 text-center">Your information is secure and will only be used to contact you about investment opportunities.</p>
+                  <p className="text-[11px] text-gray-400 text-center">{t('investment.secureInfo')}</p>
                 </form>
               )}
             </motion.div>
