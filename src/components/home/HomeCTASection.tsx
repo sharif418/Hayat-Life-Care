@@ -108,7 +108,7 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
             {
               icon: Clock,
               title: 'Operating Hours',
-              detail: 'Open 24/7 (All Day)',
+              detail: 'Open All Day',
               color: '#D97706',
             },
           ].map((item, i) => (

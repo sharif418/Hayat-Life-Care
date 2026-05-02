@@ -129,13 +129,13 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
           <StaggerContainer className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
             {[
               { icon: ParkingCircle, name: 'Paid Parking', desc: '150+ spaces with 3 basements', color: '#6366F1' },
-              { icon: ShoppingBag, name: 'Super Shop & Pharmacy', desc: '24/7 daily essentials & medicine', color: '#10B981' },
+              { icon: ShoppingBag, name: 'Super Shop & Pharmacy', desc: 'Daily essentials & medicine available all day', color: '#10B981' },
               { icon: Utensils, name: 'Restaurant & Cafe', desc: 'Hygienic dining & juice bar', color: '#F59E0B' },
               { icon: Stethoscope, name: 'Diagnostic Center', desc: 'International-standard pathology', color: '#0D9488' },
               { icon: Heart, name: 'Specialized Hospital', desc: 'Cancer, Heart, Kidney, Gyne & Obs', color: '#EF4444' },
               { icon: Crown, name: 'Female Diagnostic', desc: 'Dedicated women\'s healthcare wing', color: '#EC4899' },
               { icon: Sparkles, name: "Kid's Park & More", desc: 'Entertainment & optical shop', color: '#8B5CF6' },
-              { icon: HandCoins, name: 'ATM & Banking', desc: '24/7 financial convenience', color: '#06B6D4' },
+              { icon: HandCoins, name: 'ATM & Banking', desc: 'All-day financial convenience', color: '#06B6D4' },
             ].map((item, i) => (
               <StaggerItem key={i}>
                 <motion.div

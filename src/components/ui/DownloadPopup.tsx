@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Download, User, Phone, Loader2, CheckCircle2, Sparkles } from 'lucide-react'
+import { X, Download, User, Phone, Loader2, CheckCircle2, Sparkles, Lock } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
@@ -222,19 +222,22 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
                       )}
                     </Button>
 
-                    {/* Skip Button */}
+                    {/* Privacy Note - Highlighted */}
+                    <div className="flex items-start justify-center gap-1.5 mt-3 px-2">
+                      <Lock className="size-3.5 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-gray-600 dark:text-gray-400 text-center leading-relaxed">
+                        <span className="font-semibold text-teal-700 dark:text-teal-300">100% Secure.</span> Your information will only be used by Hayat Life Care for communication purposes.
+                      </p>
+                    </div>
+
+                    {/* Skip Button - Downplayed */}
                     <button
                       onClick={handleSkip}
-                      className="w-full text-center text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors py-1"
+                      className="w-full text-center text-[10px] text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400 transition-colors mt-3"
                     >
-                      Skip & Download directly →
+                      skip & download directly
                     </button>
                   </div>
-
-                  {/* Privacy Note */}
-                  <p className="text-[10px] text-gray-400 text-center mt-4 leading-relaxed">
-                    Your information is secure and will only be used by Hayat Life Care for communication purposes.
-                  </p>
                 </motion.div>
               )}
             </AnimatePresence>

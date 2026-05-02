@@ -146,7 +146,7 @@ This is beyond my current knowledge base. For detailed and personalized assistan
 
 📞 **Call:** 01335-074940 / 01335-074941
 🏢 **Visit:** Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram
-🕐 **Office Hours:** Open 24/7 (All Day)
+🕐 **Office Hours:** Open All Day
 
 Our team will be happy to assist you!`;
 

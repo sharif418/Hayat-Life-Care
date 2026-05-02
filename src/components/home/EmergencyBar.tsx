@@ -28,7 +28,7 @@ export default function EmergencyBar() {
           className="flex items-center gap-2"
         >
           <Phone className="size-4" />
-          <span className="font-bold text-sm md:text-base">24/7 Hotline:</span>
+          <span className="font-bold text-sm md:text-base">Emergency Hotline:</span>
         </motion.div>
         <a href="tel:01335074940" className="hover:underline font-bold text-white text-sm md:text-base">01335-074940</a>
         <span className="text-white/30">•</span>

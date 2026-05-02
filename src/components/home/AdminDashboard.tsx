@@ -69,6 +69,8 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
   const [newFaq, setNewFaq] = useState({ question: '', answer: '', category: 'general' })
   const [newLeader, setNewLeader] = useState({ name: '', designation: '', bio: '' })
   const [newVideo, setNewVideo] = useState({ title: '', youtubeId: '', description: '' })
+  const [featuredVideoId, setFeaturedVideoId] = useState('')
+  const [savingFeatured, setSavingFeatured] = useState(false)
 
   // Password change
   const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
@@ -106,7 +108,17 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
       if (svcData.data) setAdminServices(svcData.data)
       if (faqData.data) setAdminFaqs(faqData.data)
       if (ldrData.data) setLeaders(ldrData.data)
-      if (setData.data) setSiteSettings(setData.data)
+      if (setData.data) {
+        setSiteSettings(setData.data)
+        // Extract featured video ID from site settings
+        for (const group of Object.values(setData.data) as any[][]) {
+          const fvSetting = group.find((s: any) => s.key === 'featured_video_id')
+          if (fvSetting && fvSetting.value) {
+            setFeaturedVideoId(fvSetting.value)
+            break
+          }
+        }
+      }
       if (dlData.data) {
         setDownloadLeads(dlData.data.leads || [])
         setDownloadStats(dlData.data.stats || { totalDownloads: 0, leadsCount: 0, skippedCount: 0 })
@@ -792,6 +804,70 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                 {adminTab === 'videos' && (
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Manage YouTube Videos</h2>
+
+                    {/* ═══ Featured / Spotlight Video ═══ */}
+                    <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border-2 border-amber-200 shadow-sm p-5 mb-6">
+                      <h3 className="font-semibold text-gray-900 mb-1 flex items-center gap-2">
+                        <span className="text-lg">⭐</span> Featured Spotlight Video
+                      </h3>
+                      <p className="text-xs text-gray-500 mb-4">This video auto-plays when visitors scroll to the video section. Set a YouTube Video ID below.</p>
+                      <div className="flex flex-col sm:flex-row items-start sm:items-end gap-3">
+                        <div className="flex-1 w-full">
+                          <label className="text-xs font-semibold text-gray-600 block mb-1">YouTube Video ID</label>
+                          <Input
+                            placeholder="e.g. dQw4w9WgXcQ"
+                            value={featuredVideoId}
+                            onChange={(e) => setFeaturedVideoId(e.target.value)}
+                            className="bg-white"
+                          />
+                        </div>
+                        <Button
+                          onClick={async () => {
+                            setSavingFeatured(true)
+                            try {
+                              await fetch('/api/site-settings', {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                  settings: [{ key: 'featured_video_id', value: featuredVideoId.trim() }],
+                                }),
+                              })
+                              toast.success(featuredVideoId.trim() ? 'Featured video saved!' : 'Featured video removed!')
+                            } catch {
+                              toast.error('Failed to save featured video')
+                            }
+                            setSavingFeatured(false)
+                          }}
+                          disabled={savingFeatured}
+                          className="text-white shrink-0"
+                          style={{ background: 'linear-gradient(135deg, #D97706, #B45309)' }}
+                          size="sm"
+                        >
+                          {savingFeatured ? 'Saving...' : '💾 Save Featured'}
+                        </Button>
+                      </div>
+                      {featuredVideoId.trim() && (
+                        <div className="mt-3 flex items-center gap-3">
+                          <div className="shrink-0 w-28 h-16 rounded-lg overflow-hidden bg-gray-100 relative">
+                            <img
+                              src={`https://img.youtube.com/vi/${featuredVideoId.trim()}/mqdefault.jpg`}
+                              alt="Featured preview"
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                              <PlayCircle className="size-6 text-white/90" />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-xs font-medium text-gray-700">Preview: youtube.com/watch?v={featuredVideoId.trim()}</div>
+                            <div className="text-[10px] text-gray-400 mt-0.5">This video will auto-play (muted) when users scroll to the video section</div>
+                          </div>
+                        </div>
+                      )}
+                      {!featuredVideoId.trim() && (
+                        <p className="text-[10px] text-amber-600 mt-2">💡 Leave empty to hide the featured video spotlight.</p>
+                      )}
+                    </div>
 
                     {/* Add Video Form */}
                     <div className="bg-white rounded-xl border shadow-sm p-5 mb-6">

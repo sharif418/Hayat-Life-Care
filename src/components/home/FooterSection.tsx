@@ -140,33 +140,45 @@ export default function FooterSection() {
               </div>
             </div>
 
-            {/* Services List */}
+            {/* Medical Services */}
             <div>
-              <h4 className="text-white font-semibold mb-4">Services</h4>
-              <div className="space-y-2 max-h-56 overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: '#334155 transparent' }}>
-                {['Paid Parking', 'ATM Booth', 'Pharmacy', 'Optical Shop', 'Super Shop', 'Coffee Shop', 'Juice Bar', 'Restaurant', "Kid's Park", "Specialized Hospital", 'Diagnostic Center'].map((svc, i) => (
+              <h4 className="text-white font-semibold mb-4">Medical Services</h4>
+              <div className="space-y-2">
+                {[
+                  { name: 'Specialized Hospital', href: '/facilities' },
+                  { name: 'Diagnostic Center', href: '/facilities' },
+                  { name: "Doctor's Chambers", href: '/facilities' },
+                  { name: 'Pharmacy', href: '/facilities' },
+                  { name: 'Optical Shop', href: '/facilities' },
+                ].map((svc, i) => (
                   <a
                     key={i}
-                    href="/facilities"
+                    href={svc.href}
                     className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200"
                   >
-                    {svc}
+                    {svc.name}
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* More Links */}
+            {/* Lifestyle & Amenities */}
             <div>
-              <h4 className="text-white font-semibold mb-4">More Links</h4>
+              <h4 className="text-white font-semibold mb-4">Lifestyle & Amenities</h4>
               <div className="space-y-2">
-                {navLinks.slice(6).map((link) => (
+                {[
+                  { name: 'Super Shop', href: '/facilities' },
+                  { name: 'Restaurant & Cafe', href: '/facilities' },
+                  { name: "Kid's Amusement Park", href: '/facilities' },
+                  { name: 'ATM Booth', href: '/facilities' },
+                  { name: 'Paid Parking', href: '/facilities' },
+                ].map((svc, i) => (
                   <a
-                    key={link.href}
-                    href={link.href}
+                    key={i}
+                    href={svc.href}
                     className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200"
                   >
-                    {link.label}
+                    {svc.name}
                   </a>
                 ))}
               </div>
@@ -197,7 +209,7 @@ export default function FooterSection() {
 
                 <div className="flex items-start gap-2">
                   <Clock className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
-                  <div>Open 24/7 (All Day)</div>
+                  <div>Open All Day</div>
                 </div>
               </div>
             </div>
@@ -209,16 +221,9 @@ export default function FooterSection() {
           <div className="max-w-7xl mx-auto px-4 pt-5 pb-8 lg:pb-12 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
             <div className="flex items-center gap-2 font-medium">&copy; {new Date().getFullYear()} Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; Back to Top</button></div>
             <div className="flex items-center gap-4 lg:mr-12 xl:mr-16">
-              <a 
-                href="https://github.com/sharif418" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="flex items-center gap-1.5 hover:text-teal-400 transition-colors"
-                title="System Version"
-              >
-                <Github className="size-3.5" />
-                <span className="tracking-wider">Build v1.0.0</span>
-              </a>
+              <span className="tracking-wider text-gray-500" title="System Version">
+                Build v1.0.0
+              </span>
             </div>
           </div>
         </div>

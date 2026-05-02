@@ -19,7 +19,7 @@ export default function ContactPage() {
         badge="Get In Touch"
         title="Contact"
         highlightText="Us"
-        description="Reach out to us for any inquiries, appointments, or emergency support. Our dedicated team is ready to assist you 24/7."
+        description="Reach out to us for any inquiries, appointments, or emergency support. Our dedicated team is ready to assist you all day."
       />
       <ContactSection onBookAppointment={openAppointmentDialog} isDarkMode={isDarkMode} />
     </PageWrapper>

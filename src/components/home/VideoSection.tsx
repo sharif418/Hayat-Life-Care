@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Play, Youtube, ExternalLink, X } from 'lucide-react'
+import { Play, Youtube, ExternalLink, X, Volume2, VolumeX, Maximize2, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 // Fallback static data — used when API has no videos
@@ -10,20 +10,20 @@ const fallbackVideos = [
   {
     id: 'fallback-1',
     title: 'Hayat Life Care — Official Overview',
-    description: 'Discover the vision behind Chattogram\'s most ambitious healthcare & lifestyle complex on 55 Katha.',
-    youtubeId: 'dQw4w9WgXcQ', // Replace with actual video ID
+    description: 'Discover the vision behind Chattogram\'s most ambitious healthcare & lifestyle complex.',
+    youtubeId: 'KgX0Afipj5o',
   },
   {
     id: 'fallback-2',
     title: 'Our World-Class Facilities',
-    description: 'Explore 11 business wings, international-standard diagnostics, and premium amenities across 14+ floors.',
-    youtubeId: 'dQw4w9WgXcQ', // Replace with actual video ID
+    description: 'Explore 11 business wings, international-standard diagnostics, and premium amenities.',
+    youtubeId: 'awOjNHJHNQ8',
   },
   {
     id: 'fallback-3',
     title: 'Investment Opportunity',
-    description: 'Learn about our transparent investment model — 4,950 shares, zero bank loans, buyback guarantee.',
-    youtubeId: 'dQw4w9WgXcQ', // Replace with actual video ID
+    description: 'Learn about our transparent investment model — shares, returns, and growth potential.',
+    youtubeId: 'yfyKJBpNxrM',
   },
 ]
 
@@ -45,6 +45,14 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null)
   const [videos, setVideos] = useState<VideoItem[]>(fallbackVideos)
 
+  // Featured / Spotlight video state
+  const featuredRef = useRef<HTMLDivElement>(null)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+  const isFeaturedInView = useInView(featuredRef, { margin: '-100px' })
+  const [featuredVideoId, setFeaturedVideoId] = useState<string>('')
+  const [featuredMuted, setFeaturedMuted] = useState(true)
+  const [featuredReady, setFeaturedReady] = useState(false)
+
   // Fetch videos from API (admin-managed)
   useEffect(() => {
     async function fetchVideos() {
@@ -62,6 +70,69 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
     }
     fetchVideos()
   }, [])
+
+  // Fetch featured video from site-settings
+  useEffect(() => {
+    async function fetchFeatured() {
+      try {
+        const res = await fetch('/api/site-settings')
+        if (res.ok) {
+          const json = await res.json()
+          const allSettings = json.data || {}
+          for (const group of Object.values(allSettings) as any[][]) {
+            const setting = group.find((s: any) => s.key === 'featured_video_id')
+            if (setting && setting.value) {
+              setFeaturedVideoId(setting.value)
+              return
+            }
+          }
+        }
+      } catch {
+        // No featured video
+      }
+    }
+    fetchFeatured()
+  }, [])
+
+  // YouTube postMessage helper — controls the iframe player
+  const sendYTCommand = useCallback((command: string) => {
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: command }),
+        '*'
+      )
+    }
+  }, [])
+
+  // Auto play/pause based on scroll visibility + try auto-unmute
+  useEffect(() => {
+    if (!featuredVideoId || !featuredReady) return
+    if (isFeaturedInView) {
+      sendYTCommand('playVideo')
+      // Try to auto-unmute after a short delay (browser may allow after scroll interaction)
+      setTimeout(() => {
+        sendYTCommand('unMute')
+        setFeaturedMuted(false)
+      }, 300)
+    } else {
+      sendYTCommand('pauseVideo')
+    }
+  }, [isFeaturedInView, featuredVideoId, featuredReady, sendYTCommand])
+
+  // Mark iframe as ready after it loads
+  const handleIframeLoad = useCallback(() => {
+    setTimeout(() => setFeaturedReady(true), 500)
+  }, [])
+
+  // Toggle mute/unmute via postMessage
+  const toggleMute = useCallback(() => {
+    if (featuredMuted) {
+      sendYTCommand('unMute')
+    } else {
+      sendYTCommand('mute')
+    }
+    setFeaturedMuted(!featuredMuted)
+  }, [featuredMuted, sendYTCommand])
 
   return (
     <>
@@ -116,7 +187,103 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
             </p>
           </motion.div>
 
-          {/* Video Cards */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* FEATURED / SPOTLIGHT VIDEO                             */}
+          {/* Auto-plays on scroll, pauses when scrolled away        */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          {featuredVideoId && (
+            <motion.div
+              ref={featuredRef}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="mb-14"
+            >
+              <div className="max-w-5xl mx-auto">
+                {/* Featured badge */}
+                <div className="flex items-center gap-2 mb-4">
+                  <div
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider"
+                    style={{
+                      background: isDarkMode ? 'rgba(217,119,6,0.15)' : 'rgba(217,119,6,0.1)',
+                      color: '#D97706',
+                      border: '1px solid rgba(217,119,6,0.2)',
+                    }}
+                  >
+                    <Star className="size-3" fill="#D97706" />
+                    Featured Video
+                  </div>
+                </div>
+
+                {/* Video Player Container */}
+                <div
+                  className="relative rounded-3xl overflow-hidden shadow-2xl group"
+                  style={{
+                    border: `2px solid ${isDarkMode ? 'rgba(217,119,6,0.3)' : 'rgba(217,119,6,0.2)'}`,
+                  }}
+                >
+                  {/* Glow effect */}
+                  <div
+                    className="absolute -inset-1 rounded-3xl opacity-30 blur-xl -z-10"
+                    style={{ background: 'linear-gradient(135deg, #D97706, #0D9488)' }}
+                  />
+
+                  <div className="relative aspect-video bg-black">
+                    {/* Iframe — always loaded, controlled via YouTube postMessage API */}
+                    <iframe
+                      ref={iframeRef}
+                      src={`https://www.youtube.com/embed/${featuredVideoId}?autoplay=0&mute=1&loop=1&playlist=${featuredVideoId}&rel=0&modestbranding=1&controls=0&showinfo=0&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+                      title="Featured Video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-full h-full"
+                      style={{ border: 0 }}
+                      onLoad={handleIframeLoad}
+                    />
+
+                    {/* Bottom control overlay — always visible */}
+                    <div
+                      className="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-end justify-between"
+                      style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)' }}
+                    >
+                      <button
+                        onClick={toggleMute}
+                        className="flex items-center gap-2.5 px-4 py-2.5 rounded-full backdrop-blur-md text-white text-sm font-medium transition-all hover:scale-105"
+                        style={{
+                          background: featuredMuted
+                            ? 'linear-gradient(135deg, #D97706, #B45309)'
+                            : 'rgba(255,255,255,0.2)',
+                        }}
+                      >
+                        {featuredMuted ? (
+                          <>
+                            <VolumeX className="size-4" />
+                            <span>🔊 Tap to Unmute</span>
+                          </>
+                        ) : (
+                          <>
+                            <Volume2 className="size-4" />
+                            <span>Playing with sound</span>
+                          </>
+                        )}
+                      </button>
+                      <button
+                        onClick={() => setPlayingVideo(featuredVideoId)}
+                        className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+                        aria-label="Watch fullscreen"
+                      >
+                        <Maximize2 className="size-5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* VIDEO GALLERY — Existing cards                         */}
+          {/* ═══════════════════════════════════════════════════════ */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {videos.map((video, index) => (
               <motion.div

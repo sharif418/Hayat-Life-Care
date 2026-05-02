@@ -82,7 +82,7 @@ const partnerReasons = [
   {
     icon: Car,
     title: '150+ Car Parking Spaces',
-    desc: 'Unparalleled in nearby healthcare facilities — secure, spacious, and 24/7 monitored.',
+    desc: 'Unparalleled in nearby healthcare facilities — secure, spacious, and continuously monitored.',
     color: '#EF4444',
   },
   {

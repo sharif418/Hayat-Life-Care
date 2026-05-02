@@ -237,7 +237,7 @@ export const lightboxImages = [
   { src: '/images/wings/floor_level1.jpg', alt: 'Premium Reception & Waiting Area', category: 'Facilities' },
   { src: '/images/wings/floor_level5.jpg', alt: 'Modern Doctor Consultation Room', category: 'Healthcare' },
   { src: '/images/wings/floor_level3.jpg', alt: 'Advanced Pathology Laboratory', category: 'Healthcare' },
-  { src: '/images/wings/gallery_pharmacy.jpg', alt: '24/7 Pharmacy', category: 'Retail' },
+  { src: '/images/wings/gallery_pharmacy.jpg', alt: 'All Day Pharmacy', category: 'Retail' },
   { src: '/images/wings/floor_level2.jpg', alt: 'Hygienic Restaurant & Cafe', category: 'Dining' },
   { src: '/images/wings/gallery_supershop.jpg', alt: 'Super Shop & Daily Needs', category: 'Retail' },
   { src: '/images/wings/floor_basement.jpg', alt: 'Spacious Basement Paid Parking', category: 'Facilities' },
