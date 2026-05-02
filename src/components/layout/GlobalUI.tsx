@@ -30,11 +30,11 @@ export default function GlobalUI() {
     <>
       <FooterSection />
 
-      {/* Spacer to prevent mobile dock from covering footer */}
-      <div className="h-[88px] lg:h-0 w-full" style={{ background: '#0F172A' }} />
+      {/* Spacer to prevent mobile dock / vision strip from covering footer */}
+      <div className="h-[88px] lg:h-8 w-full" style={{ background: '#0F172A' }} />
 
       {/* ─── FLOATING ACTION BUTTONS (Right side stack) ─── */}
-      <div className={`fixed right-4 sm:right-5 z-40 flex flex-col items-center gap-3 transition-all duration-300 ${showMobileBar ? 'bottom-[72px] lg:bottom-6' : 'bottom-6'}`}>
+      <div className={`fixed right-4 sm:right-5 z-40 flex flex-col items-center gap-3 transition-all duration-300 ${showMobileBar ? 'bottom-[72px] lg:bottom-12' : 'bottom-6 lg:bottom-12'}`}>
         {/* Back to top */}
         <AnimatePresence>
           {scrolled && (
@@ -67,40 +67,46 @@ export default function GlobalUI() {
         </a>
       </div>
 
-      {/* ─── PREMIUM VISION TICKER BAR (Persistent across all pages) ─── */}
-      <div
-        className="fixed bottom-0 left-0 right-0 z-[55] lg:z-30 pointer-events-none hidden lg:block"
-      >
+      {/* ─── PREMIUM VISION STRIP (Persistent, solid, all pages — Desktop only) ─── */}
+      <div className="fixed bottom-0 left-0 right-0 z-[45] hidden lg:block">
         <div
-          className="w-full pointer-events-auto"
+          className="w-full h-8"
           style={{
-            background: 'linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%)',
+            background: '#0F172A',
+            borderTop: '1px solid rgba(13,148,136,0.25)',
+            boxShadow: '0 -4px 20px rgba(0,0,0,0.15)',
           }}
         >
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex items-center justify-center gap-4 py-3">
-              {/* Left decorative line */}
-              <div className="hidden md:block h-px flex-1 max-w-[120px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(13,148,136,0.4))' }} />
-              
-              {/* Vision icon */}
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-                  <div className="absolute inset-0 w-2 h-2 rounded-full bg-teal-400 animate-ping opacity-30" />
-                </div>
-                <p
-                  className="text-[10px] md:text-[11px] font-medium tracking-[0.2em] uppercase text-white/60"
-                  style={{ fontFamily: 'var(--font-outfit), sans-serif' }}
-                >
-                  <span className="text-teal-400/90 font-bold">✦</span>
-                  <span className="mx-2">Vision with purpose, driven by innovation and guided by heart—to serve and uplift generations.</span>
-                  <span className="text-teal-400/90 font-bold">✦</span>
-                </p>
-              </div>
-              
-              {/* Right decorative line */}
-              <div className="hidden md:block h-px flex-1 max-w-[120px]" style={{ background: 'linear-gradient(270deg, transparent, rgba(13,148,136,0.4))' }} />
+          <div className="h-full max-w-7xl mx-auto px-6 flex items-center justify-center gap-4 overflow-hidden">
+            {/* Left accent */}
+            <div className="h-px w-12 xl:w-20 shrink-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(13,148,136,0.5))' }} />
+            
+            {/* Pulsing dot */}
+            <div className="relative shrink-0">
+              <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+              <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping opacity-40" />
             </div>
+
+            {/* Vision text — scrolling marquee for smaller screens */}
+            <div className="overflow-hidden flex-1 min-w-0">
+              <p
+                className="text-[10px] xl:text-[11px] font-medium tracking-[0.18em] uppercase text-white/50 whitespace-nowrap text-center"
+                style={{ fontFamily: 'var(--font-outfit), sans-serif' }}
+              >
+                <span className="text-teal-400/70 font-bold">✦</span>
+                <span className="mx-2 xl:mx-3">Vision with purpose, driven by innovation and guided by heart—to serve and uplift generations.</span>
+                <span className="text-teal-400/70 font-bold">✦</span>
+              </p>
+            </div>
+
+            {/* Pulsing dot */}
+            <div className="relative shrink-0">
+              <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
+              <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping opacity-40" style={{ animationDelay: '0.5s' }} />
+            </div>
+
+            {/* Right accent */}
+            <div className="h-px w-12 xl:w-20 shrink-0" style={{ background: 'linear-gradient(270deg, transparent, rgba(13,148,136,0.5))' }} />
           </div>
         </div>
       </div>

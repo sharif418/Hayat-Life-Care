@@ -143,7 +143,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop nav — consolidated 7 items with Dream Education-style underline */}
-          <div className="hidden lg:flex items-center gap-0 ml-3 lg:ml-4 xl:ml-8 mr-auto">
+          <div className="hidden lg:flex items-center justify-center flex-1 gap-0 ml-2 lg:ml-3 xl:ml-6">
             {navLinks.map((link) => {
               // Determine if the link is active based on the actual URL pathname
               const isActive = link.href === '/' 
@@ -206,7 +206,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+          <div className="hidden lg:flex items-center gap-0.5 lg:gap-1 xl:gap-1.5 shrink-0 ml-2 lg:ml-3">
             <button
               className={`rounded-full h-8 w-8 xl:h-9 xl:w-9 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                 scrolled

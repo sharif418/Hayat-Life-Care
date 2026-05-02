@@ -47,7 +47,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => setIsChatOpen(true)}
-            className={`fixed left-4 sm:left-5 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-[0_0_20px_rgba(13,148,136,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] flex items-center justify-center text-white cursor-pointer group transition-all duration-300 hover:scale-105 ${showMobileBar ? 'bottom-[72px] lg:bottom-6' : 'bottom-6 lg:bottom-6'}`}
+            className={`fixed left-4 sm:left-5 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-[0_0_20px_rgba(13,148,136,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] flex items-center justify-center text-white cursor-pointer group transition-all duration-300 hover:scale-105 ${showMobileBar ? 'bottom-[72px] lg:bottom-12' : 'bottom-6 lg:bottom-12'}`}
             style={{ background: 'linear-gradient(135deg, #0F766E, #10B981)' }}
             aria-label="Open AI Chat Assistant"
           >
@@ -84,7 +84,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className={`fixed left-4 sm:left-5 z-60 w-[340px] sm:w-[360px] max-w-[calc(100vw-2rem)] rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-all duration-300 ${showMobileBar ? 'bottom-[72px] lg:bottom-6' : 'bottom-6 lg:bottom-6'}`}
+            className={`fixed left-4 sm:left-5 z-60 w-[340px] sm:w-[360px] max-w-[calc(100vw-2rem)] rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-all duration-300 ${showMobileBar ? 'bottom-[72px] lg:bottom-12' : 'bottom-6 lg:bottom-12'}`}
             style={{ height: '500px' }}
           >
             {/* Chat header */}
