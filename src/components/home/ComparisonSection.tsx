@@ -3,12 +3,14 @@
 import React from 'react'
 import { Sparkles, Check, X } from 'lucide-react'
 import { FadeIn } from '@/components/ui/animations'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface ComparisonSectionProps {
   isDarkMode: boolean
 }
 
 export default function ComparisonSection({ isDarkMode }: ComparisonSectionProps) {
+  const { t } = useLanguage()
   return (
     <section id="comparison-table" className="py-20 md:py-28" style={{ background: isDarkMode ? '#0C1222' : '#FAFFFE' }}>
       <div className="max-w-5xl mx-auto px-4">
@@ -16,14 +18,14 @@ export default function ComparisonSection({ isDarkMode }: ComparisonSectionProps
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
               <Sparkles className="size-3" />
-              THE HAYAT DIFFERENCE
+              {t('comparison.badge')}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-              How We Compare
+              {t('comparison.title')}
             </h2>
             <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
             <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-              See what sets Hayat Life Care apart from traditional healthcare facilities
+              {t('comparison.description')}
             </p>
           </div>
         </FadeIn>

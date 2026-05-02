@@ -25,6 +25,7 @@ export default function FacilitiesPage() {
         title="Our"
         highlightText="Facilities"
         description="Explore our comprehensive healthcare and lifestyle services — from advanced diagnostics and specialized care to super shops and premium dining. 11 Business Wings under one roof."
+        langKeyPrefix="pages.facilities"
       />
       <ServicesSection />
       <FloorsSection isDarkMode={isDarkMode} />

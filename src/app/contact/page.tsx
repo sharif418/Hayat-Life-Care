@@ -20,6 +20,7 @@ export default function ContactPage() {
         title="Contact"
         highlightText="Us"
         description="Reach out to us for any inquiries, appointments, or emergency support. Our dedicated team is ready to assist you all day."
+        langKeyPrefix="pages.contact"
       />
       <ContactSection onBookAppointment={openAppointmentDialog} isDarkMode={isDarkMode} />
     </PageWrapper>

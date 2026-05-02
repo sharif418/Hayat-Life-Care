@@ -4,8 +4,10 @@ import { motion } from 'framer-motion'
 import { Sparkles } from 'lucide-react'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
 import { services } from '@/data/home-data'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export default function ServicesSection() {
+  const { t } = useLanguage()
   return (
     <section id="services" className="relative py-20 md:py-28 overflow-hidden" style={{ background: '#0F172A' }}>
       {/* Noise overlay */}
@@ -19,17 +21,17 @@ export default function ServicesSection() {
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-emerald-300 text-xs font-semibold mb-4">
               <Sparkles className="size-3" />
-              COMPREHENSIVE CARE
+              {t('services.badge')}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
-              Our 11 Business Wings
+              {t('services.title')}
             </h2>
             <div className="relative">
               <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
             </div>
             <p className="mt-4 text-gray-300 max-w-xl mx-auto">
-              Comprehensive services designed to serve every aspect of your health and daily life.
+              {t('services.description')}
             </p>
           </div>
         </FadeIn>

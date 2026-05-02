@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   X, LayoutDashboard, Inbox, Building2, HelpCircle, UserPlus, Settings,
   Loader2, LogOut, Trash2, Plus, ArrowRight, Save, Wrench, Users, Phone, TrendingUp,
-  Download, Eye, BarChart3, UserCheck, SkipForward, CalendarCheck, PlayCircle, Pencil
+  Download, Eye, BarChart3, UserCheck, SkipForward, CalendarCheck, PlayCircle, Pencil,
+  Star, MessageSquareQuote, ImagePlus, Upload
 } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -463,6 +464,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                     { id: 'appointments', icon: CalendarCheck, label: 'Appointments' },
                     { id: 'videos', icon: PlayCircle, label: 'Videos' },
                     { id: 'faqs', icon: HelpCircle, label: 'FAQs' },
+                    { id: 'testimonials', icon: MessageSquareQuote, label: 'Testimonials' },
                     { id: 'settings', icon: Settings, label: 'Settings' },
                   ].map((tab) => (
                     <button
@@ -491,6 +493,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                   { id: 'appointments', icon: CalendarCheck, label: 'Appointments' },
                   { id: 'videos', icon: PlayCircle, label: 'Videos' },
                   { id: 'faqs', icon: HelpCircle, label: 'FAQs' },
+                  { id: 'testimonials', icon: MessageSquareQuote, label: 'Testimonials' },
                   { id: 'settings', icon: Settings, label: 'Settings' },
                 ].map((tab) => (
                   <button
@@ -1151,6 +1154,9 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                   </div>
                 )}
 
+                {/* ── Testimonials Tab ── */}
+                {adminTab === 'testimonials' && <TestimonialsManager />}
+
                 {/* ── Settings Tab ── */}
                 {adminTab === 'settings' && (
                   <div>
@@ -1249,5 +1255,214 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
         )}
       </AnimatePresence>
     </>
+  )
+}
+
+// ── Testimonials Manager Sub-Component ──
+function TestimonialsManager() {
+  interface TestimonialItem {
+    id: string; name: string; designation: string; text: string;
+    photo: string | null; rating: number; order: number; active: boolean;
+  }
+
+  const [testimonials, setTestimonials] = useState<TestimonialItem[]>([])
+  const [loading, setLoading] = useState(true)
+  const [showForm, setShowForm] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [saving, setSaving] = useState(false)
+  const [form, setForm] = useState({ name: '', designation: '', text: '', photo: '', rating: 5, order: 0, active: true })
+
+  const fetchTestimonials = useCallback(async () => {
+    try {
+      const res = await fetch('/api/testimonials?all=true')
+      const data = await res.json()
+      setTestimonials(data.data || [])
+    } catch { /* ignore */ } finally { setLoading(false) }
+  }, [])
+
+  useEffect(() => { fetchTestimonials() }, [fetchTestimonials])
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (file.size > 500 * 1024) { toast.error('Photo must be under 500KB'); return }
+    const reader = new FileReader()
+    reader.onload = () => setForm(f => ({ ...f, photo: reader.result as string }))
+    reader.readAsDataURL(file)
+  }
+
+  const resetForm = () => {
+    setForm({ name: '', designation: '', text: '', photo: '', rating: 5, order: 0, active: true })
+    setEditingId(null)
+    setShowForm(false)
+  }
+
+  const handleSave = async () => {
+    if (!form.name || !form.designation || !form.text) { toast.error('Name, designation, and text are required'); return }
+    setSaving(true)
+    try {
+      const url = editingId ? `/api/testimonials/${editingId}` : '/api/testimonials'
+      const method = editingId ? 'PUT' : 'POST'
+      const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) })
+      if (!res.ok) throw new Error('Save failed')
+      toast.success(editingId ? 'Testimonial updated!' : 'Testimonial added!')
+      resetForm()
+      fetchTestimonials()
+    } catch { toast.error('Failed to save') } finally { setSaving(false) }
+  }
+
+  const handleEdit = (t: TestimonialItem) => {
+    setForm({ name: t.name, designation: t.designation, text: t.text, photo: t.photo || '', rating: t.rating, order: t.order, active: t.active })
+    setEditingId(t.id)
+    setShowForm(true)
+  }
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Delete this testimonial?')) return
+    try {
+      await fetch(`/api/testimonials/${id}`, { method: 'DELETE' })
+      toast.success('Deleted!')
+      fetchTestimonials()
+    } catch { toast.error('Failed to delete') }
+  }
+
+  const handleToggle = async (t: TestimonialItem) => {
+    try {
+      await fetch(`/api/testimonials/${t.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active: !t.active }) })
+      toast.success(t.active ? 'Hidden from site' : 'Shown on site')
+      fetchTestimonials()
+    } catch { toast.error('Failed to update') }
+  }
+
+  if (loading) return <div className="text-center py-8"><Loader2 className="size-6 animate-spin text-teal-500 mx-auto" /></div>
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Manage Testimonials</h2>
+        <button
+          onClick={() => { resetForm(); setShowForm(true) }}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-semibold"
+          style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+        >
+          <Plus className="size-4" /> Add New
+        </button>
+      </div>
+
+      {/* Form */}
+      {showForm && (
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6 shadow-sm">
+          <h3 className="text-lg font-bold mb-4 text-gray-800">{editingId ? 'Edit Testimonial' : 'Add New Testimonial'}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-1">Name *</Label>
+              <Input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="e.g. Ahmed Rahman" />
+            </div>
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-1">Designation *</Label>
+              <Input value={form.designation} onChange={e => setForm(f => ({ ...f, designation: e.target.value }))} placeholder="e.g. Business Owner, Chattogram" />
+            </div>
+          </div>
+          <div className="mb-4">
+            <Label className="text-sm font-medium text-gray-700 mb-1">Testimonial Text *</Label>
+            <Textarea value={form.text} onChange={e => setForm(f => ({ ...f, text: e.target.value }))} placeholder="What they said..." rows={3} />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-1">Rating (1-5 Stars)</Label>
+              <div className="flex items-center gap-1 mt-1">
+                {[1,2,3,4,5].map(s => (
+                  <button key={s} type="button" onClick={() => setForm(f => ({ ...f, rating: s }))}>
+                    <Star className={`size-6 cursor-pointer transition-colors ${s <= form.rating ? 'fill-amber-400 text-amber-400' : 'fill-gray-200 text-gray-300'}`} />
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-1">Display Order</Label>
+              <Input type="number" value={form.order} onChange={e => setForm(f => ({ ...f, order: parseInt(e.target.value) || 0 }))} />
+            </div>
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-1">Photo</Label>
+              <div className="flex items-center gap-3 mt-1">
+                {form.photo ? (
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-teal-200">
+                    <img src={form.photo} alt="Preview" className="w-full h-full object-cover" />
+                  </div>
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                    <ImagePlus className="size-4 text-gray-400" />
+                  </div>
+                )}
+                <label className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 cursor-pointer text-xs font-medium text-gray-600 transition-colors">
+                  <Upload className="size-3" /> Upload
+                  <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
+                </label>
+                {form.photo && (
+                  <button onClick={() => setForm(f => ({ ...f, photo: '' }))} className="text-xs text-red-500 hover:text-red-700">Remove</button>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 mb-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" checked={form.active} onChange={e => setForm(f => ({ ...f, active: e.target.checked }))} className="rounded border-gray-300" />
+              <span className="text-sm text-gray-600">Active (visible on site)</span>
+            </label>
+          </div>
+          <div className="flex gap-3">
+            <Button onClick={handleSave} disabled={saving} className="bg-teal-600 hover:bg-teal-700 text-white">
+              {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
+              <span className="ml-2">{editingId ? 'Update' : 'Save'}</span>
+            </Button>
+            <Button variant="outline" onClick={resetForm}>Cancel</Button>
+          </div>
+        </div>
+      )}
+
+      {/* List */}
+      <div className="space-y-3">
+        {testimonials.length > 0 ? testimonials.map(t => (
+          <div key={t.id} className={`flex items-start gap-4 p-4 rounded-xl border transition-all ${t.active ? 'bg-white border-gray-200' : 'bg-gray-50 border-gray-100 opacity-60'}`}>
+            {t.photo ? (
+              <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-teal-100">
+                <img src={t.photo} alt={t.name} className="w-full h-full object-cover" />
+              </div>
+            ) : (
+              <div className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold text-white shrink-0" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                {t.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="font-semibold text-gray-900 text-sm">{t.name}</span>
+                <span className="text-xs text-gray-400">•</span>
+                <span className="text-xs text-gray-500">{t.designation}</span>
+                {!t.active && <Badge variant="secondary" className="text-[10px]">Hidden</Badge>}
+              </div>
+              <div className="flex items-center gap-0.5 mb-1.5">
+                {[...Array(5)].map((_, j) => (
+                  <Star key={j} className={`size-3 ${j < t.rating ? 'fill-amber-400 text-amber-400' : 'fill-gray-200 text-gray-200'}`} />
+                ))}
+              </div>
+              <p className="text-sm text-gray-600 italic line-clamp-2">&ldquo;{t.text}&rdquo;</p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button onClick={() => handleToggle(t)} className={`p-1.5 rounded-lg text-xs ${t.active ? 'bg-green-50 text-green-600 hover:bg-green-100' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'}`} title={t.active ? 'Hide' : 'Show'}>
+                <Eye className="size-3.5" />
+              </button>
+              <button onClick={() => handleEdit(t)} className="p-1.5 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100" title="Edit">
+                <Pencil className="size-3.5" />
+              </button>
+              <button onClick={() => handleDelete(t.id)} className="p-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100" title="Delete">
+                <Trash2 className="size-3.5" />
+              </button>
+            </div>
+          </div>
+        )) : (
+          <div className="text-center py-8 text-gray-400">No testimonials found. Add your first one!</div>
+        )}
+      </div>
+    </div>
   )
 }

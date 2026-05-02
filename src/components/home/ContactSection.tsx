@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { FadeIn } from '@/components/ui/animations'
 import { toast } from 'sonner'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface ContactSectionProps {
   isDarkMode: boolean
@@ -17,6 +18,7 @@ interface ContactSectionProps {
 export default function ContactSection({ isDarkMode, onBookAppointment }: ContactSectionProps) {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
   const [isFormSubmitting, setIsFormSubmitting] = useState(false)
+  const { t } = useLanguage()
 
   return (
     <section id="contact" className="py-20 md:py-28 pb-8" style={{ background: isDarkMode ? 'linear-gradient(180deg, #0C1222 0%, #111B2E 50%, #0C1222 100%)' : 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }}>
@@ -25,10 +27,10 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
               <Mail className="size-3" />
-              CONTACT US
+              {t('contact.badge')}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-              Get In Touch
+              {t('contact.title')}
             </h2>
             <div className="relative">
               <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
@@ -43,8 +45,8 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
             <div className="bg-white dark:bg-slate-800/90 rounded-2xl border dark:border-slate-700 shadow-lg overflow-hidden" style={{ borderTop: '3px solid', borderImage: 'linear-gradient(90deg, #0D9488, #10B981) 1' }}>
               <div className="h-2" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               <div className="p-8">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Send Us a Message</h3>
-              <p className="text-sm text-gray-500 mb-6 flex items-center gap-1"><Clock className="size-3" /> We typically respond within 24 hours</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t('contact.sendMessage')}</h3>
+              <p className="text-sm text-gray-500 mb-6 flex items-center gap-1"><Clock className="size-3" /> {t('contact.responseTime')}</p>
               <form
                 onSubmit={async (e) => {
                   e.preventDefault()
@@ -63,13 +65,13 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                       }),
                     })
                     if (res.ok) {
-                      toast.success('Message sent successfully! We will get back to you shortly.')
+                      toast.success(t('contact.successMsg'))
                       setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
                     } else {
-                      toast.error('Failed to send message. Please try again.')
+                      toast.error(t('contact.errorMsg'))
                     }
                   } catch {
-                    toast.error('Network error. Please try again later.')
+                    toast.error(t('contact.networkError'))
                   } finally {
                     setIsFormSubmitting(false)
                   }
@@ -79,13 +81,13 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
-                      Name
+                      {t('contact.name')}
                     </label>
-                    <Input placeholder="Your full name" required value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
+                    <Input placeholder={t('contact.namePlaceholder')} required value={formData.name} onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
-                      Email
+                      {t('contact.email')}
                     </label>
                     <Input type="email" placeholder="you@example.com" required value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
                   </div>
@@ -93,35 +95,35 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
-                      Phone
+                      {t('contact.phone')}
                     </label>
-                    <Input type="tel" placeholder="+880 1XXX-XXXXXX" value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
+                    <Input type="tel" placeholder={t('contact.phonePlaceholder')} value={formData.phone} onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))} className="focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500" />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 block">
-                      Subject
+                      {t('contact.subject')}
                     </label>
                     <Select value={formData.subject} onValueChange={(v) => setFormData(p => ({ ...p, subject: v }))}>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a subject" />
+                        <SelectValue placeholder={t('contact.subjectPlaceholder')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Investment Inquiry">Investment Inquiry</SelectItem>
-                        <SelectItem value="Appointment Booking">Appointment Booking</SelectItem>
-                        <SelectItem value="General Information">General Information</SelectItem>
-                        <SelectItem value="Partnership Opportunity">Partnership Opportunity</SelectItem>
-                        <SelectItem value="Feedback">Feedback</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
+                        <SelectItem value="Investment Inquiry">{t('contact.investmentInquiry')}</SelectItem>
+                        <SelectItem value="Appointment Booking">{t('contact.appointmentBooking')}</SelectItem>
+                        <SelectItem value="General Information">{t('contact.generalInfo')}</SelectItem>
+                        <SelectItem value="Partnership Opportunity">{t('contact.partnership')}</SelectItem>
+                        <SelectItem value="Feedback">{t('contact.feedback')}</SelectItem>
+                        <SelectItem value="Other">{t('contact.other')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">
-                    Message
-                  </label>
+                    <label className="text-sm font-medium text-gray-700 mb-1 block">
+                      {t('contact.message')}
+                    </label>
                   <Textarea
-                    placeholder="Tell us about your inquiry..."
+                    placeholder={t('contact.messagePlaceholder')}
                     className="min-h-[120px] focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500"
                     required
                     value={formData.message}
@@ -136,10 +138,10 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                   style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
                 >
                   {isFormSubmitting ? <Loader2 className="size-4 mr-2 animate-spin" /> : <Send className="size-4 mr-2" />}
-                  {isFormSubmitting ? 'Sending...' : 'Send Message'}
+                  {isFormSubmitting ? 'Sending...' : t('contact.sendButton')}
                 </Button>
                 <p className="text-center text-xs text-gray-400 mt-3 flex items-center justify-center gap-1">
-                  <Clock className="size-3" /> We&apos;ll respond within 24 hours
+                  <Clock className="size-3" /> {t('contact.respondNote')}
                 </p>
               </form>
               </div>
@@ -153,13 +155,13 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
               {[
                 {
                   icon: PhoneCall,
-                  title: 'Phone',
+                  title: t('contact.phone'),
                   details: [{ text: '01335-074940' }, { text: '01335-074941' }],
                   color: '#0D9488',
                 },
                 {
                   icon: MapPinned,
-                  title: 'Office',
+                  title: t('contact.office'),
                   details: [
                     { text: 'Mishmak Manjuri, Badshah Miah Road,', href: 'https://maps.app.goo.gl/SC7xcBp4kXEyqByw8' },
                     { text: 'Ameerbag, Chattogram', href: 'https://maps.app.goo.gl/SC7xcBp4kXEyqByw8' }
@@ -168,7 +170,7 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                 },
                 {
                   icon: Building,
-                  title: 'Project Site',
+                  title: t('cta.projectSite'),
                   details: [
                     { text: 'Manashi, O.R. Nizam Road, Chattogram', href: 'https://maps.app.goo.gl/hw3GhvmdACjjoWua7' }
                   ],
@@ -176,14 +178,14 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                 },
                 {
                   icon: Mail,
-                  title: 'Email',
+                  title: t('contact.email'),
                   details: [{ text: 'info@hayatlifecare.com' }],
                   color: '#10B981',
                 },
                 {
                   icon: Clock,
-                  title: 'Operating Hours',
-                  details: [{ text: 'Open All Day' }],
+                  title: t('contact.operatingHours'),
+                  details: [{ text: t('contact.openAllDay') }],
                   color: '#0D9488',
                 },
               ].map((item, i) => (
@@ -234,7 +236,7 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                     rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl text-sm font-medium border border-teal-200 bg-teal-50 text-teal-800 hover:bg-teal-100 hover:text-teal-900 transition-colors dark:bg-teal-900/30 dark:border-teal-800 dark:text-teal-200 dark:hover:bg-teal-900/50"
                   >
-                    <MapPinned className="size-4" /> View Office Map
+                    <MapPinned className="size-4" /> {t('contact.viewOfficeMap')}
                   </a>
                   <a 
                     href="https://maps.app.goo.gl/hw3GhvmdACjjoWua7" 
@@ -242,7 +244,7 @@ export default function ContactSection({ isDarkMode, onBookAppointment }: Contac
                     rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl text-sm font-medium border border-amber-200 bg-amber-50 text-amber-800 hover:bg-amber-100 hover:text-amber-900 transition-colors dark:bg-amber-900/30 dark:border-amber-800 dark:text-amber-200 dark:hover:bg-amber-900/50"
                   >
-                    <Building className="size-4" /> View Site Map
+                    <Building className="size-4" /> {t('contact.viewSiteMap')}
                   </a>
                 </div>
                 <div className="h-64 rounded-xl overflow-hidden">

@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { toast } from 'sonner'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface AppointmentDialogProps {
   isOpen: boolean
@@ -19,6 +20,7 @@ interface AppointmentDialogProps {
 export default function AppointmentDialog({ isOpen, onOpenChange, doctorName }: AppointmentDialogProps) {
   const [form, setForm] = useState({ name: '', phone: '', date: '', time: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { t } = useLanguage()
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -26,10 +28,10 @@ export default function AppointmentDialog({ isOpen, onOpenChange, doctorName }: 
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <CalendarCheck className="size-5" style={{ color: '#0D9488' }} />
-            Book Appointment
+            {t('appointment.title')}
           </DialogTitle>
           <DialogDescription>
-            {doctorName ? `Schedule an appointment with ${doctorName}` : 'Schedule your appointment at Hayat Life Care'}
+            {doctorName ? `${t('appointment.descDoctor')} ${doctorName}` : t('appointment.descDefault')}
           </DialogDescription>
         </DialogHeader>
         <form
@@ -37,7 +39,7 @@ export default function AppointmentDialog({ isOpen, onOpenChange, doctorName }: 
             e.preventDefault()
             if (isSubmitting) return
             if (!form.name || !form.phone || !form.date) {
-              toast.error('Please fill in all required fields')
+              toast.error(t('appointment.fillRequired'))
               return
             }
             setIsSubmitting(true)
@@ -55,14 +57,14 @@ export default function AppointmentDialog({ isOpen, onOpenChange, doctorName }: 
                 }),
               })
               if (res.ok) {
-                toast.success('Appointment booked successfully! We will confirm shortly.')
+                toast.success(t('appointment.successMsg'))
                 setForm({ name: '', phone: '', date: '', time: '', message: '' })
                 onOpenChange(false)
               } else {
-                toast.error('Failed to book appointment. Please try again.')
+                toast.error(t('appointment.errorMsg'))
               }
             } catch {
-              toast.error('Network error. Please try again later.')
+              toast.error(t('appointment.networkError'))
             } finally {
               setIsSubmitting(false)
             }
@@ -70,19 +72,19 @@ export default function AppointmentDialog({ isOpen, onOpenChange, doctorName }: 
           className="space-y-4 pt-2"
         >
           <div>
-            <Label className="text-sm font-medium text-gray-700 mb-1 block">Full Name *</Label>
+            <Label className="text-sm font-medium text-gray-700 mb-1 block">{t('appointment.fullName')}</Label>
             <Input
-              placeholder="Your full name"
+              placeholder={t('appointment.namePlaceholder')}
               required
               value={form.name}
               onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
             />
           </div>
           <div>
-            <Label className="text-sm font-medium text-gray-700 mb-1 block">Phone Number *</Label>
+            <Label className="text-sm font-medium text-gray-700 mb-1 block">{t('appointment.phoneNumber')}</Label>
             <Input
               type="tel"
-              placeholder="+880 1XXX-XXXXXX"
+              placeholder={t('appointment.phonePlaceholder')}
               required
               value={form.phone}
               onChange={e => setForm(p => ({ ...p, phone: e.target.value }))}
@@ -90,7 +92,7 @@ export default function AppointmentDialog({ isOpen, onOpenChange, doctorName }: 
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="text-sm font-medium text-gray-700 mb-1 block">Preferred Date *</Label>
+              <Label className="text-sm font-medium text-gray-700 mb-1 block">{t('appointment.preferredDate')}</Label>
               <Input
                 type="date"
                 required
@@ -99,10 +101,10 @@ export default function AppointmentDialog({ isOpen, onOpenChange, doctorName }: 
               />
             </div>
             <div>
-              <Label className="text-sm font-medium text-gray-700 mb-1 block">Preferred Time *</Label>
+              <Label className="text-sm font-medium text-gray-700 mb-1 block">{t('appointment.preferredTime')}</Label>
               <Select value={form.time} onValueChange={v => setForm(p => ({ ...p, time: v }))}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select time" />
+                  <SelectValue placeholder={t('appointment.selectTime')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="9:00 AM">9:00 AM</SelectItem>
@@ -120,9 +122,9 @@ export default function AppointmentDialog({ isOpen, onOpenChange, doctorName }: 
             </div>
           </div>
           <div>
-            <Label className="text-sm font-medium text-gray-700 mb-1 block">Additional Notes</Label>
+            <Label className="text-sm font-medium text-gray-700 mb-1 block">{t('appointment.additionalNotes')}</Label>
             <Textarea
-              placeholder="Any specific concerns or questions..."
+              placeholder={t('appointment.notesPlaceholder')}
               className="min-h-[80px]"
               value={form.message}
               onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
@@ -135,7 +137,7 @@ export default function AppointmentDialog({ isOpen, onOpenChange, doctorName }: 
             disabled={isSubmitting}
           >
             {isSubmitting ? <Loader2 className="size-4 animate-spin mr-2" /> : <CalendarCheck className="size-4 mr-2" />}
-            {isSubmitting ? 'Booking...' : 'Confirm Appointment'}
+            {isSubmitting ? 'Booking...' : t('appointment.confirm')}
           </Button>
         </form>
       </DialogContent>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Inter, Playfair_Display } from "next/font/google";
+import { Outfit, Inter, Playfair_Display, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -21,8 +21,16 @@ const playfair = Playfair_Display({
   weight: ["400", "700", "900"],
 });
 
+const notoBangla = Noto_Sans_Bengali({
+  variable: "--font-bangla",
+  subsets: ["bengali"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { AppointmentProvider } from "@/components/providers/AppointmentProvider";
+import { LanguageProvider } from "@/i18n/LanguageProvider";
 import Navbar from "@/components/layout/Navbar";
 import GlobalUI from "@/components/layout/GlobalUI";
 import { DownloadProvider } from "@/components/providers/DownloadProvider";
@@ -63,7 +71,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${outfit.variable} ${inter.variable} ${playfair.variable} antialiased bg-background text-foreground`}
+        className={`${outfit.variable} ${inter.variable} ${playfair.variable} ${notoBangla.variable} antialiased bg-background text-foreground`}
         style={{ fontFamily: "var(--font-inter), sans-serif" }}
       >
         <ThemeProvider
@@ -72,15 +80,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AppointmentProvider>
-            <DownloadProvider>
-              <SiteVisitTracker />
-              <Navbar />
-              {children}
-              <GlobalUI />
-              <Toaster richColors position="top-right" />
-            </DownloadProvider>
-          </AppointmentProvider>
+          <LanguageProvider>
+            <AppointmentProvider>
+              <DownloadProvider>
+                <SiteVisitTracker />
+                <Navbar />
+                {children}
+                <GlobalUI />
+                <Toaster richColors position="top-right" />
+              </DownloadProvider>
+            </AppointmentProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

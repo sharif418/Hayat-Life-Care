@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Sparkles, MapPin, Building2, Users } from 'lucide-react'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 /* ─────────────────────── helpers ─────────────────────── */
 function useCounter(end: number, duration = 2000) {
@@ -54,6 +55,7 @@ function FadeIn({
 }
 
 export default function StatsSection() {
+  const { t } = useLanguage()
   const stat1 = useCounter(11, 1800)
   const stat2 = useCounter(55, 2000)
   const stat3 = useCounter(14, 1500)
@@ -93,7 +95,7 @@ export default function StatsSection() {
               <div ref={stat1.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat1.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                 {stat1.count}+
               </div>
-              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Business Wings</div>
+              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.businessWings')}</div>
             </div>
           </FadeIn>
           <FadeIn delay={0.15}>
@@ -104,7 +106,7 @@ export default function StatsSection() {
               <div ref={stat2.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat2.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                 {stat2.count}
               </div>
-              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Katha Land Area</div>
+              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.kathaLandArea')}</div>
             </div>
           </FadeIn>
           <FadeIn delay={0.3}>
@@ -115,7 +117,7 @@ export default function StatsSection() {
               <div ref={stat3.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat3.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                 {stat3.count}+
               </div>
-              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Floors</div>
+              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.floors')}</div>
             </div>
           </FadeIn>
           <FadeIn delay={0.45}>
@@ -126,7 +128,7 @@ export default function StatsSection() {
               <div ref={stat4.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat4.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                 4,950
               </div>
-              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">Max Shares</div>
+              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.maxShares')}</div>
             </div>
           </FadeIn>
         </div>

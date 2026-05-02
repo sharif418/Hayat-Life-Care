@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Download, User, Phone, Loader2, CheckCircle2, Sparkles, Lock } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface DownloadPopupProps {
   isOpen: boolean
@@ -14,6 +15,7 @@ interface DownloadPopupProps {
 }
 
 export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-Care-Brochure.pdf', fileName = 'Hayat-Life-Care-Brochure.pdf' }: DownloadPopupProps) {
+  const { t } = useLanguage()
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -48,9 +50,9 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
 
   const handleSubmit = async () => {
     const newErrors: { name?: string; phone?: string } = {}
-    if (!name.trim()) newErrors.name = 'Please enter your name'
-    if (!phone.trim()) newErrors.phone = 'Please enter your phone number'
-    else if (phone.trim().length < 10) newErrors.phone = 'Please enter a valid phone number'
+    if (!name.trim()) newErrors.name = t('download.nameRequired')
+    if (!phone.trim()) newErrors.phone = t('download.phoneRequired')
+    else if (phone.trim().length < 10) newErrors.phone = t('download.phoneInvalid')
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors)
@@ -132,8 +134,8 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
               <div className="relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm mb-4 shadow-lg">
                 <Download className="size-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">Download Brochure</h3>
-              <p className="text-white/80 text-sm">Get detailed information about Hayat Life Care</p>
+              <h3 className="text-2xl font-bold text-white mb-1">{t('download.title')}</h3>
+              <p className="text-white/80 text-sm">{t('download.subtitle')}</p>
             </div>
 
             {/* Success State */}
@@ -149,8 +151,8 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
                   <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-4">
                     <CheckCircle2 className="size-8 text-emerald-600 dark:text-emerald-400" />
                   </div>
-                  <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Thank You!</h4>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">Your download has started. We appreciate your interest!</p>
+                  <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t('download.thankYou')}</h4>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">{t('download.downloadStarted')}</p>
                 </motion.div>
               ) : (
                 <motion.div
@@ -164,7 +166,7 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 mb-1">
                       <Sparkles className="size-4 text-amber-500" />
-                      <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Quick Information</span>
+                      <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider">{t('download.quickInfo')}</span>
                     </div>
 
                     {/* Name Input */}
@@ -174,7 +176,7 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
                           <User className="size-4" />
                         </div>
                         <Input
-                          placeholder="Your Full Name"
+                          placeholder={t('download.namePlaceholder')}
                           value={name}
                           onChange={(e) => { setName(e.target.value); setErrors(p => ({ ...p, name: undefined })) }}
                           className={`pl-10 h-12 rounded-xl border-2 text-sm transition-colors ${errors.name ? 'border-red-300 bg-red-50 dark:border-red-800 dark:bg-red-950/20' : 'border-gray-200 dark:border-slate-700 focus:border-teal-400'}`}
@@ -191,7 +193,7 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
                           <Phone className="size-4" />
                         </div>
                         <Input
-                          placeholder="Phone Number (e.g. 01XXX-XXXXXX)"
+                          placeholder={t('download.phonePlaceholder')}
                           value={phone}
                           onChange={(e) => { setPhone(e.target.value); setErrors(p => ({ ...p, phone: undefined })) }}
                           className={`pl-10 h-12 rounded-xl border-2 text-sm transition-colors ${errors.phone ? 'border-red-300 bg-red-50 dark:border-red-800 dark:bg-red-950/20' : 'border-gray-200 dark:border-slate-700 focus:border-teal-400'}`}
@@ -212,12 +214,12 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
                       {isSubmitting ? (
                         <>
                           <Loader2 className="size-4 animate-spin mr-2" />
-                          Processing...
+                          {t('download.processing')}
                         </>
                       ) : (
                         <>
                           <Download className="size-4 mr-2" />
-                          Download Now
+                          {t('download.downloadNow')}
                         </>
                       )}
                     </Button>
@@ -226,7 +228,7 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
                     <div className="flex items-start justify-center gap-1.5 mt-3 px-2">
                       <Lock className="size-3.5 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5" />
                       <p className="text-[11px] text-gray-600 dark:text-gray-400 text-center leading-relaxed">
-                        <span className="font-semibold text-teal-700 dark:text-teal-300">100% Secure.</span> Your information will only be used by Hayat Life Care for communication purposes.
+                        <span className="font-semibold text-teal-700 dark:text-teal-300">{t('download.secureNote')}</span> {t('download.secureDesc')}
                       </p>
                     </div>
 
@@ -235,7 +237,7 @@ export default function DownloadPopup({ isOpen, onClose, fileUrl = '/Hayat-Life-
                       onClick={handleSkip}
                       className="w-full text-center text-[10px] text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400 transition-colors mt-3"
                     >
-                      skip & download directly
+                      {t('download.skip')}
                     </button>
                   </div>
                 </motion.div>

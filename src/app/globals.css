@@ -124,6 +124,20 @@
     @apply bg-background text-foreground;
     overflow-x: hidden;
   }
+  body[data-lang="bn"] {
+    font-family: var(--font-bangla), var(--font-inter), sans-serif !important;
+    line-height: 1.8;
+    letter-spacing: 0.01em;
+  }
+  body[data-lang="bn"] h1,
+  body[data-lang="bn"] h2,
+  body[data-lang="bn"] h3,
+  body[data-lang="bn"] h4,
+  body[data-lang="bn"] h5,
+  body[data-lang="bn"] h6 {
+    line-height: 1.4;
+    font-weight: 700;
+  }
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { HelpCircle, ChevronDown, ArrowRight } from 'lucide-react'
 import { FadeIn } from '@/components/ui/animations'
 import { faqs } from '@/data/home-data'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface HomeFAQPreviewProps {
   isDarkMode: boolean
@@ -21,6 +22,7 @@ const previewFaqs = [
 
 export default function HomeFAQPreview({ isDarkMode }: HomeFAQPreviewProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const { t } = useLanguage()
 
   return (
     <section className="py-20 md:py-28" style={{ background: isDarkMode ? 'linear-gradient(180deg, #0C1222, #111B2E)' : 'linear-gradient(180deg, #FAFFFE, #F0FDFA)' }}>
@@ -29,13 +31,13 @@ export default function HomeFAQPreview({ isDarkMode }: HomeFAQPreviewProps) {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
               <HelpCircle className="size-3" />
-              FREQUENTLY ASKED
+              {t('faqPreview.badge')}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-              Quick Answers
+              {t('faqPreview.title')}
             </h2>
             <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-              Common questions about Hayat Life Care — investment, facilities, and more.
+              {t('faqPreview.description')}
             </p>
           </div>
         </FadeIn>
@@ -110,7 +112,7 @@ export default function HomeFAQPreview({ isDarkMode }: HomeFAQPreviewProps) {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group"
               style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
             >
-              View All {faqs.length} FAQs
+              {t('faqPreview.viewAll')} {faqs.length} FAQs
               <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

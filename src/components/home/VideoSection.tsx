@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Play, Youtube, ExternalLink, X, Volume2, VolumeX, Maximize2, Star } from 'lucide-react'
+import { useLanguage } from '@/i18n/LanguageProvider'
 import { Button } from '@/components/ui/button'
 
 // Fallback static data — used when API has no videos
@@ -40,6 +41,7 @@ interface VideoSectionProps {
 }
 
 export default function VideoSection({ isDarkMode }: VideoSectionProps) {
+  const { t } = useLanguage()
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
   const [playingVideo, setPlayingVideo] = useState<string | null>(null)
@@ -161,13 +163,13 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
               }}
             >
               <Youtube className="size-4" />
-              Watch Our Videos
+              {t('video.badge')}
             </div>
             <h2
               className="text-3xl md:text-5xl font-black mb-4"
               style={{ color: isDarkMode ? '#F1F5F9' : '#0F172A' }}
             >
-              See{' '}
+              {t('video.titlePrefix')}{' '}
               <span
                 style={{
                   background: 'linear-gradient(135deg, #0D9488, #10B981)',
@@ -177,7 +179,7 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
               >
                 Hayat Life Care
               </span>{' '}
-              in Action
+              {t('video.titleSuffix')}
             </h2>
             <p
               className="text-lg max-w-2xl mx-auto"

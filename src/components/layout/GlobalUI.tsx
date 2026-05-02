@@ -7,6 +7,7 @@ import { ChevronUp, MessageSquare, Phone, Download, Mail } from 'lucide-react'
 import FooterSection from '@/components/home/FooterSection'
 import ChatWidget from '@/components/home/ChatWidget'
 import { useDownload } from '@/components/providers/DownloadProvider'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export default function GlobalUI() {
   const [scrolled, setScrolled] = useState(false)
@@ -15,6 +16,7 @@ export default function GlobalUI() {
   const { theme } = useTheme()
   const isDarkMode = theme === 'dark'
   const { openDownloadPopup } = useDownload()
+  const { t } = useLanguage()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,46 +69,50 @@ export default function GlobalUI() {
         </a>
       </div>
 
-      {/* ─── PREMIUM VISION STRIP (Persistent, solid, all pages — Desktop only) ─── */}
-      <div className="fixed bottom-0 left-0 right-0 z-[45] hidden lg:block">
+      {/* ─── PREMIUM VISION STRIP (Persistent, solid, all pages) ─── */}
+      <div className="fixed bottom-0 left-0 right-0 z-[45]">
         <div
-          className="w-full h-8"
+          className="w-full py-2.5 lg:py-2"
           style={{
-            background: '#0F172A',
-            borderTop: '1px solid rgba(13,148,136,0.25)',
-            boxShadow: '0 -4px 20px rgba(0,0,0,0.15)',
+            background: 'linear-gradient(135deg, #0F172A 0%, #0D1B2A 50%, #0F172A 100%)',
+            borderTop: '1px solid rgba(13,148,136,0.4)',
+            boxShadow: '0 -4px 30px rgba(0,0,0,0.25), 0 -1px 0 rgba(13,148,136,0.15)',
           }}
         >
-          <div className="h-full max-w-7xl mx-auto px-6 flex items-center justify-center gap-4 overflow-hidden">
+          <div className="h-full max-w-7xl mx-auto px-4 lg:px-6 flex items-center justify-center gap-3 lg:gap-4 overflow-hidden">
             {/* Left accent */}
-            <div className="h-px w-12 xl:w-20 shrink-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(13,148,136,0.5))' }} />
+            <div className="hidden sm:block h-px w-12 xl:w-20 shrink-0" style={{ background: 'linear-gradient(90deg, transparent, rgba(13,148,136,0.6))' }} />
             
             {/* Pulsing dot */}
             <div className="relative shrink-0">
-              <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-              <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping opacity-40" />
+              <div className="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_rgba(45,212,191,0.6)]" />
+              <div className="absolute inset-0 w-2 h-2 rounded-full bg-teal-400 animate-ping opacity-50" />
             </div>
 
-            {/* Vision text — scrolling marquee for smaller screens */}
+            {/* Vision text */}
             <div className="overflow-hidden flex-1 min-w-0">
               <p
-                className="text-[10px] xl:text-[11px] font-medium tracking-[0.18em] uppercase text-white/50 whitespace-nowrap text-center"
-                style={{ fontFamily: 'var(--font-outfit), sans-serif' }}
+                className="text-[10px] sm:text-[11px] lg:text-xs xl:text-[13px] font-semibold tracking-[0.12em] lg:tracking-[0.18em] uppercase whitespace-nowrap text-center"
+                style={{
+                  fontFamily: 'var(--font-outfit), sans-serif',
+                  color: 'rgba(255,255,255,0.75)',
+                  textShadow: '0 0 20px rgba(13,148,136,0.3)',
+                }}
               >
-                <span className="text-teal-400/70 font-bold">✦</span>
-                <span className="mx-2 xl:mx-3">Vision with purpose, driven by innovation and guided by heart—to serve and uplift generations.</span>
-                <span className="text-teal-400/70 font-bold">✦</span>
+                <span className="text-teal-400 font-bold">✦</span>
+                <span className="mx-2 xl:mx-3">{t('common.visionMarquee')}</span>
+                <span className="text-teal-400 font-bold">✦</span>
               </p>
             </div>
 
             {/* Pulsing dot */}
             <div className="relative shrink-0">
-              <div className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-              <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping opacity-40" style={{ animationDelay: '0.5s' }} />
+              <div className="w-2 h-2 rounded-full bg-teal-400 shadow-[0_0_8px_rgba(45,212,191,0.6)]" />
+              <div className="absolute inset-0 w-2 h-2 rounded-full bg-teal-400 animate-ping opacity-50" style={{ animationDelay: '0.5s' }} />
             </div>
 
             {/* Right accent */}
-            <div className="h-px w-12 xl:w-20 shrink-0" style={{ background: 'linear-gradient(270deg, transparent, rgba(13,148,136,0.5))' }} />
+            <div className="hidden sm:block h-px w-12 xl:w-20 shrink-0" style={{ background: 'linear-gradient(270deg, transparent, rgba(13,148,136,0.6))' }} />
           </div>
         </div>
       </div>
@@ -136,21 +142,21 @@ export default function GlobalUI() {
                 <div className="w-7 h-7 rounded-full bg-emerald-500/10 flex items-center justify-center mb-0.5">
                   <Phone className="size-3.5 text-emerald-600 dark:text-emerald-400" />
                 </div>
-                <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>Call Us</span>
+                <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>{t('mobileBar.callUs')}</span>
               </a>
               <div className="w-px h-6" style={{ background: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
               <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex flex-col items-center justify-center gap-0.5 py-1 rounded-xl text-current flex-1 transition-all active:scale-95 hover:bg-black/5 dark:hover:bg-white/5">
                 <div className="w-7 h-7 rounded-full bg-indigo-500/10 flex items-center justify-center mb-0.5">
                   <Download className="size-3.5 text-indigo-600 dark:text-indigo-400" />
                 </div>
-                <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>Brochure</span>
+                <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>{t('mobileBar.brochure')}</span>
               </button>
               <div className="w-px h-6" style={{ background: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
               <a href="/contact" className="flex flex-col items-center justify-center gap-0.5 py-1 rounded-xl text-current flex-1 transition-all active:scale-95 hover:bg-black/5 dark:hover:bg-white/5">
                 <div className="w-7 h-7 rounded-full bg-amber-500/10 flex items-center justify-center mb-0.5">
                   <Mail className="size-3.5 text-amber-600 dark:text-amber-400" />
                 </div>
-                <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>Enquiry</span>
+                <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>{t('mobileBar.contact')}</span>
               </a>
             </div>
           </motion.div>

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { FadeIn } from '@/components/ui/animations'
 import { useSectionReveal } from '@/components/ui/animations'
 import { useDownload } from '@/components/providers/DownloadProvider'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface InvestmentSectionProps {
   isDarkMode: boolean
@@ -25,9 +26,10 @@ const benefitNames: Record<string, string> = {
 
 function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradient: string, color: string }) {
   const [hovered, setHovered] = useState<string | null>(null)
+  const { t } = useLanguage()
   return (
     <div className="px-5 pb-5">
-      <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2.5">Benefits Included</div>
+      <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2.5">{t('investment.benefitsIncluded')}</div>
       <div className="flex flex-wrap gap-2">
         {benefits.map((b) => (
           <span
@@ -66,6 +68,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
   const [showInvestModal, setShowInvestModal] = useState(false)
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', shares: '1', message: '' })
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const { t } = useLanguage()
 
   const handleInvestSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -101,17 +104,17 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
             <div className="text-center mb-14">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
                 <TrendingUp className="size-3" />
-                INVESTMENT OPPORTUNITY
+                {t('investment.badge')}
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                Pathways to Prestige Ownership
+                {t('investment.title')}
               </h2>
               <div className="relative">
                 <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               </div>
               <p className="mt-4 text-teal-700 dark:text-teal-400 font-medium italic">
-                Become a partner in building a healthier, more prosperous tomorrow—together.
+                {t('investment.subtitle')}
               </p>
             </div>
           </FadeIn>
@@ -133,7 +136,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     <div className="px-8 md:px-14 max-w-xl">
                       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs font-semibold text-emerald-300 mb-5">
                         <Users className="size-3" />
-                        JOIN OUR GROWING FAMILY
+                        {t('investment.joinFamily')}
                       </div>
                       <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
                         Together, We Build a
@@ -277,7 +280,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     />
                     {tier.popular && (
                       <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white shadow-lg" style={{ background: tier.gradient }}>
-                        Popular
+                        {t('investment.popular')}
                       </div>
                     )}
                     <div className="relative p-5 pb-4">
@@ -297,107 +300,6 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     <div className="h-1.5 group-hover:h-2 transition-all duration-300 rounded-b-2xl" style={{ background: tier.gradient }} />
                   </motion.div>
                 ))}
-              </div>
-            </div>
-          </FadeIn>
-
-          {/* ═══════════════════════════════════════════════════════ */}
-          {/* 3. INVESTMENT ROI CALCULATOR                            */}
-          {/* ═══════════════════════════════════════════════════════ */}
-          <FadeIn>
-            <div className="max-w-5xl mx-auto mb-16 bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
-              <div className="p-6 md:p-8 text-white" style={{ background: 'linear-gradient(135deg, #0D9488 0%, #065F46 100%)' }}>
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-white/15 flex items-center justify-center">
-                    <HandCoins className="size-5" />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold">Investment ROI Calculator</h4>
-                    <p className="text-sm text-white/70">Estimate your potential returns in real-time</p>
-                  </div>
-                </div>
-              </div>
-              <div className="p-6 md:p-8">
-                <div className="grid sm:grid-cols-2 gap-5 mb-8">
-                  <div>
-                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 block">Number of Shares</label>
-                    <input
-                      type="number"
-                      min="1"
-                      max="20"
-                      value={investShares}
-                      onChange={e => { const v = parseInt(e.target.value); setInvestShares(isNaN(v) ? 1 : Math.min(20, Math.max(1, v))) }}
-                      className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-600 rounded-xl text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all text-lg font-bold"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 block">Expected Profit Rate (%)</label>
-                    <input
-                      type="number"
-                      min="5"
-                      max="20"
-                      step="0.5"
-                      value={investRate}
-                      onChange={e => { const v = parseFloat(e.target.value); setInvestRate(isNaN(v) ? 10 : Math.min(20, Math.max(5, v))) }}
-                      className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-600 rounded-xl text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all text-lg font-bold"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  {[
-                    { label: 'Investment', value: `৳${(investShares * 10).toFixed(0)}L`, color: '#0D9488', percent: (investShares / 20) * 100 },
-                    { label: 'Annual Return', value: `৳${(investShares * 10 * investRate / 100).toFixed(1)}L`, color: '#10B981', percent: Math.min((investShares * investRate / 200) * 100, 100) },
-                    { label: '3-Year Return', value: `৳${(investShares * 10 * investRate / 100 * 3).toFixed(1)}L`, color: '#D97706', percent: Math.min((investShares * investRate * 3 / 200) * 100, 100) },
-                    { label: 'Buyback Value', value: `৳${(investShares * 10.5).toFixed(1)}L`, color: '#0D9488', percent: (investShares * 10.5 / 210) * 100 },
-                  ].map((item, i) => (
-                    <div key={i} className="p-4 rounded-2xl text-center relative overflow-hidden border border-gray-100 dark:border-slate-700 hover:shadow-md transition-shadow duration-300" style={{ background: `${item.color}06` }}>
-                      <div className="text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-1">{item.label}</div>
-                      <div className="text-xl font-black mb-2" style={{ color: item.color }}>{item.value}</div>
-                      <div className="h-1.5 rounded-full bg-gray-100 dark:bg-slate-700 overflow-hidden">
-                        <motion.div
-                          className="h-full rounded-full"
-                          style={{ background: item.color }}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${Math.max(item.percent, 5)}%` }}
-                          transition={{ duration: 0.8, ease: 'easeOut' }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-[11px] text-gray-400 mt-4 text-center">* Based on projected profit rate. Actual returns may vary. Buyback after 3 years at 5% premium.</p>
-
-                {/* Additional Benefits — Dynamic based on shares */}
-                <div className="mt-6 pt-6 border-t border-gray-100 dark:border-slate-700">
-                  <h5 className="text-sm font-bold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
-                    <Shield className="size-4" style={{ color: '#0D9488' }} />
-                    Additional Benefits:
-                  </h5>
-                  <div className="space-y-2">
-                    {(() => {
-                      const benefits = [
-                        { code: 'B-1', title: 'Lifetime Financial Benefit', always: true },
-                        { code: 'B-2', title: 'Caring for him/herself.', always: true },
-                        { code: 'B-3', title: 'Partner Health access.', minShares: 2 },
-                        { code: 'B-4', title: 'Family Health Access.', minShares: 5 },
-                        { code: 'B-5', title: 'Family Health Access Including Parents.', minShares: 10 },
-                        { code: 'B-6', title: 'Family Health Access Including Parents-in-law.', minShares: 15 },
-                        { code: 'B-7', title: 'VIP Access to all facilities of the complex.', minShares: 20 },
-                        { code: 'B-8', title: 'Social Recognition and Share certification.', always: true },
-                      ]
-                      return benefits
-                        .filter(b => b.always || (b.minShares && investShares >= b.minShares))
-                        .map((b) => (
-                          <div key={b.code} className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-300">
-                            <div className="flex items-center justify-center w-5 h-5 rounded-full shrink-0 mt-0.5" style={{ background: 'rgba(13,148,136,0.1)' }}>
-                              <Check className="size-3" style={{ color: '#0D9488' }} />
-                            </div>
-                            <span><strong className="text-gray-800 dark:text-white">{b.code}</strong> - {b.title}</span>
-                          </div>
-                        ))
-                    })()}
-                  </div>
-                </div>
               </div>
             </div>
           </FadeIn>
@@ -505,6 +407,107 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                         ))}
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* 3. INVESTMENT ROI CALCULATOR                            */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          <FadeIn>
+            <div className="max-w-5xl mx-auto mb-16 bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
+              <div className="p-6 md:p-8 text-white" style={{ background: 'linear-gradient(135deg, #0D9488 0%, #065F46 100%)' }}>
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-white/15 flex items-center justify-center">
+                    <HandCoins className="size-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold">{t('investment.roiTitle')}</h4>
+                    <p className="text-sm text-white/70">{t('investment.roiSubtitle')}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 md:p-8">
+                <div className="grid sm:grid-cols-2 gap-5 mb-8">
+                  <div>
+                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 block">{t('investment.numberOfShares')}</label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="20"
+                      value={investShares}
+                      onChange={e => { const v = parseInt(e.target.value); setInvestShares(isNaN(v) ? 1 : Math.min(20, Math.max(1, v))) }}
+                      className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-600 rounded-xl text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all text-lg font-bold"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 block">{t('investment.expectedProfit')}</label>
+                    <input
+                      type="number"
+                      min="5"
+                      max="20"
+                      step="0.5"
+                      value={investRate}
+                      onChange={e => { const v = parseFloat(e.target.value); setInvestRate(isNaN(v) ? 10 : Math.min(20, Math.max(5, v))) }}
+                      className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-600 rounded-xl text-gray-800 dark:text-white dark:bg-slate-700 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all text-lg font-bold"
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  {[
+                    { label: 'Investment', value: `৳${(investShares * 10).toFixed(0)}L`, color: '#0D9488', percent: (investShares / 20) * 100 },
+                    { label: 'Annual Return', value: `৳${(investShares * 10 * investRate / 100).toFixed(1)}L`, color: '#10B981', percent: Math.min((investShares * investRate / 200) * 100, 100) },
+                    { label: '3-Year Return', value: `৳${(investShares * 10 * investRate / 100 * 3).toFixed(1)}L`, color: '#D97706', percent: Math.min((investShares * investRate * 3 / 200) * 100, 100) },
+                    { label: 'Buyback Value', value: `৳${(investShares * 10.5).toFixed(1)}L`, color: '#0D9488', percent: (investShares * 10.5 / 210) * 100 },
+                  ].map((item, i) => (
+                    <div key={i} className="p-4 rounded-2xl text-center relative overflow-hidden border border-gray-100 dark:border-slate-700 hover:shadow-md transition-shadow duration-300" style={{ background: `${item.color}06` }}>
+                      <div className="text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-1">{item.label}</div>
+                      <div className="text-xl font-black mb-2" style={{ color: item.color }}>{item.value}</div>
+                      <div className="h-1.5 rounded-full bg-gray-100 dark:bg-slate-700 overflow-hidden">
+                        <motion.div
+                          className="h-full rounded-full"
+                          style={{ background: item.color }}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${Math.max(item.percent, 5)}%` }}
+                          transition={{ duration: 0.8, ease: 'easeOut' }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-[11px] text-gray-400 mt-4 text-center">* Based on projected profit rate. Actual returns may vary. Buyback after 3 years at 5% premium.</p>
+
+                {/* Additional Benefits — Dynamic based on shares */}
+                <div className="mt-6 pt-6 border-t border-gray-100 dark:border-slate-700">
+                  <h5 className="text-sm font-bold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+                    <Shield className="size-4" style={{ color: '#0D9488' }} />
+                    Additional Benefits:
+                  </h5>
+                  <div className="space-y-2">
+                    {(() => {
+                      const benefits = [
+                        { code: 'B-1', title: 'Lifetime Financial Benefit', always: true },
+                        { code: 'B-2', title: 'Caring for him/herself.', always: true },
+                        { code: 'B-3', title: 'Partner Health access.', minShares: 2 },
+                        { code: 'B-4', title: 'Family Health Access.', minShares: 5 },
+                        { code: 'B-5', title: 'Family Health Access Including Parents.', minShares: 10 },
+                        { code: 'B-6', title: 'Family Health Access Including Parents-in-law.', minShares: 15 },
+                        { code: 'B-7', title: 'VIP Access to all facilities of the complex.', minShares: 20 },
+                        { code: 'B-8', title: 'Social Recognition and Share certification.', always: true },
+                      ]
+                      return benefits
+                        .filter(b => b.always || (b.minShares && investShares >= b.minShares))
+                        .map((b) => (
+                          <div key={b.code} className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-300">
+                            <div className="flex items-center justify-center w-5 h-5 rounded-full shrink-0 mt-0.5" style={{ background: 'rgba(13,148,136,0.1)' }}>
+                              <Check className="size-3" style={{ color: '#0D9488' }} />
+                            </div>
+                            <span><strong className="text-gray-800 dark:text-white">{b.code}</strong> - {b.title}</span>
+                          </div>
+                        ))
+                    })()}
                   </div>
                 </div>
               </div>

@@ -17,6 +17,7 @@ import {
   Building2,
   CheckCircle2,
 } from 'lucide-react'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 const partnerReasons = [
   {
@@ -106,6 +107,7 @@ interface WhyPartnerSectionProps {
 export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-80px' })
+  const { t } = useLanguage()
 
   return (
     <section
@@ -155,13 +157,13 @@ export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps
             }}
           >
             <Gem className="size-4" />
-            Partnership Benefits
+            {t('whyPartner.badge')}
           </div>
           <h2
             className="text-3xl md:text-5xl font-black mb-5"
             style={{ color: isDarkMode ? '#F1F5F9' : '#0F172A' }}
           >
-            Why You Should Be a{' '}
+            {t('whyPartner.title')}{' '}
             <span
               style={{
                 background: 'linear-gradient(135deg, #8B5CF6, #0D9488)',
@@ -169,15 +171,14 @@ export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              Partner
+              {t('whyPartner.titleHighlight')}
             </span>
           </h2>
           <p
             className="text-lg max-w-2xl mx-auto"
             style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
           >
-            13 compelling reasons to invest in Hayat Life Care — Chattogram&apos;s most
-            ambitious healthcare and lifestyle destination.
+            {t('whyPartner.description')}
           </p>
         </motion.div>
 
@@ -189,10 +190,10 @@ export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps
           className="flex flex-wrap items-center justify-center gap-4 md:gap-8 mb-14"
         >
           {[
-            { value: '13', label: 'Key Reasons' },
-            { value: '₹0', label: 'Bank Loan' },
-            { value: '55', label: 'Katha Land' },
-            { value: '150+', label: 'Parking' },
+            { value: '13', label: t('whyPartner.keyReasons') },
+            { value: '₹0', label: t('whyPartner.bankLoan') },
+            { value: '55', label: t('whyPartner.kathaLand') },
+            { value: '150+', label: t('whyPartner.parking') },
           ].map((stat, i) => (
             <div
               key={i}
@@ -270,13 +271,6 @@ export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps
                 </div>
 
                 <div className="min-w-0">
-                  {/* Number */}
-                  <span
-                    className="text-[10px] font-bold uppercase tracking-widest mb-1 block"
-                    style={{ color: `${reason.color}80` }}
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
                   {/* Title */}
                   <h3
                     className="text-[15px] font-bold mb-1.5 leading-tight"
@@ -312,13 +306,13 @@ export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps
             }}
           >
             <Gem className="size-4" />
-            Become a Partner Today
+            {t('whyPartner.becomePartner')}
           </a>
           <p
             className="text-sm italic mt-4"
             style={{ color: isDarkMode ? '#64748B' : '#94A3B8' }}
           >
-            &ldquo;Invest in healthcare. Invest in the future.&rdquo;
+            &ldquo;{t('whyPartner.investQuote')}&rdquo;
           </p>
         </motion.div>
       </div>

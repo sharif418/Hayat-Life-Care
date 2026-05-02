@@ -10,6 +10,7 @@ import {
   Globe,
   Award,
 } from 'lucide-react'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 const uniqueFeatures = [
   {
@@ -57,6 +58,7 @@ interface UniquenessSectionProps {
 export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
+  const { t } = useLanguage()
 
   return (
     <section
@@ -98,13 +100,13 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
             }}
           >
             <Award className="size-4" />
-            What Makes Us Different
+            {t('uniqueness.badge')}
           </div>
           <h2
             className="text-3xl md:text-5xl font-black mb-4"
             style={{ color: isDarkMode ? '#F1F5F9' : '#0F172A' }}
           >
-            Our{' '}
+            {t('uniqueness.title').split(' ').slice(0, -1).join(' ')}{' '}
             <span
               style={{
                 background: 'linear-gradient(135deg, #0D9488, #10B981)',
@@ -112,14 +114,14 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              Uniqueness
+              {t('uniqueness.title').split(' ').pop()}
             </span>
           </h2>
           <p
             className="text-lg max-w-2xl mx-auto"
             style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
           >
-            Pioneering healthcare innovations that set Hayat Life Care apart — from AI-powered diagnostics to global hospital partnerships.
+            {t('uniqueness.description')}
           </p>
         </motion.div>
 
@@ -161,14 +163,6 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
                   }}
                 >
                   <feature.icon className="size-6" />
-                </div>
-
-                {/* Number badge */}
-                <div
-                  className="absolute top-6 right-6 text-4xl font-black opacity-5 group-hover:opacity-10 transition-opacity"
-                  style={{ color: feature.color }}
-                >
-                  {String(index + 1).padStart(2, '0')}
                 </div>
 
                 {/* Title */}

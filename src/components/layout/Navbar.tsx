@@ -14,6 +14,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { useAppointment } from '@/components/providers/AppointmentProvider'
 import { useDownload } from '@/components/providers/DownloadProvider'
+import { useLanguage } from '@/i18n/LanguageProvider'
+import LanguageToggle from '@/components/ui/LanguageToggle'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -23,6 +25,7 @@ export default function Navbar() {
   const isDarkMode = theme === 'dark'
   const { openAppointmentDialog } = useAppointment()
   const { openDownloadPopup } = useDownload()
+  const { t } = useLanguage()
   const pathname = usePathname()
   const isHomePage = pathname === '/'
 
@@ -163,7 +166,7 @@ export default function Navbar() {
                         : scrolled ? 'text-slate-700 hover:text-teal-600 font-medium' : 'text-white/80 hover:text-teal-300 font-medium'
                     }`}
                 >
-                  {link.label}
+                  {link.langKey ? t(`nav.${link.langKey}`) : link.label}
                   {link.children && (
                     <svg className="size-3 opacity-50 group-hover:opacity-100 transition-all group-hover:rotate-180 duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                   )}
@@ -202,13 +205,13 @@ export default function Navbar() {
                             className="flex items-center whitespace-nowrap gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/30 hover:text-teal-700 dark:hover:text-teal-400 transition-colors group/item"
                           >
                             <div className="w-2 h-2 rounded-full bg-teal-500/30 group-hover/item:bg-teal-500 group-hover/item:scale-125 transition-all" />
-                            {child.label}
+                            {child.langKey ? t(`nav.${child.langKey}`) : child.label}
                           </a>
                         ))}
                       </div>
                       <div className="bg-gray-50 dark:bg-slate-700/50 px-4 py-2.5 border-t border-gray-100 dark:border-slate-600">
                         <a href={link.href} className="text-xs font-semibold text-teal-600 dark:text-teal-400 hover:text-teal-700">
-                          View All {link.label} →
+                          {t('common.viewAll')} {link.langKey ? t(`nav.${link.langKey}`) : link.label} →
                         </a>
                       </div>
                     </div>
@@ -242,6 +245,10 @@ export default function Navbar() {
                 </motion.div>
               </AnimatePresence>
             </button>
+            {/* Language toggle hidden until client requests — uncomment to re-enable */}
+            {/* <div className="hidden lg:block">
+              <LanguageToggle />
+            </div> */}
             <Button
               className={`rounded-full px-2.5 lg:px-3 xl:px-4 font-semibold text-[11px] lg:text-xs xl:text-sm transition-all duration-300 border ${
                 scrolled
@@ -251,7 +258,7 @@ export default function Navbar() {
               asChild
             >
               <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex items-center gap-1.5">
-                <Download className="size-3.5" /> Brochure
+                <Download className="size-3.5" /> {t('nav.downloadBrochure')}
               </button>
             </Button>
             <Button
@@ -262,7 +269,7 @@ export default function Navbar() {
               }`}
               onClick={() => openAppointmentDialog()}
             >
-              <span className="relative z-10">Book a Visit</span>
+              <span className="relative z-10">{t('nav.bookAppointment')}</span>
               <div className="absolute inset-0 h-full w-full bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
             </Button>
           </div>
@@ -315,6 +322,10 @@ export default function Navbar() {
                         alt="Hayat Life Care"
                         className="h-10 w-auto object-contain drop-shadow-sm"
                       />
+                      {/* Language toggle hidden until client requests */}
+                      {/* <div className="scale-90">
+                        <LanguageToggle />
+                      </div> */}
                     </div>
                   </SheetTitle>
                 </SheetHeader>
@@ -327,7 +338,7 @@ export default function Navbar() {
                         {link.children ? (
                           <details className="group">
                             <summary className="flex items-center justify-between px-3 py-3 text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/30 rounded-xl transition-all font-outfit uppercase tracking-wider text-[13px] font-semibold cursor-pointer list-none">
-                              {link.label}
+                              {link.langKey ? t(`nav.${link.langKey}`) : link.label}
                               <svg className="size-4 opacity-40 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                             </summary>
                             <div className="ml-3 pl-4 border-l-2 border-teal-100 dark:border-teal-800/50 space-y-1 mb-2 mt-2">
@@ -337,7 +348,7 @@ export default function Navbar() {
                                     href={child.href}
                                     className="block px-3 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/20 rounded-lg transition-colors"
                                   >
-                                    {child.label}
+                                    {child.langKey ? t(`nav.${child.langKey}`) : child.label}
                                   </a>
                                 </SheetClose>
                               ))}
@@ -345,12 +356,12 @@ export default function Navbar() {
                           </details>
                         ) : (
                           <SheetClose asChild>
-                            <a
-                              href={link.href}
-                              className="block px-3 py-3 text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/30 rounded-xl transition-all font-outfit uppercase tracking-wider text-[13px] font-semibold"
-                            >
-                              {link.label}
-                            </a>
+                              <a
+                                href={link.href}
+                                className="block px-3 py-3 text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50/50 dark:hover:bg-teal-900/30 rounded-xl transition-all font-outfit uppercase tracking-wider text-[13px] font-semibold"
+                              >
+                                {link.langKey ? t(`nav.${link.langKey}`) : link.label}
+                              </a>
                           </SheetClose>
                         )}
                       </div>
@@ -397,7 +408,7 @@ export default function Navbar() {
                       className="w-full rounded-xl font-semibold text-white h-12 shadow-lg hover:shadow-xl transition-all bg-amber-500 hover:bg-amber-600 border border-amber-400"
                       onClick={() => openAppointmentDialog()}
                     >
-                      Book a Visit
+                      {t('nav.bookAppointment')}
                     </Button>
                   </SheetClose>
                   <SheetClose asChild>
@@ -406,7 +417,7 @@ export default function Navbar() {
                       asChild
                     >
                       <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex items-center justify-center gap-2">
-                        <Download className="size-4" /> Download Brochure
+                        <Download className="size-4" /> {t('nav.downloadBrochure')}
                       </button>
                     </Button>
                   </SheetClose>

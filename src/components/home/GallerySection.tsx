@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Building2, ZoomIn, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
 import { lightboxImages } from '@/data/home-data'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface GallerySectionProps {
   isDarkMode: boolean
@@ -14,6 +15,7 @@ interface GallerySectionProps {
 export default function GallerySection({ isDarkMode }: GallerySectionProps) {
   const [galleryFilter, setGalleryFilter] = useState('All')
   const [lightboxIndex, setLightboxIndex] = useState(-1)
+  const { t } = useLanguage()
 
   // Handle keyboard navigation for the lightbox
   useEffect(() => {
@@ -41,14 +43,14 @@ export default function GallerySection({ isDarkMode }: GallerySectionProps) {
             <div className="text-center mb-14">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
                 <Building2 className="size-3" />
-                WORLD-CLASS FACILITIES
+                {t('gallery.badge')}
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                Our Facilities
+                {t('gallery.title')}
               </h2>
               <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-                Explore our world-class facilities designed for comfort, care, and convenience. Click any image to view full size.
+                {t('gallery.description')}
               </p>
               <div className="flex justify-center mt-3">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-medium">

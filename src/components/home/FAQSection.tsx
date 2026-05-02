@@ -5,6 +5,7 @@ import { HelpCircle, Search, Building2, TrendingUp, FileCheck, Settings, Shield,
 import { FadeIn } from '@/components/ui/animations'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { faqs, faqCategoryConfig } from '@/data/home-data'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface FAQSectionProps {
   isDarkMode: boolean
@@ -41,6 +42,13 @@ function renderFaqAnswer(answer: string) {
 export default function FAQSection({ isDarkMode }: FAQSectionProps) {
   const [activeCategory, setActiveCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const { t } = useLanguage()
+
+  const catLabelMap: Record<string, string> = {
+    all: t('faq.catAll'), general: t('faq.catGeneral'), investment: t('faq.catInvestment'),
+    shares: t('faq.catShares'), operations: t('faq.catOperations'), legal: t('faq.catLegal'),
+    leadership: t('faq.catLeadership'), medical: t('faq.catMedical'),
+  }
 
   const filteredFaqs = useMemo(() => {
     let result = faqs
@@ -78,17 +86,17 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
               <HelpCircle className="size-3" />
-              GOT QUESTIONS?
+              {t('faq.badge')}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-              Frequently Asked Questions
+              {t('faq.title')}
             </h2>
             <div className="relative">
               <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
               <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
             </div>
             <p className="mt-5 text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-sm">
-              Find answers to common questions about Hayat Life Care — from investment to operations
+              {t('faq.description')}
             </p>
           </div>
         </FadeIn>
@@ -101,7 +109,7 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
             </div>
             <input
               type="text"
-              placeholder="Search questions... e.g. share price, hospital, profit"
+              placeholder={t('faq.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-gray-800 dark:text-gray-200 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all shadow-sm"
@@ -145,7 +153,7 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
                   } : {}}
                 >
                   <IconComp className="size-3.5" />
-                  {config.label}
+                  {catLabelMap[cat] || cat}
                   <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
                     isActive
                       ? 'bg-white/20 text-white'
@@ -201,7 +209,7 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
                           </span>
                           <span className="flex flex-col items-start">
                             <span className="text-[10px] font-bold uppercase tracking-wider mb-0.5" style={{ color: cat.color }}>
-                              {categoryLabels[faq.category]?.label || faq.category}
+                              {catLabelMap[faq.category] || faq.category}
                             </span>
                             <span className="text-sm">{faq.q}</span>
                           </span>
@@ -219,15 +227,15 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
                 <div className="w-16 h-16 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center mx-auto mb-4">
                   <Search className="size-6 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">No questions found</h3>
+                <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('faq.noResults')}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                  Try a different search term or category
+                  {t('faq.tryDifferent')}
                 </p>
                 <button
                   onClick={() => { setSearchQuery(''); setActiveCategory('all') }}
                   className="text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors"
                 >
-                  Show all questions →
+                  {t('faq.showAll')} →
                 </button>
               </div>
             )}

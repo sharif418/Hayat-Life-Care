@@ -4,12 +4,14 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Award, MapPin, Shield, Heart, TrendingUp, FileCheck } from 'lucide-react'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface TrustSectionProps {
   isDarkMode: boolean
 }
 
 export default function TrustSection({ isDarkMode }: TrustSectionProps) {
+  const { t } = useLanguage()
   return (
     <section id="why-choose-us" className="py-20 md:py-28" style={{ background: isDarkMode ? '#0C1222' : '#F8FAFC' }}>
       <div className="max-w-7xl mx-auto px-4">
@@ -17,10 +19,10 @@ export default function TrustSection({ isDarkMode }: TrustSectionProps) {
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
               <Award className="size-3" />
-              WHY CHOOSE US
+              {t('trust.badge')}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-              Why Choose Hayat Life Care?
+              {t('trust.title')}
             </h2>
             <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
           </div>

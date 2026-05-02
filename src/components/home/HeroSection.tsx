@@ -4,8 +4,9 @@ import Image from 'next/image'
 import { motion, MotionValue, AnimatePresence } from 'framer-motion'
 import { ArrowRight, TrendingUp, Sparkles, Award } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { useInView } from 'framer-motion'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 function formatNumber(num: string | number): string {
   if (typeof num === 'string') return num
@@ -36,12 +37,7 @@ function useCounter(end: number, duration = 2000) {
   return { count: inView ? count : ('' as string | number), ref }
 }
 
-// ─── Dynamic Headlines (Dream Education style: thin top + BOLD highlight) ───
-const headlines = [
-  { top: 'To Gift an Innovative Healthcare Facility to', highlight: 'The Society and Generations.' },
-  { top: 'Toward a Secure and Sustainable', highlight: 'Financial Future' },
-  { top: 'Your Dream to Be a Prestigious Owner of the', highlight: 'Largest Diagnostic and Hospital' },
-]
+// Removed static headlines array, moved inside component to support translations
 
 // ─── Background images that cycle with headlines ───
 const heroBgImages = [
@@ -64,6 +60,15 @@ export default function HeroSection({
   heroOpacity,
   isDarkMode
 }: HeroSectionProps) {
+  const { t } = useLanguage()
+
+  // ─── Dynamic Headlines ───
+  const headlines = useMemo(() => [
+    { top: t('hero.headline_1_top'), highlight: t('hero.headline_1_highlight') },
+    { top: t('hero.headline_2_top'), highlight: t('hero.headline_2_highlight') },
+    { top: t('hero.headline_3_top'), highlight: t('hero.headline_3_highlight') },
+  ], [t])
+
   const stat1 = useCounter(11, 1800)
   const stat2 = useCounter(55, 2000)
   const stat3 = useCounter(14, 1500)
@@ -141,7 +146,7 @@ export default function HeroSection({
             </div>
             
             <span className="relative text-[11px] md:text-[13.5px] font-bold tracking-wider" style={{ color: '#134e4a' }}>
-              The First Cancer Diagnostic &amp; Specialized Hospital in Chattogram
+              {t('hero.badge')}
             </span>
           </motion.div>
 
@@ -189,10 +194,9 @@ export default function HeroSection({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-slate-200/95 text-[13px] sm:text-sm md:text-base lg:text-[17px] max-w-3xl mx-auto mb-8 leading-relaxed font-medium"
+            className="text-slate-200/95 text-[13px] sm:text-sm md:text-base lg:text-[17px] max-w-3xl mx-auto mb-8 leading-relaxed font-medium whitespace-pre-line"
           >
-            One of the Largest Healthcare &amp; Lifestyle Complexes in Chattogram&apos;s Medical Hub—<br className="hidden md:block" />
-            Offering World-class Healthcare Services, Daily Essentials, Dining, and Family Entertainment.
+            {t('hero.description')}
           </motion.p>
 
           {/* CTA Buttons — Dream Education style */}
@@ -212,7 +216,7 @@ export default function HeroSection({
               asChild
             >
               <a href="/facilities#services">
-                Explore Services <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-transform" />
+                {t('hero.exploreServices')} <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
             <Button
@@ -228,7 +232,7 @@ export default function HeroSection({
             >
               <a href="/investment#investment">
                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-amber-500/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                <TrendingUp className="mr-2 size-4 group-hover:scale-110 transition-transform" /> Be Owner Now
+                <TrendingUp className="mr-2 size-4 group-hover:scale-110 transition-transform" /> {t('hero.beOwnerNow')}
               </a>
             </Button>
           </motion.div>
@@ -245,10 +249,10 @@ export default function HeroSection({
               style={{ background: 'rgba(255,255,255,0.06)' }}
             >
               {[
-                { label: 'BUSINESS WINGS', value: stat1.count, suffix: '' },
-                { label: 'KATHA LAND', value: stat2.count, suffix: '' },
-                { label: 'FLOORS', value: stat3.count, suffix: '+' },
-                { label: 'PAID PARKING', value: stat4.count, suffix: '+' },
+                { label: t('stats.businessWings'), value: stat1.count, suffix: '' },
+                { label: t('stats.kathaLand'), value: stat2.count, suffix: '' },
+                { label: t('stats.floors'), value: stat3.count, suffix: '+' },
+                { label: t('stats.paidParking'), value: stat4.count, suffix: '+' },
               ].map((stat, i) => (
                 <div
                   key={i}

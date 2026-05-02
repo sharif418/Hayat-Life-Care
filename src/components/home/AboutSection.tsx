@@ -3,25 +3,26 @@ import React from 'react'
 import Image from 'next/image'
 import { MapPin, Building2, Building, Car, Sparkles, TrendingUp, Shield, Award, Users, FileCheck } from 'lucide-react'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface AboutSectionProps {
   isDarkMode: boolean
 }
 
 export default function AboutSection({ isDarkMode }: AboutSectionProps) {
+  const { t } = useLanguage()
   return (
     <>
       <section id="about" className="py-20 md:py-28 relative overflow-hidden" style={{ background: isDarkMode ? '#0C1222' : '#FAFFFE' }}>
-        <div className="absolute top-20 right-10 w-32 h-32 rounded-full opacity-5 animate-float-slow" style={{ background: 'radial-gradient(circle, #0D9488, transparent)' }} />
-        <div className="absolute bottom-20 left-10 w-24 h-24 rounded-full opacity-5 animate-float-slow" style={{ background: 'radial-gradient(circle, #10B981, transparent)', animationDelay: '2s' }} />
+
         <div className="max-w-7xl mx-auto px-4">
           <FadeIn>
             <div className="text-center mb-14">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                At A Glance
+                {t('about.title')}
               </h2>
               <p className="text-base md:text-lg text-teal-700 dark:text-teal-400 font-medium italic mb-4">
-                Your Family, Your Wellness, Your Future. Together We&apos;re Building a Healthier Society.
+                {t('about.subtitle')}
               </p>
               <div className="relative">
                 <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
@@ -52,12 +53,12 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
               <div>
                 <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {[
-                    { icon: MapPin, label: 'Location', value: 'O.R. Nizam Road, Chattogram' },
-                    { icon: Building2, label: 'Land Area', value: '55 Katha' },
-                    { icon: Building, label: 'Structure', value: '9 Levels + 3 Basements' },
-                    { icon: Car, label: 'Paid Parking', value: '150+ Paid Parking Spaces' },
-                    { icon: Sparkles, label: 'Business Wings', value: '11 Comprehensive Wings' },
-                    { icon: TrendingUp, label: 'Future', value: '14-18 Floor Expansion' },
+                    { icon: MapPin, label: t('about.location'), value: 'O.R. Nizam Road, Chattogram' },
+                    { icon: Building2, label: t('about.landArea'), value: '55 Katha' },
+                    { icon: Building, label: t('about.structure'), value: '9 Levels + 3 Basements' },
+                    { icon: Car, label: t('about.paidParking'), value: '150+ Paid Parking Spaces' },
+                    { icon: Sparkles, label: t('about.businessWings'), value: '11 Comprehensive Wings' },
+                    { icon: TrendingUp, label: t('about.future'), value: '14-18 Floor Expansion' },
                   ].map((item, i) => (
                     <StaggerItem key={i}>
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-300">
@@ -77,18 +78,16 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
                 </StaggerContainer>
 
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                  Hayat Life Care is not just a building — it&apos;s a vision realized. Strategically
-                  located near Chittagong Medical College Hospital, it brings together healthcare,
-                  daily essentials, dining, and entertainment into a single, world-class complex.
+                  {t('about.description')}
                 </p>
 
                 {/* Trust Badges — moved from Hero for viewport fit */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {[
-                    { icon: Shield, text: 'Registered Company' },
-                    { icon: Award, text: 'No Bank Loan' },
-                    { icon: Users, text: '4,950 Shares' },
-                    { icon: FileCheck, text: 'RJSC Registered' },
+                    { icon: Shield, text: t('about.registeredCompany') },
+                    { icon: Award, text: t('about.noBankLoan') },
+                    { icon: Users, text: t('about.shares') },
+                    { icon: FileCheck, text: t('about.rjsc') },
                   ].map((badge, i) => (
                     <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors" style={{ background: 'rgba(13,148,136,0.06)', borderColor: 'rgba(13,148,136,0.15)', color: '#0D9488' }}>
                       <badge.icon className="size-3" />
@@ -98,7 +97,7 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
                 </div>
 
                 <p className="text-xl italic font-bold mt-2 px-4 py-2 rounded-xl inline-block" style={{ color: '#0D9488', background: 'rgba(13,148,136,0.08)' }}>
-                  &ldquo;A one-stop service for healthcare &amp; daily essentials&rdquo;
+                  &ldquo;{t('about.oneStopService')}&rdquo;
                 </p>
               </div>
             </FadeIn>

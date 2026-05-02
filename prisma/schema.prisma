@@ -141,3 +141,16 @@ model SiteVisit {
   isUnique    Boolean  @default(false) // first visit from this visitorId today
   createdAt   DateTime @default(now())
 }
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  designation String
+  text        String
+  photo       String?  // base64 or URL
+  rating      Int      @default(5) // 1-5 stars
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

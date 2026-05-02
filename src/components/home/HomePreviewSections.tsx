@@ -8,35 +8,41 @@ import {
   Building2, MapPin, Car, Sparkles, ArrowRight,
   Stethoscope, ShoppingBag, Utensils, ParkingCircle,
   Globe, Award, Shield, TrendingUp, HandCoins, Users,
-  Heart, Eye, Target, Crown
+  Heart, Eye, Target, Crown, Building, FileCheck
 } from 'lucide-react'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface HomePreviewSectionsProps {
   isDarkMode: boolean
 }
 
 export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsProps) {
+  const { t } = useLanguage()
   return (
     <>
       {/* ═══════════════════════════════════════════════════════ */}
       {/* ABOUT PREVIEW — At A Glance */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="py-20 md:py-28 relative overflow-hidden" style={{ background: isDarkMode ? '#0C1222' : '#FAFFFE' }}>
-        <div className="absolute top-20 right-10 w-32 h-32 rounded-full opacity-5 animate-pulse" style={{ background: 'radial-gradient(circle, #0D9488, transparent)' }} />
+
         <div className="max-w-7xl mx-auto px-4">
           <FadeIn>
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
                 <Eye className="size-3" />
-                AT A GLANCE
+                {t('preview.aboutBadge')}
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                About Hayat Life Care
+                {t('preview.aboutTitle')}
               </h2>
-              <p className="text-base md:text-lg text-teal-700 dark:text-teal-400 font-medium italic">
-                Your Family, Your Wellness, Your Future.
+              <p className="text-base md:text-lg text-teal-700 dark:text-teal-400 font-medium italic mb-4">
+                {t('about.subtitle')}
               </p>
+              <div className="relative">
+                <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+              </div>
             </div>
           </FadeIn>
 
@@ -62,41 +68,61 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
             {/* Info side */}
             <FadeIn direction="left">
               <div>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                  Hayat Life Care is not just a building — it&apos;s a vision realized. Strategically 
-                  located near Chittagong Medical College Hospital, it brings together healthcare, 
-                  daily essentials, dining, and entertainment into a single, world-class complex.
-                </p>
-
-                <StaggerContainer className="grid grid-cols-2 gap-3 mb-8">
+                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {[
-                    { icon: MapPin, label: 'Location', value: 'O.R. Nizam Road' },
-                    { icon: Building2, label: 'Land Area', value: '55 Katha' },
-                    { icon: Sparkles, label: 'Wings', value: '11 Business Wings' },
-                    { icon: Car, label: 'Paid Parking', value: '150+ Spaces' },
+                    { icon: MapPin, label: t('about.location'), value: 'O.R. Nizam Road, Chattogram' },
+                    { icon: Building2, label: t('about.landArea'), value: '55 Katha' },
+                    { icon: Building, label: t('about.structure'), value: '9 Levels + 3 Basements' },
+                    { icon: Car, label: t('about.paidParking'), value: '150+ Paid Parking Spaces' },
+                    { icon: Sparkles, label: t('about.businessWings'), value: '11 Comprehensive Wings' },
+                    { icon: TrendingUp, label: t('about.future'), value: '14-18 Floor Expansion' },
                   ].map((item, i) => (
                     <StaggerItem key={i}>
-                      <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm">
-                        <div className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}>
-                          <item.icon className="size-4" style={{ color: '#0D9488' }} />
+                      <div className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-300">
+                        <div
+                          className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0"
+                          style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}
+                        >
+                          <item.icon className="size-5" style={{ color: '#0D9488' }} />
                         </div>
                         <div>
-                          <div className="text-[10px] text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">{item.label}</div>
-                          <div className="text-sm font-bold text-gray-800 dark:text-gray-200">{item.value}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">{item.label}</div>
+                          <div className="text-sm font-semibold text-gray-800 dark:text-gray-200">{item.value}</div>
                         </div>
                       </div>
                     </StaggerItem>
                   ))}
                 </StaggerContainer>
 
-                <Link
-                  href="/about"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group"
-                  style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
-                >
-                  Explore Full Details
-                  <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                  {t('preview.aboutDescription')}
+                </p>
+
+                {/* Trust Badges */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {[
+                    { icon: Shield, text: t('about.registeredCompany') },
+                    { icon: Award, text: t('about.noBankLoan') },
+                    { icon: Users, text: t('about.shares') },
+                    { icon: FileCheck, text: t('about.rjsc') },
+                  ].map((badge, i) => (
+                    <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors" style={{ background: 'rgba(13,148,136,0.06)', borderColor: 'rgba(13,148,136,0.15)', color: '#0D9488' }}>
+                      <badge.icon className="size-3" />
+                      <span>{badge.text}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group"
+                    style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                  >
+                    {t('preview.aboutCTA')}
+                    <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
               </div>
             </FadeIn>
           </div>
@@ -115,13 +141,13 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
                 <Building2 className="size-3" />
-                11 BUSINESS WINGS
+                {t('preview.facilitiesBadge')}
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                Our Facilities
+                {t('preview.facilitiesTitle')}
               </h2>
               <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-                A one stop service for Healthcare &amp; Daily Essential — from advanced diagnostics to premium dining, everything under one roof.
+                {t('preview.facilitiesDescription')}
               </p>
             </div>
           </FadeIn>
@@ -162,7 +188,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group"
                 style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
               >
-                View All 11 Wings & Floor Plans
+                {t('preview.facilitiesCTA')}
                 <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -182,13 +208,13 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
                 <Award className="size-3" />
-                WHAT MAKES US UNIQUE
+                {t('preview.uniquenessBadge')}
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                Why Hayat Life Care?
+                {t('preview.uniquenessTitle')}
               </h2>
               <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-                The first cancer diagnostic and specialized hospital in Chattogram — one of the largest at the medical hub.
+                {t('preview.uniquenessDescription')}
               </p>
             </div>
           </FadeIn>
@@ -197,20 +223,20 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
             {[
               {
                 icon: Globe,
-                title: 'Global Connectivity',
-                desc: 'Collaborations with Bumrungrad, Apollo, Tata Memorial, Fortis, Narayana Health & more international hospitals.',
+                title: t('preview.globalConnectivity'),
+                desc: t('preview.globalConnectivityDesc'),
                 color: '#06B6D4',
               },
               {
                 icon: Shield,
-                title: 'No Bank Loan',
-                desc: 'Entirely funded by shareholders — no debt burden. Your investment is 100% secured by real assets.',
+                title: t('preview.noBankLoan'),
+                desc: t('preview.noBankLoanDesc'),
                 color: '#10B981',
               },
               {
                 icon: Building2,
-                title: 'Single Management',
-                desc: 'All 11 wings managed under one roof — ensuring quality, coordination, and accountability.',
+                title: t('preview.singleManagement'),
+                desc: t('preview.singleManagementDesc'),
                 color: '#0F766E',
               },
             ].map((item, i) => (
@@ -237,7 +263,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group"
                 style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
               >
-                Discover All Unique Features
+                {t('preview.uniquenessCTA')}
                 <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -257,13 +283,13 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
                 <TrendingUp className="size-3" />
-                INVESTMENT OPPORTUNITY
+                {t('preview.investmentBadge')}
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                Pathways to Prestige Ownership
+                {t('preview.investmentTitle')}
               </h2>
               <p className="text-teal-700 dark:text-teal-400 font-medium italic max-w-xl mx-auto">
-                Become a partner in building a healthier, more prosperous tomorrow—together.
+                {t('preview.investmentSubtitle')}
               </p>
             </div>
           </FadeIn>
@@ -271,10 +297,10 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
           {/* Key Investment Highlights */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10 max-w-5xl mx-auto">
             {[
-              { icon: HandCoins, value: '৳10 Lacs', label: 'Per Share (1st Phase)', color: '#D97706' },
-              { icon: Users, value: '4,950', label: 'Total Shares', color: '#3B82F6' },
-              { icon: Shield, value: '3 Years', label: 'Buyback Guarantee @ 5%', color: '#10B981' },
-              { icon: TrendingUp, value: '11 Wings', label: 'Revenue Sources', color: '#0D9488' },
+              { icon: HandCoins, value: '৳10 Lacs', label: t('preview.perShare'), color: '#D97706' },
+              { icon: Users, value: '4,950', label: t('preview.totalShares'), color: '#3B82F6' },
+              { icon: Shield, value: '3 Years', label: t('preview.buybackGuarantee'), color: '#10B981' },
+              { icon: TrendingUp, value: '11 Wings', label: t('preview.revenueSources'), color: '#0D9488' },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="text-center p-5 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300">
@@ -289,9 +315,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
           <FadeIn>
             <div className="max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 p-6 md:p-8 shadow-sm mb-10">
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm text-center">
-                This is not just an investment, but the creation of lasting value—financially, socially, and through prestigious ownership. 
-                Ownership includes all 11 business wings, along with proportionate ownership of land and structure—ensuring tangible asset value 
-                and long-term security for your investment.
+                {t('preview.investmentBody')}
               </p>
             </div>
           </FadeIn>
@@ -303,7 +327,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group"
                 style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
               >
-                View Full Investment Details
+                {t('preview.investmentCTA')}
                 <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -327,8 +351,8 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
           <div className="relative max-w-7xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-16">
-                <span className="text-teal-600 dark:text-teal-400 font-semibold tracking-wider uppercase text-sm mb-3 block">Corporate Identity</span>
-                <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight">Our Core Philosophy</h2>
+                <span className="text-teal-600 dark:text-teal-400 font-semibold tracking-wider uppercase text-sm mb-3 block">{t('preview.visionBadge')}</span>
+                <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight">{t('preview.visionTitle')}</h2>
                 <div className="w-24 h-1.5 mx-auto rounded-full bg-linear-to-r from-teal-500 to-emerald-500" />
               </div>
 
@@ -339,9 +363,9 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                   <div className="p-3.5 inline-block rounded-2xl bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 mb-6 border border-teal-100 dark:border-teal-800/50 relative z-10">
                     <Sparkles className="size-6" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">Vision</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">{t('preview.visionLabel')}</h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] relative z-10">
-                    To redefine healthcare as a fully integrated, people-focused ecosystem where patients and families can access expert medical care, international-standard diagnostics, and specialized hospital treatment alongside daily essentials and wellness services—all under one roof.
+                    {t('preview.visionText')}
                   </p>
                 </div>
 
@@ -351,9 +375,9 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                   <div className="p-3.5 inline-block rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-6 border border-emerald-100 dark:border-emerald-800/50 relative z-10">
                     <Target className="size-6" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">Mission</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">{t('preview.missionLabel')}</h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] relative z-10">
-                    To deliver comprehensive healthcare, AI-based diagnostic technology, specialized treatment, and essential services in a single, integrated environment for patients and families.
+                    {t('preview.missionText')}
                   </p>
                 </div>
 
@@ -363,9 +387,9 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                   <div className="p-3.5 inline-block rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 mb-6 border border-rose-100 dark:border-rose-800/50 relative z-10">
                     <Heart className="size-6" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">Ethical Vision</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">{t('preview.ethicalVisionLabel')}</h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] relative z-10">
-                    Through a holistic and patient-centered approach, we aim to transform waiting time during medical visits into meaningful family time, while delivering a seamless, dignified, and comfortable healthcare experience for all. We are committed to privacy, care, and accessibility, including dedicated women-focused diagnostic services.
+                    {t('preview.ethicalVisionText')}
                   </p>
                 </div>
               </div>
@@ -382,9 +406,9 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
           <div className="relative max-w-4xl mx-auto px-4">
             <FadeIn>
               <div className="text-center mb-10">
-                <span className="text-emerald-400 font-medium tracking-widest uppercase text-xs mb-3 block">Leadership Voice</span>
+                <span className="text-emerald-400 font-medium tracking-widest uppercase text-xs mb-3 block">{t('preview.founderBadge')}</span>
                 <h3 className="text-3xl md:text-4xl font-bold text-white">
-                  Message From Founder Directors
+                  {t('preview.founderTitle')}
                 </h3>
               </div>
               
@@ -395,19 +419,19 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                 
                 <div className="space-y-6 text-gray-200 text-base md:text-lg leading-relaxed relative z-10">
                   <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-emerald-400 first-letter:mr-2 first-letter:float-left">
-                    At Hayat, we believe healthcare should be more than just treatment—it should be a complete, comfortable, and caring experience. We are building this complex to meet the growing need for advanced, accessible, and people-focused healthcare services in Chattogram.
+                    {t('preview.founderP1')}
                   </p>
                   <p>
-                    Our goal is to create a place where families can access expert medical care, trusted diagnostics, daily essentials, and wellness services—all under one roof. Whether it is consulting a top physician, collecting medicine, enjoying a healthy meal, or visiting with children in a stress-free environment, Hayat Life Care is designed to make life easier, healthier, and more connected.
+                    {t('preview.founderP2')}
                   </p>
                   <p>
-                    This is not just a healthcare facility—it is a lifestyle destination, built with purpose, driven by innovation, and guided by heart:
+                    {t('preview.founderP3')}
                   </p>
                   
                   <div className="pt-8 pb-4 text-center">
                     <div className="w-16 h-px bg-linear-to-r from-transparent via-emerald-500 to-transparent mx-auto mb-6" />
                     <strong className="inline-block text-transparent bg-clip-text bg-linear-to-r from-emerald-200 via-white to-emerald-200 italic text-2xl md:text-3xl font-playfair tracking-wide leading-tight">
-                      &ldquo;To Save and Serve the Generation.&rdquo;
+                      &ldquo;{t('preview.founderQuote')}&rdquo;
                     </strong>
                     <div className="w-16 h-px bg-linear-to-r from-transparent via-emerald-500 to-transparent mx-auto mt-6" />
                   </div>

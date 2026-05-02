@@ -3,7 +3,9 @@
 import React from 'react'
 import { Sparkles, Target, Heart } from 'lucide-react'
 import { FadeIn } from '@/components/ui/animations'
+import { useLanguage } from '@/i18n/LanguageProvider'
 export default function VisionSection() {
+  const { t } = useLanguage()
   return (
     <>
       {/* ZONE 1: Vision & Mission (Psychology: Clarity, Transparency, Purpose) */}

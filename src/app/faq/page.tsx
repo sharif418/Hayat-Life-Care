@@ -18,6 +18,7 @@ export default function FAQPage() {
         title="Common"
         highlightText="Questions"
         description="Find answers to frequently asked questions about our facilities, services, and investment opportunities."
+        langKeyPrefix="pages.faq"
       />
       <FAQSection isDarkMode={isDarkMode} />
     </PageWrapper>

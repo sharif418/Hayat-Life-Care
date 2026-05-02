@@ -2,15 +2,25 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface PageHeaderProps {
   badge: string
   title: string
   highlightText: string
   description: string
+  /** Optional i18n key prefix like "pages.about" — if provided, auto-translates badge/title/highlight/description */
+  langKeyPrefix?: string
 }
 
-export default function PageHeader({ badge, title, highlightText, description }: PageHeaderProps) {
+export default function PageHeader({ badge, title, highlightText, description, langKeyPrefix }: PageHeaderProps) {
+  const { t } = useLanguage()
+
+  const displayBadge = langKeyPrefix ? t(`${langKeyPrefix}Badge`) : badge
+  const displayTitle = langKeyPrefix ? t(`${langKeyPrefix}Title`) : title
+  const displayHighlight = langKeyPrefix ? t(`${langKeyPrefix}Highlight`) : highlightText
+  const displayDesc = langKeyPrefix ? t(`${langKeyPrefix}Desc`) : description
+
   return (
     <div className="relative pt-[140px] pb-20 lg:pt-[180px] lg:pb-24 overflow-hidden flex flex-col items-center justify-center text-center" style={{ background: '#0F172A' }}>
       {/* Background Effects */}
@@ -28,7 +38,7 @@ export default function PageHeader({ badge, title, highlightText, description }:
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md mb-6"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs font-medium text-emerald-300 tracking-wider uppercase">{badge}</span>
+          <span className="text-xs font-medium text-emerald-300 tracking-wider uppercase">{displayBadge}</span>
         </motion.div>
 
         {/* Title */}
@@ -38,7 +48,7 @@ export default function PageHeader({ badge, title, highlightText, description }:
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
         >
-          {title} <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-emerald-300">{highlightText}</span>
+          {displayTitle} <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-emerald-300">{displayHighlight}</span>
         </motion.div>
 
         {/* Description */}
@@ -48,7 +58,7 @@ export default function PageHeader({ badge, title, highlightText, description }:
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-base md:text-lg text-slate-300 max-w-2xl leading-relaxed"
         >
-          {description}
+          {displayDesc}
         </motion.p>
       </div>
     </div>

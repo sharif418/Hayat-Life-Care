@@ -6,8 +6,10 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { navLinks } from '@/data/home-data'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 export default function FooterSection() {
+  const { t } = useLanguage()
   const [newsletterEmail, setNewsletterEmail] = useState('')
   const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false)
 
@@ -21,12 +23,12 @@ export default function FooterSection() {
         body: JSON.stringify({ email: newsletterEmail }),
       })
       if (res.ok) {
-        toast.success('Thank you for subscribing!')
+        toast.success(t('footer.subscribeSuccess'))
         setNewsletterEmail('')
       } else if (res.status === 409) {
-        toast.info('You are already subscribed!')
+        toast.info(t('footer.subscribeAlready'))
       } else {
-        toast.error('Failed to subscribe. Please try again.')
+        toast.error(t('footer.subscribeError'))
       }
     } catch {
       toast.error('Network error. Please try again later.')
@@ -60,13 +62,13 @@ export default function FooterSection() {
           <div className="max-w-7xl mx-auto px-4 py-10">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="text-center md:text-left">
-                <h4 className="text-xl font-bold text-white mb-2">Stay Updated with Hayat Life Care</h4>
-                <p className="text-sm text-gray-400">Get the latest news, investment updates, and health tips delivered to your inbox.</p>
+                <h4 className="text-xl font-bold text-white mb-2">{t('footer.stayUpdated')}</h4>
+                <p className="text-sm text-gray-400">{t('footer.stayUpdatedDesc')}</p>
               </div>
               <div className="flex w-full md:w-auto gap-2">
                 <Input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t('footer.emailPlaceholder')}
                   className="bg-white/10 border-white/15 text-white placeholder:text-gray-400 h-12 rounded-xl md:w-72"
                   value={newsletterEmail}
                   onChange={e => setNewsletterEmail(e.target.value)}
@@ -123,7 +125,7 @@ export default function FooterSection() {
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+              <h4 className="text-white font-semibold mb-4">{t('footer.quickLinks')}</h4>
               <div className="space-y-2">
                 {navLinks.slice(0, 6).map((link) => (
                   <a
@@ -131,18 +133,26 @@ export default function FooterSection() {
                     href={link.href}
                     className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200"
                   >
-                    {link.label}
+                    {link.langKey ? t(`nav.${link.langKey}`) : link.label}
                   </a>
                 ))}
-                <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200 flex items-center gap-2">
-                  <ChevronUp className="size-3" /> Back to Top
-                </button>
+                <a
+                  href="/contact"
+                  className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200"
+                >
+                  {t('nav.contact')}
+                </a>
+                <div className="pt-3 mt-3 border-t border-white/10">
+                  <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200 flex items-center gap-2">
+                    <ChevronUp className="size-3" /> {t('footer.backToTop')}
+                  </button>
+                </div>
               </div>
             </div>
 
             {/* Medical Services */}
             <div>
-              <h4 className="text-white font-semibold mb-4">Medical Services</h4>
+              <h4 className="text-white font-semibold mb-4">{t('footer.medicalServices')}</h4>
               <div className="space-y-2">
                 {[
                   { name: 'Specialized Hospital', href: '/facilities' },
@@ -164,7 +174,7 @@ export default function FooterSection() {
 
             {/* Lifestyle & Amenities */}
             <div>
-              <h4 className="text-white font-semibold mb-4">Lifestyle & Amenities</h4>
+              <h4 className="text-white font-semibold mb-4">{t('footer.lifestyle')}</h4>
               <div className="space-y-2">
                 {[
                   { name: 'Super Shop', href: '/facilities' },
@@ -186,7 +196,7 @@ export default function FooterSection() {
 
             {/* Contact */}
             <div>
-              <h4 className="text-white font-semibold mb-4">Contact Info</h4>
+              <h4 className="text-white font-semibold mb-4">{t('footer.contactInfo')}</h4>
               <div className="space-y-3 text-sm text-gray-400">
                 <div className="flex items-start gap-2">
                   <Phone className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
@@ -209,7 +219,7 @@ export default function FooterSection() {
 
                 <div className="flex items-start gap-2">
                   <Clock className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
-                  <div>Open All Day</div>
+                  <div>{t('common.allDay')}</div>
                 </div>
               </div>
             </div>
@@ -219,7 +229,7 @@ export default function FooterSection() {
         {/* Bottom bar */}
         <div className="relative border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 pt-5 pb-8 lg:pb-12 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
-            <div className="flex items-center gap-2 font-medium">&copy; {new Date().getFullYear()} Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; Back to Top</button></div>
+            <div className="flex items-center gap-2 font-medium">&copy; {new Date().getFullYear()} Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; {t('footer.backToTop')}</button></div>
             <div className="flex items-center gap-4 lg:mr-12 xl:mr-16">
               <span className="tracking-wider text-gray-500" title="System Version">
                 Build v1.0.0

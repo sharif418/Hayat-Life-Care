@@ -6,6 +6,7 @@ import { Check } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FadeIn } from '@/components/ui/animations'
 import { floors } from '@/data/home-data'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface FloorsSectionProps {
   isDarkMode: boolean
@@ -14,6 +15,7 @@ interface FloorsSectionProps {
 export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
   const [activeFloor, setActiveFloor] = useState('basement')
   const currentFloor = floors.find((f) => f.id === activeFloor) || floors[0]
+  const { t } = useLanguage()
 
   const getIndicatorColor = (id: string) => {
     if (id === 'basement') return 'bg-gray-400'
@@ -38,7 +40,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
         <FadeIn>
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-              Floor-wise Facilities
+              {t('floors.title')}
             </h2>
             <div className="relative">
               <div
@@ -51,7 +53,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
               />
             </div>
             <p className="mt-4 text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-              Explore each floor of Hayat Life Care — from paid parking to specialized medical institutes.
+              {t('floors.description')}
             </p>
           </div>
         </FadeIn>
@@ -153,7 +155,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
                     <div className="flex-1">
                       <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400 dark:text-gray-500 mb-3 flex items-center gap-2">
                         <span className="w-4 h-px bg-teal-400" />
-                        What&apos;s on this floor
+                        {t('floors.whatsOnFloor')}
                       </div>
                       <div className="grid grid-cols-2 gap-2">
                         {currentFloor.facilities.map((fac, j) => (

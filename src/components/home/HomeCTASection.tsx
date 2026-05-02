@@ -6,6 +6,7 @@ import { Phone, MessageSquare, Mail, Download, MapPin, Clock, Building2, ArrowRi
 import { Button } from '@/components/ui/button'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
 import { useDownload } from '@/components/providers/DownloadProvider'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface HomeCTASectionProps {
   isDarkMode: boolean
@@ -13,6 +14,7 @@ interface HomeCTASectionProps {
 
 export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
   const { openDownloadPopup } = useDownload()
+  const { t } = useLanguage()
   return (
     <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A, #1E293B)' }}>
       {/* Decorative elements */}
@@ -31,16 +33,16 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
               style={{ background: 'rgba(13,148,136,0.15)', color: '#5EEAD4', border: '1px solid rgba(13,148,136,0.2)' }}
             >
               <Phone className="size-3" />
-              GET IN TOUCH
+              {t('cta.badge')}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Ready to Begin Your{' '}
+              {t('cta.title')}{' '}
               <span style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                Journey?
+                {t('cta.titleHighlight')}
               </span>
             </h2>
             <p className="text-white/60 max-w-xl mx-auto text-sm md:text-base">
-              Whether you&apos;re interested in investment, healthcare partnerships, or simply want to learn more — we&apos;re here to help.
+              {t('cta.description')}
             </p>
           </div>
         </FadeIn>
@@ -55,7 +57,7 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
             >
               <a href="tel:01335074940" className="flex items-center gap-2">
                 <Phone className="size-4" />
-                Call Now
+                {t('cta.callNow')}
               </a>
             </Button>
             <Button
@@ -75,7 +77,7 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
             >
               <a href="mailto:info@hayatlifecare.com" className="flex items-center gap-2">
                 <Mail className="size-4" />
-                Email Us
+                {t('cta.emailUs')}
               </a>
             </Button>
             <Button
@@ -84,7 +86,7 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
             >
               <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex items-center gap-2">
                 <Download className="size-4" />
-                Download Brochure
+                {t('cta.downloadBrochure')}
               </button>
             </Button>
           </div>
@@ -95,20 +97,20 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
           {[
             {
               icon: MapPin,
-              title: 'Head Office',
+              title: t('cta.headOffice'),
               detail: 'Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram',
               color: '#0D9488',
             },
             {
               icon: Building2,
-              title: 'Project Site',
+              title: t('cta.projectSite'),
               detail: 'Manashi, O.R. Nizam Road, Chattogram (Near CMCH)',
               color: '#10B981',
             },
             {
               icon: Clock,
-              title: 'Operating Hours',
-              detail: 'Open All Day',
+              title: t('cta.operatingHours'),
+              detail: t('cta.openAllDay'),
               color: '#D97706',
             },
           ].map((item, i) => (
@@ -134,7 +136,7 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
               href="/contact"
               className="inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors group"
             >
-              Visit Full Contact Page
+              {t('cta.visitContactPage')}
               <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>

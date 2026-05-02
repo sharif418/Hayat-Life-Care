@@ -18,6 +18,7 @@ export default function InvestmentPage() {
         title="Secure Your"
         highlightText="Future"
         description="Join us in revolutionizing healthcare and lifestyle in Chattogram with secure, halal, and high-yield investment options."
+        langKeyPrefix="pages.investment"
       />
       <InvestmentSection isDarkMode={isDarkMode} />
     </PageWrapper>

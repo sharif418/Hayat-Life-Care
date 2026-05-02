@@ -34,6 +34,7 @@ export default function AboutPage() {
         title="About"
         highlightText="Hayat Life Care"
         description="Building a healthier future for Chattogram through world-class medical facilities, everyday convenience, and uncompromising quality."
+        langKeyPrefix="pages.about"
       />
 
       {/* ─── Key Highlights ─── */}

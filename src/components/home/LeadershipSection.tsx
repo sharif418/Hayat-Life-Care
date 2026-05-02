@@ -4,12 +4,14 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Users, Star, Stethoscope } from 'lucide-react'
 import { FadeIn } from '@/components/ui/animations'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface LeadershipSectionProps {
   isDarkMode: boolean
 }
 
 export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps) {
+  const { t } = useLanguage()
   return (
     <section id="leadership" className="py-20 md:py-28 relative overflow-hidden" style={{ background: isDarkMode ? '#0C1222' : '#FAFFFE' }}>
       {/* Subtle dot pattern */}
@@ -19,10 +21,10 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
               <Users className="size-3" />
-              LEADERSHIP
+              {t('leadership.badge')}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-              Meet the Visionaries
+              {t('leadership.title')}
             </h2>
             <p className="text-gray-500 dark:text-gray-400 text-lg">Steering Our Journey</p>
             <div className="w-20 h-1 mx-auto rounded-full mt-3" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />

@@ -3,6 +3,7 @@
 import React, { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Phone } from 'lucide-react'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 function useSectionReveal() {
   const ref = useRef<HTMLDivElement>(null)
@@ -12,6 +13,7 @@ function useSectionReveal() {
 
 export default function EmergencyBar() {
   const emergencyReveal = useSectionReveal()
+  const { t } = useLanguage()
 
   return (
     <div ref={emergencyReveal.ref} className="relative overflow-hidden" style={{ background: 'linear-gradient(90deg, #DC2626, #D97706, #DC2626)', textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
@@ -28,7 +30,7 @@ export default function EmergencyBar() {
           className="flex items-center gap-2"
         >
           <Phone className="size-4" />
-          <span className="font-bold text-sm md:text-base">Emergency Hotline:</span>
+          <span className="font-bold text-sm md:text-base">{t('emergency.hotline')}</span>
         </motion.div>
         <a href="tel:01335074940" className="hover:underline font-bold text-white text-sm md:text-base">01335-074940</a>
         <span className="text-white/30">•</span>
