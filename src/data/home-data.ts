@@ -23,7 +23,7 @@ export const navLinks: NavLink[] = [
     { label: 'Why Choose Us', href: '/uniqueness' },
     { label: 'Comparison Table', href: '/uniqueness#comparison-table' },
   ]},
-  { label: 'Investment', href: '/investment' },
+  { label: 'Ownership', href: '/investment' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ]
