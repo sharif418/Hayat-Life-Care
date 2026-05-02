@@ -266,21 +266,6 @@ export default function HeroSection({
               ))}
             </div>
           </motion.div>
-
-          {/* Tagline — Added from client feedback */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
-            className="w-full max-w-2xl mt-6 text-center"
-          >
-            <p 
-              className="text-white/80 text-xs md:text-[13px] font-medium tracking-wider uppercase" 
-              style={{ fontFamily: 'var(--font-outfit), sans-serif' }}
-            >
-              Vision with purpose, driven by innovation and guided by heart—to serve and uplift generations.
-            </p>
-          </motion.div>
         </motion.div>
 
         {/* Scroll indicator — minimal */}

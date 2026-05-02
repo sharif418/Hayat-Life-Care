@@ -67,15 +67,41 @@ export default function GlobalUI() {
         </a>
       </div>
 
-      {/* ─── FLOATING VISION STATEMENT (Left side, Desktop only) ─── */}
-      <div className="fixed bottom-6 left-6 z-40 hidden xl:flex">
-        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-teal-500/20 shadow-[0_8px_30px_rgba(13,148,136,0.15)] rounded-full px-5 py-2.5 flex items-center gap-3 relative overflow-hidden group hover:scale-[1.02] transition-all duration-300">
-          <div className="absolute inset-0 bg-linear-to-r from-teal-500/0 via-teal-500/10 to-teal-500/0 -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
-          <div className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse shadow-[0_0_8px_rgba(20,184,166,0.8)]" />
-          <p className="text-[11px] font-medium text-slate-700 dark:text-slate-300 tracking-[0.15em] uppercase" style={{ fontFamily: 'var(--font-outfit), sans-serif' }}>
-            <span className="text-teal-600 dark:text-teal-400 font-bold mr-2">Our Vision</span>
-            Vision with purpose, driven by innovation and guided by heart—to serve and uplift generations.
-          </p>
+      {/* ─── PREMIUM VISION TICKER BAR (Persistent across all pages) ─── */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-[55] lg:z-30 pointer-events-none hidden lg:block"
+      >
+        <div
+          className="w-full pointer-events-auto"
+          style={{
+            background: 'linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%)',
+          }}
+        >
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex items-center justify-center gap-4 py-3">
+              {/* Left decorative line */}
+              <div className="hidden md:block h-px flex-1 max-w-[120px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(13,148,136,0.4))' }} />
+              
+              {/* Vision icon */}
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+                  <div className="absolute inset-0 w-2 h-2 rounded-full bg-teal-400 animate-ping opacity-30" />
+                </div>
+                <p
+                  className="text-[10px] md:text-[11px] font-medium tracking-[0.2em] uppercase text-white/60"
+                  style={{ fontFamily: 'var(--font-outfit), sans-serif' }}
+                >
+                  <span className="text-teal-400/90 font-bold">✦</span>
+                  <span className="mx-2">Vision with purpose, driven by innovation and guided by heart—to serve and uplift generations.</span>
+                  <span className="text-teal-400/90 font-bold">✦</span>
+                </p>
+              </div>
+              
+              {/* Right decorative line */}
+              <div className="hidden md:block h-px flex-1 max-w-[120px]" style={{ background: 'linear-gradient(270deg, transparent, rgba(13,148,136,0.4))' }} />
+            </div>
+          </div>
         </div>
       </div>
 

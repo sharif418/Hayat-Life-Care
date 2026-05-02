@@ -123,11 +123,11 @@ export default function Navbar() {
             : 'top-8 bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 h-16 md:h-20 flex items-center">
+        <div className="max-w-7xl mx-auto px-3 lg:px-4 h-16 md:h-20 flex items-center">
           {/* Logo & Tagline — Premium Glass Container */}
           <a
             href="/"
-            className={`flex items-center shrink-0 relative group rounded-2xl px-4 py-2 -ml-4 transition-all duration-300 ${
+            className={`flex items-center shrink-0 relative group rounded-2xl px-2 lg:px-3 py-2 -ml-2 lg:-ml-3 transition-all duration-300 ${
               scrolled
                 ? isDarkMode ? 'bg-white/3 border border-white/6' : 'bg-teal-50/50 border border-teal-100/50'
                 : 'bg-white/6 border border-white/8 backdrop-blur-sm'
@@ -138,12 +138,12 @@ export default function Navbar() {
             <img
               src="/images/logo.svg"
               alt="Hayat Life Care"
-              className="h-11 md:h-12 w-auto object-contain relative z-10 drop-shadow-sm"
+              className="h-9 lg:h-10 xl:h-12 w-auto object-contain relative z-10 drop-shadow-sm"
             />
           </a>
 
           {/* Desktop nav — consolidated 7 items with Dream Education-style underline */}
-          <div className="hidden xl:flex items-center gap-0 lg:gap-0.5 ml-8 mr-auto">
+          <div className="hidden lg:flex items-center gap-0 ml-3 lg:ml-4 xl:ml-8 mr-auto">
             {navLinks.map((link) => {
               // Determine if the link is active based on the actual URL pathname
               const isActive = link.href === '/' 
@@ -154,7 +154,7 @@ export default function Navbar() {
                 <div key={link.label} className="relative group">
                   <a
                     href={link.href}
-                    className={`relative px-2 xl:px-3 py-2 text-[11px] xl:text-[12px] uppercase tracking-widest font-semibold font-outfit rounded-lg transition-all duration-300 flex items-center gap-1 ${
+                    className={`relative px-1.5 lg:px-2 xl:px-3 py-2 text-[10px] lg:text-[11px] xl:text-[12px] uppercase tracking-wider lg:tracking-widest font-semibold font-outfit rounded-lg transition-all duration-300 flex items-center gap-0.5 lg:gap-1 ${
                       isActive
                         ? isDarkMode ? 'text-teal-400' : (scrolled ? 'text-teal-600 font-bold' : 'text-teal-300 font-bold')
                       : isDarkMode
@@ -206,7 +206,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden xl:flex items-center gap-1 xl:gap-2">
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
             <button
               className={`rounded-full h-8 w-8 xl:h-9 xl:w-9 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                 scrolled
@@ -230,7 +230,7 @@ export default function Navbar() {
               </AnimatePresence>
             </button>
             <Button
-              className={`rounded-full px-3 xl:px-4 font-semibold text-xs xl:text-sm transition-all duration-300 border ${
+              className={`rounded-full px-2.5 lg:px-3 xl:px-4 font-semibold text-[11px] lg:text-xs xl:text-sm transition-all duration-300 border ${
                 scrolled
                   ? 'bg-teal-600 hover:bg-teal-700 text-white border-transparent shadow-md'
                   : 'bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-sm shadow-[0_0_15px_rgba(255,255,255,0.1)]'
@@ -242,7 +242,7 @@ export default function Navbar() {
               </button>
             </Button>
             <Button
-              className={`rounded-full px-3 xl:px-5 text-sm font-semibold transition-all duration-300 shadow-lg relative overflow-hidden group ${
+              className={`rounded-full px-2.5 lg:px-3 xl:px-5 text-[11px] lg:text-xs xl:text-sm font-semibold transition-all duration-300 shadow-lg relative overflow-hidden group ${
                 scrolled
                   ? 'bg-amber-600 hover:bg-amber-700 text-white border border-transparent'
                   : 'bg-amber-500/90 hover:bg-amber-500 text-white border border-amber-400/50 backdrop-blur-sm shadow-[0_0_20px_rgba(245,158,11,0.3)]'
@@ -255,7 +255,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu */}
-          <div className="xl:hidden flex items-center gap-2 ml-auto">
+          <div className="lg:hidden flex items-center gap-2 ml-auto">
             <button
               className={`rounded-full h-8 w-8 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                 scrolled
