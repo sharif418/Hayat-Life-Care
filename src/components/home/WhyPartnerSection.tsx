@@ -24,78 +24,104 @@ const partnerReasons = [
     icon: Gem,
     title: 'One-time Investment, Lifetime Returns',
     desc: 'Invest once and secure a sustainable income stream that lasts for generations.',
+    titleKey: 'whyPartner.reason1Title',
+    descKey: 'whyPartner.reason1Desc',
     color: '#8B5CF6',
   },
   {
     icon: TrendingUp,
     title: 'Combined Income & Healthcare Benefits',
     desc: 'Earn returns while enjoying premium healthcare access for you and your family.',
+    titleKey: 'whyPartner.reason2Title',
+    descKey: 'whyPartner.reason2Desc',
     color: '#10B981',
   },
   {
     icon: Shield,
     title: 'Secure Investment with Full Ownership',
     desc: 'Complete ownership of Land, Building, and Equipment — your assets, your control.',
+    titleKey: 'whyPartner.reason3Title',
+    descKey: 'whyPartner.reason3Desc',
     color: '#0D9488',
   },
   {
     icon: HeartPulse,
     title: 'High & Sustainable Halal Income',
     desc: 'Ethical, Sharia-compliant returns from the healthcare and lifestyle industry.',
+    titleKey: 'whyPartner.reason4Title',
+    descKey: 'whyPartner.reason4Desc',
     color: '#EC4899',
   },
   {
     icon: CheckCircle2,
     title: 'No Bank Loan Involved',
     desc: 'A completely debt-free project ensuring financial security and transparency.',
+    titleKey: 'whyPartner.reason5Title',
+    descKey: 'whyPartner.reason5Desc',
     color: '#22C55E',
   },
   {
     icon: Microscope,
     title: 'First Cancer Diagnostic Center in the City',
     desc: 'Pioneering PET-CT and advanced cancer diagnostics — a first in Chattogram.',
+    titleKey: 'whyPartner.reason6Title',
+    descKey: 'whyPartner.reason6Desc',
     color: '#F59E0B',
   },
   {
     icon: Hospital,
     title: 'First Specialized Hospital in the City',
     desc: 'Multi-disciplinary specialized hospital with internationally trained specialists.',
+    titleKey: 'whyPartner.reason7Title',
+    descKey: 'whyPartner.reason7Desc',
     color: '#3B82F6',
   },
   {
     icon: Scan,
     title: 'Largest Diagnostic Center in Chattogram',
     desc: 'State-of-the-art imaging and laboratory facilities unmatched in the region.',
+    titleKey: 'whyPartner.reason8Title',
+    descKey: 'whyPartner.reason8Desc',
     color: '#6366F1',
   },
   {
     icon: Lightbulb,
     title: 'Unique Concept in Bangladesh',
     desc: 'The first complex combining healthcare and lifestyle services under one roof.',
+    titleKey: 'whyPartner.reason9Title',
+    descKey: 'whyPartner.reason9Desc',
     color: '#D97706',
   },
   {
     icon: UtensilsCrossed,
     title: 'Integrated Lifestyle Facilities',
     desc: 'Restaurants, Supermarkets, Amusement areas, Cafés, ATM booths, and Parking — all in one place.',
+    titleKey: 'whyPartner.reason10Title',
+    descKey: 'whyPartner.reason10Desc',
     color: '#06B6D4',
   },
   {
     icon: Car,
     title: '150+ Car Parking Spaces',
     desc: 'Unparalleled in nearby healthcare facilities — secure, spacious, and continuously monitored.',
+    titleKey: 'whyPartner.reason11Title',
+    descKey: 'whyPartner.reason11Desc',
     color: '#EF4444',
   },
   {
     icon: MapPin,
     title: 'Prime Location with High Visibility',
     desc: 'Beside Chattogram Medical College on O.R. Nizam Road — maximum accessibility and footfall.',
+    titleKey: 'whyPartner.reason12Title',
+    descKey: 'whyPartner.reason12Desc',
     color: '#F97316',
   },
   {
     icon: Building2,
     title: '11 Business Wings Under Single Management',
     desc: 'A fully integrated ecosystem — from diagnostics to dining, all seamlessly connected.',
+    titleKey: 'whyPartner.reason13Title',
+    descKey: 'whyPartner.reason13Desc',
     color: '#0F766E',
   },
 ]
@@ -276,14 +302,14 @@ export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps
                     className="text-[15px] font-bold mb-1.5 leading-tight"
                     style={{ color: isDarkMode ? '#F1F5F9' : '#0F172A' }}
                   >
-                    {reason.title}
+                    {t(reason.titleKey)}
                   </h3>
                   {/* Description */}
                   <p
                     className="text-[13px] leading-relaxed"
                     style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
                   >
-                    {reason.desc}
+                    {t(reason.descKey)}
                   </p>
                 </div>
               </div>

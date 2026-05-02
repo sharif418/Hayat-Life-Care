@@ -13,15 +13,15 @@ interface InvestmentSectionProps {
   isDarkMode: boolean
 }
 
-const benefitNames: Record<string, string> = {
-  B1: 'Lifetime Financial Benefit',
-  B2: 'Self Health Access',
-  B3: 'Partner Health Access',
-  B4: 'Family Health Access',
-  B5: 'Family Health Access Including Parents',
-  B6: 'Family Health Access Including Parents-in-law',
-  B7: 'VIP Access to All Facilities of the Complex',
-  B8: 'Social Recognition & Share Certification',
+const benefitNameKeys: Record<string, string> = {
+  B1: 'investment.b1',
+  B2: 'investment.b2',
+  B3: 'investment.b3',
+  B4: 'investment.b4',
+  B5: 'investment.b5',
+  B6: 'investment.b6',
+  B7: 'investment.b7',
+  B8: 'investment.b8',
 }
 
 function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradient: string, color: string }) {
@@ -53,7 +53,7 @@ function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradi
       <div className={`mt-3 overflow-hidden transition-all duration-200 ease-out ${hovered ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: `${color}10` }}>
           <span className="font-bold shrink-0" style={{ color }}>{hovered}:</span>
-          <span className="text-gray-700 dark:text-gray-300 font-medium">{hovered ? benefitNames[hovered] : ''}</span>
+          <span className="text-gray-700 dark:text-gray-300 font-medium">{hovered ? t(benefitNameKeys[hovered]) : ''}</span>
         </div>
       </div>
     </div>
@@ -139,11 +139,11 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                         {t('investment.joinFamily')}
                       </div>
                       <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                        Together, We Build a
-                        <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-emerald-300"> Healthier Future</span>
+                        {t('investment.togetherTitle')}
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-emerald-300"> {t('investment.togetherHighlight')}</span>
                       </h3>
                       <p className="text-white/70 text-sm md:text-base leading-relaxed mb-8">
-                        Join 500+ visionary investors who believe in building a healthcare legacy for generations. Your partnership today shapes the well-being of tomorrow.
+                        {t('investment.togetherDesc')}
                       </p>
                       <div className="flex flex-col sm:flex-row gap-3">
                         <Button
@@ -153,7 +153,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                           onClick={() => setShowInvestModal(true)}
                         >
                           <Sparkles className="mr-2 size-4" />
-                          Click to be a partner
+                          {t('investment.clickToPartner')}
                         </Button>
                         <Button
                           size="lg"
@@ -162,7 +162,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                         >
                           <a href="tel:01335074940">
                             <Phone className="mr-2 size-4" />
-                            Speak With Us
+                            {t('investment.speakWithUs')}
                           </a>
                         </Button>
                       </div>
@@ -184,13 +184,13 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   SHAREHOLDER TIERS
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
-                  Director Status & Benefits
+                  {t('investment.directorStatus')}
                 </h3>
                 <div className="relative mb-4">
                   <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #D97706, #B45309)' }} />
                 </div>
                 <p className="text-gray-500 dark:text-gray-400 text-sm max-w-xl mx-auto">
-                  Your status and benefits grow with your investment. Choose the tier that best suits your vision.
+                  {t('investment.tierDesc')}
                 </p>
               </div>
 
@@ -318,15 +318,15 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                         <TrendingUp className="size-5 text-white" />
                       </div>
                       <div>
-                        <div className="text-sm font-bold text-gray-900 dark:text-white">HLC Share Price</div>
+                        <div className="text-sm font-bold text-gray-900 dark:text-white">{t('investment.hlcSharePrice')}</div>
                         <div className="flex items-center gap-1.5 text-xs">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                          <span className="text-emerald-600 font-semibold">Live · 1st Phase</span>
+                          <span className="text-emerald-600 font-semibold">{t('investment.livePhase')}</span>
                         </div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-3xl font-black" style={{ color: '#0D9488' }}>৳10 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Lacs</span></div>
+                      <div className="text-3xl font-black" style={{ color: '#0D9488' }}>৳10 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{t('investment.lacs')}</span></div>
                     </div>
                   </div>
                   <div className="grid grid-cols-3 gap-3 mt-4">
@@ -346,17 +346,17 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="p-8 md:p-10 flex flex-col justify-center">
                     <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-snug">
-                      More Than an Investment —<br />
-                      <span style={{ color: '#0D9488' }}>A Legacy of Lasting Value</span>
+                      {t('investment.moreThanInvestment')}<br />
+                      <span style={{ color: '#0D9488' }}>{t('investment.legacyValue')}</span>
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
-                      Prestigious ownership offering sustainable income, lifetime healthcare access for your family, and proportionate ownership of land, structure &amp; all 11 business wings.
+                      {t('investment.valueDesc')}
                     </p>
                     <div className="space-y-3">
                       {[
-                        { icon: Shield, text: 'Tangible asset value with land ownership' },
-                        { icon: TrendingUp, text: 'Diversified income from 11 business wings' },
-                        { icon: Users, text: 'Lifetime healthcare for your entire family' },
+                        { icon: Shield, text: t('investment.tangibleAsset') },
+                        { icon: TrendingUp, text: t('investment.diversifiedIncome') },
+                        { icon: Users, text: t('investment.lifetimeHealthcare') },
                       ].map((item, i) => (
                         <div key={i} className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(13,148,136,0.08)' }}>
@@ -369,9 +369,9 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   </div>
                   <div className="bg-linear-to-br from-gray-50 to-teal-50/30 dark:from-slate-800 dark:to-slate-700/50 p-6 md:p-8 flex flex-col justify-center gap-4 border-t md:border-t-0 md:border-l border-gray-100 dark:border-slate-700">
                     {[
-                      { icon: HandCoins, label: 'Share Price', value: '10 Lacs BDT', sub: 'Per Share', color: '#D97706' },
-                      { icon: Users, label: 'Total Shares', value: '4,950', sub: 'Maximum Available', color: '#0D9488' },
-                      { icon: Shield, label: 'Buyback Policy', value: '+5% After 3 Yrs', sub: 'Guaranteed Exit', color: '#10B981' },
+                      { icon: HandCoins, label: t('investment.sharePrice'), value: '10 Lacs BDT', sub: t('investment.perShare'), color: '#D97706' },
+                      { icon: Users, label: t('investment.totalShares'), value: '4,950', sub: t('investment.maxAvailable'), color: '#0D9488' },
+                      { icon: Shield, label: t('investment.buybackPolicy'), value: '+5% After 3 Yrs', sub: t('investment.guaranteedExit'), color: '#10B981' },
                     ].map((stat, i) => (
                       <motion.div key={i} whileHover={{ x: 4 }} className="flex items-center gap-4 group cursor-default">
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm group-hover:shadow-md transition-shadow duration-300" style={{ background: `${stat.color}15` }}>
@@ -387,13 +387,13 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     <div className="pt-3 mt-1 border-t border-gray-200/60 dark:border-slate-600">
                       <div className="flex items-center gap-2 mb-2.5">
                         <CreditCard className="size-3.5" style={{ color: '#0D9488' }} />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Payment Plan</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{t('investment.paymentPlan')}</span>
                       </div>
                       <div className="space-y-2">
                         {[
-                          { step: '1', label: 'Down Payment — 50%', desc: 'At booking' },
-                          { step: '2', label: '2nd Installment — 25%', desc: 'Within 30 days' },
-                          { step: '3', label: '3rd Installment — 25%', desc: '60–90 days' },
+                          { step: '1', label: t('investment.downPayment'), desc: t('investment.atBooking') },
+                          { step: '2', label: t('investment.secondInstallment'), desc: t('investment.within30Days') },
+                          { step: '3', label: t('investment.thirdInstallment'), desc: t('investment.sixtyNinetyDays') },
                         ].map((item, i) => (
                           <div key={i} className="flex items-center gap-2.5">
                             <div className="w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-black text-white shrink-0" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
@@ -457,10 +457,10 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {[
-                    { label: 'Investment', value: `৳${(investShares * 10).toFixed(0)}L`, color: '#0D9488', percent: (investShares / 20) * 100 },
-                    { label: 'Annual Return', value: `৳${(investShares * 10 * investRate / 100).toFixed(1)}L`, color: '#10B981', percent: Math.min((investShares * investRate / 200) * 100, 100) },
-                    { label: '3-Year Return', value: `৳${(investShares * 10 * investRate / 100 * 3).toFixed(1)}L`, color: '#D97706', percent: Math.min((investShares * investRate * 3 / 200) * 100, 100) },
-                    { label: 'Buyback Value', value: `৳${(investShares * 10.5).toFixed(1)}L`, color: '#0D9488', percent: (investShares * 10.5 / 210) * 100 },
+                    { label: t('investment.investmentLabel'), value: `৳${(investShares * 10).toFixed(0)}L`, color: '#0D9488', percent: (investShares / 20) * 100 },
+                    { label: t('investment.annualReturnLabel'), value: `৳${(investShares * 10 * investRate / 100).toFixed(1)}L`, color: '#10B981', percent: Math.min((investShares * investRate / 200) * 100, 100) },
+                    { label: t('investment.threeYearReturn'), value: `৳${(investShares * 10 * investRate / 100 * 3).toFixed(1)}L`, color: '#D97706', percent: Math.min((investShares * investRate * 3 / 200) * 100, 100) },
+                    { label: t('investment.buybackValue'), value: `৳${(investShares * 10.5).toFixed(1)}L`, color: '#0D9488', percent: (investShares * 10.5 / 210) * 100 },
                   ].map((item, i) => (
                     <div key={i} className="p-4 rounded-2xl text-center relative overflow-hidden border border-gray-100 dark:border-slate-700 hover:shadow-md transition-shadow duration-300" style={{ background: `${item.color}06` }}>
                       <div className="text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-1">{item.label}</div>
@@ -477,25 +477,25 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     </div>
                   ))}
                 </div>
-                <p className="text-[11px] text-gray-400 mt-4 text-center">* Based on projected profit rate. Actual returns may vary. Buyback after 3 years at 5% premium.</p>
+                <p className="text-[11px] text-gray-400 mt-4 text-center">{t('investment.roiDisclaimer')}</p>
 
                 {/* Additional Benefits — Dynamic based on shares */}
                 <div className="mt-6 pt-6 border-t border-gray-100 dark:border-slate-700">
                   <h5 className="text-sm font-bold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
                     <Shield className="size-4" style={{ color: '#0D9488' }} />
-                    Additional Benefits:
+                    {t('investment.additionalBenefits')}
                   </h5>
                   <div className="space-y-2">
                     {(() => {
                       const benefits = [
-                        { code: 'B-1', title: 'Lifetime Financial Benefit', always: true },
-                        { code: 'B-2', title: 'Caring for him/herself.', always: true },
-                        { code: 'B-3', title: 'Partner Health access.', minShares: 2 },
-                        { code: 'B-4', title: 'Family Health Access.', minShares: 5 },
-                        { code: 'B-5', title: 'Family Health Access Including Parents.', minShares: 10 },
-                        { code: 'B-6', title: 'Family Health Access Including Parents-in-law.', minShares: 15 },
-                        { code: 'B-7', title: 'VIP Access to all facilities of the complex.', minShares: 20 },
-                        { code: 'B-8', title: 'Social Recognition and Share certification.', always: true },
+                        { code: 'B-1', titleKey: 'investment.b1', always: true },
+                        { code: 'B-2', titleKey: 'investment.b2', always: true },
+                        { code: 'B-3', titleKey: 'investment.b3', minShares: 2 },
+                        { code: 'B-4', titleKey: 'investment.b4', minShares: 5 },
+                        { code: 'B-5', titleKey: 'investment.b5', minShares: 10 },
+                        { code: 'B-6', titleKey: 'investment.b6', minShares: 15 },
+                        { code: 'B-7', titleKey: 'investment.b7', minShares: 20 },
+                        { code: 'B-8', titleKey: 'investment.b8', always: true },
                       ]
                       return benefits
                         .filter(b => b.always || (b.minShares && investShares >= b.minShares))
@@ -504,7 +504,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                             <div className="flex items-center justify-center w-5 h-5 rounded-full shrink-0 mt-0.5" style={{ background: 'rgba(13,148,136,0.1)' }}>
                               <Check className="size-3" style={{ color: '#0D9488' }} />
                             </div>
-                            <span><strong className="text-gray-800 dark:text-white">{b.code}</strong> - {b.title}</span>
+                            <span><strong className="text-gray-800 dark:text-white">{b.code}</strong> - {t(b.titleKey)}</span>
                           </div>
                         ))
                     })()}
@@ -519,9 +519,9 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
             <div className="max-w-5xl mx-auto">
               <div className="grid sm:grid-cols-3 gap-3">
                 {[
-                  { icon: Shield, text: 'No bank loan will be taken' },
-                  { icon: TrendingUp, text: 'Buyback at 5% higher after 3 years' },
-                  { icon: Users, text: 'Maximum 4,950 shares' },
+                  { icon: Shield, text: t('investment.noBankLoan') },
+                  { icon: TrendingUp, text: t('investment.buyback5Percent') },
+                  { icon: Users, text: t('investment.max4950Shares') },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2.5 px-4 py-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
                     <item.icon className="size-4 shrink-0" style={{ color: '#0D9488' }} />
@@ -545,10 +545,10 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <FadeIn>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Ready to Learn More?
+              {t('investment.readyToLearn')}
             </h2>
             <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
-              Download our comprehensive brochure for detailed information about investment opportunities, floor plans, and business wing details.
+              {t('investment.readyToLearnDesc')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -558,7 +558,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                 onClick={(e) => { e.preventDefault(); openDownloadPopup() }}
               >
                 <BookOpen className="size-5 mr-2" />
-                Download Brochure
+                {t('investment.downloadBrochure')}
               </Button>
               <Button
                 size="lg"
@@ -567,7 +567,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
               >
                 <a href="tel:01335074940">
                   <Phone className="size-5 mr-2" />
-                  Call Us Now
+                  {t('investment.speakWithUs')}
                 </a>
               </Button>
             </div>

@@ -103,8 +103,7 @@ export default function FooterSection() {
                 />
               </div>
               <p className="text-sm text-gray-400 leading-relaxed mb-5">
-                A premium healthcare &amp; lifestyle complex — a one-stop destination for world-class
-                medical services, daily essentials, dining, and family entertainment.
+                {t('footer.description')}
               </p>
               {/* Social links */}
               <div className="flex items-center gap-3">
@@ -155,18 +154,18 @@ export default function FooterSection() {
               <h4 className="text-white font-semibold mb-4">{t('footer.medicalServices')}</h4>
               <div className="space-y-2">
                 {[
-                  { name: 'Specialized Hospital', href: '/facilities' },
-                  { name: 'Diagnostic Center', href: '/facilities' },
-                  { name: "Doctor's Chambers", href: '/facilities' },
-                  { name: 'Pharmacy', href: '/facilities' },
-                  { name: 'Optical Shop', href: '/facilities' },
+                  { nameKey: 'footer.specializedHospital', href: '/facilities' },
+                  { nameKey: 'footer.diagnosticCenter', href: '/facilities' },
+                  { nameKey: 'footer.doctorsChambers', href: '/facilities' },
+                  { nameKey: 'footer.pharmacy', href: '/facilities' },
+                  { nameKey: 'footer.opticalShop', href: '/facilities' },
                 ].map((svc, i) => (
                   <a
                     key={i}
                     href={svc.href}
                     className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200"
                   >
-                    {svc.name}
+                    {t(svc.nameKey)}
                   </a>
                 ))}
               </div>
@@ -177,18 +176,18 @@ export default function FooterSection() {
               <h4 className="text-white font-semibold mb-4">{t('footer.lifestyle')}</h4>
               <div className="space-y-2">
                 {[
-                  { name: 'Super Shop', href: '/facilities' },
-                  { name: 'Restaurant & Cafe', href: '/facilities' },
-                  { name: "Kid's Amusement Park", href: '/facilities' },
-                  { name: 'ATM Booth', href: '/facilities' },
-                  { name: 'Paid Parking', href: '/facilities' },
+                  { nameKey: 'footer.superShop', href: '/facilities' },
+                  { nameKey: 'footer.restaurantCafe', href: '/facilities' },
+                  { nameKey: 'footer.kidsAmusement', href: '/facilities' },
+                  { nameKey: 'footer.atmBooth', href: '/facilities' },
+                  { nameKey: 'footer.paidParking', href: '/facilities' },
                 ].map((svc, i) => (
                   <a
                     key={i}
                     href={svc.href}
                     className="block text-sm text-gray-400 hover:text-teal-300 hover:translate-x-1 hover:pl-1 transition-all duration-200"
                   >
-                    {svc.name}
+                    {t(svc.nameKey)}
                   </a>
                 ))}
               </div>
@@ -213,7 +212,7 @@ export default function FooterSection() {
                 <div className="flex items-start gap-2">
                   <MapPin className="size-4 shrink-0 mt-0.5" style={{ color: '#0D9488' }} />
                   <div>
-                    Mishmak Manjuri, Badshah Miah Road, Ameerbag, Chattogram
+                    {t('footer.address')}
                   </div>
                 </div>
 
@@ -229,7 +228,7 @@ export default function FooterSection() {
         {/* Bottom bar */}
         <div className="relative border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 pt-5 pb-8 lg:pb-12 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
-            <div className="flex items-center gap-2 font-medium">&copy; {new Date().getFullYear()} Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; {t('footer.backToTop')}</button></div>
+            <div className="flex items-center gap-2 font-medium">&copy; {new Date().getFullYear()} Hayat Life Care. {t('footer.copyright')} <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; {t('footer.backToTop')}</button></div>
             <div className="flex items-center gap-4 lg:mr-12 xl:mr-16">
               <span className="tracking-wider text-gray-500" title="System Version">
                 Build v1.0.0

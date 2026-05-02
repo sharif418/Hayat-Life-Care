@@ -17,36 +17,48 @@ const uniqueFeatures = [
     icon: Heart,
     title: "Dedicated Women's Diagnostic Floor",
     desc: 'An entire floor exclusively designed for women — ensuring privacy, comfort, and dignity in healthcare.',
+    titleKey: 'uniqueness.feature1Title',
+    descKey: 'uniqueness.feature1Desc',
     color: '#EC4899',
   },
   {
     icon: Scan,
     title: 'First PET-CT Scan in Chattogram',
     desc: 'State-of-the-art PET-CT imaging technology for advanced cancer detection and monitoring — a first in the region.',
+    titleKey: 'uniqueness.feature2Title',
+    descKey: 'uniqueness.feature2Desc',
     color: '#8B5CF6',
   },
   {
     icon: Clock,
     title: 'Transforming Waiting into Quality Time',
     desc: 'Restaurants, juice bars, kids play zone, and shopping — families enjoy premium amenities while waiting.',
+    titleKey: 'uniqueness.feature3Title',
+    descKey: 'uniqueness.feature3Desc',
     color: '#F59E0B',
   },
   {
     icon: Cpu,
     title: 'AI-Enabled Paperless Healthcare',
     desc: 'App-based appointment booking, digital reports, and AI-driven diagnostics for a seamless patient experience.',
+    titleKey: 'uniqueness.feature4Title',
+    descKey: 'uniqueness.feature4Desc',
     color: '#3B82F6',
   },
   {
     icon: Globe,
     title: 'Global Healthcare Connectivity',
     desc: 'Strategic collaborations with renowned international hospitals such as Bumrungrad, MedPark, Samitivej, Apollo, CMC Vellore, Fortis, Tata Memorial, Narayana Health, Mount Elizabeth, Raffles, and Gleneagles—ensuring continuity of care beyond borders.',
+    titleKey: 'uniqueness.feature5Title',
+    descKey: 'uniqueness.feature5Desc',
     color: '#06B6D4',
   },
   {
     icon: Award,
     title: 'International Standards & Recognition',
     desc: 'Designed to achieve global accreditation, acceptance, and recognition in healthcare excellence.',
+    titleKey: 'uniqueness.feature6Title',
+    descKey: 'uniqueness.feature6Desc',
     color: '#D97706',
   },
 ]
@@ -170,7 +182,7 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
                   className="text-lg font-bold mb-2"
                   style={{ color: isDarkMode ? '#F1F5F9' : '#0F172A' }}
                 >
-                  {feature.title}
+                  {t(feature.titleKey)}
                 </h3>
 
                 {/* Description */}
@@ -178,7 +190,7 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
                   className="text-sm leading-relaxed"
                   style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
                 >
-                  {feature.desc}
+                  {t(feature.descKey)}
                 </p>
               </div>
             </motion.div>
@@ -196,7 +208,7 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
             className="text-sm italic mb-4"
             style={{ color: isDarkMode ? '#64748B' : '#94A3B8' }}
           >
-            &ldquo;Not just healthcare. A complete lifestyle destination.&rdquo;
+            {t('uniqueness.bottomQuote')}
           </p>
         </motion.div>
       </div>
