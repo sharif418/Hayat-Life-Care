@@ -127,7 +127,12 @@
     "badge": "Watch Our Videos",
     "titlePrefix": "See",
     "titleHighlight": "Hayat Life Care",
-    "titleSuffix": "In Action"
+    "titleSuffix": "In Action",
+    "description": "Watch our latest videos to experience the facilities, services, and vision of Hayat Life Care.",
+    "featuredVideo": "FEATURED VIDEO",
+    "tapUnmute": "Tap to Unmute",
+    "playingSound": "Playing with sound",
+    "subscribe": "Subscribe to Our Channel"
   },
   "testimonials": {
     "badge": "TESTIMONIALS",
@@ -177,6 +182,12 @@
       "150+ Paid Parking Spaces with Modern Facilities.",
       "Transparent Investment with Guaranteed Buyback Policy."
     ],
+    "aboutHighlight1": "First Cancer Diagnostic and Specialized Hospital.",
+    "aboutHighlight2": "A One-Stop Service for Healthcare & Daily Essentials.",
+    "aboutHighlight3": "55 Katha Complex with 11 Business Wings.",
+    "aboutHighlight4": "Prime Location- Adjacent to CMCH ( O.R.Nizam Road), Chattogram.",
+    "aboutHighlight5": "150+ Paid Parking Spaces with Modern Facilities.",
+    "aboutHighlight6": "Transparent Investment with Guaranteed Buyback Policy.",
     "facilitiesBadge": "A One Stop Service for Healthcare & Daily Essential",
     "facilitiesTitle": "Our",
     "facilitiesHighlight": "Facilities",

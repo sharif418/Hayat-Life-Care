@@ -15,14 +15,22 @@ const VisionSection = dynamic(() => import('@/components/home/VisionSection'));
 const LeadershipSection = dynamic(() => import('@/components/home/LeadershipSection'));
 const TimelineSection = dynamic(() => import('@/components/home/TimelineSection'));
 
+const highlightKeys = [
+  'pages.aboutHighlight1',
+  'pages.aboutHighlight2',
+  'pages.aboutHighlight3',
+  'pages.aboutHighlight4',
+  'pages.aboutHighlight5',
+  'pages.aboutHighlight6',
+];
+
 const highlightIcons = [Stethoscope, ShoppingBag, Building2, MapPin, Car, Shield];
 
 export default function AboutPage() {
   const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
   const { t } = useLanguage();
-  const highlightTexts = t('pages.aboutHighlights') as unknown as string[];
-  const highlights = highlightIcons.map((icon, i) => ({ icon, text: Array.isArray(highlightTexts) ? highlightTexts[i] : '' }));
+  const highlights = highlightIcons.map((icon, i) => ({ icon, text: t(highlightKeys[i]) }));
 
   return (
     <PageWrapper>

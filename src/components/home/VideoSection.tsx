@@ -185,7 +185,7 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
               className="text-lg max-w-2xl mx-auto"
               style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
             >
-              Watch our latest videos to experience the facilities, services, and vision of Hayat Life Care.
+              {t('video.description')}
             </p>
           </motion.div>
 
@@ -213,7 +213,7 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
                     }}
                   >
                     <Star className="size-3" fill="#D97706" />
-                    Featured Video
+                    {t('video.featuredVideo')}
                   </div>
                 </div>
 
@@ -260,12 +260,12 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
                         {featuredMuted ? (
                           <>
                             <VolumeX className="size-4" />
-                            <span>🔊 Tap to Unmute</span>
+                            <span>🔊 {t('video.tapUnmute')}</span>
                           </>
                         ) : (
                           <>
                             <Volume2 className="size-4" />
-                            <span>Playing with sound</span>
+                            <span>{t('video.playingSound')}</span>
                           </>
                         )}
                       </button>
@@ -360,7 +360,7 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
                 rel="noopener noreferrer"
               >
                 <Youtube className="size-4 mr-2" />
-                Subscribe to Our Channel
+                {t('video.subscribe')}
                 <ExternalLink className="size-3.5 ml-2" />
               </a>
             </Button>
