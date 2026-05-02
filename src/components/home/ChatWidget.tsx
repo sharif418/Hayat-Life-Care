@@ -102,14 +102,6 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
       .replace(/\n/g, '<br />')
   }
 
-  const quickActions = [
-    { q: 'What is Hayat Life Care?', icon: '🏢', label: isBn ? 'হায়াত সম্পর্কে' : 'About HLC' },
-    { q: 'Tell me about investment', icon: '💰', label: isBn ? 'বিনিয়োগ' : 'Investment' },
-    { q: 'What services are available?', icon: '🏥', label: isBn ? 'সেবাসমূহ' : 'Services' },
-    { q: 'Share price details', icon: '📈', label: isBn ? 'শেয়ার মূল্য' : 'Share Price' },
-    { q: 'Who are the Founding Directors?', icon: '👥', label: isBn ? 'পরিচালকবৃন্দ' : 'Directors' },
-    { q: 'What is unique about this project?', icon: '✨', label: isBn ? 'স্বতন্ত্রতা' : 'Uniqueness' },
-  ]
 
   return (
     <>
@@ -200,7 +192,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
                     </button>
                   )}
                   <button
-                    onClick={() => setIsChatOpen(false)}
+                    onClick={() => { setIsChatOpen(false); handleReset(); }}
                     className="p-2 rounded-xl hover:bg-white/15 transition-colors"
                     aria-label="Close Chat"
                   >
@@ -239,24 +231,6 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
                     </div>
                   </div>
 
-                  {/* Quick action grid */}
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 px-1">{isBn ? 'জনপ্রিয় প্রশ্ন' : 'Popular Questions'}</p>
-                    <div className="grid grid-cols-2 gap-2">
-                      {quickActions.map((item) => (
-                        <motion.button
-                          key={item.q}
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.97 }}
-                          onClick={() => sendMessage(item.q)}
-                          className="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-gray-100 dark:border-slate-600 bg-white dark:bg-slate-700/50 hover:border-teal-300 dark:hover:border-teal-600 hover:bg-teal-50/50 dark:hover:bg-teal-900/20 transition-all duration-200 text-left group"
-                        >
-                          <span className="text-base">{item.icon}</span>
-                          <span className="text-[11px] font-semibold text-gray-600 dark:text-gray-300 group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors leading-tight">{item.label}</span>
-                        </motion.button>
-                      ))}
-                    </div>
-                  </div>
                 </motion.div>
               )}
 
