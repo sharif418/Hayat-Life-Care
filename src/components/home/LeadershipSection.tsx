@@ -26,7 +26,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
               {t('leadership.title')}
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 text-lg">Steering Our Journey</p>
+            <p className="text-gray-500 dark:text-gray-400 text-lg">{t('leadership.steeringJourney')}</p>
             <div className="w-20 h-1 mx-auto rounded-full mt-3" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
           </div>
         </FadeIn>
@@ -49,7 +49,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
               </div>
               <div className="p-8 sm:p-10 bg-white dark:bg-slate-800 relative grow flex flex-col items-center text-center">
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-teal-100 dark:border-teal-800/50 shadow-[0_4px_20px_rgba(20,184,166,0.15)] text-teal-700 dark:text-teal-300 text-sm font-bold z-10">
-                  Chairman
+                  {t('leadership.chairman')}
                 </div>
                 
                 <div className="mt-4 mb-5 h-[60px] flex items-center justify-center w-full">
@@ -60,9 +60,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
                 
                 <div className="w-12 h-1 bg-linear-to-r from-teal-500 to-emerald-400 rounded-full mb-6 mx-auto" />
                 
-                <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
-                  A seasoned Master Mariner who currently serves as the Chairman of <strong>Marinus Pvt. Ltd.</strong>, <strong>Hayat Holdings</strong> and <strong>Hayat Life Care</strong>. He brings a distinguished track record of leadership spanning the marine and construction industries at both national and international levels.
-                </p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: t('leadership.chairmanBio') }} />
               </div>
             </motion.div>
           </FadeIn>
@@ -84,7 +82,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
               </div>
               <div className="p-8 sm:p-10 bg-white dark:bg-slate-800 relative grow flex flex-col items-center text-center">
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-teal-100 dark:border-teal-800/50 shadow-[0_4px_20px_rgba(20,184,166,0.15)] text-teal-700 dark:text-teal-300 text-sm font-bold z-10">
-                  Managing Director
+                  {t('leadership.managingDirector')}
                 </div>
                 
                 <div className="mt-4 mb-5 h-[60px] flex items-center justify-center w-full">
@@ -95,9 +93,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
                 
                 <div className="w-12 h-1 bg-linear-to-r from-teal-500 to-emerald-400 rounded-full mb-6 mx-auto" />
                 
-                <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
-                  The Founder Director of <strong>Park View Hospital</strong>, <strong>Ekhusey Hospital</strong>, <strong>Delta Hospital</strong> and <strong>Treatment Hospital</strong> in Chattogram. He also serves as an Associate Professor at <strong>Chattogram Medical College & Hospital</strong>.
-                </p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: t('leadership.mdBio') }} />
               </div>
             </motion.div>
           </FadeIn>

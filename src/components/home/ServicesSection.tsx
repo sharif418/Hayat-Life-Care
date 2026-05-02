@@ -6,6 +6,21 @@ import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animation
 import { services } from '@/data/home-data'
 import { useLanguage } from '@/i18n/LanguageProvider'
 
+// Map English service titles to translation keys
+const serviceKeyMap: Record<string, { titleKey: string; descKey: string }> = {
+  'Diagnostic Center': { titleKey: 'serviceItems.diagnosticCenter', descKey: 'serviceItems.diagnosticCenterDesc' },
+  'Paid Parking': { titleKey: 'serviceItems.paidParking', descKey: 'serviceItems.paidParkingDesc' },
+  'Super Shop': { titleKey: 'serviceItems.superShop', descKey: 'serviceItems.superShopDesc' },
+  'ATM Booth': { titleKey: 'serviceItems.atmBooth', descKey: 'serviceItems.atmBoothDesc' },
+  'Pharmacy': { titleKey: 'serviceItems.pharmacy', descKey: 'serviceItems.pharmacyDesc' },
+  'Optical Shop': { titleKey: 'serviceItems.opticalShop', descKey: 'serviceItems.opticalShopDesc' },
+  'Coffee Shop': { titleKey: 'serviceItems.coffeeShop', descKey: 'serviceItems.coffeeShopDesc' },
+  'Juice Bar': { titleKey: 'serviceItems.juiceBar', descKey: 'serviceItems.juiceBarDesc' },
+  'Restaurant': { titleKey: 'serviceItems.restaurant', descKey: 'serviceItems.restaurantDesc' },
+  "Kid's Amusement Park": { titleKey: 'serviceItems.kidsAmusement', descKey: 'serviceItems.kidsAmusementDesc' },
+  'Specialized Hospital': { titleKey: 'serviceItems.specializedHospital', descKey: 'serviceItems.specializedHospitalDesc' },
+}
+
 export default function ServicesSection() {
   const { t } = useLanguage()
   return (
@@ -61,10 +76,10 @@ export default function ServicesSection() {
                     <span className="text-3xl font-black text-white/10">{String(i + 1).padStart(2, '0')}</span>
                   </div>
                   <h3 className="text-lg font-semibold text-white mb-2">
-                    {service.title}
+                    {serviceKeyMap[service.title] ? t(serviceKeyMap[service.title].titleKey) : service.title}
                   </h3>
                   <p className="text-sm text-gray-300 leading-relaxed">
-                    {service.desc}
+                    {serviceKeyMap[service.title] ? t(serviceKeyMap[service.title].descKey) : service.desc}
                   </p>
                 </div>
               </motion.div>

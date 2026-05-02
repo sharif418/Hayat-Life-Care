@@ -15,7 +15,17 @@ interface FloorsSectionProps {
 export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
   const [activeFloor, setActiveFloor] = useState('basement')
   const currentFloor = floors.find((f) => f.id === activeFloor) || floors[0]
-  const { t } = useLanguage()
+  const { t, locale } = useLanguage()
+  const isBn = locale === 'bn'
+
+  // Translate floor labels to Bangla
+  const translateLabel = (label: string) => {
+    if (!isBn) return label
+    if (label === 'Basement') return t('floorItems.basement')
+    if (label === 'Above Level 9') return t('floorItems.aboveLevel9')
+    if (label.startsWith('Level ')) return `${t('floorItems.level')} ${label.replace('Level ', '')}`
+    return label
+  }
 
   const getIndicatorColor = (id: string) => {
     if (id === 'basement') return 'bg-gray-400'
@@ -85,7 +95,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
                         activeFloor === floor.id ? 'bg-white' : getIndicatorColor(floor.id)
                       }`}
                     />
-                    {floor.label}
+                    {translateLabel(floor.label)}
                   </button>
                 ))}
               </div>
@@ -118,7 +128,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
                         style={{ background: 'rgba(13,148,136,0.9)' }}
                       >
                         <span className={`w-2.5 h-2.5 rounded-full ${getIndicatorColor(currentFloor.id)}`} />
-                        {currentFloor.label}
+                        {translateLabel(currentFloor.label)}
                       </span>
                     </div>
                   </div>
@@ -135,7 +145,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
                       </div>
                       <div>
                         <h3 className="text-xl md:text-2xl font-extrabold font-outfit tracking-tight text-gray-900 dark:text-white leading-tight">
-                          {currentFloor.label}
+                          {translateLabel(currentFloor.label)}
                         </h3>
                         <div className="text-[11px] font-semibold uppercase tracking-widest mt-0.5" style={{ color: '#0D9488' }}>
                           Hayat Life Care
@@ -148,7 +158,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
 
                     {/* Description */}
                     <p className="text-[13px] text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                      {currentFloor.description}
+                      {isBn ? currentFloor.descBn : currentFloor.description}
                     </p>
 
                     {/* Facilities */}
@@ -158,7 +168,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
                         {t('floors.whatsOnFloor')}
                       </div>
                       <div className="grid grid-cols-2 gap-2">
-                        {currentFloor.facilities.map((fac, j) => (
+                        {(isBn ? (currentFloor.facilitiesBn || currentFloor.facilities) : currentFloor.facilities).map((fac, j) => (
                           <div
                             key={j}
                             className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/40 border border-gray-100 dark:border-slate-700 hover:border-teal-200 dark:hover:border-teal-700 transition-colors duration-200"

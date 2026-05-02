@@ -17,8 +17,8 @@ export default function VisionSection() {
         <div className="relative max-w-7xl mx-auto px-4">
           <FadeIn>
             <div className="text-center mb-16">
-              <span className="text-teal-600 dark:text-teal-400 font-semibold tracking-wider uppercase text-sm mb-3 block">Corporate Identity</span>
-              <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight">Our Core Philosophy</h2>
+              <span className="text-teal-600 dark:text-teal-400 font-semibold tracking-wider uppercase text-sm mb-3 block">{t('preview.visionBadge')}</span>
+              <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight">{t('preview.visionTitle')}</h2>
               <div className="w-24 h-1.5 mx-auto rounded-full bg-linear-to-r from-teal-500 to-emerald-500" />
             </div>
 
@@ -29,9 +29,9 @@ export default function VisionSection() {
                 <div className="p-3.5 inline-block rounded-2xl bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 mb-6 border border-teal-100 dark:border-teal-800/50 relative z-10">
                   <Sparkles className="size-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">Vision</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">{t('preview.visionLabel')}</h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] relative z-10">
-                  To redefine healthcare as a fully integrated, people-focused ecosystem where patients and families can access expert medical care, international-standard diagnostics, and specialized hospital treatment alongside daily essentials and wellness services—all under one roof.
+                  {t('preview.visionText')}
                 </p>
               </div>
 
@@ -41,9 +41,9 @@ export default function VisionSection() {
                 <div className="p-3.5 inline-block rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mb-6 border border-emerald-100 dark:border-emerald-800/50 relative z-10">
                   <Target className="size-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">Mission</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">{t('preview.missionLabel')}</h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] relative z-10">
-                  To deliver comprehensive healthcare, AI-based diagnostic technology, specialized treatment, and essential services in a single, integrated environment for patients and families.
+                  {t('preview.missionText')}
                 </p>
               </div>
 
@@ -53,9 +53,9 @@ export default function VisionSection() {
                 <div className="p-3.5 inline-block rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 mb-6 border border-rose-100 dark:border-rose-800/50 relative z-10">
                   <Heart className="size-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">Ethical Vision</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 relative z-10">{t('preview.ethicalVisionLabel')}</h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px] relative z-10">
-                  Through a holistic and patient-centered approach, we aim to transform waiting time during medical visits into meaningful family time, while delivering a seamless, dignified, and comfortable healthcare experience for all. We are committed to privacy, care, and accessibility, including dedicated women-focused diagnostic services.
+                  {t('preview.ethicalVisionText')}
                 </p>
               </div>
             </div>
@@ -72,9 +72,9 @@ export default function VisionSection() {
         <div className="relative max-w-4xl mx-auto px-4">
           <FadeIn>
             <div className="text-center mb-10">
-              <span className="text-emerald-400 font-medium tracking-widest uppercase text-xs mb-3 block">Leadership Voice</span>
+              <span className="text-emerald-400 font-medium tracking-widest uppercase text-xs mb-3 block">{t('preview.founderBadge')}</span>
               <h3 className="text-3xl md:text-4xl font-bold text-white">
-                Message From Founder Directors
+                {t('preview.founderTitle')}
               </h3>
             </div>
             
@@ -85,19 +85,19 @@ export default function VisionSection() {
               
               <div className="space-y-6 text-gray-200 text-base md:text-lg leading-relaxed relative z-10">
                 <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-emerald-400 first-letter:mr-2 first-letter:float-left">
-                  At Hayat, we believe healthcare should be more than just treatment—it should be a complete, comfortable, and caring experience. We are building this complex to meet the growing need for advanced, accessible, and people-focused healthcare services in Chattogram.
+                  {t('preview.founderP1')}
                 </p>
                 <p>
-                  Our goal is to create a place where families can access expert medical care, trusted diagnostics, daily essentials, and wellness services—all under one roof. Whether it is consulting a top physician, collecting medicine, enjoying a healthy meal, or visiting with children in a stress-free environment, Hayat Life Care is designed to make life easier, healthier, and more connected.
+                  {t('preview.founderP2')}
                 </p>
                 <p>
-                  This is not just a healthcare facility—it is a lifestyle destination, built with purpose, driven by innovation, and guided by heart:
+                  {t('preview.founderP3')}
                 </p>
                 
                 <div className="pt-8 pb-4 text-center">
                   <div className="w-16 h-px bg-linear-to-r from-transparent via-emerald-500 to-transparent mx-auto mb-6" />
                   <strong className="inline-block text-transparent bg-clip-text bg-linear-to-r from-emerald-200 via-white to-emerald-200 italic text-2xl md:text-3xl font-playfair tracking-wide leading-tight">
-                    &ldquo;To Save and Serve the Generation.&rdquo;
+                    &ldquo;{t('preview.founderQuote')}&rdquo;
                   </strong>
                   <div className="w-16 h-px bg-linear-to-r from-transparent via-emerald-500 to-transparent mx-auto mt-6" />
                 </div>

@@ -365,6 +365,40 @@
   "leadership": {
     "badge": "OUR LEADERSHIP",
     "title": "Meet the Visionaries",
-    "description": "The experienced team driving Hayat Life Care forward."
+    "description": "The experienced team driving Hayat Life Care forward.",
+    "steeringJourney": "Steering Our Journey",
+    "chairman": "Chairman",
+    "chairmanBio": "A seasoned Master Mariner who currently serves as the Chairman of <strong>Marinus Pvt. Ltd.</strong>, <strong>Hayat Holdings</strong> and <strong>Hayat Life Care</strong>. He brings a distinguished track record of leadership spanning the marine and construction industries at both national and international levels.",
+    "managingDirector": "Managing Director",
+    "mdBio": "The Founder Director of <strong>Park View Hospital</strong>, <strong>Ekhusey Hospital</strong>, <strong>Delta Hospital</strong> and <strong>Treatment Hospital</strong> in Chattogram. He also serves as an Associate Professor at <strong>Chattogram Medical College & Hospital</strong>."
+  },
+  "serviceItems": {
+    "diagnosticCenter": "Diagnostic Center",
+    "diagnosticCenterDesc": "AI-powered advanced diagnostics with full pathology lab",
+    "paidParking": "Paid Parking",
+    "paidParkingDesc": "150+ paid parking spaces across 3 basements with CCTV surveillance",
+    "superShop": "Super Shop",
+    "superShopDesc": "Largest supershop in the complex",
+    "atmBooth": "ATM Booth",
+    "atmBoothDesc": "On-site ATM for secure cash access & payments",
+    "pharmacy": "Pharmacy",
+    "pharmacyDesc": "Authentic medicines from authorized manufacturers",
+    "opticalShop": "Optical Shop",
+    "opticalShopDesc": "Prescription glasses, frames & contact lenses",
+    "coffeeShop": "Coffee Shop",
+    "coffeeShopDesc": "Fresh brews & light snacks",
+    "juiceBar": "Juice Bar",
+    "juiceBarDesc": "Fresh, nutrient-rich juices & smoothies",
+    "restaurant": "Restaurant",
+    "restaurantDesc": "Nutritious meals with special diet options",
+    "kidsAmusement": "Kid's Amusement Park",
+    "kidsAmusementDesc": "Indoor play zone for kids",
+    "specializedHospital": "Specialized Hospital",
+    "specializedHospitalDesc": "Cancer, Heart, Kidney, Gyne & Obs — planned"
+  },
+  "floorItems": {
+    "basement": "Basement",
+    "level": "Level",
+    "aboveLevel9": "Above Level 9"
   }
 }
