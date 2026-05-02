@@ -143,7 +143,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop nav — consolidated 7 items with Dream Education-style underline */}
-          <div className="hidden lg:flex items-center justify-center flex-1 gap-0 ml-2 lg:ml-3 xl:ml-6">
+          <div className="hidden lg:flex items-center gap-0 lg:gap-1 xl:gap-2 ml-auto mr-2 lg:mr-4 xl:mr-6">
             {navLinks.map((link) => {
               // Determine if the link is active based on the actual URL pathname
               const isActive = link.href === '/' 

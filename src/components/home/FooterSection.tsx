@@ -206,7 +206,7 @@ export default function FooterSection() {
 
         {/* Bottom bar */}
         <div className="relative border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
+          <div className="max-w-7xl mx-auto px-4 pt-5 pb-8 lg:pb-12 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
             <div className="flex items-center gap-2 font-medium">&copy; {new Date().getFullYear()} Hayat Life Care. All Rights Reserved. <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-teal-400 hover:text-teal-300 transition-colors">&uarr; Back to Top</button></div>
             <div className="flex items-center gap-4 lg:mr-12 xl:mr-16">
               <a 
