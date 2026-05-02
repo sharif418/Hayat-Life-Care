@@ -27,7 +27,21 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
   const { t, locale } = useLanguage()
   const isBn = locale === 'bn'
   const inputRef = useRef<HTMLInputElement>(null)
+  const chatDialogRef = useRef<HTMLDivElement>(null)
 
+  // Click outside to close
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (isChatOpen && chatDialogRef.current && !chatDialogRef.current.contains(event.target as Node)) {
+        setIsChatOpen(false)
+        handleReset()
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isChatOpen])
   // Auto-scroll to bottom on new messages
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -152,6 +166,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
         {isChatOpen && (
           <motion.div
             key="chat-dialog"
+            ref={chatDialogRef}
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.9 }}
