@@ -30,12 +30,12 @@ export default function TrustSection({ isDarkMode }: TrustSectionProps) {
 
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            { icon: Award, title: 'Largest in Chattogram', desc: 'The biggest diagnostic and doctor consultation center in the region' },
-            { icon: MapPin, title: 'Prime Location', desc: 'Near Chittagong Medical College Hospital, the most trusted healthcare zone' },
-            { icon: Shield, title: 'No Bank Loan', desc: 'Entirely funded by shareholder investments - zero debt burden' },
-            { icon: Heart, title: 'Family-Focused', desc: 'Converting waiting time into quality family time with entertainment facilities' },
-            { icon: TrendingUp, title: 'Buyback Guarantee', desc: 'After 3 years at 5% higher price - secure exit option' },
-            { icon: FileCheck, title: 'Transparent Operations', desc: 'Govt. approved third-party audit, regular financial reporting' },
+            { icon: Award, titleKey: 'trust.trust1Title', descKey: 'trust.trust1Desc' },
+            { icon: MapPin, titleKey: 'trust.trust2Title', descKey: 'trust.trust2Desc' },
+            { icon: Shield, titleKey: 'trust.trust3Title', descKey: 'trust.trust3Desc' },
+            { icon: Heart, titleKey: 'trust.trust4Title', descKey: 'trust.trust4Desc' },
+            { icon: TrendingUp, titleKey: 'trust.trust5Title', descKey: 'trust.trust5Desc' },
+            { icon: FileCheck, titleKey: 'trust.trust6Title', descKey: 'trust.trust6Desc' },
           ].map((item, i) => (
             <StaggerItem key={i}>
               <motion.div
@@ -48,8 +48,8 @@ export default function TrustSection({ isDarkMode }: TrustSectionProps) {
                 >
                   <item.icon className="size-7" style={{ color: '#0D9488' }} />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.desc}</p>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t(item.titleKey)}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{t(item.descKey)}</p>
               </motion.div>
             </StaggerItem>
           ))}

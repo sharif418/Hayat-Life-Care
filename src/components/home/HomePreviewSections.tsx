@@ -70,12 +70,12 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
               <div>
                 <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {[
-                    { icon: MapPin, label: t('about.location'), value: 'O.R. Nizam Road, Chattogram' },
-                    { icon: Building2, label: t('about.landArea'), value: '55 Katha' },
-                    { icon: Building, label: t('about.structure'), value: '9 Levels + 3 Basements' },
-                    { icon: Car, label: t('about.paidParking'), value: '150+ Paid Parking Spaces' },
-                    { icon: Sparkles, label: t('about.businessWings'), value: '11 Comprehensive Wings' },
-                    { icon: TrendingUp, label: t('about.future'), value: '14-18 Floor Expansion' },
+                    { icon: MapPin, label: t('about.location'), valueKey: 'about.locationValue' },
+                    { icon: Building2, label: t('about.landArea'), valueKey: 'about.landAreaValue' },
+                    { icon: Building, label: t('about.structure'), valueKey: 'about.structureValue' },
+                    { icon: Car, label: t('about.paidParking'), valueKey: 'about.paidParkingValue' },
+                    { icon: Sparkles, label: t('about.businessWings'), valueKey: 'about.businessWingsValue' },
+                    { icon: TrendingUp, label: t('about.future'), valueKey: 'about.futureValue' },
                   ].map((item, i) => (
                     <StaggerItem key={i}>
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-300">
@@ -87,7 +87,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                         </div>
                         <div>
                           <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">{item.label}</div>
-                          <div className="text-sm font-semibold text-gray-800 dark:text-gray-200">{item.value}</div>
+                          <div className="text-sm font-semibold text-gray-800 dark:text-gray-200">{t(item.valueKey)}</div>
                         </div>
                       </div>
                     </StaggerItem>
@@ -154,14 +154,14 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
 
           <StaggerContainer className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
             {[
-              { icon: ParkingCircle, name: 'Paid Parking', desc: '150+ spaces with 3 basements', color: '#6366F1' },
-              { icon: ShoppingBag, name: 'Super Shop & Pharmacy', desc: 'Daily essentials & medicine available all day', color: '#10B981' },
-              { icon: Utensils, name: 'Restaurant & Cafe', desc: 'Hygienic dining & juice bar', color: '#F59E0B' },
-              { icon: Stethoscope, name: 'Diagnostic Center', desc: 'International-standard pathology', color: '#0D9488' },
-              { icon: Heart, name: 'Specialized Hospital', desc: 'Cancer, Heart, Kidney, Gyne & Obs', color: '#EF4444' },
-              { icon: Crown, name: 'Female Diagnostic', desc: 'Dedicated women\'s healthcare wing', color: '#EC4899' },
-              { icon: Sparkles, name: "Kid's Park & More", desc: 'Entertainment & optical shop', color: '#8B5CF6' },
-              { icon: HandCoins, name: 'ATM & Banking', desc: 'All-day financial convenience', color: '#06B6D4' },
+              { icon: ParkingCircle, nameKey: 'preview.fc1Name', descKey: 'preview.fc1Desc', color: '#6366F1' },
+              { icon: ShoppingBag, nameKey: 'preview.fc2Name', descKey: 'preview.fc2Desc', color: '#10B981' },
+              { icon: Utensils, nameKey: 'preview.fc3Name', descKey: 'preview.fc3Desc', color: '#F59E0B' },
+              { icon: Stethoscope, nameKey: 'preview.fc4Name', descKey: 'preview.fc4Desc', color: '#0D9488' },
+              { icon: Heart, nameKey: 'preview.fc5Name', descKey: 'preview.fc5Desc', color: '#EF4444' },
+              { icon: Crown, nameKey: 'preview.fc6Name', descKey: 'preview.fc6Desc', color: '#EC4899' },
+              { icon: Sparkles, nameKey: 'preview.fc7Name', descKey: 'preview.fc7Desc', color: '#8B5CF6' },
+              { icon: HandCoins, nameKey: 'preview.fc8Name', descKey: 'preview.fc8Desc', color: '#06B6D4' },
             ].map((item, i) => (
               <StaggerItem key={i}>
                 <motion.div
@@ -174,8 +174,8 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                   >
                     <item.icon className="size-6" style={{ color: item.color }} />
                   </div>
-                  <h4 className="text-sm font-bold text-gray-800 dark:text-white mb-1">{item.name}</h4>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{item.desc}</p>
+                  <h4 className="text-sm font-bold text-gray-800 dark:text-white mb-1">{t(item.nameKey)}</h4>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{t(item.descKey)}</p>
                 </motion.div>
               </StaggerItem>
             ))}

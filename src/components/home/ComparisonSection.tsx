@@ -35,26 +35,26 @@ export default function ComparisonSection({ isDarkMode }: ComparisonSectionProps
               <table className="w-full text-sm">
                 <thead>
                   <tr style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
-                    <th className="px-6 py-4 text-left text-white font-semibold">Feature</th>
-                    <th className="px-6 py-4 text-center text-white font-semibold">Hayat Life Care</th>
-                    <th className="px-6 py-4 text-center text-white/80 font-semibold">Traditional Hospitals</th>
+                    <th className="px-6 py-4 text-left text-white font-semibold">{t('comparison.feature')}</th>
+                    <th className="px-6 py-4 text-center text-white font-semibold">{t('comparison.hayatLifeCare')}</th>
+                    <th className="px-6 py-4 text-center text-white/80 font-semibold">{t('comparison.traditionalHospitals')}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    { feature: 'Healthcare + Daily Essentials', us: true, them: false },
-                    { feature: '11 Business Wings Under One Roof', us: true, them: false },
-                    { feature: 'No Bank Loan / Zero Debt', us: true, them: false },
-                    { feature: 'Buyback Guarantee (+5%)', us: true, them: false },
-                    { feature: 'Family Entertainment Zone', us: true, them: false },
-                    { feature: 'AI-Powered Diagnostics', us: true, them: false },
-                    { feature: 'Restaurant & Juice Bar On-Site', us: true, them: false },
-                    { feature: 'Super Shop & Pharmacy', us: true, them: false },
-                    { feature: "Kid's Amusement Park", us: true, them: false },
-                    { feature: 'Transparent Profit Sharing', us: true, them: false },
+                    { featureKey: 'comparison.row1', us: true, them: false },
+                    { featureKey: 'comparison.row2', us: true, them: false },
+                    { featureKey: 'comparison.row3', us: true, them: false },
+                    { featureKey: 'comparison.row4', us: true, them: false },
+                    { featureKey: 'comparison.row5', us: true, them: false },
+                    { featureKey: 'comparison.row6', us: true, them: false },
+                    { featureKey: 'comparison.row7', us: true, them: false },
+                    { featureKey: 'comparison.row8', us: true, them: false },
+                    { featureKey: 'comparison.row9', us: true, them: false },
+                    { featureKey: 'comparison.row10', us: true, them: false },
                   ].map((row, i) => (
                     <tr key={i} className="group border-b border-gray-100 dark:border-slate-700/50 last:border-0 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-all duration-300">
-                      <td className="px-6 py-4 font-medium text-gray-800 dark:text-gray-200">{row.feature}</td>
+                      <td className="px-6 py-4 font-medium text-gray-800 dark:text-gray-200">{t(row.featureKey)}</td>
                       <td className="px-6 py-4 text-center bg-teal-50/40 dark:bg-teal-900/10 group-hover:bg-teal-100/40 dark:group-hover:bg-teal-900/30 transition-colors duration-300">
                         <div className="size-8 rounded-full bg-white dark:bg-teal-900/50 flex items-center justify-center mx-auto shadow-sm border border-teal-100 dark:border-teal-800/50">
                           <Check className="size-4 text-teal-600 dark:text-teal-400" strokeWidth={3} />

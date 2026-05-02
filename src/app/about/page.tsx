@@ -9,23 +9,20 @@ import { motion } from 'framer-motion';
 import { Stethoscope, ShoppingBag, Building2, MapPin, Car, Shield } from 'lucide-react';
 
 import PageHeader from '@/components/layout/PageHeader';
+import { useLanguage } from '@/i18n/LanguageProvider';
 
 const VisionSection = dynamic(() => import('@/components/home/VisionSection'));
 const LeadershipSection = dynamic(() => import('@/components/home/LeadershipSection'));
 const TimelineSection = dynamic(() => import('@/components/home/TimelineSection'));
 
-const highlights = [
-  { icon: Stethoscope, text: 'First Cancer Diagnostic and Specialized Hospital.' },
-  { icon: ShoppingBag, text: 'A One-Stop Service for Healthcare & Daily Essentials.' },
-  { icon: Building2, text: '55 Katha Complex with 11 Business Wings.' },
-  { icon: MapPin, text: 'Prime Location- Adjacent to CMCH ( O.R.Nizam Road), Chattogram.' },
-  { icon: Car, text: '150+ Paid Parking Spaces with Modern Facilities.' },
-  { icon: Shield, text: 'Transparent Investment with Guaranteed Buyback Policy.' },
-]
+const highlightIcons = [Stethoscope, ShoppingBag, Building2, MapPin, Car, Shield];
 
 export default function AboutPage() {
   const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
+  const { t } = useLanguage();
+  const highlightTexts = t('pages.aboutHighlights') as unknown as string[];
+  const highlights = highlightIcons.map((icon, i) => ({ icon, text: Array.isArray(highlightTexts) ? highlightTexts[i] : '' }));
 
   return (
     <PageWrapper>
@@ -49,7 +46,9 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-100 dark:divide-slate-700">
               {/* Left Column */}
               <div className="p-6 md:p-8 space-y-0">
-                {highlights.slice(0, 3).map((item, i) => (
+                {highlights.slice(0, 3).map((item, i) => {
+                  const Icon = item.icon;
+                  return (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, x: -20 }}
@@ -58,17 +57,20 @@ export default function AboutPage() {
                     className="flex items-center gap-4 py-4 first:pt-0 last:pb-0 border-b border-gray-50 dark:border-slate-700/50 last:border-0 group"
                   >
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}>
-                      <item.icon className="size-5" style={{ color: '#0D9488' }} />
+                      <Icon className="size-5" style={{ color: '#0D9488' }} />
                     </div>
                     <div className="flex items-center">
                       <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-snug">{item.text}</p>
                     </div>
                   </motion.div>
-                ))}
+                  );
+                })}
               </div>
               {/* Right Column */}
               <div className="p-6 md:p-8 space-y-0">
-                {highlights.slice(3, 6).map((item, i) => (
+                {highlights.slice(3, 6).map((item, i) => {
+                  const Icon = item.icon;
+                  return (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, x: 20 }}
@@ -77,13 +79,14 @@ export default function AboutPage() {
                     className="flex items-center gap-4 py-4 first:pt-0 last:pb-0 border-b border-gray-50 dark:border-slate-700/50 last:border-0 group"
                   >
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}>
-                      <item.icon className="size-5" style={{ color: '#0D9488' }} />
+                      <Icon className="size-5" style={{ color: '#0D9488' }} />
                     </div>
                     <div className="flex items-center">
                       <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-snug">{item.text}</p>
                     </div>
                   </motion.div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </motion.div>
