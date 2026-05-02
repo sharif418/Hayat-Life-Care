@@ -245,10 +245,10 @@ export default function Navbar() {
                 </motion.div>
               </AnimatePresence>
             </button>
-            {/* Language toggle hidden until client requests — uncomment to re-enable */}
-            {/* <div className="hidden lg:block">
+            {/* Language Toggle */}
+            <div className="hidden lg:block">
               <LanguageToggle />
-            </div> */}
+            </div>
             <Button
               className={`rounded-full px-2.5 lg:px-3 xl:px-4 font-semibold text-[11px] lg:text-xs xl:text-sm transition-all duration-300 border ${
                 scrolled
@@ -322,10 +322,10 @@ export default function Navbar() {
                         alt="Hayat Life Care"
                         className="h-10 w-auto object-contain drop-shadow-sm"
                       />
-                      {/* Language toggle hidden until client requests */}
-                      {/* <div className="scale-90">
+                      {/* Language Toggle */}
+                      <div className="scale-90">
                         <LanguageToggle />
-                      </div> */}
+                      </div>
                     </div>
                   </SheetTitle>
                 </SheetHeader>
