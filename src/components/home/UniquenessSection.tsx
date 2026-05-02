@@ -5,14 +5,10 @@ import { motion, useInView } from 'framer-motion'
 import {
   Heart,
   Scan,
-  Hospital,
   Clock,
   Cpu,
-  ShoppingBag,
-  Car,
   Globe,
   Award,
-  Building2,
 } from 'lucide-react'
 
 const uniqueFeatures = [
@@ -29,12 +25,6 @@ const uniqueFeatures = [
     color: '#8B5CF6',
   },
   {
-    icon: Hospital,
-    title: 'Specialized Multi-Disciplinary Hospital',
-    desc: 'Cancer, Heart, Kidney, and Gyne & Obs departments under one roof with internationally trained specialists.',
-    color: '#0D9488',
-  },
-  {
     icon: Clock,
     title: 'Transforming Waiting into Quality Time',
     desc: 'Restaurants, juice bars, kids play zone, and shopping — families enjoy premium amenities while waiting.',
@@ -47,18 +37,6 @@ const uniqueFeatures = [
     color: '#3B82F6',
   },
   {
-    icon: ShoppingBag,
-    title: 'Integrated Lifestyle & Healthcare',
-    desc: 'Super shop, pharmacy, optical, coffee shop, restaurant, and banking — all daily essentials in one complex.',
-    color: '#10B981',
-  },
-  {
-    icon: Car,
-    title: 'Secure & Spacious Paid Parking (150+)',
-    desc: '150+ paid parking spaces with 24/7 CCTV surveillance, valet service, and dedicated accessibility spots.',
-    color: '#6366F1',
-  },
-  {
     icon: Globe,
     title: 'Global Healthcare Connectivity',
     desc: 'Strategic collaborations with renowned international hospitals such as Bumrungrad, MedPark, Samitivej, Apollo, CMC Vellore, Fortis, Tata Memorial, Narayana Health, Mount Elizabeth, Raffles, and Gleneagles—ensuring continuity of care beyond borders.',
@@ -69,12 +47,6 @@ const uniqueFeatures = [
     title: 'International Standards & Recognition',
     desc: 'Designed to achieve global accreditation, acceptance, and recognition in healthcare excellence.',
     color: '#D97706',
-  },
-  {
-    icon: Building2,
-    title: 'Single Management — 11 Wings',
-    desc: 'A fully managed ecosystem including Paid Parking, ATM, Pharmacy, Optical, Super Shop, Coffee Shop, Juice Bar, Restaurant, Children\'s Amusement Park, Doctors\' Chambers, Diagnostic Center and Specialized Hospital—all seamlessly connected under one roof and single management.',
-    color: '#0F766E',
   },
 ]
 
@@ -147,7 +119,7 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
             className="text-lg max-w-2xl mx-auto"
             style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
           >
-            10 reasons why Hayat Life Care is not just another healthcare facility — it&apos;s a complete ecosystem.
+            Pioneering healthcare innovations that set Hayat Life Care apart — from AI-powered diagnostics to global hospital partnerships.
           </p>
         </motion.div>
 

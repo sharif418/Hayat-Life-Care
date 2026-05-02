@@ -47,7 +47,6 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
               </div>
               <div className="p-8 sm:p-10 bg-white dark:bg-slate-800 relative grow flex flex-col items-center text-center">
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-teal-100 dark:border-teal-800/50 shadow-[0_4px_20px_rgba(20,184,166,0.15)] text-teal-700 dark:text-teal-300 text-sm font-bold z-10">
-                  <Star className="size-4 fill-teal-500 text-teal-500" />
                   Chairman
                 </div>
                 
@@ -83,7 +82,6 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
               </div>
               <div className="p-8 sm:p-10 bg-white dark:bg-slate-800 relative grow flex flex-col items-center text-center">
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 border border-teal-100 dark:border-teal-800/50 shadow-[0_4px_20px_rgba(20,184,166,0.15)] text-teal-700 dark:text-teal-300 text-sm font-bold z-10">
-                  <Stethoscope className="size-4 text-teal-500" />
                   Managing Director
                 </div>
                 

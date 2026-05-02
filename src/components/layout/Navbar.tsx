@@ -18,6 +18,7 @@ import { useDownload } from '@/components/providers/DownloadProvider'
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
   const isDarkMode = theme === 'dark'
   const { openAppointmentDialog } = useAppointment()
@@ -84,7 +85,7 @@ export default function Navbar() {
                   <span className="text-white/20">•</span>
                   <span className="text-white/60 font-medium flex items-center gap-2">
                     <MapPin className="size-3 text-rose-400" />
-                    <span className="text-white/80">55 Katha · O.R. Nizam Road</span>
+                    <span className="text-white/80">55 Katha · Beside Chattogram Medical College (O.R. Nizam Road)</span>
                   </span>
                   <span className="text-white/20">•</span>
                   <span className="text-white/60 font-medium flex items-center gap-2">
@@ -186,7 +187,19 @@ export default function Navbar() {
                           <a
                             key={child.href}
                             href={child.href}
-                            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/30 hover:text-teal-700 dark:hover:text-teal-400 transition-colors group/item"
+                            onClick={(e) => {
+                              // Handle same-page hash scrolling
+                              if (child.href.includes('#')) {
+                                const hash = child.href.split('#')[1]
+                                const basePath = child.href.split('#')[0]
+                                if (pathname === basePath || (pathname === '/' && basePath === '')) {
+                                  e.preventDefault()
+                                  const el = document.getElementById(hash)
+                                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                                }
+                              }
+                            }}
+                            className="flex items-center whitespace-nowrap gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/30 hover:text-teal-700 dark:hover:text-teal-400 transition-colors group/item"
                           >
                             <div className="w-2 h-2 rounded-full bg-teal-500/30 group-hover/item:bg-teal-500 group-hover/item:scale-125 transition-all" />
                             {child.label}
@@ -277,9 +290,10 @@ export default function Navbar() {
                 </motion.div>
               </AnimatePresence>
             </button>
-            <Sheet>
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <button
+                  onMouseEnter={() => setIsMobileMenuOpen(true)}
                   className={`rounded-xl h-9 w-9 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                     scrolled
                       ? isDarkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-white' : 'bg-white border-gray-100 hover:bg-gray-50 text-slate-800'

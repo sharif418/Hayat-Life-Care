@@ -122,27 +122,54 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
                   </div>
 
                   {/* Details */}
-                  <div className="p-6 md:p-10 flex flex-col justify-center md:col-span-2">
-                    <h3 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: '#0D9488' }}>
-                      {currentFloor.label}
-                    </h3>
-                    <p className="text-base text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+                  <div className="p-6 md:p-8 flex flex-col md:col-span-2">
+                    {/* Floor Number + Title Row */}
+                    <div className="flex items-center gap-4 mb-5">
+                      <div
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center text-white text-xl font-black shadow-lg shrink-0"
+                        style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                      >
+                        {currentFloor.label === 'Above Level 9' ? '9+' : currentFloor.label.replace('Level ', '').replace('Basement', 'B')}
+                      </div>
+                      <div>
+                        <h3 className="text-xl md:text-2xl font-extrabold font-outfit tracking-tight text-gray-900 dark:text-white leading-tight">
+                          {currentFloor.label}
+                        </h3>
+                        <div className="text-[11px] font-semibold uppercase tracking-widest mt-0.5" style={{ color: '#0D9488' }}>
+                          Hayat Life Care
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Separator */}
+                    <div className="h-px bg-gradient-to-r from-teal-200 via-gray-100 to-transparent dark:from-teal-800 dark:via-slate-700 dark:to-transparent mb-5" />
+
+                    {/* Description */}
+                    <p className="text-[13px] text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                       {currentFloor.description}
                     </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-3 lg:gap-4">
-                      {currentFloor.facilities.map((fac, j) => (
-                        <div key={j} className="flex items-start gap-2.5 lg:gap-3">
+
+                    {/* Facilities */}
+                    <div className="flex-1">
+                      <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400 dark:text-gray-500 mb-3 flex items-center gap-2">
+                        <span className="w-4 h-px bg-teal-400" />
+                        What&apos;s on this floor
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {currentFloor.facilities.map((fac, j) => (
                           <div
-                            className="flex items-center justify-center w-5 h-5 lg:w-6 lg:h-6 rounded-full shrink-0 mt-0.5"
-                            style={{ background: 'rgba(13,148,136,0.1)' }}
+                            key={j}
+                            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-700/40 border border-gray-100 dark:border-slate-700 hover:border-teal-200 dark:hover:border-teal-700 transition-colors duration-200"
                           >
-                            <Check className="size-3 lg:size-3.5" style={{ color: '#0D9488' }} />
+                            <div className="w-5 h-5 rounded-md flex items-center justify-center shrink-0" style={{ background: 'rgba(13,148,136,0.1)' }}>
+                              <Check className="size-3 text-teal-600 dark:text-teal-400" />
+                            </div>
+                            <span className="text-[12px] font-semibold text-gray-700 dark:text-gray-200 leading-tight">
+                              {fac}
+                            </span>
                           </div>
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300 leading-snug">
-                            {fac}
-                          </span>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </motion.div>

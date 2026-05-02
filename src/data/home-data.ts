@@ -20,7 +20,8 @@ export const navLinks: NavLink[] = [
     // { label: 'Virtual Tour', href: '/facilities#virtual-tour' }, // Hidden per client request
   ]},
   { label: 'Uniqueness', href: '/uniqueness', children: [
-    { label: 'Why Choose Us', href: '/uniqueness' },
+    { label: 'Why Be a Partner', href: '/uniqueness#why-partner' },
+    { label: 'What Makes Us Different', href: '/uniqueness#uniqueness' },
     { label: 'Comparison Table', href: '/uniqueness#comparison-table' },
   ]},
   { label: 'Ownership', href: '/investment' },
@@ -130,7 +131,7 @@ export const services = [
   { icon: CupSoda, title: 'Juice Bar', desc: 'Fresh, nutrient-rich juices & smoothies' },
   { icon: UtensilsCrossed, title: 'Restaurant', desc: 'Nutritious meals with special diet options' },
   { icon: Baby, title: "Kid's Amusement Park", desc: 'Indoor play zone for kids' },
-  { icon: HeartPulse, title: 'Specialized Hospital', desc: 'Cancer, Heart, Kidney, Gyne & Obs — planned above Level 9' },
+  { icon: HeartPulse, title: 'Specialized Hospital', desc: 'Cancer, Heart, Kidney, Gyne & Obs — planned' },
 ]
 
 export const benefitCodes = [

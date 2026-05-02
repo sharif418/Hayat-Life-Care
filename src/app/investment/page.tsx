@@ -6,6 +6,9 @@ import InvestmentSection from '@/components/home/InvestmentSection';
 import { useTheme } from 'next-themes';
 
 import PageHeader from '@/components/layout/PageHeader';
+import dynamic from 'next/dynamic';
+
+const WhyPartnerSection = dynamic(() => import('@/components/home/WhyPartnerSection'));
 
 export default function InvestmentPage() {
   const { theme } = useTheme();
@@ -20,6 +23,7 @@ export default function InvestmentPage() {
         description="Join us in revolutionizing healthcare and lifestyle in Chattogram with secure, halal, and high-yield investment options."
       />
       <InvestmentSection isDarkMode={isDarkMode} />
+      <WhyPartnerSection isDarkMode={isDarkMode} />
     </PageWrapper>
   );
 }

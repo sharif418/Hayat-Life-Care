@@ -544,7 +544,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   onClick={() => setShowInvestModal(true)}
                 >
                   <Sparkles className="mr-2 size-5" />
-                  Invest Now <ArrowRight className="ml-2 size-5" />
+                  Click to be a partner <ArrowRight className="ml-2 size-5" />
                 </Button>
               </div>
             </div>

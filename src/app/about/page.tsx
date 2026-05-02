@@ -18,7 +18,7 @@ const highlights = [
   { icon: Stethoscope, text: 'First Cancer Diagnostic and Specialized Hospital.' },
   { icon: ShoppingBag, text: 'A One-Stop Service for Healthcare & Daily Essentials.' },
   { icon: Building2, text: '55 Katha Complex with 11 Business Wings.' },
-  { icon: MapPin, text: 'Prime Location — O.R. Nizam Road, Chattogram.' },
+  { icon: MapPin, text: 'Prime Location- Adjacent to CMCH ( O.R.Nizam Road), Chattogram.' },
   { icon: Car, text: '150+ Paid Parking Spaces with Modern Facilities.' },
   { icon: Shield, text: 'Transparent Investment with Guaranteed Buyback Policy.' },
 ]
