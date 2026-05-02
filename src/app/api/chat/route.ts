@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { faqs as allFaqsFromData } from '@/data/home-data';
 
-// Fallback FAQ knowledge base (used when database has no FAQs)
-const FALLBACK_FAQ_DATABASE = [
-  { q: 'What is Hayat Life Care?', keywords: ['what is', 'hayat life care', 'about', 'tell me about', 'company', 'কি', 'সম্পর্কে'], a: 'Hayat Life Care is a one-stop lifestyle destination set to become the largest diagnostic and specialized hospital center in Chattogram. It is going to be the first cancer diagnostic center and the first specialized hospital in the city. It offers a combination of healthcare, daily essentials, wellness, and leisure facilities — all under one roof.' },
+// Build fallback FAQ database directly from the comprehensive home-data.ts (62+ FAQs)
+// This ensures chat ALWAYS has access to every FAQ without maintaining a separate list
+const FALLBACK_FAQ_DATABASE = allFaqsFromData.map(faq => ({
+  q: faq.q,
+  a: faq.a,
+  keywords: [] as string[], // No custom keywords needed — matching is done via question text
+}));
+
+// Add a few extra keyword-boosted entries for common queries
+const EXTRA_KEYWORD_ENTRIES = [
+  { q: 'What is Hayat Life Care?', keywords: ['hayat life care', 'about', 'tell me about', 'company', 'কি', 'সম্পর্কে'], a: 'Hayat Life Care is a one-stop lifestyle destination set to become the largest diagnostic and specialized hospital center in Chattogram. It is going to be the first cancer diagnostic center and the first specialized hospital in the city. It offers a combination of healthcare, daily essentials, wellness, and leisure facilities — all under one roof.' },
   { q: 'Is it a registered company?', keywords: ['registered', 'rjsc', 'joint stock', 'নিবন্ধিত'], a: 'Yes, Hayat Life Care is a registered company with RJSC (Registrar of Joint Stock Companies and Firms).' },
   { q: 'Where is it located?', keywords: ['where', 'location', 'address', 'situated', 'কোথায়', 'ঠিকানা'], a: 'Corner plot of O.R. Nizam Road & Badsha Mia Road (War Cemetery Road), Chattogram. West of Chattogram Medical College and Hospital (CMCH).' },
   { q: 'What is the land area and structure?', keywords: ['land', 'area', 'structure', 'katha', 'floors', 'levels', 'building', 'size', 'জমি', 'তলা'], a: 'Land Area: 55 Katha with 150+ paid parking spaces across 3 basements. Approximately 19,000 sft per floor, totaling around 266,000 sft up to the 14th level.' },
@@ -217,11 +226,20 @@ export async function POST(request: NextRequest) {
         console.warn('Could not fetch FAQs from database, falling back to hardcoded:', dbError);
       }
 
-      // Step 2: Also check the hardcoded fallback FAQ database
+      // Step 2: Check comprehensive FAQ list from home-data.ts (62+ FAQs, question-only matching)
       for (const faq of FALLBACK_FAQ_DATABASE) {
-        const score = scoreFAQMatch(message, faq.q, faq.keywords);
+        const autoKeywords = extractKeywords(faq.q);
+        const score = scoreFAQMatch(message, faq.q, autoKeywords);
         if (score > 0) {
           allMatches.push({ answer: faq.a, score, source: 'fallback' });
+        }
+      }
+
+      // Step 2b: Also check extra keyword-boosted entries for common queries
+      for (const faq of EXTRA_KEYWORD_ENTRIES) {
+        const score = scoreFAQMatch(message, faq.q, faq.keywords);
+        if (score > 0) {
+          allMatches.push({ answer: faq.a, score, source: 'extra' });
         }
       }
 
