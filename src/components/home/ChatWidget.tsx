@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bot, Sparkles, X, Send, Loader2, MessageCircle, ChevronDown, RotateCcw, Heart } from 'lucide-react'
+import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface ChatWidgetProps {
   chatSessionId: string
@@ -23,6 +24,8 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
   const [showScrollBtn, setShowScrollBtn] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
+  const { t, locale } = useLanguage()
+  const isBn = locale === 'bn'
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Auto-scroll to bottom on new messages
@@ -100,12 +103,12 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
   }
 
   const quickActions = [
-    { q: 'What is Hayat Life Care?', icon: '🏢', label: 'About HLC' },
-    { q: 'Tell me about investment', icon: '💰', label: 'Investment' },
-    { q: 'What services are available?', icon: '🏥', label: 'Services' },
-    { q: 'Share price details', icon: '📈', label: 'Share Price' },
-    { q: 'Who are the Founding Directors?', icon: '👥', label: 'Directors' },
-    { q: 'What is unique about this project?', icon: '✨', label: 'Uniqueness' },
+    { q: 'What is Hayat Life Care?', icon: '🏢', label: isBn ? 'হায়াত সম্পর্কে' : 'About HLC' },
+    { q: 'Tell me about investment', icon: '💰', label: isBn ? 'বিনিয়োগ' : 'Investment' },
+    { q: 'What services are available?', icon: '🏥', label: isBn ? 'সেবাসমূহ' : 'Services' },
+    { q: 'Share price details', icon: '📈', label: isBn ? 'শেয়ার মূল্য' : 'Share Price' },
+    { q: 'Who are the Founding Directors?', icon: '👥', label: isBn ? 'পরিচালকবৃন্দ' : 'Directors' },
+    { q: 'What is unique about this project?', icon: '✨', label: isBn ? 'স্বতন্ত্রতা' : 'Uniqueness' },
   ]
 
   return (
@@ -115,35 +118,39 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
         {!isChatOpen && (
           <motion.button
             key="chat-btn"
-            initial={{ opacity: 0, scale: 0.5, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.5, y: 20 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             onClick={() => setIsChatOpen(true)}
-            className={`fixed left-4 sm:left-5 z-50 w-14 h-14 sm:w-[60px] sm:h-[60px] rounded-full shadow-[0_4px_25px_rgba(13,148,136,0.4)] hover:shadow-[0_6px_35px_rgba(16,185,129,0.6)] flex items-center justify-center text-white cursor-pointer group transition-all duration-300 hover:scale-110 ${showMobileBar ? 'bottom-[72px] lg:bottom-12' : 'bottom-6 lg:bottom-12'}`}
-            style={{ background: 'linear-gradient(135deg, #0F766E 0%, #10B981 50%, #059669 100%)' }}
+            className={`fixed left-4 sm:left-5 z-50 flex items-center gap-2.5 text-white cursor-pointer group transition-all duration-300 hover:scale-[1.03] ${showMobileBar ? 'bottom-[72px] lg:bottom-12' : 'bottom-6 lg:bottom-12'}`}
             aria-label="Open AI Chat Assistant"
           >
-            {/* Ripple ring */}
-            <span className="absolute inset-0 rounded-full border-2 border-emerald-300/30 animate-ping" />
-            <span className="absolute inset-0 rounded-full border border-white/20" />
-            
-            <MessageCircle className="size-6 sm:size-7 drop-shadow-md relative z-10 group-hover:scale-110 transition-transform duration-300" />
-            
-            {/* AI sparkle */}
-            <motion.div 
-              className="absolute -top-0.5 -right-0.5 bg-amber-400 rounded-full w-5 h-5 flex items-center justify-center shadow-lg"
-              animate={{ scale: [1, 1.15, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <Sparkles className="size-3 text-white fill-white" />
-            </motion.div>
+            {/* Main pill button */}
+            <div className="relative flex items-center gap-2 pl-3 pr-4 py-2.5 rounded-full shadow-[0_4px_25px_rgba(13,148,136,0.35)] hover:shadow-[0_6px_35px_rgba(16,185,129,0.5)] transition-shadow duration-300" style={{ background: 'linear-gradient(135deg, #0F766E 0%, #10B981 60%, #059669 100%)' }}>
+              {/* Subtle glow ring */}
+              <span className="absolute inset-0 rounded-full border border-white/20" />
+              <span className="absolute inset-0 rounded-full animate-ping border-2 border-emerald-300/20" style={{ animationDuration: '3s' }} />
+              
+              {/* Bot avatar circle */}
+              <div className="relative w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/25 shrink-0">
+                <Bot className="size-5 drop-shadow-sm" />
+                {/* AI badge */}
+                <motion.div 
+                  className="absolute -top-1 -right-1 bg-amber-400 rounded-full w-4.5 h-4.5 flex items-center justify-center shadow-md border border-amber-300"
+                  animate={{ scale: [1, 1.12, 1] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Sparkles className="size-2.5 text-white fill-white" />
+                </motion.div>
+              </div>
 
-            {/* Tooltip */}
-            <span className="absolute left-[75px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-teal-700 dark:text-teal-300 text-xs font-semibold px-3.5 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap pointer-events-none hidden sm:flex items-center gap-1.5 shadow-xl origin-left scale-90 group-hover:scale-100">
-              <Bot className="size-3.5" />
-              Ask Hayat AI
-            </span>
+              {/* Text label — always visible */}
+              <div className="flex flex-col leading-none">
+                <span className="text-[13px] font-bold tracking-tight">{isBn ? 'AI জিজ্ঞাসা' : 'Ask AI'}</span>
+                <span className="text-[9px] text-white/60 font-medium">{isBn ? 'হায়াত সহকারী' : 'Hayat Assistant'}</span>
+              </div>
+            </div>
           </motion.button>
         )}
       </AnimatePresence>
@@ -177,7 +184,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
                     </div>
                     <div className="flex items-center gap-1.5 text-[11px] text-white/70">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
-                      Always here to help
+                      {isBn ? 'সবসময় সাহায্যে আছি' : 'Always here to help'}
                     </div>
                   </div>
                 </div>
@@ -224,9 +231,9 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
                         <Heart className="size-4 text-white" />
                       </div>
                       <div>
-                        <p className="text-[13px] font-semibold text-gray-800 dark:text-white mb-1">Welcome to Hayat Life Care! 👋</p>
+                        <p className="text-[13px] font-semibold text-gray-800 dark:text-white mb-1">{isBn ? 'হায়াত লাইফ কেয়ারে স্বাগতম! 👋' : 'Welcome to Hayat Life Care! 👋'}</p>
                         <p className="text-[12px] text-gray-500 dark:text-gray-400 leading-relaxed">
-                          I can help you with investment details, services, floor plans, share pricing, and more. Ask me anything!
+                          {isBn ? 'বিনিয়োগ, সেবা, ফ্লোর প্ল্যান, শেয়ার মূল্য এবং আরও অনেক কিছু সম্পর্কে জানতে আমাকে জিজ্ঞাসা করুন!' : 'I can help you with investment details, services, floor plans, share pricing, and more. Ask me anything!'}
                         </p>
                       </div>
                     </div>
@@ -234,7 +241,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
 
                   {/* Quick action grid */}
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 px-1">Popular Questions</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 px-1">{isBn ? 'জনপ্রিয় প্রশ্ন' : 'Popular Questions'}</p>
                     <div className="grid grid-cols-2 gap-2">
                       {quickActions.map((item) => (
                         <motion.button
@@ -333,7 +340,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') handleChatSend() }}
-                  placeholder="Ask anything about Hayat Life Care..."
+                  placeholder={isBn ? 'হায়াত লাইফ কেয়ার সম্পর্কে জিজ্ঞাসা করুন...' : 'Ask anything about Hayat Life Care...'}
                   className="flex-1 text-[13px] border-none outline-none bg-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500 text-gray-700 dark:text-gray-200"
                   disabled={isChatLoading}
                 />
@@ -350,7 +357,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
                 </motion.button>
               </div>
               <p className="text-[9px] text-gray-400 dark:text-gray-500 text-center mt-2">
-                Powered by Hayat Life Care • Responses from our FAQ database
+                {isBn ? 'হায়াত লাইফ কেয়ার দ্বারা পরিচালিত • FAQ ডেটাবেস থেকে উত্তর' : 'Powered by Hayat Life Care • Responses from our FAQ database'}
               </p>
             </div>
           </motion.div>
