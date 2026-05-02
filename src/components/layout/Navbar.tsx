@@ -140,23 +140,6 @@ export default function Navbar() {
               alt="Hayat Life Care"
               className="h-11 md:h-12 w-auto object-contain relative z-10 drop-shadow-sm"
             />
-            <div className="hidden sm:flex items-center ml-4">
-              <div
-                className="h-8 w-px rounded-full transition-colors duration-300"
-                style={{
-                  background: scrolled
-                    ? (isDarkMode ? 'rgba(13,148,136,0.3)' : 'rgba(13,148,136,0.35)')
-                    : 'rgba(255,255,255,0.3)'
-                }}
-              />
-              <span className={`ml-3.5 text-[8.5px] md:text-[9.5px] font-bold tracking-[0.15em] uppercase relative z-10 font-outfit leading-snug max-w-[130px] transition-colors duration-300 ${
-                scrolled
-                  ? (isDarkMode ? 'text-teal-400/80' : 'text-teal-700')
-                  : 'text-white/80'
-              }`}>
-                To Save & Serve the Generation
-              </span>
-            </div>
           </a>
 
           {/* Desktop nav — consolidated 7 items with Dream Education-style underline */}
