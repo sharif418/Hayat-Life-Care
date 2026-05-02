@@ -29,17 +29,31 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
   const inputRef = useRef<HTMLInputElement>(null)
   const chatDialogRef = useRef<HTMLDivElement>(null)
 
-  // Click outside to close
+  // Click outside or scroll to close
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (isChatOpen && chatDialogRef.current && !chatDialogRef.current.contains(event.target as Node)) {
-        setIsChatOpen(false)
-        handleReset()
+    function handleOutsideAction(event: Event) {
+      // If it's a mousedown event, verify it's outside the dialog
+      if (event.type === 'mousedown') {
+        if (isChatOpen && chatDialogRef.current && !chatDialogRef.current.contains(event.target as Node)) {
+          setIsChatOpen(false)
+          handleReset()
+        }
+      } 
+      // If it's a scroll event on the window, just close it
+      else if (event.type === 'scroll') {
+        if (isChatOpen) {
+          setIsChatOpen(false)
+          handleReset()
+        }
       }
     }
-    document.addEventListener('mousedown', handleClickOutside)
+
+    document.addEventListener('mousedown', handleOutsideAction)
+    window.addEventListener('scroll', handleOutsideAction, { passive: true })
+    
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('mousedown', handleOutsideAction)
+      window.removeEventListener('scroll', handleOutsideAction)
     }
   }, [isChatOpen])
   // Auto-scroll to bottom on new messages
