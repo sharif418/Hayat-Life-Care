@@ -79,7 +79,7 @@
     "noBankLoanDesc": "Entirely funded by shareholders — no debt burden. Your investment is 100% secured by real assets.",
     "singleManagement": "Single Management",
     "singleManagementDesc": "All 11 wings managed under one roof — ensuring quality, coordination, and accountability.",
-    "investmentBadge": "INVESTMENT OPPORTUNITY",
+    "investmentBadge": "OWNERSHIP OPPORTUNITY",
     "investmentTitle": "Pathways to Prestige Ownership",
     "investmentSubtitle": "Become a partner in building a healthier, more prosperous tomorrow—together.",
     "investmentBody": "This is not just an investment, but the creation of lasting value—financially, socially, and through prestigious ownership. Ownership includes all 11 business wings, along with proportionate ownership of land and structure—ensuring tangible asset value and long-term security for your investment.",
@@ -204,7 +204,7 @@
     "uniquenessTitle": "Our",
     "uniquenessHighlight": "Uniqueness",
     "uniquenessDesc": "Discover what makes Hayat Life Care the most integrated, zero-interest, and comprehensive health complex in Chattogram.",
-    "investmentBadge": "Investment Opportunities",
+    "investmentBadge": "Ownership Opportunities",
     "investmentTitle": "Secure Your",
     "investmentHighlight": "Future",
     "investmentDesc": "Join us in revolutionizing healthcare and lifestyle in Chattogram with secure, halal, and high-yield investment options."
@@ -312,7 +312,7 @@
     "catMedical": "Medical"
   },
   "investment": {
-    "badge": "INVESTMENT OPPORTUNITY",
+    "badge": "OWNERSHIP OPPORTUNITY",
     "title": "Pathways to Prestige Ownership",
     "subtitle": "Become a partner in building a healthier, more prosperous tomorrow—together.",
     "shareHolder": "Share Holder",
