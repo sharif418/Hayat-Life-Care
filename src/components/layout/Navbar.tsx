@@ -16,11 +16,13 @@ import { useAppointment } from '@/components/providers/AppointmentProvider'
 import { useDownload } from '@/components/providers/DownloadProvider'
 import { useLanguage } from '@/i18n/LanguageProvider'
 import LanguageToggle from '@/components/ui/LanguageToggle'
+import { SearchModal } from '@/components/ui/SearchModal'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const { theme, setTheme } = useTheme()
   const isDarkMode = theme === 'dark'
   const { openAppointmentDialog } = useAppointment()
@@ -224,10 +226,7 @@ export default function Navbar() {
             <button
               className="rounded-full h-8 w-8 lg:h-9 lg:w-9 ml-1 md:ml-2 lg:ml-3 flex items-center justify-center transition-all duration-300 bg-amber-500 hover:bg-amber-600 text-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
               aria-label="Search"
-              onClick={() => {
-                // Placeholder for future search functionality
-                console.log("Search clicked")
-              }}
+              onClick={() => setIsSearchOpen(true)}
             >
               <Search className="size-4 lg:size-4.5" />
             </button>
@@ -240,6 +239,7 @@ export default function Navbar() {
             <button
               className="rounded-full h-8 w-8 flex items-center justify-center transition-all duration-300 bg-amber-500 hover:bg-amber-600 text-white shadow-sm hover:shadow-md"
               aria-label="Search"
+              onClick={() => setIsSearchOpen(true)}
             >
               <Search className="size-4" />
             </button>
@@ -393,8 +393,8 @@ export default function Navbar() {
         </div>
       </nav>
 
-
-
+      {/* ─── 3. SEARCH MODAL ─── */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   )
 }
