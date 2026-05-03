@@ -353,15 +353,14 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   </div>
                 </div>
                 {/* Value Proposition — Full Width */}
-                <div className="p-8 md:p-10">
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-snug">
-                    {t('investment.moreThanInvestment')}<br />
-                    <span style={{ color: '#0D9488' }}>{t('investment.legacyValue')}</span>
+                <div className="px-6 md:px-10 py-6 md:py-8">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
+                    {t('investment.moreThanInvestment')} <span style={{ color: '#0D9488' }}>{t('investment.legacyValue')}</span>
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-6 max-w-2xl">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-5 max-w-2xl">
                     {t('investment.valueDesc')}
                   </p>
-                  <div className="grid sm:grid-cols-3 gap-4">
+                  <div className="grid sm:grid-cols-3 gap-3 md:gap-4">
                     {[
                       { icon: Shield, text: t('investment.tangibleAsset'), color: '#0D9488' },
                       { icon: TrendingUp, text: t('investment.diversifiedIncome'), color: '#D97706' },
