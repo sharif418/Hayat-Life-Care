@@ -39,13 +39,12 @@ function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradi
             key={b}
             onMouseEnter={() => setHovered(b)}
             onMouseLeave={() => setHovered(null)}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-sm cursor-pointer transition-all duration-200 ease-out ${
-              hovered === b
+            className={`px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-sm cursor-pointer transition-all duration-200 ease-out ${hovered === b
                 ? 'scale-110 -translate-y-1 shadow-lg ring-2 ring-white/40'
                 : hovered
                   ? 'opacity-50 scale-95'
                   : ''
-            }`}
+              }`}
             style={{ background: gradient }}
           >
             {b}
@@ -263,9 +262,8 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   <motion.div
                     key={i}
                     whileHover={{ y: -8, scale: 1.03 }}
-                    className={`group relative bg-white dark:bg-slate-800 rounded-2xl border-2 shadow-sm hover:shadow-2xl transition-all duration-300 cursor-default ${
-                      tier.popular ? 'border-amber-300 dark:border-amber-600 ring-2 ring-amber-200/50' : 'border-gray-100 dark:border-slate-700 hover:border-transparent'
-                    }`}
+                    className={`group relative bg-white dark:bg-slate-800 rounded-2xl border-2 shadow-sm hover:shadow-2xl transition-all duration-300 cursor-default ${tier.popular ? 'border-amber-300 dark:border-amber-600 ring-2 ring-amber-200/50' : 'border-gray-100 dark:border-slate-700 hover:border-transparent'
+                      }`}
                     style={{
                       // @ts-ignore
                       '--tier-color': tier.color,
@@ -528,7 +526,23 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
             </div>
           </FadeIn>
 
-          {/* Trust Highlights shifted to WhyPartnerSection */}
+          {/* Trust Highlights */}
+          <FadeIn>
+            <div className="max-w-5xl mx-auto">
+              <div className="grid sm:grid-cols-3 gap-3">
+                {[
+                  { icon: Shield, text: t('investment.noBankLoan') },
+                  { icon: TrendingUp, text: t('investment.buyback5Percent') },
+                  { icon: Users, text: t('investment.max4950Shares') },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2.5 px-4 py-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
+                    <item.icon className="size-4 shrink-0" style={{ color: '#0D9488' }} />
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -540,37 +554,37 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
           animate={brochureReveal.isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-        <div className="relative max-w-4xl mx-auto px-4 text-center">
-          <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {t('investment.readyToLearn')}
-            </h2>
-            <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
-              {t('investment.readyToLearnDesc')}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="rounded-full px-8 text-white font-semibold shadow-xl"
-                style={{ background: '#D97706' }}
-                onClick={(e) => { e.preventDefault(); openDownloadPopup() }}
-              >
-                <BookOpen className="size-5 mr-2" />
-                {t('investment.downloadBrochure')}
-              </Button>
-              <Button
-                size="lg"
-                className="rounded-full px-8 text-white font-semibold shadow-xl bg-white/15 backdrop-blur-sm border border-white/20 hover:bg-white/25"
-                asChild
-              >
-                <a href="tel:01335074940">
-                  <Phone className="size-5 mr-2" />
-                  {t('investment.speakWithUs')}
-                </a>
-              </Button>
-            </div>
-          </FadeIn>
-        </div>
+          <div className="relative max-w-4xl mx-auto px-4 text-center">
+            <FadeIn>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                {t('investment.readyToLearn')}
+              </h2>
+              <p className="text-white/80 max-w-2xl mx-auto mb-8 text-lg">
+                {t('investment.readyToLearnDesc')}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  size="lg"
+                  className="rounded-full px-8 text-white font-semibold shadow-xl"
+                  style={{ background: '#D97706' }}
+                  onClick={(e) => { e.preventDefault(); openDownloadPopup() }}
+                >
+                  <BookOpen className="size-5 mr-2" />
+                  {t('investment.downloadBrochure')}
+                </Button>
+                <Button
+                  size="lg"
+                  className="rounded-full px-8 text-white font-semibold shadow-xl bg-white/15 backdrop-blur-sm border border-white/20 hover:bg-white/25"
+                  asChild
+                >
+                  <a href="tel:01335074940">
+                    <Phone className="size-5 mr-2" />
+                    {t('investment.speakWithUs')}
+                  </a>
+                </Button>
+              </div>
+            </FadeIn>
+          </div>
         </motion.div>
       </section>
 
