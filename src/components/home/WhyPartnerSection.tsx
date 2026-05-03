@@ -146,14 +146,15 @@ export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: 
   const { t } = useLanguage()
 
   return (
-    <section
+    <div
       id="why-partner"
       ref={sectionRef}
-      className="py-20 md:py-28 relative overflow-hidden"
+      className="py-14 md:py-20 relative overflow-hidden rounded-[2.5rem] shadow-xl mb-24 border"
       style={{
         background: isDarkMode
-          ? 'linear-gradient(180deg, #0F172A 0%, #0C1222 50%, #0F172A 100%)'
-          : 'linear-gradient(180deg, #FFFFFF 0%, #F0FDFA 50%, #FFFFFF 100%)',
+          ? 'linear-gradient(180deg, rgba(15,23,42,0.95) 0%, rgba(12,18,34,0.95) 100%)'
+          : 'linear-gradient(180deg, #F8FAFC 0%, #F0FDFA 100%)',
+        borderColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(13,148,136,0.1)',
       }}
     >
       {/* Background decorative elements */}
@@ -176,7 +177,7 @@ export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: 
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
+      <div className="max-w-6xl mx-auto px-2 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -352,6 +353,6 @@ export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: 
           </p>
         </motion.div>
       </div>
-    </section>
+    </div>
   )
 }
