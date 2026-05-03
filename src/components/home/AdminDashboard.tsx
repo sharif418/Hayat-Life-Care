@@ -85,7 +85,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
 
   const fetchAdminData = useCallback(async () => {
     try {
-      const [inqRes, svcRes, faqRes, ldrRes, setRes, dlRes, visitRes, apptRes, vidRes] = await Promise.all([
+      const responses = await Promise.all([
         fetch('/api/inquiries'),
         fetch('/api/services'),
         fetch('/api/faqs'),
@@ -96,6 +96,16 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
         fetch('/api/appointments'),
         fetch('/api/videos', { headers: { 'x-admin-auth': 'true' } }),
       ])
+
+      // If any response is 401 Unauthorized, the session expired or token is missing
+      if (responses.some(res => res.status === 401)) {
+        setIsLoggedIn(false)
+        localStorage.removeItem('hlc_admin_session')
+        toast.error('Session expired. Please log in again.')
+        return
+      }
+
+      const [inqRes, svcRes, faqRes, ldrRes, setRes, dlRes, visitRes, apptRes, vidRes] = responses
       const inqData = await inqRes.json()
       const svcData = await svcRes.json()
       const faqData = await faqRes.json()
