@@ -2,7 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion, MotionValue, AnimatePresence } from 'framer-motion'
-import { ArrowRight, TrendingUp, Sparkles, Award } from 'lucide-react'
+import { ArrowRight, TrendingUp, Sparkles, Award, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { useInView } from 'framer-motion'
@@ -82,7 +82,7 @@ export default function HeroSection({
       setHeadlineIndex((prev) => (prev + 1) % headlines.length)
     }, 4500)
     return () => clearInterval(interval)
-  }, [])
+  }, [headlineIndex, headlines.length])
 
   return (
     <>
@@ -123,6 +123,20 @@ export default function HeroSection({
 
         {/* Noise texture */}
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={() => setHeadlineIndex((prev) => (prev - 1 + headlines.length) % headlines.length)}
+          className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white/70 hover:text-white backdrop-blur-sm border border-white/10 transition-all hidden sm:flex"
+        >
+          <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+        </button>
+        <button
+          onClick={() => setHeadlineIndex((prev) => (prev + 1) % headlines.length)}
+          className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white/70 hover:text-white backdrop-blur-sm border border-white/10 transition-all hidden sm:flex"
+        >
+          <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+        </button>
 
         <motion.div
           className="relative z-10 max-w-5xl mx-auto px-4 pt-4 pb-8 md:pt-6 md:pb-10 text-center flex flex-col items-center justify-center"
