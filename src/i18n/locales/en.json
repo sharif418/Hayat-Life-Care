@@ -117,7 +117,7 @@
     "headOffice": "Head Office",
     "projectSite": "Project Site",
     "operatingHours": "Operating Hours",
-    "openAllDay": "Open All Day",
+    "openAllDay": "10:00 AM-21:00 (10am to 9 pm)",
     "visitContactPage": "Visit Full Contact Page"
   },
   "faqPreview": {
@@ -234,7 +234,7 @@
     "networkError": "Network error. Please try again later.",
     "office": "Office",
     "operatingHours": "Operating Hours",
-    "openAllDay": "Open All Day",
+    "openAllDay": "10:00 AM-21:00 (10am to 9 pm)",
     "bookAppointment": "Book an Appointment",
     "viewOfficeMap": "View Office Map",
     "viewSiteMap": "View Site Map",
@@ -287,7 +287,7 @@
     "learnMore": "Learn More",
     "viewAll": "View All",
     "contactUs": "Contact Us",
-    "allDay": "Open All Day",
+    "allDay": "10:00 AM-21:00 (10am to 9 pm)",
     "readMore": "Read More",
     "exploreFullDetails": "Explore Full Details",
     "visionMarquee": "Vision with purpose, driven by innovation and guided by heart—to serve and uplift generations."
