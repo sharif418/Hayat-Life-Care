@@ -3,19 +3,22 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import { ChevronUp, MessageSquare, Phone, Download, Mail } from 'lucide-react'
+import { ChevronUp, MessageSquare, Phone, Download, Mail, Moon, Sun, Calendar } from 'lucide-react'
 import FooterSection from '@/components/home/FooterSection'
 import ChatWidget from '@/components/home/ChatWidget'
 import { useDownload } from '@/components/providers/DownloadProvider'
+import { useAppointment } from '@/components/providers/AppointmentProvider'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import LanguageToggle from '@/components/ui/LanguageToggle'
 
 export default function GlobalUI() {
   const [scrolled, setScrolled] = useState(false)
   const [showMobileBar, setShowMobileBar] = useState(false)
   const [chatSessionId] = useState(() => crypto.randomUUID())
-  const { theme } = useTheme()
+  const { theme, setTheme } = useTheme()
   const isDarkMode = theme === 'dark'
   const { openDownloadPopup } = useDownload()
+  const { openAppointmentDialog } = useAppointment()
   const { t } = useLanguage()
 
   useEffect(() => {
@@ -35,8 +38,58 @@ export default function GlobalUI() {
       {/* Spacer to prevent mobile dock / vision strip from covering footer */}
       <div className="h-[88px] lg:h-8 w-full" style={{ background: '#0F172A' }} />
 
+      {/* ─── DESKTOP QUICK ACTION SIDEBAR ─── */}
+      <div className="hidden lg:flex fixed right-5 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-3">
+        {/* Book Visit */}
+        <button
+          className="w-11 h-11 rounded-full shadow-lg flex items-center justify-center text-white hover:scale-110 transition-transform relative group bg-amber-500 border border-amber-400"
+          onClick={() => openAppointmentDialog()}
+        >
+          <Calendar className="size-5" />
+          <span className="absolute right-14 bg-gray-900 text-white text-[10px] px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">{t('nav.bookAppointment')}</span>
+        </button>
+
+        {/* Brochure */}
+        <button
+          className="w-11 h-11 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform relative group bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border border-gray-100 dark:border-slate-700"
+          onClick={(e) => { e.preventDefault(); openDownloadPopup() }}
+        >
+          <Download className="size-5" />
+          <span className="absolute right-14 bg-gray-900 text-white text-[10px] px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">{t('nav.downloadBrochure')}</span>
+        </button>
+
+        {/* Language */}
+        <div className="w-11 h-11 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 relative group z-50">
+          <div className="scale-90">
+            <LanguageToggle />
+          </div>
+          <span className="absolute right-14 bg-gray-900 text-white text-[10px] px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Language</span>
+        </div>
+
+        {/* Theme */}
+        <button
+          className="w-11 h-11 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform relative group bg-white dark:bg-slate-800 text-teal-600 dark:text-teal-400 border border-gray-100 dark:border-slate-700"
+          onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={isDarkMode ? 'dark' : 'light'}
+              initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
+              transition={{ duration: 0.2 }}
+            >
+              {isDarkMode ? <Moon className="size-5" /> : <Sun className="size-5" />}
+            </motion.div>
+          </AnimatePresence>
+          <span className="absolute right-14 bg-gray-900 text-white text-[10px] px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+          </span>
+        </button>
+      </div>
+
       {/* ─── FLOATING ACTION BUTTONS (Right side stack) ─── */}
-      <div className={`fixed right-4 sm:right-5 z-40 flex flex-col items-center gap-3 transition-all duration-300 ${showMobileBar ? 'bottom-[72px] lg:bottom-12' : 'bottom-6 lg:bottom-12'}`}>
+      <div className={`fixed right-4 sm:right-5 z-40 flex flex-col items-center gap-3 transition-all duration-300 bottom-[52px] lg:bottom-12`}>
         {/* Back to top */}
         <AnimatePresence>
           {scrolled && (
@@ -53,6 +106,26 @@ export default function GlobalUI() {
             </motion.button>
           )}
         </AnimatePresence>
+
+        {/* Brochure (Mobile Only - Desktop has it in the center-right sidebar) */}
+        <button
+          onClick={(e) => { e.preventDefault(); openDownloadPopup() }}
+          className="w-11 h-11 sm:w-12 sm:h-12 lg:hidden rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform relative group bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border border-gray-100 dark:border-slate-700"
+          aria-label="Download Brochure"
+        >
+          <Download className="size-5" />
+          <span className="absolute right-14 bg-gray-900 text-white text-[10px] px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none hidden sm:block">Brochure</span>
+        </button>
+
+        {/* Call (Mobile Only) */}
+        <a
+          href="tel:01335074940"
+          className="w-11 h-11 sm:w-12 sm:h-12 lg:hidden rounded-full shadow-lg flex items-center justify-center text-white hover:scale-110 transition-transform relative group bg-emerald-500 border border-emerald-400"
+          aria-label="Call Us"
+        >
+          <Phone className="size-5" />
+          <span className="absolute right-14 bg-gray-900 text-white text-[10px] px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none hidden sm:block">Call Us</span>
+        </a>
 
         {/* WhatsApp */}
         <a
@@ -89,10 +162,10 @@ export default function GlobalUI() {
               <div className="absolute inset-0 w-2 h-2 rounded-full bg-teal-400 animate-ping opacity-50" />
             </div>
 
-            {/* Vision text */}
-            <div className="overflow-hidden flex-1 min-w-0">
+            {/* Desktop Vision text */}
+            <div className="hidden sm:block overflow-hidden flex-1 min-w-0">
               <p
-                className="text-[10px] sm:text-[11px] lg:text-xs xl:text-[13px] font-semibold tracking-[0.12em] lg:tracking-[0.18em] uppercase whitespace-nowrap text-center"
+                className="text-[11px] lg:text-xs xl:text-[13px] font-semibold tracking-[0.12em] lg:tracking-[0.18em] uppercase whitespace-nowrap text-center"
                 style={{
                   fontFamily: 'var(--font-outfit), sans-serif',
                   color: 'rgba(255,255,255,0.75)',
@@ -103,6 +176,26 @@ export default function GlobalUI() {
                 <span className="mx-2 xl:mx-3">{t('common.visionMarquee')}</span>
                 <span className="text-teal-400 font-bold">✦</span>
               </p>
+            </div>
+
+            {/* Mobile Vision text (Marquee) */}
+            <div className="sm:hidden overflow-hidden flex-1 relative flex items-center h-full">
+              <motion.div
+                className="flex whitespace-nowrap"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+              >
+                <div className="flex items-center pr-8">
+                  <span className="text-teal-400 font-bold">✦</span>
+                  <span className="mx-2 text-[10px] font-semibold tracking-[0.12em] uppercase text-white/80" style={{ fontFamily: 'var(--font-outfit), sans-serif' }}>{t('common.visionMarquee')}</span>
+                  <span className="text-teal-400 font-bold">✦</span>
+                </div>
+                <div className="flex items-center pr-8">
+                  <span className="text-teal-400 font-bold">✦</span>
+                  <span className="mx-2 text-[10px] font-semibold tracking-[0.12em] uppercase text-white/80" style={{ fontFamily: 'var(--font-outfit), sans-serif' }}>{t('common.visionMarquee')}</span>
+                  <span className="text-teal-400 font-bold">✦</span>
+                </div>
+              </motion.div>
             </div>
 
             {/* Pulsing dot */}
@@ -120,48 +213,7 @@ export default function GlobalUI() {
       {/* ─── CHAT WIDGET ─── */}
       <ChatWidget chatSessionId={chatSessionId} showMobileBar={showMobileBar} />
 
-      {/* ─── MOBILE QUICK CONTACT BAR ─── */}
-      <AnimatePresence>
-        {showMobileBar && (
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            transition={{ duration: 0.4, type: 'spring', bounce: 0.2 }}
-            className="fixed bottom-3 left-3 right-3 z-50 lg:hidden rounded-2xl"
-            style={{
-              background: isDarkMode ? 'rgba(15,23,42,0.85)' : 'rgba(255,255,255,0.85)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.08)',
-              boxShadow: isDarkMode ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.1)',
-            }}
-          >
-            <div className="flex items-center justify-between px-1 py-1">
-              <a href="tel:01335074940" className="flex flex-col items-center justify-center gap-0.5 py-1 rounded-xl text-current flex-1 transition-all active:scale-95 hover:bg-black/5 dark:hover:bg-white/5">
-                <div className="w-7 h-7 rounded-full bg-emerald-500/10 flex items-center justify-center mb-0.5">
-                  <Phone className="size-3.5 text-emerald-600 dark:text-emerald-400" />
-                </div>
-                <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>{t('mobileBar.callUs')}</span>
-              </a>
-              <div className="w-px h-6" style={{ background: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
-              <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex flex-col items-center justify-center gap-0.5 py-1 rounded-xl text-current flex-1 transition-all active:scale-95 hover:bg-black/5 dark:hover:bg-white/5">
-                <div className="w-7 h-7 rounded-full bg-indigo-500/10 flex items-center justify-center mb-0.5">
-                  <Download className="size-3.5 text-indigo-600 dark:text-indigo-400" />
-                </div>
-                <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>{t('mobileBar.brochure')}</span>
-              </button>
-              <div className="w-px h-6" style={{ background: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }} />
-              <a href="/contact" className="flex flex-col items-center justify-center gap-0.5 py-1 rounded-xl text-current flex-1 transition-all active:scale-95 hover:bg-black/5 dark:hover:bg-white/5">
-                <div className="w-7 h-7 rounded-full bg-amber-500/10 flex items-center justify-center mb-0.5">
-                  <Mail className="size-3.5 text-amber-600 dark:text-amber-400" />
-                </div>
-                <span className="text-[9px] font-medium opacity-80" style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>{t('mobileBar.contact')}</span>
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
     </>
   )
 }

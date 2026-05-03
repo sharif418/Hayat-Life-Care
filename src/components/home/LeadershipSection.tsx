@@ -52,7 +52,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
                   {t('leadership.chairman')}
                 </div>
                 
-                <div className="mt-4 mb-5 h-[60px] flex items-center justify-center w-full">
+                <div className="mt-4 mb-5 h-[60px] flex items-start justify-center w-full pt-1">
                   <h3 className="text-xl sm:text-[1.35rem] xl:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-snug">
                     Capt. Md Showkat Hossain Chowdhury
                   </h3>
@@ -60,7 +60,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
                 
                 <div className="w-12 h-1 bg-linear-to-r from-teal-500 to-emerald-400 rounded-full mb-6 mx-auto" />
                 
-                <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: t('leadership.chairmanBio') }} />
+                <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: t('leadership.chairmanBio') }} />
               </div>
             </motion.div>
           </FadeIn>
@@ -85,7 +85,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
                   {t('leadership.managingDirector')}
                 </div>
                 
-                <div className="mt-4 mb-5 h-[60px] flex items-center justify-center w-full">
+                <div className="mt-4 mb-5 h-[60px] flex items-start justify-center w-full pt-1">
                   <h3 className="text-xl sm:text-[1.35rem] xl:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-snug">
                     Dr. Mohammad Azizul Haque
                   </h3>
@@ -93,7 +93,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
                 
                 <div className="w-12 h-1 bg-linear-to-r from-teal-500 to-emerald-400 rounded-full mb-6 mx-auto" />
                 
-                <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: t('leadership.mdBio') }} />
+                <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: t('leadership.mdBio') }} />
               </div>
             </motion.div>
           </FadeIn>

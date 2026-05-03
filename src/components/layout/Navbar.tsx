@@ -127,7 +127,7 @@ export default function Navbar() {
             : 'top-8 bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-3 lg:px-4 h-16 md:h-20 flex items-center">
+        <div className="max-w-7xl mx-auto px-3 lg:px-4 h-16 md:h-20 flex items-center justify-between w-full relative">
           {/* Logo & Tagline — Premium Glass Container */}
           <a
             href="/"
@@ -146,8 +146,8 @@ export default function Navbar() {
             />
           </a>
 
-          {/* Desktop nav — consolidated 7 items with Dream Education-style underline */}
-          <div className="hidden lg:flex items-center gap-0 lg:gap-1 xl:gap-2 ml-auto mr-2 lg:mr-4 xl:mr-6">
+          {/* Desktop nav — Right Aligned, showing up to iPad size (md) */}
+          <div className="hidden md:flex items-center ml-auto gap-0 md:gap-1 lg:gap-2 xl:gap-4 pr-2">
             {navLinks.map((link) => {
               // Determine if the link is active based on the actual URL pathname
               const isActive = link.href === '/' 
@@ -158,12 +158,12 @@ export default function Navbar() {
                 <div key={link.label} className="relative group">
                   <a
                     href={link.href}
-                    className={`relative px-1.5 lg:px-2 xl:px-3 py-2 text-[10px] lg:text-[11px] xl:text-[12px] uppercase tracking-wider lg:tracking-widest font-semibold font-outfit rounded-lg transition-all duration-300 flex items-center gap-0.5 lg:gap-1 ${
+                    className={`relative px-1 md:px-1.5 lg:px-3 xl:px-4 py-2 text-[10px] md:text-[11px] lg:text-[12px] xl:text-[13px] uppercase tracking-wider lg:tracking-[0.1em] font-bold font-outfit rounded-lg transition-all duration-300 flex items-center gap-0.5 lg:gap-1 ${
                       isActive
-                        ? isDarkMode ? 'text-teal-400' : (scrolled ? 'text-teal-600 font-bold' : 'text-teal-300 font-bold')
+                        ? isDarkMode ? 'text-teal-400' : (scrolled ? 'text-teal-600' : 'text-teal-300')
                       : isDarkMode
                         ? 'text-slate-300 hover:text-teal-400'
-                        : scrolled ? 'text-slate-700 hover:text-teal-600 font-medium' : 'text-white/80 hover:text-teal-300 font-medium'
+                        : scrolled ? 'text-slate-700 hover:text-teal-600' : 'text-white/90 hover:text-teal-300'
                     }`}
                 >
                   {link.langKey ? t(`nav.${link.langKey}`) : link.label}
@@ -221,61 +221,13 @@ export default function Navbar() {
             )})}
           </div>
 
-          {/* Desktop Action Buttons */}
-          <div className="hidden lg:flex items-center gap-0.5 lg:gap-1 xl:gap-1.5 shrink-0 ml-2 lg:ml-3">
-            <button
-              className={`rounded-full h-8 w-8 xl:h-9 xl:w-9 flex items-center justify-center transition-all duration-300 shadow-sm border ${
-                scrolled
-                  ? isDarkMode ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-teal-400' : 'bg-white border-gray-100 hover:bg-gray-50 text-teal-600'
-                  : isHomePage ? 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md' : 'bg-white/10 border-white/20 hover:bg-white/20 text-white backdrop-blur-md'
-              }`}
-              onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
-              aria-label="Toggle dark mode"
-              title="Toggle dark mode"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={isDarkMode ? 'dark' : 'light'}
-                  initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
-                  animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                  exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {isDarkMode ? <Moon className="size-4" /> : <Sun className="size-4" />}
-                </motion.div>
-              </AnimatePresence>
-            </button>
-            {/* Language Toggle */}
-            <div className="hidden lg:block">
-              <LanguageToggle />
-            </div>
-            <Button
-              className={`rounded-full px-2.5 lg:px-3 xl:px-4 font-semibold text-[11px] lg:text-xs xl:text-sm transition-all duration-300 border ${
-                scrolled
-                  ? 'bg-teal-600 hover:bg-teal-700 text-white border-transparent shadow-md'
-                  : 'bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-sm shadow-[0_0_15px_rgba(255,255,255,0.1)]'
-              }`}
-              asChild
-            >
-              <button onClick={(e) => { e.preventDefault(); openDownloadPopup() }} className="flex items-center gap-1.5">
-                <Download className="size-3.5" /> {t('nav.downloadBrochure')}
-              </button>
-            </Button>
-            <Button
-              className={`rounded-full px-2.5 lg:px-3 xl:px-5 text-[11px] lg:text-xs xl:text-sm font-semibold transition-all duration-300 shadow-lg relative overflow-hidden group ${
-                scrolled
-                  ? 'bg-amber-600 hover:bg-amber-700 text-white border border-transparent'
-                  : 'bg-amber-500/90 hover:bg-amber-500 text-white border border-amber-400/50 backdrop-blur-sm shadow-[0_0_20px_rgba(245,158,11,0.3)]'
-              }`}
-              onClick={() => openAppointmentDialog()}
-            >
-              <span className="relative z-10">{t('nav.bookAppointment')}</span>
-              <div className="absolute inset-0 h-full w-full bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
-            </Button>
-          </div>
 
           {/* Mobile menu */}
-          <div className="lg:hidden flex items-center gap-2 ml-auto">
+          <div className="md:hidden flex items-center gap-1.5 ml-auto">
+            {/* Language Toggle (Mobile) */}
+            <div className="scale-90">
+              <LanguageToggle />
+            </div>
             <button
               className={`rounded-full h-8 w-8 flex items-center justify-center transition-all duration-300 shadow-sm border ${
                 scrolled
@@ -316,17 +268,11 @@ export default function Navbar() {
                 {/* 1. STICKY HEADER */}
                 <SheetHeader className="p-6 pt-14 pb-4 border-b border-black/5 dark:border-white/5 shrink-0 z-10 bg-transparent">
                   <SheetTitle className="text-left">
-                    <div className="flex items-center justify-between">
-                      <img
-                        src="/images/icon.svg"
-                        alt="Hayat Life Care"
-                        className="h-10 w-auto object-contain drop-shadow-sm"
-                      />
-                      {/* Language Toggle */}
-                      <div className="scale-90">
-                        <LanguageToggle />
-                      </div>
-                    </div>
+                    <img
+                      src="/images/icon.svg"
+                      alt="Hayat Life Care"
+                      className="h-10 w-auto object-contain drop-shadow-sm"
+                    />
                   </SheetTitle>
                 </SheetHeader>
 

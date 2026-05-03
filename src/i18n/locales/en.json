@@ -19,7 +19,7 @@
     "roiCalculator": "ROI Calculator",
     "faq": "FAQ",
     "contact": "Contact",
-    "bookAppointment": "Book a Visit",
+    "bookAppointment": "Appointment",
     "downloadBrochure": "Brochure"
   },
   "hero": {
@@ -202,7 +202,7 @@
     "contactBadge": "Get In Touch",
     "contactTitle": "Contact",
     "contactHighlight": "Us",
-    "contactDesc": "Please reach out to us for any inquiries, appointments. Our dedicated team is ready to assist.",
+    "contactDesc": "Please reach out to us for any inquiries, appointments.\nOur dedicated team is ready to assist.",
     "uniquenessBadge": "Why Choose Us",
     "uniquenessTitle": "Our",
     "uniquenessHighlight": "Uniqueness",

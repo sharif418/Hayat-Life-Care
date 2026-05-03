@@ -58,7 +58,12 @@ export default function PageHeader({ badge, title, highlightText, description, l
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-base md:text-lg text-slate-300 max-w-2xl leading-relaxed"
         >
-          {displayDesc}
+          {displayDesc.split('\n').map((line: string, i: number) => (
+            <React.Fragment key={i}>
+              {line}
+              {i !== displayDesc.split('\n').length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </motion.p>
       </div>
     </div>

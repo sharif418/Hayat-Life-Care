@@ -143,7 +143,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
             exit={{ opacity: 0, x: -30 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             onClick={() => setIsChatOpen(true)}
-            className={`fixed left-4 sm:left-5 z-50 flex items-center gap-2.5 text-white cursor-pointer group transition-all duration-300 hover:scale-[1.03] ${showMobileBar ? 'bottom-[72px] lg:bottom-12' : 'bottom-6 lg:bottom-12'}`}
+            className={`fixed left-4 sm:left-5 z-50 flex items-center gap-2.5 text-white cursor-pointer group transition-all duration-300 hover:scale-[1.03] bottom-[52px] lg:bottom-12`}
             aria-label="Open AI Chat Assistant"
           >
             {/* Main pill button */}
@@ -185,7 +185,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.9 }}
             transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-            className={`fixed left-4 sm:left-5 z-60 w-[360px] sm:w-[400px] max-w-[calc(100vw-2rem)] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.15)] overflow-hidden border border-gray-200/60 dark:border-slate-700 flex flex-col ${showMobileBar ? 'bottom-[72px] lg:bottom-12' : 'bottom-6 lg:bottom-12'}`}
+            className={`fixed left-4 sm:left-5 z-60 w-[360px] sm:w-[400px] max-w-[calc(100vw-2rem)] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.15)] overflow-hidden border border-gray-200/60 dark:border-slate-700 flex flex-col bottom-[52px] lg:bottom-12`}
             style={{ height: '560px', background: 'linear-gradient(180deg, #ffffff 0%, #f8fffe 100%)' }}
           >
             {/* ── Header ── */}
