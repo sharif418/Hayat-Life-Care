@@ -117,7 +117,7 @@
     "headOffice": "প্রধান কার্যালয়",
     "projectSite": "প্রকল্প স্থান",
     "operatingHours": "কার্যকরী সময়",
-    "openAllDay": "সকাল ১০:০০ - রাত ৯:০০ (10am to 9 pm)",
+    "openAllDay": "সকাল ১০:০০ - রাত ৯:০০",
     "visitContactPage": "সম্পূর্ণ যোগাযোগ পেজ দেখুন"
   },
   "faqPreview": {
@@ -176,7 +176,7 @@
     "learnMore": "আরও জানুন",
     "viewAll": "সব দেখুন",
     "contactUs": "যোগাযোগ করুন",
-    "allDay": "সকাল ১০:০০ - রাত ৯:০০ (10am to 9 pm)",
+    "allDay": "সকাল ১০:০০ - রাত ৯:০০",
     "readMore": "আরও পড়ুন",
     "exploreFullDetails": "সম্পূর্ণ বিবরণ দেখুন",
     "visionMarquee": "উদ্দেশ্যের সাথে দৃষ্টিভঙ্গি, উদ্ভাবন দ্বারা চালিত এবং হৃদয় দ্বারা পরিচালিত — প্রজন্মকে সেবা ও উন্নীত করতে।"
@@ -243,7 +243,7 @@
     "networkError": "নেটওয়ার্ক সমস্যা। পরে আবার চেষ্টা করুন।",
     "office": "অফিস",
     "operatingHours": "কার্যকরী সময়",
-    "openAllDay": "সকাল ১০:০০ - রাত ৯:০০ (10am to 9 pm)",
+    "openAllDay": "সকাল ১০:০০ - রাত ৯:০০",
     "bookAppointment": "অ্যাপয়েন্টমেন্ট বুক করুন",
     "viewOfficeMap": "অফিসের ম্যাপ দেখুন",
     "viewSiteMap": "সাইটের ম্যাপ দেখুন",
