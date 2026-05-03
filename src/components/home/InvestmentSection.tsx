@@ -305,12 +305,13 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
           </FadeIn>
 
           {/* ═══════════════════════════════════════════════════════ */}
-          {/* 4. VALUE PROPOSITION — Investment Details Card           */}
+          {/* 4A. SHARE PRICE & VALUE PROPOSITION                      */}
           {/* ═══════════════════════════════════════════════════════ */}
           <FadeIn>
             <div className="max-w-5xl mx-auto mb-16">
               <div className="relative bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #0D9488, #D97706, #10B981)' }} />
+                {/* Share Price Header */}
                 <div className="px-6 md:px-10 pt-7 pb-5 border-b border-gray-100 dark:border-slate-700">
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <div className="flex items-center gap-3">
@@ -343,70 +344,75 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     ))}
                   </div>
                 </div>
-                <div className="grid md:grid-cols-2 gap-0">
-                  <div className="p-8 md:p-10 flex flex-col justify-center">
-                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-snug">
-                      {t('investment.moreThanInvestment')}<br />
-                      <span style={{ color: '#0D9488' }}>{t('investment.legacyValue')}</span>
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
-                      {t('investment.valueDesc')}
-                    </p>
-                    <div className="space-y-3">
-                      {[
-                        { icon: Shield, text: t('investment.tangibleAsset') },
-                        { icon: TrendingUp, text: t('investment.diversifiedIncome') },
-                        { icon: Users, text: t('investment.lifetimeHealthcare') },
-                      ].map((item, i) => (
-                        <div key={i} className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(13,148,136,0.08)' }}>
-                            <item.icon className="size-4" style={{ color: '#0D9488' }} />
-                          </div>
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{item.text}</span>
+                {/* Value Proposition — Full Width */}
+                <div className="p-8 md:p-10">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 leading-snug">
+                    {t('investment.moreThanInvestment')}<br />
+                    <span style={{ color: '#0D9488' }}>{t('investment.legacyValue')}</span>
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-6 max-w-2xl">
+                    {t('investment.valueDesc')}
+                  </p>
+                  <div className="grid sm:grid-cols-3 gap-4">
+                    {[
+                      { icon: Shield, text: t('investment.tangibleAsset'), color: '#0D9488' },
+                      { icon: TrendingUp, text: t('investment.diversifiedIncome'), color: '#D97706' },
+                      { icon: Users, text: t('investment.lifetimeHealthcare'), color: '#10B981' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-3 bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-600 hover:shadow-md transition-shadow duration-300">
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${item.color}12` }}>
+                          <item.icon className="size-5" style={{ color: item.color }} />
                         </div>
-                      ))}
+                        <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{item.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* 4B. PAYMENT POLICY — Separate Section                   */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          <FadeIn>
+            <div className="max-w-5xl mx-auto mb-16">
+              <div className="relative bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #D97706, #F59E0B, #D97706)' }} />
+                <div className="p-6 md:p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #D97706, #F59E0B)' }}>
+                      <CreditCard className="size-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white">{t('investment.paymentPlan')}</h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{t('investment.paymentPlanDesc')}</p>
                     </div>
                   </div>
-                  <div className="bg-linear-to-br from-gray-50 to-teal-50/30 dark:from-slate-800 dark:to-slate-700/50 p-6 md:p-8 flex flex-col justify-center gap-4 border-t md:border-t-0 md:border-l border-gray-100 dark:border-slate-700">
+                  <div className="grid sm:grid-cols-3 gap-4">
                     {[
-                      { icon: HandCoins, label: t('investment.sharePrice'), value: '10 Lacs BDT', sub: t('investment.perShare'), color: '#D97706' },
-                      { icon: Users, label: t('investment.totalShares'), value: '4,950', sub: t('investment.maxAvailable'), color: '#0D9488' },
-                      { icon: Shield, label: t('investment.buybackPolicy'), value: '+5% After 3 Yrs', sub: t('investment.guaranteedExit'), color: '#10B981' },
-                    ].map((stat, i) => (
-                      <motion.div key={i} whileHover={{ x: 4 }} className="flex items-center gap-4 group cursor-default">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm group-hover:shadow-md transition-shadow duration-300" style={{ background: `${stat.color}15` }}>
-                          <stat.icon className="size-4" style={{ color: stat.color }} />
+                      { step: '1', label: t('investment.downPayment'), desc: t('investment.atBooking'), color: '#0D9488', percent: '40%' },
+                      { step: '2', label: t('investment.secondInstallment'), desc: t('investment.within30Days'), color: '#D97706', percent: '30%' },
+                      { step: '3', label: t('investment.thirdInstallment'), desc: t('investment.sixtyNinetyDays'), color: '#10B981', percent: '30%' },
+                    ].map((item, i) => (
+                      <motion.div
+                        key={i}
+                        whileHover={{ y: -4 }}
+                        className="relative bg-gray-50 dark:bg-slate-700/50 rounded-2xl p-5 border border-gray-100 dark:border-slate-600 hover:shadow-lg transition-all duration-300"
+                      >
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black text-white shrink-0" style={{ background: `linear-gradient(135deg, ${item.color}, ${item.color}CC)` }}>
+                            {item.step}
+                          </div>
+                          <div className="text-2xl font-black" style={{ color: item.color }}>{item.percent}</div>
                         </div>
-                        <div>
-                          <div className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">{stat.label}</div>
-                          <div className="text-base font-bold text-gray-900 dark:text-white">{stat.value}</div>
-                          <div className="text-[10px] text-gray-400">{stat.sub}</div>
+                        <div className="text-sm font-bold text-gray-800 dark:text-white mb-1">{item.label}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc}</div>
+                        <div className="mt-3 h-1 rounded-full bg-gray-200 dark:bg-slate-600 overflow-hidden">
+                          <div className="h-full rounded-full" style={{ background: item.color, width: item.percent }} />
                         </div>
                       </motion.div>
                     ))}
-                    <div className="pt-3 mt-1 border-t border-gray-200/60 dark:border-slate-600">
-                      <div className="flex items-center gap-2 mb-2.5">
-                        <CreditCard className="size-3.5" style={{ color: '#0D9488' }} />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{t('investment.paymentPlan')}</span>
-                      </div>
-                      <div className="space-y-2">
-                        {[
-                          { step: '1', label: t('investment.downPayment'), desc: t('investment.atBooking') },
-                          { step: '2', label: t('investment.secondInstallment'), desc: t('investment.within30Days') },
-                          { step: '3', label: t('investment.thirdInstallment'), desc: t('investment.sixtyNinetyDays') },
-                        ].map((item, i) => (
-                          <div key={i} className="flex items-center gap-2.5">
-                            <div className="w-5 h-5 rounded-md flex items-center justify-center text-[9px] font-black text-white shrink-0" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
-                              {item.step}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="text-[11px] font-semibold text-gray-700 dark:text-gray-200">{item.label}</div>
-                              <div className="text-[9px] text-gray-400">{item.desc}</div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
