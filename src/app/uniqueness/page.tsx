@@ -26,7 +26,6 @@ export default function UniquenessPage() {
         description="Discover what makes Hayat Life Care the most integrated, zero-interest, and comprehensive health complex in Chattogram."
         langKeyPrefix="pages.uniqueness"
       />
-      <WhyPartnerSection isDarkMode={isDarkMode} />
       <UniquenessSection isDarkMode={isDarkMode} />
       <ComparisonSection isDarkMode={isDarkMode} />
       <TrustSection isDarkMode={isDarkMode} />

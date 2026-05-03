@@ -20,11 +20,12 @@ export const navLinks: NavLink[] = [
     // { label: 'Virtual Tour', href: '/facilities#virtual-tour' }, // Hidden per client request
   ]},
   { label: 'Uniqueness', href: '/uniqueness', langKey: 'uniqueness', children: [
-    { label: 'Why Be a Partner', href: '/uniqueness#why-partner', langKey: 'whyPartner' },
     { label: 'What Makes Us Different', href: '/uniqueness#uniqueness', langKey: 'whatMakesDifferent' },
     { label: 'Comparison Table', href: '/uniqueness#comparison-table', langKey: 'comparisonTable' },
   ]},
-  { label: 'Ownership', href: '/investment', langKey: 'ownership' },
+  { label: 'Ownership', href: '/investment', langKey: 'ownership', children: [
+    { label: 'Why Be a Partner', href: '/investment#why-partner', langKey: 'whyPartner' },
+  ]},
   { label: 'FAQ', href: '/faq', langKey: 'faq' },
   { label: 'Contact', href: '/contact', langKey: 'contact' },
 ]
