@@ -189,7 +189,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                 <div className="relative mb-4">
                   <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #D97706, #B45309)' }} />
                 </div>
-                <p className="text-gray-500 dark:text-gray-400 text-sm max-w-xl mx-auto">
+                <p className="text-gray-500 dark:text-gray-400 text-sm max-w-3xl mx-auto">
                   {t('investment.tierDesc')}
                 </p>
               </div>
