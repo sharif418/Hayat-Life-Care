@@ -269,9 +269,9 @@ export default function Navbar() {
                 <SheetHeader className="p-6 pt-14 pb-4 border-b border-black/5 dark:border-white/5 shrink-0 z-10 bg-transparent">
                   <SheetTitle className="text-left">
                     <img
-                      src="/images/icon.svg"
+                      src="/images/logo.svg"
                       alt="Hayat Life Care"
-                      className="h-10 w-auto object-contain drop-shadow-sm"
+                      className="h-8 w-auto object-contain drop-shadow-sm"
                     />
                   </SheetTitle>
                 </SheetHeader>
