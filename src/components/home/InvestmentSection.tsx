@@ -8,6 +8,9 @@ import { FadeIn } from '@/components/ui/animations'
 import { useSectionReveal } from '@/components/ui/animations'
 import { useDownload } from '@/components/providers/DownloadProvider'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import dynamic from 'next/dynamic'
+
+const WhyPartnerSection = dynamic(() => import('@/components/home/WhyPartnerSection'))
 
 interface InvestmentSectionProps {
   isDarkMode: boolean
@@ -303,6 +306,11 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
               </div>
             </div>
           </FadeIn>
+
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* 3. WHY BE A PARTNER — Moved from Uniqueness page       */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          <WhyPartnerSection isDarkMode={isDarkMode} />
 
           {/* ═══════════════════════════════════════════════════════ */}
           {/* 4A. SHARE PRICE & VALUE PROPOSITION                      */}

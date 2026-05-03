@@ -4,11 +4,8 @@ import React from 'react';
 import PageWrapper from '@/components/layout/PageWrapper';
 import InvestmentSection from '@/components/home/InvestmentSection';
 import { useTheme } from 'next-themes';
-import dynamic from 'next/dynamic';
 
 import PageHeader from '@/components/layout/PageHeader';
-
-const WhyPartnerSection = dynamic(() => import('@/components/home/WhyPartnerSection'));
 
 export default function InvestmentPage() {
   const { theme } = useTheme();
@@ -24,7 +21,6 @@ export default function InvestmentPage() {
         langKeyPrefix="pages.investment"
       />
       <InvestmentSection isDarkMode={isDarkMode} />
-      <WhyPartnerSection isDarkMode={isDarkMode} />
     </PageWrapper>
   );
 }
