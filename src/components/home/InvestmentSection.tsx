@@ -224,7 +224,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     benefits: ['B1', 'B2', 'B3', 'B4', 'B8'],
                     color: '#D97706',
                     gradient: 'linear-gradient(135deg, #D97706, #B45309)',
-                    popular: true,
+                    popular: false,
                   },
                   {
                     tier: 'Platinum',
