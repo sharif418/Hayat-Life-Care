@@ -266,8 +266,8 @@ export default function Navbar() {
               <SheetContent side="right" className="w-[85vw] max-w-[400px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-0 flex flex-col h-dvh border-l border-white/20 dark:border-white/10 shadow-2xl">
                 
                 {/* 1. STICKY HEADER */}
-                <SheetHeader className="p-6 pt-14 pb-4 border-b border-black/5 dark:border-white/5 shrink-0 z-10 bg-transparent">
-                  <SheetTitle className="text-left">
+                <SheetHeader className="p-6 pt-10 pb-4 border-b border-black/5 dark:border-white/5 shrink-0 z-10 bg-transparent">
+                  <SheetTitle className="text-left m-0 flex items-center h-9">
                     <img
                       src="/images/logo.svg"
                       alt="Hayat Life Care"
