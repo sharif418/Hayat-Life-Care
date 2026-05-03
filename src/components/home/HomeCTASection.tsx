@@ -65,7 +65,7 @@ export default function HomeCTASection({ isDarkMode }: HomeCTASectionProps) {
               style={{ background: '#25D366' }}
               asChild
             >
-              <a href="https://wa.me/8801617977232" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <a href="https://wa.me/8801335074940" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                 <MessageSquare className="size-4" />
                 WhatsApp
               </a>

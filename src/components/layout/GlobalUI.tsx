@@ -129,7 +129,7 @@ export default function GlobalUI() {
 
         {/* WhatsApp */}
         <a
-          href="https://wa.me/8801617977232"
+          href="https://wa.me/8801335074940"
           target="_blank"
           rel="noopener noreferrer"
           className="w-11 h-11 sm:w-12 sm:h-12 rounded-full shadow-lg flex items-center justify-center text-white hover:scale-110 transition-transform relative group"

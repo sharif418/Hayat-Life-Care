@@ -343,7 +343,7 @@ export default function Navbar() {
                       <a href="tel:01335074941" className="flex items-center gap-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-teal-600 transition-colors">
                         <Phone className="size-4 text-teal-600" /> 01335-074941
                       </a>
-                      <a href="https://wa.me/8801617977232" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-teal-600 transition-colors">
+                      <a href="https://wa.me/8801335074940" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-teal-600 transition-colors">
                         <MessageSquare className="size-4 text-green-600" /> WhatsApp
                       </a>
                     </div>
