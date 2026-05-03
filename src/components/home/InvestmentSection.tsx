@@ -384,7 +384,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
           {/* 4B. PAYMENT POLICY — Separate Section                   */}
           {/* ═══════════════════════════════════════════════════════ */}
           <FadeIn>
-            <div className="max-w-5xl mx-auto mb-16">
+            <div id="payment-policy" className="max-w-5xl mx-auto mb-16">
               <div className="relative bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #D97706, #F59E0B, #D97706)' }} />
                 <div className="p-6 md:p-8">
@@ -431,7 +431,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
           {/* 3. INVESTMENT ROI CALCULATOR                            */}
           {/* ═══════════════════════════════════════════════════════ */}
           <FadeIn>
-            <div className="max-w-5xl mx-auto mb-16 bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
+            <div id="roi-calculator" className="max-w-5xl mx-auto mb-16 bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
               <div className="p-6 md:p-8 text-white" style={{ background: 'linear-gradient(135deg, #0D9488 0%, #065F46 100%)' }}>
                 <div className="flex items-center gap-3">
                   <div className="w-11 h-11 rounded-2xl bg-white/15 flex items-center justify-center">

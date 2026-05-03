@@ -325,7 +325,7 @@ export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps
           className="text-center mt-14"
         >
           <a
-            href="/investment"
+            href="#investment"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
             style={{
               background: 'linear-gradient(135deg, #0D9488, #10B981)',
