@@ -13,29 +13,48 @@ export default function LanguageToggle() {
   const isBn = locale === 'bn'
 
   return (
-    <button
-      className="relative h-7 px-2.5 rounded cursor-pointer flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-sm"
+    <div 
+      className="relative flex items-center p-[2px] rounded-full transition-all duration-300"
       style={{
-        background: isDarkMode ? 'rgba(30,41,59,0.6)' : 'rgba(241,245,249,0.8)',
-        border: `1px solid ${isDarkMode ? '#475569' : '#CBD5E1'}`,
-        color: isDarkMode ? '#E2E8F0' : '#334155'
+        background: isDarkMode ? 'rgba(15,23,42,0.6)' : 'rgba(255,255,255,0.2)',
+        border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+        backdropFilter: 'blur(8px)'
       }}
-      onClick={() => setLocale(isBn ? 'en' : 'bn')}
-      aria-label={isBn ? 'Switch to English' : 'বাংলায় দেখুন'}
-      title={isBn ? 'Switch to English' : 'বাংলায় দেখুন'}
     >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={isBn ? 'en' : 'bn'}
-          initial={{ opacity: 0, y: -5 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 5 }}
-          transition={{ duration: 0.15 }}
-          className="text-[11px] font-bold tracking-wider select-none uppercase"
-        >
-          {isBn ? 'EN' : 'বাং'}
-        </motion.span>
-      </AnimatePresence>
-    </button>
+      <button
+        onClick={() => setLocale('en')}
+        className={`relative z-10 w-8 h-[26px] flex items-center justify-center text-[10px] font-bold tracking-widest rounded-full transition-colors ${!isBn ? (isDarkMode ? 'text-teal-400' : 'text-teal-700') : (isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-black')}`}
+      >
+        EN
+        {!isBn && (
+          <motion.div
+            layoutId="lang-active"
+            className="absolute inset-0 rounded-full z-[-1]"
+            style={{
+              background: isDarkMode ? 'rgba(255,255,255,0.1)' : '#ffffff',
+              boxShadow: isDarkMode ? 'none' : '0 1px 3px rgba(0,0,0,0.1)'
+            }}
+            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+          />
+        )}
+      </button>
+      <button
+        onClick={() => setLocale('bn')}
+        className={`relative z-10 w-8 h-[26px] flex items-center justify-center text-[10px] font-bold rounded-full transition-colors ${isBn ? (isDarkMode ? 'text-teal-400' : 'text-teal-700') : (isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-black')}`}
+      >
+        বাং
+        {isBn && (
+          <motion.div
+            layoutId="lang-active"
+            className="absolute inset-0 rounded-full z-[-1]"
+            style={{
+              background: isDarkMode ? 'rgba(255,255,255,0.1)' : '#ffffff',
+              boxShadow: isDarkMode ? 'none' : '0 1px 3px rgba(0,0,0,0.1)'
+            }}
+            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+          />
+        )}
+      </button>
+    </div>
   )
 }
