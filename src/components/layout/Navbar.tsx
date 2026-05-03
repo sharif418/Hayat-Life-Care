@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import {
   Phone, Menu, Mail, Building, Building2, Stethoscope, Shield, Heart,
-  TrendingUp, Facebook, Youtube, Instagram, Linkedin, Sun, Moon, MapPin, Download, MessageSquare
+  TrendingUp, Facebook, Youtube, Instagram, Linkedin, Sun, Moon, MapPin, Download, MessageSquare, Search
 } from 'lucide-react'
 import { navLinks } from '@/data/home-data'
 import {
@@ -219,11 +219,30 @@ export default function Navbar() {
                 )}
               </div>
             )})}
+            
+            {/* Desktop Search Icon */}
+            <button
+              className="rounded-full h-8 w-8 lg:h-9 lg:w-9 ml-1 md:ml-2 lg:ml-3 flex items-center justify-center transition-all duration-300 bg-amber-500 hover:bg-amber-600 text-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
+              aria-label="Search"
+              onClick={() => {
+                // Placeholder for future search functionality
+                console.log("Search clicked")
+              }}
+            >
+              <Search className="size-4 lg:size-4.5" />
+            </button>
           </div>
 
 
           {/* Mobile menu */}
           <div className="md:hidden flex items-center gap-1.5 ml-auto">
+            {/* Mobile Search Icon */}
+            <button
+              className="rounded-full h-8 w-8 flex items-center justify-center transition-all duration-300 bg-amber-500 hover:bg-amber-600 text-white shadow-sm hover:shadow-md"
+              aria-label="Search"
+            >
+              <Search className="size-4" />
+            </button>
             {/* Language Toggle (Mobile) */}
             <div className="scale-90">
               <LanguageToggle />
