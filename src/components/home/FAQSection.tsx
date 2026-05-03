@@ -40,7 +40,6 @@ function renderFaqAnswer(answer: string) {
 }
 
 export default function FAQSection({ isDarkMode }: FAQSectionProps) {
-  const [activeCategory, setActiveCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const { t } = useLanguage()
 
@@ -52,9 +51,6 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
 
   const filteredFaqs = useMemo(() => {
     let result = faqs
-    if (activeCategory !== 'all') {
-      result = result.filter(faq => faq.category === activeCategory)
-    }
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase()
       result = result.filter(faq =>
@@ -62,7 +58,7 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
       )
     }
     return result
-  }, [activeCategory, searchQuery])
+  }, [searchQuery])
 
   // Get counts per category
   const categoryCounts = useMemo(() => {
@@ -103,7 +99,7 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
 
         {/* Search Bar */}
         <FadeIn delay={0.1}>
-          <div className="relative max-w-xl mx-auto mb-8">
+          <div className="relative max-w-xl mx-auto mb-4">
             <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
               <Search className="size-4 text-gray-400" />
             </div>
@@ -125,60 +121,15 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
           </div>
         </FadeIn>
 
-        {/* Category Tabs */}
-        <FadeIn delay={0.15}>
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {availableCategories.map((cat) => {
-              const config = categoryLabels[cat] || categoryLabels.general
-              const catConfig = cat !== 'all' ? (faqCategoryConfig[cat as keyof typeof faqCategoryConfig] || faqCategoryConfig.general) : null
-              const isActive = activeCategory === cat
-              const count = categoryCounts[cat] || 0
-              const IconComp = config.icon
 
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 border ${
-                    isActive
-                      ? 'text-white shadow-lg scale-[1.02]'
-                      : 'bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-slate-700 hover:border-teal-300 dark:hover:border-teal-700 hover:shadow-md'
-                  }`}
-                  style={isActive ? {
-                    background: cat === 'all'
-                      ? 'linear-gradient(135deg, #0D9488, #10B981)'
-                      : catConfig?.color || '#0D9488',
-                    borderColor: 'transparent',
-                    boxShadow: `0 4px 15px ${(cat === 'all' ? '#0D9488' : catConfig?.color || '#0D9488')}40`
-                  } : {}}
-                >
-                  <IconComp className="size-3.5" />
-                  {catLabelMap[cat] || cat}
-                  <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
-                    isActive
-                      ? 'bg-white/20 text-white'
-                      : 'bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400'
-                  }`}>
-                    {count}
-                  </span>
-                </button>
-              )
-            })}
-          </div>
-        </FadeIn>
 
         {/* Results count */}
-        {(searchQuery || activeCategory !== 'all') && (
+        {searchQuery && (
           <FadeIn>
             <div className="text-center mb-6">
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 Showing <strong className="text-teal-600 dark:text-teal-400">{filteredFaqs.length}</strong> {filteredFaqs.length === 1 ? 'question' : 'questions'}
-                {activeCategory !== 'all' && (
-                  <> in <strong className="text-teal-600 dark:text-teal-400">{categoryLabels[activeCategory]?.label || activeCategory}</strong></>
-                )}
-                {searchQuery && (
-                  <> matching &quot;<strong className="text-teal-600 dark:text-teal-400">{searchQuery}</strong>&quot;</>
-                )}
+                <> matching &quot;<strong className="text-teal-600 dark:text-teal-400">{searchQuery}</strong>&quot;</>
               </span>
             </div>
           </FadeIn>
@@ -195,7 +146,7 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
 
                   return (
                     <AccordionItem
-                      key={`${activeCategory}-${i}`}
+                      key={`faq-${i}`}
                       value={`faq-${i}`}
                       className="group/item bg-white dark:bg-slate-800 rounded-xl border dark:border-slate-700 shadow-sm px-6 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:hover:border-slate-600"
                     >
@@ -232,7 +183,7 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
                   {t('faq.tryDifferent')}
                 </p>
                 <button
-                  onClick={() => { setSearchQuery(''); setActiveCategory('all') }}
+                  onClick={() => setSearchQuery('')}
                   className="text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors"
                 >
                   {t('faq.showAll')} →
