@@ -176,7 +176,12 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
           </FadeIn>
 
           {/* ═══════════════════════════════════════════════════════ */}
-          {/* 2. SHAREHOLDER TIERS — Director Status & Benefits      */}
+          {/* 2. WHY BE A PARTNER — Moved from Uniqueness page       */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          <WhyPartnerSection isDarkMode={isDarkMode} onBecomePartnerClick={() => setShowInvestModal(true)} />
+
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* 3. SHAREHOLDER TIERS — Director Status & Benefits      */}
           {/* ═══════════════════════════════════════════════════════ */}
           <FadeIn>
             <div className="mb-16">
@@ -305,10 +310,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
             </div>
           </FadeIn>
 
-          {/* ═══════════════════════════════════════════════════════ */}
-          {/* 3. WHY BE A PARTNER — Moved from Uniqueness page       */}
-          {/* ═══════════════════════════════════════════════════════ */}
-          <WhyPartnerSection isDarkMode={isDarkMode} onBecomePartnerClick={() => setShowInvestModal(true)} />
+
 
           {/* ═══════════════════════════════════════════════════════ */}
           {/* 4A. SHARE PRICE & VALUE PROPOSITION                      */}
