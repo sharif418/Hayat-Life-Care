@@ -310,7 +310,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
           {/* ═══════════════════════════════════════════════════════ */}
           {/* 3. WHY BE A PARTNER — Moved from Uniqueness page       */}
           {/* ═══════════════════════════════════════════════════════ */}
-          <WhyPartnerSection isDarkMode={isDarkMode} />
+          <WhyPartnerSection isDarkMode={isDarkMode} onBecomePartnerClick={() => setShowInvestModal(true)} />
 
           {/* ═══════════════════════════════════════════════════════ */}
           {/* 4A. SHARE PRICE & VALUE PROPOSITION                      */}

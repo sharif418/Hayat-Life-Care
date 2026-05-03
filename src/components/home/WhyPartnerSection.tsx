@@ -128,9 +128,10 @@ const partnerReasons = [
 
 interface WhyPartnerSectionProps {
   isDarkMode: boolean
+  onBecomePartnerClick?: () => void
 }
 
-export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps) {
+export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: WhyPartnerSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-80px' })
   const { t } = useLanguage()
@@ -324,8 +325,8 @@ export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps
           transition={{ duration: 0.6, delay: 1.2 }}
           className="text-center mt-14"
         >
-          <a
-            href="#investment"
+          <button
+            onClick={onBecomePartnerClick}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white font-semibold text-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
             style={{
               background: 'linear-gradient(135deg, #0D9488, #10B981)',
@@ -333,7 +334,7 @@ export default function WhyPartnerSection({ isDarkMode }: WhyPartnerSectionProps
           >
             <Gem className="size-4" />
             {t('whyPartner.becomePartner')}
-          </a>
+          </button>
           <p
             className="text-sm italic mt-4"
             style={{ color: isDarkMode ? '#64748B' : '#94A3B8' }}
