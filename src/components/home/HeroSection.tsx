@@ -174,7 +174,7 @@ export default function HeroSection({
                 </div>
                 {/* BOLD highlight — Bright Teal/Emerald Gradient */}
                 <h1
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black tracking-tight leading-[1.1] whitespace-pre-line"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black leading-snug whitespace-pre-line py-4"
                   style={{
                     fontFamily: 'var(--font-playfair), Georgia, serif',
                     background: 'linear-gradient(135deg, #5EEAD4 0%, #2DD4BF 30%, #14B8A6 60%, #0D9488 100%)',
