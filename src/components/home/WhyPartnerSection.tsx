@@ -16,6 +16,7 @@ import {
   MapPin,
   Building2,
   CheckCircle2,
+  BadgePercent,
 } from 'lucide-react'
 import { useLanguage } from '@/i18n/LanguageProvider'
 
@@ -124,6 +125,14 @@ const partnerReasons = [
     descKey: 'whyPartner.reason13Desc',
     color: '#0F766E',
   },
+  {
+    icon: BadgePercent,
+    title: '5% Higher Buyback Policy',
+    desc: 'Guaranteed 5% higher buyback option available after 3 years of your initial investment.',
+    titleKey: 'whyPartner.reason14Title',
+    descKey: 'whyPartner.reason14Desc',
+    color: '#0284C7',
+  },
 ]
 
 interface WhyPartnerSectionProps {
@@ -217,7 +226,7 @@ export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: 
           className="flex flex-wrap items-center justify-center gap-4 md:gap-8 mb-14"
         >
           {[
-            { value: '13', label: t('whyPartner.keyReasons') },
+            { value: '14', label: t('whyPartner.keyReasons') },
             { value: '৳0', label: t('whyPartner.bankLoan') },
             { value: '55', label: t('whyPartner.kathaLand') },
             { value: '150+', label: t('whyPartner.parking') },
@@ -252,14 +261,14 @@ export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: 
         </motion.div>
 
         {/* Reasons Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="flex flex-wrap justify-center gap-5">
           {partnerReasons.map((reason, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.3 + index * 0.06 }}
-              className="group relative rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group relative rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-13.33px)]"
               style={{
                 background: isDarkMode
                   ? 'rgba(30, 41, 59, 0.5)'
