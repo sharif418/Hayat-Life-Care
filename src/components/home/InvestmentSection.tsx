@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { TrendingUp, HandCoins, Users, Shield, Check, CreditCard, ArrowRight, BookOpen, Phone, X, Sparkles } from 'lucide-react'
+import { TrendingUp, HandCoins, Users, Shield, Check, CreditCard, ArrowRight, BookOpen, Phone, X, Sparkles, Building2, BadgePercent, UserCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { FadeIn } from '@/components/ui/animations'
 import { useSectionReveal } from '@/components/ui/animations'
@@ -365,6 +365,9 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                       { icon: Shield, text: t('investment.tangibleAsset'), color: '#0D9488' },
                       { icon: TrendingUp, text: t('investment.diversifiedIncome'), color: '#D97706' },
                       { icon: Users, text: t('investment.lifetimeHealthcare'), color: '#10B981' },
+                      { icon: Building2, text: t('investment.noBankLoan'), color: '#0EA5E9' },
+                      { icon: BadgePercent, text: t('investment.buyback5Percent'), color: '#8B5CF6' },
+                      { icon: UserCheck, text: t('investment.max4950Shares'), color: '#F43F5E' },
                     ].map((item, i) => (
                       <div key={i} className="flex items-center gap-3 bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-600 hover:shadow-md transition-shadow duration-300">
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${item.color}12` }}>
@@ -523,24 +526,6 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                     })()}
                   </div>
                 </div>
-              </div>
-            </div>
-          </FadeIn>
-
-          {/* Trust Highlights */}
-          <FadeIn>
-            <div className="max-w-5xl mx-auto">
-              <div className="grid sm:grid-cols-3 gap-3">
-                {[
-                  { icon: Shield, text: t('investment.noBankLoan') },
-                  { icon: TrendingUp, text: t('investment.buyback5Percent') },
-                  { icon: Users, text: t('investment.max4950Shares') },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2.5 px-4 py-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
-                    <item.icon className="size-4 shrink-0" style={{ color: '#0D9488' }} />
-                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">{item.text}</span>
-                  </div>
-                ))}
               </div>
             </div>
           </FadeIn>
