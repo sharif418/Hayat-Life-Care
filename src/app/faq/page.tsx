@@ -20,7 +20,7 @@ export default function FAQPage() {
         description="Find answers to frequently asked questions about our facilities, services, and investment opportunities."
         langKeyPrefix="pages.faq"
       />
-      <FAQSection isDarkMode={isDarkMode} />
+      <FAQSection isDarkMode={isDarkMode} hideHeader={true} />
     </PageWrapper>
   );
 }

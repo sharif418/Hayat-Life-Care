@@ -9,6 +9,7 @@ import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface FAQSectionProps {
   isDarkMode: boolean
+  hideHeader?: boolean
 }
 
 const categoryLabels: Record<string, { label: string; icon: any; description: string }> = {
@@ -39,7 +40,7 @@ function renderFaqAnswer(answer: string) {
   return <p>{answer}</p>
 }
 
-export default function FAQSection({ isDarkMode }: FAQSectionProps) {
+export default function FAQSection({ isDarkMode, hideHeader }: FAQSectionProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const { t } = useLanguage()
 
@@ -76,26 +77,28 @@ export default function FAQSection({ isDarkMode }: FAQSectionProps) {
   }, [])
 
   return (
-    <section id="faq" className="py-20 md:py-28" style={{ background: isDarkMode ? '#0C1222' : '#FAFFFE' }}>
+    <section id="faq" className={`${hideHeader ? 'pt-8 pb-20 md:pb-28' : 'py-20 md:py-28'}`} style={{ background: isDarkMode ? '#0C1222' : '#FAFFFE' }}>
       <div className="max-w-5xl mx-auto px-4">
-        <FadeIn>
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
-              <HelpCircle className="size-3" />
-              {t('faq.badge')}
+        {!hideHeader && (
+          <FadeIn>
+            <div className="text-center mb-14">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
+                <HelpCircle className="size-3" />
+                {t('faq.badge')}
+              </div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
+                {t('faq.title')}
+              </h2>
+              <div className="relative">
+                <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+              </div>
+              <p className="mt-5 text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-sm">
+                {t('faq.description')}
+              </p>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-              {t('faq.title')}
-            </h2>
-            <div className="relative">
-              <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
-              <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
-            </div>
-            <p className="mt-5 text-gray-500 dark:text-gray-400 max-w-xl mx-auto text-sm">
-              {t('faq.description')}
-            </p>
-          </div>
-        </FadeIn>
+          </FadeIn>
+        )}
 
         {/* Search Bar */}
         <FadeIn delay={0.1}>
