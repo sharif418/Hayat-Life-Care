@@ -65,7 +65,7 @@ function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradi
 export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps) {
   const [investShares, setInvestShares] = useState(1)
   const [investRate, setInvestRate] = useState(10)
-  const brochureReveal = useSectionReveal()
+  const { ref: brochureRef, isInView: isBrochureInView } = useSectionReveal()
   const { openDownloadPopup } = useDownload()
   const [showInvestModal, setShowInvestModal] = useState(false)
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', shares: '1', message: '' })
@@ -533,11 +533,11 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
       </section>
 
       {/* ─── DOWNLOAD BROCHURE CTA ─── */}
-      <section ref={brochureReveal.ref} className="relative py-14 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>
+      <section ref={brochureRef} className="relative py-14 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={brochureReveal.isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isBrochureInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
           <div className="relative max-w-4xl mx-auto px-4 text-center">

@@ -1,7 +1,16 @@
 import { db } from '@/lib/db'
+import { RateLimiter } from '@/lib/rate-limit'
+
+// Allow 10 appointments per 15 minutes
+const appointmentLimiter = new RateLimiter(10, 15 * 60 * 1000);
 
 export async function POST(request: Request) {
   try {
+    const ip = request.headers.get('x-forwarded-for') ?? 'unknown-ip';
+    if (!appointmentLimiter.limit(ip)) {
+      return Response.json({ error: 'Too many appointment requests. Please try again later.' }, { status: 429 });
+    }
+
     const { name, phone, date, time, doctor, message } = await request.json()
     if (!name || !phone || !date) {
       return Response.json({ error: 'Name, phone, and date are required' }, { status: 400 })

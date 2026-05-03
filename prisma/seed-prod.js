@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Production seed script - creates default admin user if not exists
 // This runs on container startup after db push
 

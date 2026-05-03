@@ -45,6 +45,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const saved = localStorage.getItem('hayat-lang') as Locale | null;
     if (saved === 'bn' || saved === 'en') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLocaleState(saved);
       document.documentElement.lang = saved;
       document.body.setAttribute('data-lang', saved);

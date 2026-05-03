@@ -1,9 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { RateLimiter } from '@/lib/rate-limit';
+
+// Allow 10 inquiries per 15 minutes
+const inquiryLimiter = new RateLimiter(10, 15 * 60 * 1000);
 
 // POST /api/inquiries - Submit inquiry from contact form
 export async function POST(request: NextRequest) {
   try {
+    const ip = request.headers.get('x-forwarded-for') ?? 'unknown-ip';
+    if (!inquiryLimiter.limit(ip)) {
+      return NextResponse.json(
+        { error: 'Too many inquiries. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const { name, email, phone, subject, message } = body;
 

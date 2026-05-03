@@ -12,14 +12,14 @@ function useSectionReveal() {
 }
 
 export default function EmergencyBar() {
-  const emergencyReveal = useSectionReveal()
+  const { ref: emergencyRef, isInView: isEmergencyInView } = useSectionReveal()
   const { t } = useLanguage()
 
   return (
-    <div ref={emergencyReveal.ref} className="relative overflow-hidden" style={{ background: 'linear-gradient(90deg, #DC2626, #D97706, #DC2626)', textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
+    <div ref={emergencyRef} className="relative overflow-hidden" style={{ background: 'linear-gradient(90deg, #DC2626, #D97706, #DC2626)', textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
-        animate={emergencyReveal.isInView ? { opacity: 1, y: 0 } : {}}
+        animate={isEmergencyInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
       <div className="absolute inset-0 animate-pulse opacity-20" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)' }} />

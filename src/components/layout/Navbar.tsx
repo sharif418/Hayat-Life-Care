@@ -160,7 +160,7 @@ export default function Navbar() {
                 <div key={link.label} className="relative group">
                   <a
                     href={link.href}
-                    className={`relative px-1 md:px-1.5 lg:px-3 xl:px-4 py-2 text-[12px] md:text-[13px] lg:text-[14px] xl:text-[15px] uppercase tracking-wider lg:tracking-[0.1em] font-bold font-outfit rounded-lg transition-all duration-300 flex items-center gap-0.5 lg:gap-1 ${
+                    className={`relative px-1 md:px-1.5 lg:px-3 xl:px-4 py-2 text-[12px] md:text-[13px] lg:text-[14px] xl:text-[15px] uppercase tracking-wider lg:tracking-widest font-bold font-outfit rounded-lg transition-all duration-300 flex items-center gap-0.5 lg:gap-1 ${
                       isActive
                         ? isDarkMode ? 'text-teal-400' : (scrolled ? 'text-teal-600' : 'text-teal-300')
                       : isDarkMode

@@ -56,10 +56,10 @@ function FadeIn({
 
 export default function StatsSection() {
   const { t } = useLanguage()
-  const stat1 = useCounter(11, 1800)
-  const stat2 = useCounter(55, 2000)
-  const stat3 = useCounter(14, 1500)
-  const stat4 = useCounter(150, 2200)
+  const { count: count1, ref: ref1, done: done1 } = useCounter(11, 1800)
+  const { count: count2, ref: ref2, done: done2 } = useCounter(55, 2000)
+  const { count: count3, ref: ref3, done: done3 } = useCounter(14, 1500)
+  const { count: count4, ref: ref4, done: done4 } = useCounter(150, 2200)
 
   return (
     <section className="relative py-16 md:py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>
@@ -92,8 +92,8 @@ export default function StatsSection() {
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                 <Sparkles className="size-7 text-white/90" />
               </div>
-              <div ref={stat1.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat1.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
-                {stat1.count}+
+              <div ref={ref1} className={`text-4xl md:text-5xl font-black text-white mb-2 ${done1 ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+                {count1}+
               </div>
               <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.businessWings')}</div>
             </div>
@@ -103,8 +103,8 @@ export default function StatsSection() {
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                 <MapPin className="size-7 text-white/90" />
               </div>
-              <div ref={stat2.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat2.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
-                {stat2.count}
+              <div ref={ref2} className={`text-4xl md:text-5xl font-black text-white mb-2 ${done2 ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+                {count2}
               </div>
               <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.kathaLandArea')}</div>
             </div>
@@ -114,8 +114,8 @@ export default function StatsSection() {
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                 <Building2 className="size-7 text-white/90" />
               </div>
-              <div ref={stat3.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat3.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
-                {stat3.count}+
+              <div ref={ref3} className={`text-4xl md:text-5xl font-black text-white mb-2 ${done3 ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+                {count3}+
               </div>
               <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.floors')}</div>
             </div>
@@ -125,7 +125,7 @@ export default function StatsSection() {
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                 <Users className="size-7 text-white/90" />
               </div>
-              <div ref={stat4.ref} className={`text-4xl md:text-5xl font-black text-white mb-2 ${stat4.done ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+              <div ref={ref4} className={`text-4xl md:text-5xl font-black text-white mb-2 ${done4 ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                 4,950
               </div>
               <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.maxShares')}</div>

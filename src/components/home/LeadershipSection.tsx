@@ -36,7 +36,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
           <FadeIn direction="right">
             <motion.div
               whileHover={{ y: -6 }}
-              className="group relative flex flex-col h-full bg-white dark:bg-slate-800 rounded-[2rem] border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-teal-200"
+              className="group relative flex flex-col h-full bg-white dark:bg-slate-800 rounded-4xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-teal-200"
             >
               <div className="relative aspect-[4/3.5] w-full overflow-hidden bg-slate-100 dark:bg-slate-700 shrink-0">
                 <Image
@@ -69,7 +69,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
           <FadeIn direction="left">
             <motion.div
               whileHover={{ y: -6 }}
-              className="group relative flex flex-col h-full bg-white dark:bg-slate-800 rounded-[2rem] border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-teal-200"
+              className="group relative flex flex-col h-full bg-white dark:bg-slate-800 rounded-4xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-teal-200"
             >
               <div className="relative aspect-[4/3.5] w-full overflow-hidden bg-slate-100 dark:bg-slate-700 shrink-0">
                 <Image

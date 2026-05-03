@@ -127,13 +127,13 @@ export default function HeroSection({
         {/* Navigation Arrows */}
         <button
           onClick={() => setHeadlineIndex((prev) => (prev - 1 + headlines.length) % headlines.length)}
-          className="absolute left-4 sm:left-6 md:left-16 lg:left-24 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white/70 hover:text-white backdrop-blur-sm border border-white/10 transition-all hidden sm:flex"
+          className="absolute left-4 sm:left-6 md:left-16 lg:left-24 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white/70 hover:text-white backdrop-blur-sm border border-white/10 transition-all hidden sm:flex"
         >
           <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
         </button>
         <button
           onClick={() => setHeadlineIndex((prev) => (prev + 1) % headlines.length)}
-          className="absolute right-4 sm:right-6 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white/70 hover:text-white backdrop-blur-sm border border-white/10 transition-all hidden sm:flex"
+          className="absolute right-4 sm:right-6 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white/70 hover:text-white backdrop-blur-sm border border-white/10 transition-all hidden sm:flex"
         >
           <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
         </button>

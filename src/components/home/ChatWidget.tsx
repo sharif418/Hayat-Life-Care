@@ -122,13 +122,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
   }
 
-  // Format message content with markdown-like features
-  const formatMessage = (text: string) => {
-    return text
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\|(.*?)\|/g, '<br/>• $1')
-      .replace(/\n/g, '<br />')
-  }
+
 
 
   return (
@@ -246,7 +240,7 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
                   className="space-y-4"
                 >
                   {/* Welcome card */}
-                  <div className="relative bg-gradient-to-br from-teal-50 to-emerald-50/50 dark:from-slate-700 dark:to-slate-700/50 rounded-2xl p-4 border border-teal-100/60 dark:border-slate-600">
+                  <div className="relative bg-linear-to-br from-teal-50 to-emerald-50/50 dark:from-slate-700 dark:to-slate-700/50 rounded-2xl p-4 border border-teal-100/60 dark:border-slate-600">
                     <div className="flex items-start gap-3">
                       <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
                         <Heart className="size-4 text-white" />
@@ -287,8 +281,33 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
                           : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 rounded-2xl rounded-bl-md shadow-sm border border-gray-100/60 dark:border-slate-600'
                       }`}
                       style={msg.role === 'user' ? { background: 'linear-gradient(135deg, #0D9488, #10B981)' } : {}}
-                      dangerouslySetInnerHTML={{ __html: formatMessage(msg.content) }}
-                    />
+                    >
+                      {msg.content.split('\n').map((line, lineIdx) => {
+                        let isBullet = false;
+                        let content = line;
+                        
+                        // Handle bullet points format |text|
+                        if (content.match(/\|(.*?)\|/)) {
+                          content = content.replace(/\|(.*?)\|/g, '• $1');
+                        }
+
+                        // Handle bold **text**
+                        const parts = content.split(/(\*\*.*?\*\*)/g);
+                        const renderedParts = parts.map((part, pIdx) => {
+                          if (part.startsWith('**') && part.endsWith('**')) {
+                            return <strong key={pIdx}>{part.slice(2, -2)}</strong>;
+                          }
+                          return part;
+                        });
+
+                        return (
+                          <React.Fragment key={lineIdx}>
+                            {renderedParts}
+                            {lineIdx < msg.content.split('\n').length - 1 && <br />}
+                          </React.Fragment>
+                        );
+                      })}
+                    </div>
                     <span className={`text-[9px] text-gray-400 dark:text-gray-500 mt-1 px-1 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
                       {formatTime(msg.timestamp)}
                     </span>

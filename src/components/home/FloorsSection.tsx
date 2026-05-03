@@ -154,7 +154,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
                     </div>
 
                     {/* Separator */}
-                    <div className="h-px bg-gradient-to-r from-teal-200 via-gray-100 to-transparent dark:from-teal-800 dark:via-slate-700 dark:to-transparent mb-5" />
+                    <div className="h-px bg-linear-to-r from-teal-200 via-gray-100 to-transparent dark:from-teal-800 dark:via-slate-700 dark:to-transparent mb-5" />
 
                     {/* Description */}
                     <p className="text-[13px] text-gray-600 dark:text-gray-400 leading-relaxed mb-6">

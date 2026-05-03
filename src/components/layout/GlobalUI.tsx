@@ -143,7 +143,7 @@ export default function GlobalUI() {
       </div>
 
       {/* ─── PREMIUM VISION STRIP (Persistent, solid, all pages) ─── */}
-      <div className="fixed bottom-0 left-0 right-0 z-[45]">
+      <div className="fixed bottom-0 left-0 right-0 z-45">
         <div
           className="w-full py-2.5 lg:py-2"
           style={{
