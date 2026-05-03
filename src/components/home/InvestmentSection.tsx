@@ -528,23 +528,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
             </div>
           </FadeIn>
 
-          {/* Trust Highlights */}
-          <FadeIn>
-            <div className="max-w-5xl mx-auto">
-              <div className="grid sm:grid-cols-3 gap-3">
-                {[
-                  { icon: Shield, text: t('investment.noBankLoan') },
-                  { icon: TrendingUp, text: t('investment.buyback5Percent') },
-                  { icon: Users, text: t('investment.max4950Shares') },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2.5 px-4 py-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
-                    <item.icon className="size-4 shrink-0" style={{ color: '#0D9488' }} />
-                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-300">{item.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeIn>
+          {/* Trust Highlights shifted to WhyPartnerSection */}
         </div>
       </section>
 

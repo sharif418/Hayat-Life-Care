@@ -221,6 +221,8 @@ export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: 
             { value: '৳0', label: t('whyPartner.bankLoan') },
             { value: '55', label: t('whyPartner.kathaLand') },
             { value: '150+', label: t('whyPartner.parking') },
+            { value: '5%', label: t('whyPartner.higherBuyback') },
+            { value: '4,950', label: t('whyPartner.maxShares') },
           ].map((stat, i) => (
             <div
               key={i}
