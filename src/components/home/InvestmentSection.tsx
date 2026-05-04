@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { TrendingUp, HandCoins, Users, Shield, Check, CreditCard, ArrowRight, BookOpen, Phone, X, Sparkles, Building2, BadgePercent, UserCheck } from 'lucide-react'
+import { TrendingUp, HandCoins, Users, Shield, Check, CreditCard, ArrowRight, BookOpen, Phone, X, Sparkles, Building2, BadgePercent, UserCheck, ArrowRightLeft, BadgeCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { FadeIn } from '@/components/ui/animations'
 import { useSectionReveal } from '@/components/ui/animations'
@@ -360,10 +360,7 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
                     {t('investment.moreThanInvestment')} <span style={{ color: '#0D9488' }}>{t('investment.legacyValue')}</span>
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-5 max-w-2xl">
-                    {t('investment.valueDesc')}
-                  </p>
-                  <div className="grid sm:grid-cols-3 gap-3 md:gap-4">
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mt-6">
                     {[
                       { icon: Shield, text: t('investment.tangibleAsset'), color: '#0D9488' },
                       { icon: TrendingUp, text: t('investment.diversifiedIncome'), color: '#D97706' },
@@ -371,6 +368,8 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                       { icon: Building2, text: t('investment.noBankLoan'), color: '#0EA5E9' },
                       { icon: BadgePercent, text: t('investment.buyback5Percent'), color: '#8B5CF6' },
                       { icon: UserCheck, text: t('investment.max4950Shares'), color: '#F43F5E' },
+                      { icon: ArrowRightLeft, text: t('investment.ownershipTransferable'), color: '#3B82F6' },
+                      { icon: BadgeCheck, text: t('investment.halalIncome'), color: '#14B8A6' },
                     ].map((item, i) => (
                       <div key={i} className="flex items-center gap-3 bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-600 hover:shadow-md transition-shadow duration-300">
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${item.color}12` }}>
