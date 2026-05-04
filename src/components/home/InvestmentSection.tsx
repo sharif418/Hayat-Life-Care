@@ -340,14 +340,17 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   </div>
                   <div className="grid grid-cols-3 gap-3 mt-4">
                     {[
-                      { phase: 'Phase 1', price: '৳10L', shares: '2,500 shares', color: 'text-emerald-600' },
-                      { phase: 'Phase 2', price: '৳15L', shares: '500 shares', color: 'text-amber-600' },
-                      { phase: 'Phase 3', price: '৳20L', shares: '1,000 shares', color: 'text-rose-600' },
+                      { phase: 'Phase 1', price: '৳10L', shares: '2,500 shares', color: 'text-emerald-700 dark:text-emerald-300', active: true },
+                      { phase: 'Phase 2', price: '৳15L', shares: '1,000 shares', color: 'text-amber-600', active: false },
+                      { phase: 'Phase 3', price: '৳20L', shares: '1,000 shares', color: 'text-rose-600', active: false },
                     ].map((p, i) => (
-                      <div key={i} className="bg-gray-50 dark:bg-slate-700/50 rounded-xl p-3 text-center">
-                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mb-0.5">{p.phase}</div>
-                        <div className="text-sm font-bold text-gray-900 dark:text-white">{p.price}</div>
-                        <div className={`text-[10px] ${p.color}`}>{p.shares}</div>
+                      <div key={i} className={`rounded-xl p-3 text-center transition-transform ${p.active ? 'bg-emerald-50 dark:bg-emerald-900/30 border-2 border-emerald-500 shadow-md scale-105 z-10' : 'bg-gray-50 dark:bg-slate-700/50 border border-transparent hover:scale-105'}`}>
+                        <div className={`text-[10px] mb-0.5 flex items-center justify-center gap-1 ${p.active ? 'text-emerald-700 font-bold dark:text-emerald-300' : 'text-gray-500 dark:text-gray-400'}`}>
+                          {p.phase}
+                          {p.active && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />}
+                        </div>
+                        <div className={`font-black ${p.active ? 'text-lg text-emerald-700 dark:text-emerald-300' : 'text-sm text-gray-900 dark:text-white'}`}>{p.price}</div>
+                        <div className={`text-[10px] font-medium ${p.color}`}>{p.shares}</div>
                       </div>
                     ))}
                   </div>
