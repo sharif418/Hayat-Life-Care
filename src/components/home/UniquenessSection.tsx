@@ -9,6 +9,8 @@ import {
   Cpu,
   Globe,
   Award,
+  Layers,
+  Users,
 } from 'lucide-react'
 import { useLanguage } from '@/i18n/LanguageProvider'
 
@@ -60,6 +62,22 @@ const uniqueFeatures = [
     titleKey: 'uniqueness.feature6Title',
     descKey: 'uniqueness.feature6Desc',
     color: '#D97706',
+  },
+  {
+    icon: Layers,
+    title: 'Centralized Management',
+    desc: '11 Businesses. One Unified Management.',
+    titleKey: 'uniqueness.feature7Title',
+    descKey: 'uniqueness.feature7Desc',
+    color: '#10B981',
+  },
+  {
+    icon: Users,
+    title: 'Management & Leadership',
+    desc: '"A Proven, Local & Global Team of Results-Driven Experts from Diverse Professional Backgrounds"',
+    titleKey: 'uniqueness.feature8Title',
+    descKey: 'uniqueness.feature8Desc',
+    color: '#0D9488',
   },
 ]
 
@@ -138,7 +156,7 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {uniqueFeatures.map((feature, index) => (
             <motion.div
               key={index}
