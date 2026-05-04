@@ -371,11 +371,25 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                       { icon: ArrowRightLeft, text: t('investment.ownershipTransferable'), color: '#3B82F6' },
                       { icon: BadgeCheck, text: t('investment.halalIncome'), color: '#14B8A6' },
                     ].map((item, i) => (
-                      <div key={i} className="flex items-center gap-3 bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4 border border-gray-100 dark:border-slate-600 hover:shadow-md transition-shadow duration-300">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${item.color}12` }}>
-                          <item.icon className="size-5" style={{ color: item.color }} />
+                      <div 
+                        key={i} 
+                        className="group relative flex items-center gap-3 bg-gray-50 dark:bg-slate-800/50 rounded-xl p-4 border border-gray-100 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)] hover:-translate-y-1 transition-all duration-400 overflow-hidden cursor-default"
+                      >
+                        {/* Soft Hover Gradient Overlay based on item color */}
+                        <div 
+                          className="absolute inset-0 opacity-0 group-hover:opacity-10 dark:group-hover:opacity-20 transition-opacity duration-400 pointer-events-none" 
+                          style={{ background: `linear-gradient(135deg, ${item.color}, transparent)` }} 
+                        />
+                        
+                        <div 
+                          className="relative z-10 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-400 group-hover:scale-110 group-hover:shadow-sm" 
+                          style={{ background: `${item.color}15` }}
+                        >
+                          <item.icon className="size-5 transition-transform duration-400 group-hover:-rotate-6" style={{ color: item.color }} />
                         </div>
-                        <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{item.text}</span>
+                        <span className="relative z-10 text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-400">
+                          {item.text}
+                        </span>
                       </div>
                     ))}
                   </div>
