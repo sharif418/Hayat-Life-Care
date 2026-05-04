@@ -56,11 +56,11 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
                     { icon: MapPin, label: t('about.location'), value: t('about.locationValue') },
                     { icon: Building2, label: t('about.landArea'), value: t('about.landAreaValue') },
                     { icon: Building, label: t('about.structure'), value: t('about.structureValue') },
-                    { icon: Car, label: t('about.paidParking'), value: t('about.paidParkingValue') },
-                    { icon: Sparkles, label: t('about.businessWings'), value: t('about.businessWingsValue') },
-                    { icon: TrendingUp, label: t('about.future'), value: t('about.futureValue') },
-                    { icon: Activity, label: t('about.diagnostic'), value: t('about.diagnosticValue') },
                     { icon: HeartPulse, label: t('about.hospital'), value: t('about.hospitalValue') },
+                    { icon: Activity, label: t('about.diagnostic'), value: t('about.diagnosticValue') },
+                    { icon: Sparkles, label: t('about.businessWings'), value: t('about.businessWingsValue') },
+                    { icon: Car, label: t('about.paidParking'), value: t('about.paidParkingValue') },
+                    { icon: TrendingUp, label: t('about.future'), value: t('about.futureValue') },
                   ].map((item, i) => (
                     <StaggerItem key={i}>
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-300">

@@ -74,11 +74,11 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                     { icon: MapPin, label: t('about.location'), valueKey: 'about.locationValue' },
                     { icon: Building2, label: t('about.landArea'), valueKey: 'about.landAreaValue' },
                     { icon: Building, label: t('about.structure'), valueKey: 'about.structureValue' },
-                    { icon: Car, label: t('about.paidParking'), valueKey: 'about.paidParkingValue' },
-                    { icon: Sparkles, label: t('about.businessWings'), valueKey: 'about.businessWingsValue' },
-                    { icon: TrendingUp, label: t('about.future'), valueKey: 'about.futureValue' },
-                    { icon: Activity, label: t('about.diagnostic'), valueKey: 'about.diagnosticValue' },
                     { icon: HeartPulse, label: t('about.hospital'), valueKey: 'about.hospitalValue' },
+                    { icon: Activity, label: t('about.diagnostic'), valueKey: 'about.diagnosticValue' },
+                    { icon: Sparkles, label: t('about.businessWings'), valueKey: 'about.businessWingsValue' },
+                    { icon: Car, label: t('about.paidParking'), valueKey: 'about.paidParkingValue' },
+                    { icon: TrendingUp, label: t('about.future'), valueKey: 'about.futureValue' },
                   ].map((item, i) => (
                     <StaggerItem key={i}>
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-300">
