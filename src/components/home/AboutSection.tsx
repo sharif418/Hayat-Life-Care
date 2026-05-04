@@ -1,7 +1,7 @@
 "use client";
 import React from 'react'
 import Image from 'next/image'
-import { MapPin, Building2, Building, Car, Sparkles, TrendingUp, Shield, Award, Users, FileCheck } from 'lucide-react'
+import { MapPin, Building2, Building, Car, Sparkles, TrendingUp, Shield, Award, Users, FileCheck, Activity, HeartPulse } from 'lucide-react'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
 import { useLanguage } from '@/i18n/LanguageProvider'
 
@@ -53,12 +53,14 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
               <div>
                 <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {[
-                    { icon: MapPin, label: t('about.location'), value: 'O.R. Nizam Road, Chattogram' },
-                    { icon: Building2, label: t('about.landArea'), value: '55 Katha' },
-                    { icon: Building, label: t('about.structure'), value: '9 Levels + 3 Basements' },
-                    { icon: Car, label: t('about.paidParking'), value: '150+ Paid Parking Spaces' },
-                    { icon: Sparkles, label: t('about.businessWings'), value: '11 Comprehensive Wings' },
-                    { icon: TrendingUp, label: t('about.future'), value: '14-18 Floor Expansion' },
+                    { icon: MapPin, label: t('about.location'), value: t('about.locationValue') },
+                    { icon: Building2, label: t('about.landArea'), value: t('about.landAreaValue') },
+                    { icon: Building, label: t('about.structure'), value: t('about.structureValue') },
+                    { icon: Car, label: t('about.paidParking'), value: t('about.paidParkingValue') },
+                    { icon: Sparkles, label: t('about.businessWings'), value: t('about.businessWingsValue') },
+                    { icon: TrendingUp, label: t('about.future'), value: t('about.futureValue') },
+                    { icon: Activity, label: t('about.diagnostic'), value: t('about.diagnosticValue') },
+                    { icon: HeartPulse, label: t('about.hospital'), value: t('about.hospitalValue') },
                   ].map((item, i) => (
                     <StaggerItem key={i}>
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-300">

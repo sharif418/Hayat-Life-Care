@@ -421,6 +421,8 @@
     "paidParking": "Paid Parking",
     "businessWings": "Business Wings",
     "future": "Future",
+    "diagnostic": "Diagnostic Center",
+    "hospital": "Specialized Hospital",
     "registeredCompany": "Registered Company",
     "noBankLoan": "No Bank Loan",
     "shares": "4,950 Shares",
@@ -431,7 +433,9 @@
     "structureValue": "9 Levels + 3 Basements",
     "paidParkingValue": "150+ Paid Parking Spaces",
     "businessWingsValue": "11 Comprehensive Wings",
-    "futureValue": "14-18 Floor Expansion"
+    "futureValue": "14-18 Floor Expansion",
+    "diagnosticValue": "First Cancer Diagnostic",
+    "hospitalValue": "First Specialized Hospital"
   },
   "floors": {
     "title": "Floor-wise Facilities",

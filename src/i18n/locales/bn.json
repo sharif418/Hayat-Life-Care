@@ -421,6 +421,8 @@
     "paidParking": "পেইড পার্কিং",
     "businessWings": "বিজনেস উইং",
     "future": "ভবিষ্যৎ",
+    "diagnostic": "ডায়াগনস্টিক সেন্টার",
+    "hospital": "বিশেষায়িত হাসপাতাল",
     "registeredCompany": "নিবন্ধিত কোম্পানি",
     "noBankLoan": "কোনো ব্যাংক ঋণ নেই",
     "shares": "৪,৯৫০ শেয়ার",
@@ -431,7 +433,9 @@
     "structureValue": "৯ লেভেল + ৩ বেসমেন্ট",
     "paidParkingValue": "১৫০+ পেইড পার্কিং স্পেস",
     "businessWingsValue": "১১টি সমন্বিত উইং",
-    "futureValue": "১৪-১৮ তলা সম্প্রসারণ"
+    "futureValue": "১৪-১৮ তলা সম্প্রসারণ",
+    "diagnosticValue": "প্রথম ক্যান্সার ডায়াগনস্টিক",
+    "hospitalValue": "প্রথম বিশেষায়িত হাসপাতাল"
   },
   "floors": {
     "title": "ফ্লোর ভিত্তিক সুবিধাসমূহ",
