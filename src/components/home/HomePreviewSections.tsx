@@ -8,7 +8,8 @@ import {
   Building2, MapPin, Car, Sparkles, ArrowRight,
   Stethoscope, ShoppingBag, Utensils, ParkingCircle,
   Globe, Award, Shield, TrendingUp, HandCoins, Users,
-  Heart, Eye, Target, Crown, Building, FileCheck
+  Heart, Eye, Target, Crown, Building, FileCheck,
+  Activity, HeartPulse
 } from 'lucide-react'
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/ui/animations'
 import { useLanguage } from '@/i18n/LanguageProvider'
@@ -76,9 +77,12 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                     { icon: Car, label: t('about.paidParking'), valueKey: 'about.paidParkingValue' },
                     { icon: Sparkles, label: t('about.businessWings'), valueKey: 'about.businessWingsValue' },
                     { icon: TrendingUp, label: t('about.future'), valueKey: 'about.futureValue' },
+                    { icon: Activity, label: t('about.diagnostic'), valueKey: 'about.diagnosticValue' },
+                    { icon: HeartPulse, label: t('about.hospital'), valueKey: 'about.hospitalValue' },
                   ].map((item, i) => (
                     <StaggerItem key={i}>
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-300">
+
                         <div
                           className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0"
                           style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.1))' }}
