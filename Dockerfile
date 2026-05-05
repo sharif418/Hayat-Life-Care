@@ -51,8 +51,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/node_modules/prisma ./node_module
 # Install Prisma CLI globally for runtime migrations (matching package.json version)
 RUN npm install -g prisma@^6.11.1
 
-# Create data directory for SQLite and ensure writable
-RUN mkdir -p /app/prisma && chown -R nextjs:nodejs /app/prisma
+# Create data directories for SQLite and ensure writable
+RUN mkdir -p /app/prisma /app/data && chown -R nextjs:nodejs /app/prisma /app/data
 
 USER nextjs
 
