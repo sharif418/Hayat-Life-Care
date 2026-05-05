@@ -53,11 +53,11 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
               <div>
                 <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {[
+                    { icon: Activity, label: t('about.diagnostic'), value: t('about.diagnosticValue') },
+                    { icon: HeartPulse, label: t('about.hospital'), value: t('about.hospitalValue') },
                     { icon: MapPin, label: t('about.location'), value: t('about.locationValue') },
                     { icon: Building2, label: t('about.landArea'), value: t('about.landAreaValue') },
                     { icon: Building, label: t('about.structure'), value: t('about.structureValue') },
-                    { icon: HeartPulse, label: t('about.hospital'), value: t('about.hospitalValue') },
-                    { icon: Activity, label: t('about.diagnostic'), value: t('about.diagnosticValue') },
                     { icon: Sparkles, label: t('about.businessWings'), value: t('about.businessWingsValue') },
                     { icon: Car, label: t('about.paidParking'), value: t('about.paidParkingValue') },
                     { icon: TrendingUp, label: t('about.future'), value: t('about.futureValue') },

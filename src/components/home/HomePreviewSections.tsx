@@ -71,11 +71,11 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
               <div>
                 <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {[
+                    { icon: Activity, label: t('about.diagnostic'), valueKey: 'about.diagnosticValue' },
+                    { icon: HeartPulse, label: t('about.hospital'), valueKey: 'about.hospitalValue' },
                     { icon: MapPin, label: t('about.location'), valueKey: 'about.locationValue' },
                     { icon: Building2, label: t('about.landArea'), valueKey: 'about.landAreaValue' },
                     { icon: Building, label: t('about.structure'), valueKey: 'about.structureValue' },
-                    { icon: HeartPulse, label: t('about.hospital'), valueKey: 'about.hospitalValue' },
-                    { icon: Activity, label: t('about.diagnostic'), valueKey: 'about.diagnosticValue' },
                     { icon: Sparkles, label: t('about.businessWings'), valueKey: 'about.businessWingsValue' },
                     { icon: Car, label: t('about.paidParking'), valueKey: 'about.paidParkingValue' },
                     { icon: TrendingUp, label: t('about.future'), valueKey: 'about.futureValue' },
