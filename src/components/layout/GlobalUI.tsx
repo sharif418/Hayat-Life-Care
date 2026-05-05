@@ -147,7 +147,7 @@ export default function GlobalUI() {
         <div
           className="w-full py-2.5 lg:py-2"
           style={{
-            background: 'linear-gradient(135deg, #134e4a 0%, #042f2e 50%, #134e4a 100%)',
+            background: 'linear-gradient(135deg, #0F172A 0%, #0D1B2A 50%, #0F172A 100%)',
             borderTop: '1px solid rgba(13,148,136,0.4)',
             boxShadow: '0 -4px 30px rgba(0,0,0,0.25), 0 -1px 0 rgba(13,148,136,0.15)',
           }}
@@ -168,8 +168,8 @@ export default function GlobalUI() {
                 className="text-[11px] lg:text-xs xl:text-[13px] font-semibold tracking-[0.12em] lg:tracking-[0.18em] uppercase whitespace-nowrap text-center"
                 style={{
                   fontFamily: 'var(--font-outfit), sans-serif',
-                  color: 'rgba(255,255,255,0.75)',
-                  textShadow: '0 0 20px rgba(13,148,136,0.3)',
+                  color: '#FBBF24',
+                  textShadow: '0 0 20px rgba(251,191,36,0.3)',
                 }}
               >
                 <span className="text-teal-400 font-bold">✦</span>
@@ -187,12 +187,12 @@ export default function GlobalUI() {
               >
                 <div className="flex items-center pr-8">
                   <span className="text-teal-400 font-bold">✦</span>
-                  <span className="mx-2 text-[10px] font-semibold tracking-[0.12em] uppercase text-white/80" style={{ fontFamily: 'var(--font-outfit), sans-serif' }}>{t('common.visionMarquee')}</span>
+                  <span className="mx-2 text-[10px] font-semibold tracking-[0.12em] uppercase text-amber-400" style={{ fontFamily: 'var(--font-outfit), sans-serif' }}>{t('common.visionMarquee')}</span>
                   <span className="text-teal-400 font-bold">✦</span>
                 </div>
                 <div className="flex items-center pr-8">
                   <span className="text-teal-400 font-bold">✦</span>
-                  <span className="mx-2 text-[10px] font-semibold tracking-[0.12em] uppercase text-white/80" style={{ fontFamily: 'var(--font-outfit), sans-serif' }}>{t('common.visionMarquee')}</span>
+                  <span className="mx-2 text-[10px] font-semibold tracking-[0.12em] uppercase text-amber-400" style={{ fontFamily: 'var(--font-outfit), sans-serif' }}>{t('common.visionMarquee')}</span>
                   <span className="text-teal-400 font-bold">✦</span>
                 </div>
               </motion.div>
