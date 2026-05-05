@@ -147,7 +147,7 @@ export default function GlobalUI() {
         <div
           className="w-full py-2.5 lg:py-2"
           style={{
-            background: 'linear-gradient(135deg, #0F172A 0%, #0D1B2A 50%, #0F172A 100%)',
+            background: 'linear-gradient(135deg, #134e4a 0%, #042f2e 50%, #134e4a 100%)',
             borderTop: '1px solid rgba(13,148,136,0.4)',
             boxShadow: '0 -4px 30px rgba(0,0,0,0.25), 0 -1px 0 rgba(13,148,136,0.15)',
           }}
