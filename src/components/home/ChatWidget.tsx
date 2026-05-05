@@ -39,9 +39,9 @@ export default function ChatWidget({ chatSessionId, showMobileBar }: ChatWidgetP
           handleReset()
         }
       } 
-      // If it's a scroll event on the window, just close it
+      // If it's a scroll event on the window, just close it (only on desktop to prevent mobile keyboard from closing it)
       else if (event.type === 'scroll') {
-        if (isChatOpen) {
+        if (isChatOpen && window.innerWidth >= 768) {
           setIsChatOpen(false)
           handleReset()
         }
