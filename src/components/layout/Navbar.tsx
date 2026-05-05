@@ -75,7 +75,7 @@ export default function Navbar() {
                   <span className="text-white/60 font-medium flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <TrendingUp className="size-3 text-emerald-400" />
-                    <span className="text-white/80">Investment:</span> <span className="text-emerald-400 font-bold tracking-wide">৳10 Lacs/Share</span>
+                    <span className="text-white/80">Ownership:</span> <span className="text-emerald-400 font-bold tracking-wide">৳10 Lacs/Share</span>
                   </span>
                   <span className="text-white/20">•</span>
                   <span className="text-white/60 font-medium flex items-center gap-2">
