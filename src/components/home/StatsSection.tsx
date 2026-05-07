@@ -57,7 +57,7 @@ function FadeIn({
 export default function StatsSection() {
   const { t } = useLanguage()
   const { count: count1, ref: ref1, done: done1 } = useCounter(11, 1800)
-  const { count: count2, ref: ref2, done: done2 } = useCounter(55, 2000)
+  const { count: count2, ref: ref2, done: done2 } = useCounter(42, 2000)
   const { count: count3, ref: ref3, done: done3 } = useCounter(14, 1500)
   const { count: count4, ref: ref4, done: done4 } = useCounter(150, 2200)
 
@@ -101,23 +101,23 @@ export default function StatsSection() {
           <FadeIn delay={0.15}>
             <div className="text-center group">
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
-                <MapPin className="size-7 text-white/90" />
-              </div>
-              <div ref={ref2} className={`text-4xl md:text-5xl font-black text-white mb-2 ${done2 ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
-                {count2}
-              </div>
-              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.kathaLandArea')}</div>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.3}>
-            <div className="text-center group">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                 <Building2 className="size-7 text-white/90" />
               </div>
               <div ref={ref3} className={`text-4xl md:text-5xl font-black text-white mb-2 ${done3 ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
                 {count3}+
               </div>
               <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.floors')}</div>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.3}>
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-4 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
+                <MapPin className="size-7 text-white/90" />
+              </div>
+              <div ref={ref2} className={`text-4xl md:text-5xl font-black text-white mb-2 ${done2 ? 'animate-count-glow' : ''}`} style={{ textShadow: '0 0 20px rgba(255,255,255,0.3)' }}>
+                {count2}
+              </div>
+              <div className="text-sm text-white/70 font-medium uppercase tracking-wider">{t('stats.kathaLandArea')}</div>
             </div>
           </FadeIn>
           <FadeIn delay={0.45}>

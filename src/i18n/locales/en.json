@@ -23,7 +23,7 @@
     "downloadBrochure": "Brochure"
   },
   "hero": {
-    "badge": "The First Cancer Diagnostic & Specialized Hospital in Chattogram",
+    "badge": "First Super specialized Hospital in Chattogram",
     "headline_1_top": "To Gift an Innovative Healthcare Facility to",
     "headline_1_highlight": "The Society and Generations.",
     "headline_2_top": "Toward a Secure and Sustainable",
@@ -83,7 +83,7 @@
     "singleManagement": "Single Management",
     "singleManagementDesc": "All 11 wings managed under one roof — ensuring quality, coordination, and accountability.",
     "investmentBadge": "OWNERSHIP OPPORTUNITY",
-    "investmentTitle": "Pathways to Prestige Ownership",
+    "investmentTitle": "Pathways to Prestigious Ownership",
     "investmentSubtitle": "Become a partner in building a healthier, more prosperous tomorrow—together.",
     "investmentBody": "This is not just an investment, but the creation of lasting value—financially, socially, and through prestigious ownership. Ownership includes all 11 business wings, along with proportionate ownership of land and structure—ensuring tangible asset value and long-term security for your investment.",
     "investmentCTA": "View Full Investment Details",
@@ -92,7 +92,7 @@
     "buybackGuarantee": "Buyback Guarantee @ 5%",
     "revenueSources": "Revenue Sources",
     "visionBadge": "Corporate Identity",
-    "visionTitle": "Our Core Philosophy",
+    "visionTitle": "Our Core Values",
     "visionLabel": "Vision",
     "visionText": "To redefine healthcare as a fully integrated, people-focused ecosystem where patients and families can access expert medical care, international-standard diagnostics, and specialized hospital treatment alongside daily essentials and wellness services—all under one roof.",
     "missionLabel": "Mission",
@@ -178,16 +178,16 @@
     "aboutHighlight": "Hayat Life Care",
     "aboutDesc": "Building a healthier future for Chattogram through world-class medical facilities, everyday convenience, and uncompromising quality.",
     "aboutHighlights": [
-      "First Cancer Diagnostic and Specialized Hospital.",
+      "Cancer Diagnostic Center with First PET CT Scan & Super specialized Hospital in Chattogram.",
       "A One-Stop Service for Healthcare & Daily Essentials.",
-      "55 Katha Complex with 11 Business Wings.",
+      "42 Katha Complex with 11 Business Wings.",
       "Prime Location- Adjacent to CMCH ( O.R.Nizam Road), Chattogram.",
       "150+ Paid Parking Spaces with Modern Facilities.",
       "Transparent Investment with Guaranteed Buyback Policy."
     ],
-    "aboutHighlight1": "First Cancer Diagnostic and Specialized Hospital.",
+    "aboutHighlight1": "Cancer Diagnostic Center with First PET CT Scan & Super specialized Hospital in Chattogram.",
     "aboutHighlight2": "A One-Stop Service for Healthcare & Daily Essentials.",
-    "aboutHighlight3": "55 Katha Complex with 11 Business Wings.",
+    "aboutHighlight3": "42 Katha Complex with 11 Business Wings.",
     "aboutHighlight4": "Prime Location- Adjacent to CMCH ( O.R.Nizam Road), Chattogram.",
     "aboutHighlight5": "150+ Paid Parking Spaces with Modern Facilities.",
     "aboutHighlight6": "Transparent Investment with Guaranteed Buyback Policy.",
@@ -316,7 +316,7 @@
   },
   "investment": {
     "badge": "OWNERSHIP OPPORTUNITY",
-    "title": "Pathways to Prestige Ownership",
+    "title": "Pathways to Prestigious Ownership",
     "subtitle": "Become a partner in building a healthier, more prosperous tomorrow—together.",
     "shareHolder": "Share Holder",
     "director": "Director",
@@ -429,13 +429,13 @@
     "rjsc": "RJSC Registered",
     "oneStopService": "A one-stop service for healthcare & daily essentials",
     "locationValue": "O.R. Nizam Road, Chattogram",
-    "landAreaValue": "55 Katha",
+    "landAreaValue": "42 Katha",
     "structureValue": "14 Levels + 3 Basements",
     "paidParkingValue": "150+ Paid Parking Spaces",
     "businessWingsValue": "11 Comprehensive Wings",
     "futureValue": "14-18 Floor Expansion",
-    "diagnosticValue": "First Cancer Diagnostic",
-    "hospitalValue": "First Specialized Hospital"
+    "diagnosticValue": "Cancer Diagnostic Center with first PET CT Scan in Chattogram",
+    "hospitalValue": "First Super specialized Hospital in Chattogram"
   },
   "floors": {
     "title": "Floor-wise Facilities",
@@ -590,6 +590,7 @@
   },
   "floorItems": {
     "basement": "Basement",
+    "groundFloor": "Ground Floor",
     "level": "Level",
     "aboveLevel9": "Above Level 9"
   }

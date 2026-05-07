@@ -44,7 +44,7 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/20 to-transparent" />
                 <div className="absolute bottom-4 left-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 px-4 py-2 text-white text-sm font-medium">
-                  55 Katha Complex • O.R. Nizam Road
+                  42 Katha Complex • O.R. Nizam Road
                 </div>
               </div>
             </FadeIn>
@@ -53,8 +53,8 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
               <div>
                 <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {[
-                    { icon: Activity, label: t('about.diagnostic'), value: t('about.diagnosticValue') },
                     { icon: HeartPulse, label: t('about.hospital'), value: t('about.hospitalValue') },
+                    { icon: Activity, label: t('about.diagnostic'), value: t('about.diagnosticValue') },
                     { icon: MapPin, label: t('about.location'), value: t('about.locationValue') },
                     { icon: Building2, label: t('about.landArea'), value: t('about.landAreaValue') },
                     { icon: Building, label: t('about.structure'), value: t('about.structureValue') },

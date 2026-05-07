@@ -70,8 +70,8 @@ export default function HeroSection({
   ], [t])
 
   const stat1 = useCounter(11, 1800)
-  const stat2 = useCounter(55, 2000)
-  const stat3 = useCounter(14, 1500)
+  const stat2 = useCounter(14, 1500)
+  const stat3 = useCounter(42, 2000)
   const stat4 = useCounter(150, 2200)
 
   // ─── Rotating headline state ───
@@ -264,8 +264,8 @@ export default function HeroSection({
             >
               {[
                 { label: t('stats.businessWings'), value: stat1.count, suffix: '' },
-                { label: t('stats.kathaLand'), value: stat2.count, suffix: '' },
-                { label: t('stats.floors'), value: stat3.count, suffix: '+' },
+                { label: t('stats.floors'), value: stat2.count, suffix: '+' },
+                { label: t('stats.kathaLand'), value: stat3.count, suffix: '' },
                 { label: t('stats.paidParking'), value: stat4.count, suffix: '+' },
               ].map((stat, i) => (
                 <div

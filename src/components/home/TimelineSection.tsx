@@ -38,7 +38,7 @@ export default function TimelineSection({ isDarkMode }: TimelineSectionProps) {
 
             {[
               { date: '2024 Q4', title: 'Project Conceptualization & Planning', desc: 'Vision born to create Chattogram\'s most comprehensive healthcare destination' },
-              { date: '2025 Q1', title: 'Company Registration & Land Acquisition', desc: 'Registered company with Joint Stock, 55 Katha land acquired at O.R. Nizam Road' },
+              { date: '2025 Q1', title: 'Company Registration & Land Acquisition', desc: 'Registered company with Joint Stock, 42 Katha land acquired at O.R. Nizam Road' },
               { date: '2025 Q2', title: 'Architectural Design & CDA Approval', desc: 'Building plan designed for 14-18 floors with state-of-the-art facilities' },
               { date: '2025 Q3', title: 'Construction Begins', desc: 'Foundation work starts with 3 basements and 9+ floors' },
               { date: '2027 Q4', title: 'Revenue Generation Begins', desc: '10 of 11 business wings operational within 8 months of construction start' },

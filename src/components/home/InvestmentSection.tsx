@@ -417,25 +417,28 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
                   </div>
                   <div className="grid sm:grid-cols-3 gap-4">
                     {[
-                      { step: '1', label: t('investment.downPayment'), desc: t('investment.atBooking'), color: '#0D9488', percent: '40%' },
-                      { step: '2', label: t('investment.secondInstallment'), desc: t('investment.within30Days'), color: '#D97706', percent: '30%' },
-                      { step: '3', label: t('investment.thirdInstallment'), desc: t('investment.sixtyNinetyDays'), color: '#10B981', percent: '30%' },
+                      { step: '1', label: t('investment.downPayment'), desc: t('investment.atBooking'), color: '#0D9488', percent: '50%' },
+                      { step: '2', label: t('investment.secondInstallment'), desc: t('investment.within30Days'), color: '#D97706', percent: '25%' },
+                      { step: '3', label: t('investment.thirdInstallment'), desc: t('investment.sixtyNinetyDays'), color: '#10B981', percent: '25%' },
                     ].map((item, i) => (
                       <motion.div
                         key={i}
                         whileHover={{ y: -4 }}
-                        className="relative bg-gray-50 dark:bg-slate-700/50 rounded-2xl p-5 border border-gray-100 dark:border-slate-600 hover:shadow-lg transition-all duration-300"
+                        className="relative flex flex-col bg-gray-50 dark:bg-slate-700/50 rounded-2xl p-5 border border-gray-100 dark:border-slate-600 hover:shadow-lg transition-all duration-300"
                       >
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black text-white shrink-0" style={{ background: `linear-gradient(135deg, ${item.color}, ${item.color}CC)` }}>
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-base font-black text-white shrink-0 shadow-sm" style={{ background: `linear-gradient(135deg, ${item.color}, ${item.color}CC)` }}>
                             {item.step}
                           </div>
-                          <div className="text-2xl font-black" style={{ color: item.color }}>{item.percent}</div>
+                          <div>
+                            <div className="text-[15px] font-bold text-gray-800 dark:text-white leading-tight">{item.label}</div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{item.desc}</div>
+                          </div>
                         </div>
-                        <div className="text-sm font-bold text-gray-800 dark:text-white mb-1">{item.label}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc}</div>
-                        <div className="mt-3 h-1 rounded-full bg-gray-200 dark:bg-slate-600 overflow-hidden">
-                          <div className="h-full rounded-full" style={{ background: item.color, width: item.percent }} />
+                        <div className="mt-auto pt-2">
+                          <div className="h-1.5 rounded-full bg-gray-200 dark:bg-slate-600 overflow-hidden">
+                            <div className="h-full rounded-full transition-all duration-1000" style={{ background: item.color, width: item.percent }} />
+                          </div>
                         </div>
                       </motion.div>
                     ))}

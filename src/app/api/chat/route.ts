@@ -7,7 +7,7 @@ import { faqs as allFaqsFromData } from '@/data/home-data';
 const FALLBACK_FAQ_DATABASE = allFaqsFromData.map(faq => ({
   q: faq.q,
   a: faq.a,
-  keywords: [] as string[], // No custom keywords needed — matching is done via question text
+  keywords: (faq as any).keywords || [] as string[], // Use custom keywords if provided
 }));
 
 // ─── Improved Fuzzy Matching Utilities ───
@@ -180,7 +180,8 @@ export async function POST(request: NextRequest) {
       // Step 2: Check comprehensive FAQ list from home-data.ts (62+ FAQs, question-only matching)
       for (const faq of FALLBACK_FAQ_DATABASE) {
         const autoKeywords = extractKeywords(faq.q);
-        const score = scoreFAQMatch(message, faq.q, autoKeywords);
+        const combinedKeywords = [...autoKeywords, ...faq.keywords];
+        const score = scoreFAQMatch(message, faq.q, combinedKeywords);
         if (score > 0) {
           allMatches.push({ answer: faq.a, score, source: 'fallback' });
         }

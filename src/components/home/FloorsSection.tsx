@@ -22,6 +22,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
   const translateLabel = (label: string) => {
     if (!isBn) return label
     if (label === 'Basement') return t('floorItems.basement')
+    if (label === 'Ground Floor') return t('floorItems.groundFloor')
     if (label === 'Above Level 9') return t('floorItems.aboveLevel9')
     if (label.startsWith('Level ')) return `${t('floorItems.level')} ${label.replace('Level ', '')}`
     return label
@@ -29,6 +30,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
 
   const getIndicatorColor = (id: string) => {
     if (id === 'basement') return 'bg-gray-400'
+    if (id === 'ground') return 'bg-amber-500'
     if (['level1', 'level2'].includes(id)) return 'bg-amber-400'
     if (['level3', 'level4', 'level5'].includes(id)) return 'bg-teal-400'
     if (['level6', 'level7', 'level8'].includes(id)) return 'bg-emerald-400'
@@ -141,7 +143,7 @@ export default function FloorsSection({ isDarkMode }: FloorsSectionProps) {
                         className="w-12 h-12 rounded-2xl flex items-center justify-center text-white text-xl font-black shadow-lg shrink-0"
                         style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
                       >
-                        {currentFloor.label === 'Above Level 9' ? '9+' : currentFloor.label.replace('Level ', '').replace('Basement', 'B')}
+                        {currentFloor.label === 'Above Level 9' ? '9+' : currentFloor.label === 'Ground Floor' ? 'G' : currentFloor.label.replace('Level ', '').replace('Basement', 'B')}
                       </div>
                       <div>
                         <h3 className="text-xl md:text-2xl font-extrabold font-outfit tracking-tight text-gray-900 dark:text-white leading-tight">

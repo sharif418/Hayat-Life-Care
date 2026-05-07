@@ -61,7 +61,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
                 <div className="absolute bottom-4 left-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 px-4 py-2 text-white text-sm font-medium">
-                  55 Katha Complex • O.R. Nizam Road, Chattogram
+                  42 Katha Complex • O.R. Nizam Road, Chattogram
                 </div>
               </div>
             </FadeIn>
@@ -71,8 +71,8 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
               <div>
                 <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {[
-                    { icon: Activity, label: t('about.diagnostic'), valueKey: 'about.diagnosticValue' },
                     { icon: HeartPulse, label: t('about.hospital'), valueKey: 'about.hospitalValue' },
+                    { icon: Activity, label: t('about.diagnostic'), valueKey: 'about.diagnosticValue' },
                     { icon: MapPin, label: t('about.location'), valueKey: 'about.locationValue' },
                     { icon: Building2, label: t('about.landArea'), valueKey: 'about.landAreaValue' },
                     { icon: Building, label: t('about.structure'), valueKey: 'about.structureValue' },
