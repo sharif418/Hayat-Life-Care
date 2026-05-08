@@ -57,7 +57,7 @@ function FadeIn({
 export default function StatsSection() {
   const { t } = useLanguage()
   const { count: count1, ref: ref1, done: done1 } = useCounter(11, 1800)
-  const { count: count2, ref: ref2, done: done2 } = useCounter(42, 2000)
+  const { count: count2, ref: ref2, done: done2 } = useCounter(55, 2000)
   const { count: count3, ref: ref3, done: done3 } = useCounter(14, 1500)
   const { count: count4, ref: ref4, done: done4 } = useCounter(150, 2200)
 

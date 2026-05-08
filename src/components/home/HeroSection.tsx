@@ -71,7 +71,7 @@ export default function HeroSection({
 
   const stat1 = useCounter(11, 1800)
   const stat2 = useCounter(14, 1500)
-  const stat3 = useCounter(42, 2000)
+  const stat3 = useCounter(55, 2000)
   const stat4 = useCounter(150, 2200)
 
   // ─── Rotating headline state ───
