@@ -33,7 +33,7 @@ export default function Home() {
   const isDarkMode = theme === 'dark'
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsPageLoaded(true), 1800)
+    const timer = setTimeout(() => setIsPageLoaded(true), 600)
     return () => clearTimeout(timer)
   }, [])
 
