@@ -64,7 +64,7 @@ export default function VirtualTourSection({ isDarkMode }: VirtualTourSectionPro
                 </div>
                 {/* Building base */}
                 <div className="mt-2 py-3 rounded-b-2xl text-center text-xs text-gray-500 dark:text-gray-400 font-medium" style={{ background: '#F1F5F9' }}>
-                  42 Katha · O.R. Nizam Road · Chattogram
+                  55 Katha · O.R. Nizam Road · Chattogram
                 </div>
               </div>
             </div>

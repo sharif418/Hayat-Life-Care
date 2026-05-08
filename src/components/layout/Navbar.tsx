@@ -90,7 +90,7 @@ export default function Navbar() {
                   <span className="text-white/20">•</span>
                   <span className="text-white/60 font-medium flex items-center gap-2">
                     <MapPin className="size-3 text-rose-400" />
-                    <span className="text-white/80">42 Katha · Beside Chattogram Medical College (O.R. Nizam Road)</span>
+                    <span className="text-white/80">55 Katha · Beside Chattogram Medical College (O.R. Nizam Road)</span>
                   </span>
                   <span className="text-white/20">•</span>
                   <span className="text-white/60 font-medium flex items-center gap-2">

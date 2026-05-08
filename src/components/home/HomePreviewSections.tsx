@@ -61,7 +61,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
                 <div className="absolute bottom-4 left-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 px-4 py-2 text-white text-sm font-medium">
-                  42 Katha Complex • O.R. Nizam Road, Chattogram
+                  55 Katha Complex • O.R. Nizam Road, Chattogram
                 </div>
               </div>
             </FadeIn>
