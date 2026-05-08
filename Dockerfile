@@ -49,7 +49,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modul
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/prisma ./node_modules/prisma
 # Install Prisma CLI globally for runtime migrations (matching package.json version)
-RUN npm install -g prisma@^6.11.1
+# Skipped: using npx with local node_modules instead to avoid ECONNRESET and bloat
 
 # Create data directories for SQLite and ensure writable
 RUN mkdir -p /app/prisma /app/data && chown -R nextjs:nodejs /app/prisma /app/data
@@ -62,4 +62,4 @@ ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
 # Run db push to create tables, seed admin user, then start the server
-CMD ["sh", "-c", "prisma db push --accept-data-loss --skip-generate 2>&1; node prisma/seed-prod.js 2>&1; node server.js"]
+CMD ["sh", "-c", "npx prisma db push --accept-data-loss --skip-generate 2>&1; node prisma/seed-prod.js 2>&1; node server.js"]
