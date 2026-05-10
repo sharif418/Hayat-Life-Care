@@ -154,3 +154,15 @@ model Testimonial {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Owner {
+  id          String   @id @default(cuid())
+  name        String
+  identity    String
+  image       String?  // Will store base64 string
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+

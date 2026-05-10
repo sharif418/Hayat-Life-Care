@@ -28,6 +28,8 @@ export const navLinks: NavLink[] = [
     { label: 'Why Be a Partner', href: '/investment#why-partner', langKey: 'whyPartner' },
     { label: 'Payment Plan', href: '/investment#payment-policy', langKey: 'paymentPlan' },
     { label: 'ROI Calculator', href: '/investment#roi-calculator', langKey: 'roiCalculator' },
+    { label: 'Video Gallery', href: '/investment#videos', langKey: 'videoGallery' },
+    { label: 'Our Owners', href: '/investment#our-owners', langKey: 'ourOwners' },
   ]},
   { label: 'FAQ', href: '/faq', langKey: 'faq' },
   { label: 'Contact', href: '/contact', langKey: 'contact' },

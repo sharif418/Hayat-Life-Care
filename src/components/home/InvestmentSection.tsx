@@ -14,6 +14,7 @@ const WhyPartnerSection = dynamic(() => import('@/components/home/WhyPartnerSect
 
 interface InvestmentSectionProps {
   isDarkMode: boolean
+  children?: React.ReactNode
 }
 
 const benefitNameKeys: Record<string, string> = {
@@ -62,7 +63,7 @@ function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradi
   )
 }
 
-export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps) {
+export default function InvestmentSection({ isDarkMode, children }: InvestmentSectionProps) {
   const [investShares, setInvestShares] = useState(1)
   const [investRate, setInvestRate] = useState(10)
   const { ref: brochureRef, isInView: isBrochureInView } = useSectionReveal()
@@ -550,6 +551,8 @@ export default function InvestmentSection({ isDarkMode }: InvestmentSectionProps
           </FadeIn>
         </div>
       </section>
+
+      {children}
 
       {/* ─── DOWNLOAD BROCHURE CTA ─── */}
       <section ref={brochureRef} className="relative py-14 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F172A 0%, #0D9488 50%, #10B981 100%)' }}>

@@ -14,9 +14,11 @@
     "whatMakesDifferent": "What Makes Us Different",
     "comparisonTable": "Comparison Table",
     "ownership": "Ownership",
+    "ourOwners": "Our Owners",
     "shareholderTiers": "Shareholder Tiers",
     "paymentPlan": "Payment Plan",
     "roiCalculator": "ROI Calculator",
+    "videoGallery": "Video Gallery",
     "faq": "FAQ",
     "contact": "Contact",
     "bookAppointment": "Appointment",
@@ -210,7 +212,16 @@
     "investmentBadge": "Ownership Opportunities",
     "investmentTitle": "Secure Your",
     "investmentHighlight": "Future",
-    "investmentDesc": "Join us in revolutionizing healthcare and lifestyle in Chattogram with secure, halal, and high-yield investment options."
+    "investmentDesc": "Join us in revolutionizing healthcare and lifestyle in Chattogram with secure, halal, and high-yield investment options.",
+    "investment": {
+      "ourOwnersBadge": "OUR VISIONARIES",
+      "ourOwnersDescription": "The visionaries and partners who are driving the future of healthcare and lifestyle at Hayat Life Care."
+    },
+    "ourOwners": "Our Owners",
+    "ourOwnersBadge": "OUR VISIONARIES",
+    "meetOur": "Meet Our",
+    "esteemedOwners": "Esteemed Owners",
+    "ourOwnersDescription": "The visionaries and partners who are driving the future of healthcare and lifestyle at Hayat Life Care."
   },
   "contact": {
     "badge": "CONTACT US",
@@ -435,7 +446,7 @@
     "businessWingsValue": "11 Comprehensive Wings",
     "futureValue": "14-18 Floor Expansion",
     "diagnosticValue": "Cancer Diagnostic Center with first PET CT Scan in Chattogram",
-    "hospitalValue": "First Super Specialized Hospital in Chattogram"
+    "hospitalValue": "First Super Specialized Hospital at Chattogram's Medical Hub"
   },
   "floors": {
     "title": "Floor-wise Facilities",
