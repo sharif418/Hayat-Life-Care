@@ -3,8 +3,6 @@
 import React from 'react';
 import PageWrapper from '@/components/layout/PageWrapper';
 import InvestmentSection from '@/components/home/InvestmentSection';
-import OwnersShowcase from '@/components/home/OwnersShowcase';
-import VideoSection from '@/components/home/VideoSection';
 import { useTheme } from 'next-themes';
 
 import PageHeader from '@/components/layout/PageHeader';
@@ -16,16 +14,13 @@ export default function InvestmentPage() {
   return (
     <PageWrapper>
       <PageHeader 
-        badge="Ownership Opportunities"
-        title="Secure Your"
-        highlightText="Future"
-        description="Join us in revolutionizing healthcare and lifestyle in Chattogram with secure, halal, and high-yield investment options."
+        badge="Ownership Opportunity"
+        title="Pathways to"
+        highlightText="Prestigious Ownership"
+        description="More Than an Investment — A Legacy of Lasting Value. Ownership includes all 11 business wings with proportionate full land ownership. Share price: ৳10 Lacs per share (first phase)."
         langKeyPrefix="pages.investment"
       />
-      <InvestmentSection isDarkMode={isDarkMode}>
-        <VideoSection isDarkMode={isDarkMode} />
-        <OwnersShowcase />
-      </InvestmentSection>
+      <InvestmentSection isDarkMode={isDarkMode} />
     </PageWrapper>
   );
 }

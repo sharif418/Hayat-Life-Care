@@ -17,6 +17,7 @@ import {
   Building2,
   CheckCircle2,
   BadgePercent,
+  CreditCard,
 } from 'lucide-react'
 import { useLanguage } from '@/i18n/LanguageProvider'
 
@@ -186,7 +187,7 @@ export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: 
           className="text-center mb-6"
         >
           <div
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold mb-5"
+            className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full text-base md:text-lg font-bold mb-8 shadow-[0_4px_20px_rgba(139,92,246,0.15)]"
             style={{
               background: isDarkMode ? 'rgba(139,92,246,0.15)' : 'rgba(139,92,246,0.08)',
               color: '#8B5CF6',
@@ -211,54 +212,6 @@ export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: 
               {t('whyPartner.titleHighlight')}
             </span>
           </h2>
-          <p
-            className="text-lg max-w-2xl mx-auto"
-            style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
-          >
-            {t('whyPartner.description')}
-          </p>
-        </motion.div>
-
-        {/* Headline stat bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap items-center justify-center gap-4 md:gap-8 mb-14"
-        >
-          {[
-            { value: '14', label: t('whyPartner.keyReasons') },
-            { value: '৳0', label: t('whyPartner.bankLoan') },
-            { value: '55', label: t('whyPartner.kathaLand') },
-            { value: '150+', label: t('whyPartner.parking') },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-3 px-5 py-3 rounded-xl"
-              style={{
-                background: isDarkMode ? 'rgba(30,41,59,0.5)' : 'rgba(255,255,255,0.8)',
-                border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
-                boxShadow: isDarkMode ? '0 2px 10px rgba(0,0,0,0.2)' : '0 2px 10px rgba(0,0,0,0.04)',
-              }}
-            >
-              <span
-                className="text-2xl font-black"
-                style={{
-                  background: 'linear-gradient(135deg, #0D9488, #10B981)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                {stat.value}
-              </span>
-              <span
-                className="text-xs font-semibold uppercase tracking-wider"
-                style={{ color: isDarkMode ? '#64748B' : '#94A3B8' }}
-              >
-                {stat.label}
-              </span>
-            </div>
-          ))}
         </motion.div>
 
         {/* Reasons Grid */}
@@ -327,6 +280,58 @@ export default function WhyPartnerSection({ isDarkMode, onBecomePartnerClick }: 
             </motion.div>
           ))}
         </div>
+
+        {/* Payment Policy Block */}
+        <motion.div
+          id="payment-policy"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-16"
+        >
+          <div className="relative bg-white/60 dark:bg-slate-800/60 backdrop-blur-md rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #D97706, #F59E0B, #D97706)' }} />
+            <div className="p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #D97706, #F59E0B)' }}>
+                  <CreditCard className="size-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">{t('investment.paymentPlan')}</h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('investment.paymentPlanDesc')}</p>
+                </div>
+              </div>
+              <div className="grid sm:grid-cols-3 gap-4">
+                {[
+                  { step: '1', label: t('investment.downPayment'), desc: t('investment.atBooking'), color: '#0D9488', percent: '50%' },
+                  { step: '2', label: t('investment.secondInstallment'), desc: t('investment.within30Days'), color: '#D97706', percent: '25%' },
+                  { step: '3', label: t('investment.thirdInstallment'), desc: t('investment.sixtyNinetyDays'), color: '#10B981', percent: '25%' },
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ y: -4 }}
+                    className="relative flex flex-col bg-gray-50/80 dark:bg-slate-700/50 rounded-2xl p-5 border border-gray-100 dark:border-slate-600 hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center text-base font-black text-white shrink-0 shadow-sm" style={{ background: `linear-gradient(135deg, ${item.color}, ${item.color}CC)` }}>
+                        {item.step}
+                      </div>
+                      <div>
+                        <div className="text-[15px] font-bold text-gray-800 dark:text-white leading-tight">{item.label}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{item.desc}</div>
+                      </div>
+                    </div>
+                    <div className="mt-auto pt-2">
+                      <div className="h-1.5 rounded-full bg-gray-200 dark:bg-slate-600 overflow-hidden">
+                        <div className="h-full rounded-full transition-all duration-1000" style={{ background: item.color, width: item.percent }} />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Bottom CTA */}
         <motion.div

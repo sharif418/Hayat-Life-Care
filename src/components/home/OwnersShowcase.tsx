@@ -4,11 +4,20 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Users, Loader2, Crown } from 'lucide-react'
 import { useLanguage } from '@/i18n/LanguageProvider'
+import { useTheme } from 'next-themes'
 
 export default function OwnersShowcase() {
   const [owners, setOwners] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const { t } = useLanguage()
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDarkMode = mounted && resolvedTheme === 'dark'
 
   useEffect(() => {
     async function fetchOwners() {
@@ -40,7 +49,15 @@ export default function OwnersShowcase() {
   }
 
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden" id="our-owners" style={{ background: 'linear-gradient(180deg, #F8FDFC 0%, #F0FAF7 40%, #E8F5F0 70%, #F0FAF7 100%)' }}>
+    <section 
+      className="py-20 md:py-28 relative overflow-hidden" 
+      id="our-owners" 
+      style={{ 
+        background: isDarkMode 
+          ? 'linear-gradient(180deg, #0F172A 0%, #1E293B 40%, #0F172A 100%)' 
+          : 'linear-gradient(180deg, #F8FDFC 0%, #F0FAF7 40%, #E8F5F0 70%, #F0FAF7 100%)' 
+      }}
+    >
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-15 pointer-events-none blur-3xl">
         <div className="w-[500px] h-[500px] rounded-full" style={{ background: 'radial-gradient(circle, #0D9488, #10B981, transparent)' }} />
@@ -58,7 +75,11 @@ export default function OwnersShowcase() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 border border-teal-100 text-teal-700 text-xs font-semibold mb-6 shadow-sm"
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold mb-6 shadow-sm ${
+              isDarkMode 
+                ? 'bg-teal-900/30 border-teal-800/50 text-teal-400' 
+                : 'bg-teal-50 border-teal-100 text-teal-700'
+            }`}
           >
             <Crown className="size-4" />
             <span>{t('pages.ourOwnersBadge') || 'OUR VISIONARIES'}</span>
@@ -68,7 +89,7 @@ export default function OwnersShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight"
+            className="text-3xl md:text-5xl font-bold dark:text-white text-gray-900 mb-6 tracking-tight"
           >
             {t('pages.meetOur') || 'Meet Our'}{' '}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
@@ -80,7 +101,7 @@ export default function OwnersShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-gray-500 text-lg leading-relaxed"
+            className="dark:text-slate-400 text-gray-500 text-lg leading-relaxed"
           >
             {t('pages.ourOwnersDescription') || 'The visionaries and partners who are driving the future of healthcare and lifestyle at Hayat Life Care.'}
           </motion.p>
@@ -104,7 +125,7 @@ export default function OwnersShowcase() {
               className="group relative h-full"
             >
               {/* Card Container */}
-              <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/80 hover:border-teal-200/60 h-full flex flex-col">
+              <div className="relative dark:bg-slate-800 bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border dark:border-slate-700 border-gray-100/80 hover:border-teal-200/60 dark:hover:border-teal-800/60 h-full flex flex-col">
                 {/* Top accent line */}
                 <div className="absolute top-0 left-0 right-0 h-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981, #0D9488)' }} />
                 
@@ -144,14 +165,26 @@ export default function OwnersShowcase() {
                     </div>
 
                     {/* Name */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 leading-snug tracking-tight group-hover:text-teal-700 transition-colors duration-300">
+                    <h3 className="text-xl font-bold dark:text-white text-gray-900 mb-2 leading-snug tracking-tight group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors duration-300">
                       {owner.name}
                     </h3>
 
-                    {/* Identity / Description */}
-                    <p className="text-sm text-gray-500 leading-relaxed font-medium">
-                      {owner.identity}
-                    </p>
+                    {/* Designation */}
+                    {owner.designation && (
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="w-1.5 h-1.5 rounded-full bg-teal-500 flex-shrink-0" />
+                        <p className="text-sm font-medium text-teal-600 dark:text-teal-400 uppercase tracking-wider">
+                          {owner.designation}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Short Description */}
+                    {owner.shortDescription && (
+                      <p className="text-sm dark:text-slate-400 text-gray-600 leading-relaxed mb-6 line-clamp-3">
+                        {owner.shortDescription}
+                      </p>
+                    )}
                   </div>
 
                   {/* Subtle decorative dot accent */}

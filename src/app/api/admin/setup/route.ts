@@ -27,8 +27,8 @@ export async function GET() {
     });
 
     return NextResponse.json({ message: 'Admin user created successfully. Email: admin@hayatlifecare.com, Password: password' });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Setup error:', error);
-    return NextResponse.json({ error: 'Failed to create admin user' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to create admin user', details: error?.message || String(error) }, { status: 500 });
   }
 }

@@ -55,7 +55,7 @@ export default function GallerySection({ isDarkMode }: GallerySectionProps) {
               <div className="flex justify-center mt-3">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-medium">
                   <ZoomIn className="size-3" />
-                  8 Photos · Click to enlarge
+                  {lightboxImages.length} Photos · Click to enlarge
                 </span>
               </div>
             </div>
@@ -69,7 +69,9 @@ export default function GallerySection({ isDarkMode }: GallerySectionProps) {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   galleryFilter === cat
                     ? 'text-white shadow-md'
-                    : 'bg-white text-gray-600 border border-gray-200 hover:border-teal-300 hover:text-teal-600'
+                    : isDarkMode 
+                      ? 'bg-[#1E293B] text-gray-300 border border-white/10 hover:border-teal-500 hover:text-teal-400'
+                      : 'bg-white text-gray-600 border border-gray-200 hover:border-teal-300 hover:text-teal-600'
                 }`}
                 style={galleryFilter === cat ? { background: 'linear-gradient(135deg, #0D9488, #10B981)' } : {}}
               >
@@ -80,13 +82,19 @@ export default function GallerySection({ isDarkMode }: GallerySectionProps) {
 
           <StaggerContainer key={galleryFilter} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {lightboxImages
-              .map((img, i) => ({ ...img, idx: i, span: i === 0 ? 'col-span-2 row-span-2' : i === 7 ? 'col-span-2' : '' }))
+              .map((img, i) => {
+                // Alternating brick pattern for a premium look without grid gaps
+                const isWide = i === 0 || i === 5 || i === 10;
+                return { ...img, idx: i, span: isWide ? 'md:col-span-2' : '' };
+              })
               .filter((img) => galleryFilter === 'All' || img.category === galleryFilter)
               .map((img) => (
               <StaggerItem key={img.idx} className={img.span || ''}>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="relative group rounded-2xl overflow-hidden border border-gray-200 shadow-sm cursor-pointer aspect-video"
+                  className={`relative group rounded-2xl overflow-hidden border shadow-sm cursor-pointer h-48 md:h-60 ${
+                    isDarkMode ? 'border-white/10' : 'border-gray-200'
+                  }`}
                   onClick={() => setLightboxIndex(img.idx)}
                 >
                   <Image

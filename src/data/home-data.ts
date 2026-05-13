@@ -5,7 +5,6 @@ import {
 } from 'lucide-react'
 
 export const navLinks: NavLink[] = [
-  { label: 'Home', href: '/', langKey: 'home' },
   { label: 'About', href: '/about', langKey: 'about', children: [
     { label: 'About Us', href: '/about', langKey: 'aboutUs' },
     { label: 'Vision & Mission', href: '/about#vision', langKey: 'vision' },
@@ -16,7 +15,6 @@ export const navLinks: NavLink[] = [
     { label: '11 Business Wings', href: '/facilities#services', langKey: 'businessWings' },
     { label: 'Floor Plan', href: '/facilities#floors', langKey: 'floorPlan' },
     // { label: 'Doctors', href: '/facilities#doctors' }, // Hidden per client request
-    { label: 'Gallery', href: '/facilities#gallery', langKey: 'gallery' },
     // { label: 'Virtual Tour', href: '/facilities#virtual-tour' }, // Hidden per client request
   ]},
   { label: 'Uniqueness', href: '/uniqueness', langKey: 'uniqueness', children: [
@@ -24,12 +22,15 @@ export const navLinks: NavLink[] = [
     { label: 'Comparison Table', href: '/uniqueness#comparison-table', langKey: 'comparisonTable' },
   ]},
   { label: 'Ownership', href: '/investment', langKey: 'ownership', children: [
-    { label: 'Shareholder Tiers', href: '/investment#investment', langKey: 'shareholderTiers' },
-    { label: 'Why Be a Partner', href: '/investment#why-partner', langKey: 'whyPartner' },
+    { label: 'Why Choose Ownership', href: '/investment#why-partner', langKey: 'whyPartner' },
+    { label: 'Shareholder Tiers', href: '/investment#tiers', langKey: 'shareholderTiers' },
     { label: 'Payment Plan', href: '/investment#payment-policy', langKey: 'paymentPlan' },
     { label: 'ROI Calculator', href: '/investment#roi-calculator', langKey: 'roiCalculator' },
-    { label: 'Video Gallery', href: '/investment#videos', langKey: 'videoGallery' },
-    { label: 'Our Owners', href: '/investment#our-owners', langKey: 'ourOwners' },
+  ]},
+  { label: 'Gallery', href: '/gallery', langKey: 'gallery', children: [
+    { label: 'YouTube Channel', href: '/gallery#youtube', langKey: 'youtubeChannel' },
+    { label: 'Owners', href: '/gallery#owners', langKey: 'ownersGallery' },
+    { label: 'Event', href: '/gallery#events', langKey: 'eventsGallery' },
   ]},
   { label: 'FAQ', href: '/faq', langKey: 'faq' },
   { label: 'Contact', href: '/contact', langKey: 'contact' },
@@ -200,7 +201,7 @@ export const faqCategoryConfig: Record<string, { color: string; icon: any }> = {
 
 export const faqs = [
   // General (1-8)
-  { q: 'What is Hayat Life Care?', a: 'Hayat Life Care is a one-stop lifestyle destination set to become the largest diagnostic and specialized hospital center in Chattogram. It is going to be the first cancer diagnostic center and the first specialized hospital in the city. It offers a combination of healthcare, daily essentials, wellness, and leisure facilities — all under one roof.', category: 'general' },
+  { q: 'What is Hayat Life Care?', a: 'Hayat Life Care is a one-stop lifestyle destination set to become the largest diagnostic and specialized hospital center in Chattogram. It offers a cancer diagnostic center and a super specialized hospital in the city, along with a combination of healthcare, daily essentials, wellness, and leisure facilities — all under one roof.', category: 'general' },
   { q: 'Is it a registered company?', a: 'Yes, Hayat Life Care is a registered company with RJSC (Registrar of Joint Stock Companies and Firms).', category: 'legal' },
   { q: 'Where is it located?', a: 'Corner plot of O.R. Nizam Road & Badsha Mia Road (War Cemetery Road), Chattogram. West of Chattogram Medical College and Hospital (CMCH).', category: 'general' },
   { q: 'Where is the project location?', a: 'Corner plot of O.R. Nizam Road & Badsha Mia Road (War Cemetery Road), Chattogram. West of Chattogram Medical College and Hospital (CMCH), opposite CSCR (e.g., Equity Office / Dentist: Sikder).', category: 'general' },
@@ -212,8 +213,8 @@ export const faqs = [
   { q: 'What is the expected handover/operation date?', a: 'Revenue generation: December 2028 (+9 months) | Diagnostic operations start: June 2029 (+9 months) | Full diagnostic operations: December 2029 (+9 months) | Hospital operations: March 2030 (+9 months)', category: 'operations' },
   { q: 'When will revenue start?', a: 'Revenue generation: December 2028 (+9 months) | Diagnostic operations start: June 2029 (+9 months) | Full diagnostic operations: December 2029 (+9 months) | Hospital operations: March 2030 (+9 months)', category: 'operations' },
   // Investment (9-16)
-  { q: 'Why should you be a partner of Hayat Life Care?', a: 'One-time investment, lifetime returns. Combined income and healthcare benefits. Secure investment with full ownership (Land, Building, Equipment). High and sustainable Halal income. No bank loan involved. First cancer diagnostic center in the city. First specialized hospital in the city. Largest diagnostic center in Chattogram. Unique concept in Bangladesh combining healthcare and lifestyle. Integrated facilities: Restaurants, Supermarkets, Amusement areas, cafés, ATM booths, and parking. 150+ car parking spaces. Prime location with high visibility. 11 business wings under one roof with single management.', category: 'investment' },
-  { q: 'Why invest in Hayat Life Care?', a: 'Largest diagnostic and consultation center in Chattogram. First Cancer diagnostic center and first Specialized Hospital in the city. Unique concept combining healthcare and lifestyle. Includes restaurants, supermarkets, amusement parks, cafés, ATM booths. 150+ car parking spaces. Prime location with high visibility. 11 business wings under one roof with single management.', category: 'investment' },
+  { q: 'Why should you be a partner of Hayat Life Care?', a: 'One-time investment, lifetime returns. Combined income and healthcare benefits. Secure investment with full ownership (Land, Building, Equipment). High and sustainable Halal income. No bank loan involved. Cancer diagnostic center in the city. Super specialized hospital in the city. Largest diagnostic center in Chattogram. Unique concept in Bangladesh combining healthcare and lifestyle. Integrated facilities: Restaurants, Supermarkets, Amusement areas, cafés, ATM booths, and parking. 150+ car parking spaces. Prime location with high visibility. 11 business wings under one roof with single management.', category: 'investment' },
+  { q: 'Why invest in Hayat Life Care?', a: 'Largest diagnostic and consultation center in Chattogram. Cancer diagnostic center and Super Specialized Hospital in the city. Unique concept combining healthcare and lifestyle. Includes restaurants, supermarkets, amusement parks, cafés, ATM booths. 150+ car parking spaces. Prime location with high visibility. 11 business wings under one roof with single management.', category: 'investment' },
   { q: 'Will there be a hospital?', a: 'Yes, a specialized hospital is planned above Level 9, subject to approval from relevant authorities. Construction will be completed in a single phase.', category: 'operations' },
   { q: 'Who will operate the company?', a: 'The company will be run by highly skilled professionals (operational team), similar to organizations like Unilever, GSK, and Standard Chartered. A Management Committee from the Board of Directors will supervise operations closely.', category: 'operations' },
   { q: 'How many members/directors will be in the Management Committee?', a: 'The committee may consist of 13–17 members. There will be a group of highly skilled professionals similar to organizations like Unilever, GSK, and Standard Chartered who will mainly operate the organization. It\'s a bit different concept in the tradition of the city for such business.', category: 'operations' },
@@ -292,4 +293,9 @@ export const lightboxImages = [
   { src: '/images/wings/floor_level2.jpg', alt: 'Hygienic Restaurant & Cafe', category: 'Dining' },
   { src: '/images/wings/gallery_supershop.jpg', alt: 'Super Shop & Daily Needs', category: 'Retail' },
   { src: '/images/wings/floor_basement.jpg', alt: 'Spacious Basement Paid Parking', category: 'Facilities' },
+  { src: '/images/wings/floor_level4.jpg', alt: 'Female Diagnostic Floor', category: 'Healthcare' },
+  { src: '/images/wings/floor_level6.jpg', alt: 'Oncology Diagnostics & PET CT', category: 'Healthcare' },
+  { src: '/images/wings/floor_level7.jpg', alt: 'Fertility Institute', category: 'Healthcare' },
+  { src: '/images/wings/floor_level8.jpg', alt: 'Ophthalmology & Dental Surgery', category: 'Healthcare' },
+  { src: '/images/wings/floor_level9.jpg', alt: 'Prayer Area & Corporate Offices', category: 'Facilities' },
 ]

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { TrendingUp, HandCoins, Users, Shield, Check, CreditCard, ArrowRight, BookOpen, Phone, X, Sparkles, Building2, BadgePercent, UserCheck, ArrowRightLeft, BadgeCheck } from 'lucide-react'
+import { TrendingUp, HandCoins, Users, Shield, Check, CreditCard, ArrowRight, BookOpen, Phone, X, Sparkles, Building2, BadgePercent, UserCheck, ArrowRightLeft, BadgeCheck, Landmark, ClipboardCheck, RefreshCw, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { FadeIn } from '@/components/ui/animations'
 import { useSectionReveal } from '@/components/ui/animations'
@@ -28,36 +28,20 @@ const benefitNameKeys: Record<string, string> = {
   B8: 'investment.b8',
 }
 
-function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradient: string, color: string }) {
-  const [hovered, setHovered] = useState<string | null>(null)
+function TierBenefits({ benefits, color }: { benefits: string[], color: string }) {
   const { t } = useLanguage()
   return (
-    <div className="px-5 pb-5">
-      <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2.5">{t('investment.benefitsIncluded')}</div>
-      <div className="flex flex-wrap gap-2">
+    <div className="px-5 pb-6">
+      <div className="w-8 h-0.5 rounded-full mb-4" style={{ background: color, opacity: 0.3 }} />
+      <div className="space-y-2.5">
         {benefits.map((b) => (
-          <span
-            key={b}
-            onMouseEnter={() => setHovered(b)}
-            onMouseLeave={() => setHovered(null)}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-sm cursor-pointer transition-all duration-200 ease-out ${hovered === b
-                ? 'scale-110 -translate-y-1 shadow-lg ring-2 ring-white/40'
-                : hovered
-                  ? 'opacity-50 scale-95'
-                  : ''
-              }`}
-            style={{ background: gradient }}
-          >
-            {b}
-          </span>
+          <div key={b} className="flex items-start gap-2.5">
+            <Check className="size-4 mt-0.5 shrink-0" style={{ color }} />
+            <span className="text-[13px] font-medium leading-snug opacity-90">
+              {t(benefitNameKeys[b])}
+            </span>
+          </div>
         ))}
-      </div>
-      {/* Inline benefit meaning display */}
-      <div className={`mt-3 overflow-hidden transition-all duration-200 ease-out ${hovered ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: `${color}10` }}>
-          <span className="font-bold shrink-0" style={{ color }}>{hovered}:</span>
-          <span className="text-gray-700 dark:text-gray-300 font-medium">{hovered ? t(benefitNameKeys[hovered]) : ''}</span>
-        </div>
       </div>
     </div>
   )
@@ -101,30 +85,17 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
 
   return (
     <>
-      <section id="investment" className="py-20 md:py-28" style={{ background: isDarkMode ? 'linear-gradient(180deg, #0C1222 0%, #111B2E 50%, #0C1222 100%)' : 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }}>
+      <section id="investment" className="relative z-10 -mt-10 md:-mt-16 pb-20 md:pb-28">
+        {/* Move the background gradient to an absolute div so it doesn't overlap the dark PageHeader */}
+        <div className="absolute inset-0 top-24 md:top-32 -z-10" style={{ background: isDarkMode ? 'linear-gradient(180deg, #0C1222 0%, #111B2E 50%, #0C1222 100%)' : 'linear-gradient(180deg, #FAFFFE 0%, #F0FDFA 50%, #FAFFFE 100%)' }} />
         <div className="max-w-7xl mx-auto px-4">
-          <FadeIn>
-            <div className="text-center mb-14">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-semibold mb-4">
-                <TrendingUp className="size-3" />
-                {t('investment.badge')}
-              </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                {t('investment.title')}
-              </h2>
-              <div className="relative">
-                <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
-                <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
-              </div>
-              <p className="mt-4 text-teal-700 dark:text-teal-400 font-medium italic">
-                {t('investment.subtitle')}
-              </p>
-            </div>
-          </FadeIn>
+          {/* Inner Header removed as PageHeader is already showing the title */}
 
           {/* ═══════════════════════════════════════════════════════ */}
-          {/* 1. PARTNERSHIP CTA — TOP (Client Request)              */}
+          {/* 1. PARTNERSHIP CTA — HIDDEN per client request          */}
+          {/*    Set to true to re-enable this section                */}
           {/* ═══════════════════════════════════════════════════════ */}
+          {false && (
           <FadeIn>
             <div className="max-w-5xl mx-auto mb-16">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
@@ -175,6 +146,7 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
               </div>
             </div>
           </FadeIn>
+          )}
 
           {/* ═══════════════════════════════════════════════════════ */}
           {/* 2. WHY BE A PARTNER — Moved from Uniqueness page       */}
@@ -185,14 +157,14 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
           {/* 3. SHAREHOLDER TIERS — Director Status & Benefits      */}
           {/* ═══════════════════════════════════════════════════════ */}
           <FadeIn>
-            <div className="mb-16">
+            <div id="tiers" className="mb-16">
               <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 text-xs font-semibold mb-4">
                   <Users className="size-3" />
                   SHAREHOLDER TIERS
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
-                  {t('investment.directorStatus')}
+                  Become a <span style={{ color: '#D97706' }}>Director</span>
                 </h3>
                 <div className="relative mb-4">
                   <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #D97706, #B45309)' }} />
@@ -264,17 +236,30 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                     gradient: 'linear-gradient(135deg, #0D9488, #065F46)',
                     popular: false,
                   },
-                ].map((tier, i) => (
+                ].map((tier, i) => {
+                  const isDirector = tier.status === 'Director'
+                  return (
                   <motion.div
                     key={i}
-                    whileHover={{ y: -8, scale: 1.03 }}
-                    className={`group relative bg-white dark:bg-slate-800 rounded-2xl border-2 shadow-sm hover:shadow-2xl transition-all duration-300 cursor-default ${tier.popular ? 'border-amber-300 dark:border-amber-600 ring-2 ring-amber-200/50' : 'border-gray-100 dark:border-slate-700 hover:border-transparent'
-                      }`}
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    className={`group relative rounded-2xl border-2 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden ${
+                       tier.popular
+                          ? 'border-amber-300 dark:border-amber-600 ring-2 ring-amber-200/50'
+                          : isDirector ? 'border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.12)]' : 'border-gray-100 dark:border-slate-700 hover:border-transparent'
+                    }`}
                     style={{
                       // @ts-ignore
                       '--tier-color': tier.color,
+                      background: isDirector
+                        ? `linear-gradient(160deg, #0F172A 0%, #1E293B 100%)`
+                        : (isDarkMode ? '#1E293B' : '#FFFFFF'),
+                      ...(isDirector ? { color: '#F8FAFC', borderColor: `${tier.color}40` } : { color: isDarkMode ? '#F8FAFC' : '#0F172A' })
                     }}
                   >
+                    {/* Director tier accent strip */}
+                    {isDirector && (
+                      <div className="absolute top-0 left-0 right-0 h-1 opacity-80" style={{ background: tier.gradient }} />
+                    )}
                     {!tier.popular && (
                       <div
                         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -283,31 +268,52 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                     )}
                     <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                      style={{ background: `radial-gradient(circle at 50% -20%, ${tier.color}12 0%, transparent 60%)` }}
+                      style={{ background: `radial-gradient(circle at 50% -20%, ${tier.color}15 0%, transparent 60%)` }}
                     />
                     {tier.popular && (
                       <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white shadow-lg" style={{ background: tier.gradient }}>
                         {t('investment.popular')}
                       </div>
                     )}
-                    <div className="relative p-5 pb-4">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300" style={{ background: tier.gradient }}>
-                          <HandCoins className="size-5" />
+                    {isDirector && (
+                      <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white shadow-lg" style={{ background: tier.gradient }}>
+                        Director
+                      </div>
+                    )}
+                    <div className="relative p-6 pb-2">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-md group-hover:shadow-lg group-hover:scale-110 transition-all duration-300" style={{ background: tier.gradient }}>
+                          <HandCoins className="size-6" />
                         </div>
                         <div>
-                          <div className="text-lg font-bold text-gray-900 dark:text-white group-hover:tracking-wide transition-all duration-300">{tier.tier}</div>
-                          <div className="text-xs font-semibold" style={{ color: tier.color }}>{tier.status}</div>
+                          <div className={`text-xl font-bold group-hover:tracking-wide transition-all duration-300 ${isDirector ? 'text-white' : 'text-gray-900 dark:text-white'}`}>{tier.tier}</div>
+                          <div className="text-sm font-semibold" style={{ color: tier.color }}>{tier.status}</div>
                         </div>
                       </div>
-                      <div className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-0.5">{tier.amount}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">Minimum: {tier.minShares}</div>
+                      <div className={`text-base font-bold mb-1 ${isDirector ? 'text-gray-100' : 'text-gray-800 dark:text-gray-200'}`}>{tier.amount}</div>
+                      <div className={`text-xs ${isDirector ? 'text-gray-400' : 'text-gray-500 dark:text-gray-400'}`}>Minimum: {tier.minShares}</div>
                     </div>
-                    <TierBenefits benefits={tier.benefits} gradient={tier.gradient} color={tier.color} />
-                    <div className="h-1.5 group-hover:h-2 transition-all duration-300 rounded-b-2xl" style={{ background: tier.gradient }} />
+                    <TierBenefits benefits={tier.benefits} color={tier.color} />
+                    <div className="h-2 group-hover:h-3 transition-all duration-300 rounded-b-2xl" style={{ background: tier.gradient }} />
                   </motion.div>
-                ))}
+                  )
+                })}
               </div>
+            </div>
+          </FadeIn>
+
+          {/* CTA Button Moved Below Tiers */}
+          <FadeIn>
+            <div className="flex justify-center -mt-4 mb-16">
+              <Button
+                size="lg"
+                className="rounded-full px-10 py-6 text-white font-semibold shadow-xl hover:scale-105 transition-transform text-lg"
+                style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                onClick={() => setShowInvestModal(true)}
+              >
+                <Sparkles className="mr-2 size-5" />
+                {t('investment.clickToPartner')}
+              </Button>
             </div>
           </FadeIn>
 
@@ -356,45 +362,45 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                     ))}
                   </div>
                 </div>
-                {/* Value Proposition — Full Width */}
-                <div className="px-6 md:px-10 py-6 md:py-8">
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
-                    {t('investment.moreThanInvestment')} <span style={{ color: '#0D9488' }}>{t('investment.legacyValue')}</span>
-                  </h3>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mt-6">
-                    {[
-                      { icon: Shield, text: t('investment.tangibleAsset'), color: '#0D9488' },
-                      { icon: TrendingUp, text: t('investment.diversifiedIncome'), color: '#D97706' },
-                      { icon: Users, text: t('investment.lifetimeHealthcare'), color: '#10B981' },
-                      { icon: Building2, text: t('investment.noBankLoan'), color: '#0EA5E9' },
-                      { icon: BadgePercent, text: t('investment.buyback5Percent'), color: '#8B5CF6' },
-                      { icon: UserCheck, text: t('investment.max4950Shares'), color: '#F43F5E' },
-                      { icon: ArrowRightLeft, text: t('investment.ownershipTransferable'), color: '#3B82F6' },
-                      { icon: BadgeCheck, text: t('investment.halalIncome'), color: '#14B8A6' },
-                    ].map((item, i) => (
-                      <div 
-                        key={i} 
-                        className="group relative flex items-center gap-3 bg-gray-50 dark:bg-slate-800/50 rounded-xl p-4 border border-gray-100 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)] hover:-translate-y-1 transition-all duration-400 overflow-hidden cursor-default"
-                      >
-                        {/* Soft Hover Gradient Overlay based on item color */}
-                        <div 
-                          className="absolute inset-0 opacity-0 group-hover:opacity-10 dark:group-hover:opacity-20 transition-opacity duration-400 pointer-events-none" 
-                          style={{ background: `linear-gradient(135deg, ${item.color}, transparent)` }} 
-                        />
-                        
-                        <div 
-                          className="relative z-10 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-400 group-hover:scale-110 group-hover:shadow-sm" 
-                          style={{ background: `${item.color}15` }}
-                        >
-                          <item.icon className="size-5 transition-transform duration-400 group-hover:-rotate-6" style={{ color: item.color }} />
-                        </div>
-                        <span className="relative z-10 text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-400">
-                          {item.text}
-                        </span>
-                      </div>
-                    ))}
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* FUNDAMENTALS SECTION                                    */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          <FadeIn>
+            <div className="max-w-5xl mx-auto mb-16 rounded-3xl p-8 md:p-12 border shadow-2xl relative overflow-hidden" 
+                 style={{ 
+                   background: isDarkMode ? 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)' : 'linear-gradient(135deg, #0F172A 0%, #064E3B 100%)',
+                   borderColor: isDarkMode ? '#334155' : '#0F172A'
+                 }}>
+              
+              {/* Background decorative elements */}
+              <div className="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 rounded-full opacity-10 pointer-events-none" style={{ background: 'radial-gradient(circle, #D97706, transparent)' }} />
+              <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-64 h-64 rounded-full opacity-10 pointer-events-none" style={{ background: 'radial-gradient(circle, #10B981, transparent)' }} />
+
+              <div className="text-center mb-12 relative z-10">
+                <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white mb-2 leading-tight">
+                  {t('investment.fundamentalsTitle')} <span style={{ color: '#D97706' }}>{t('investment.fundamentalsHighlight')}</span>
+                </h3>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 relative z-10">
+                {[
+                  { icon: Landmark, titleKey: 'investment.fund1Title', descKey: 'investment.fund1Desc', color: '#9CA3AF' },
+                  { icon: ClipboardCheck, titleKey: 'investment.fund2Title', descKey: 'investment.fund2Desc', color: '#F59E0B' },
+                  { icon: RefreshCw, titleKey: 'investment.fund3Title', descKey: 'investment.fund3Desc', color: '#3B82F6' },
+                  { icon: MapPin, titleKey: 'investment.fund4Title', descKey: 'investment.fund4Desc', color: '#F43F5E' },
+                ].map((item, i) => (
+                  <div key={i} className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:bg-slate-800 transition-colors group">
+                    <item.icon className="size-8 mb-6 group-hover:scale-110 transition-transform" style={{ color: item.color }} strokeWidth={1.5} />
+                    <h4 className="text-lg font-bold text-white mb-3" style={{ color: '#D97706' }}>{t(item.titleKey)}</h4>
+                    <p className="text-sm text-slate-300 leading-relaxed">
+                      {t(item.descKey)}
+                    </p>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </FadeIn>
@@ -402,53 +408,6 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
           {/* ═══════════════════════════════════════════════════════ */}
           {/* 4B. PAYMENT POLICY — Separate Section                   */}
           {/* ═══════════════════════════════════════════════════════ */}
-          <FadeIn>
-            <div id="payment-policy" className="max-w-5xl mx-auto mb-16">
-              <div className="relative bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #D97706, #F59E0B, #D97706)' }} />
-                <div className="p-6 md:p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #D97706, #F59E0B)' }}>
-                      <CreditCard className="size-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white">{t('investment.paymentPlan')}</h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{t('investment.paymentPlanDesc')}</p>
-                    </div>
-                  </div>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    {[
-                      { step: '1', label: t('investment.downPayment'), desc: t('investment.atBooking'), color: '#0D9488', percent: '50%' },
-                      { step: '2', label: t('investment.secondInstallment'), desc: t('investment.within30Days'), color: '#D97706', percent: '25%' },
-                      { step: '3', label: t('investment.thirdInstallment'), desc: t('investment.sixtyNinetyDays'), color: '#10B981', percent: '25%' },
-                    ].map((item, i) => (
-                      <motion.div
-                        key={i}
-                        whileHover={{ y: -4 }}
-                        className="relative flex flex-col bg-gray-50 dark:bg-slate-700/50 rounded-2xl p-5 border border-gray-100 dark:border-slate-600 hover:shadow-lg transition-all duration-300"
-                      >
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-base font-black text-white shrink-0 shadow-sm" style={{ background: `linear-gradient(135deg, ${item.color}, ${item.color}CC)` }}>
-                            {item.step}
-                          </div>
-                          <div>
-                            <div className="text-[15px] font-bold text-gray-800 dark:text-white leading-tight">{item.label}</div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{item.desc}</div>
-                          </div>
-                        </div>
-                        <div className="mt-auto pt-2">
-                          <div className="h-1.5 rounded-full bg-gray-200 dark:bg-slate-600 overflow-hidden">
-                            <div className="h-full rounded-full transition-all duration-1000" style={{ background: item.color, width: item.percent }} />
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-
           {/* ═══════════════════════════════════════════════════════ */}
           {/* 3. INVESTMENT ROI CALCULATOR                            */}
           {/* ═══════════════════════════════════════════════════════ */}

@@ -7,12 +7,13 @@ import { useLanguage } from '@/i18n/LanguageProvider'
 
 interface ComparisonSectionProps {
   isDarkMode: boolean
+  compactTop?: boolean
 }
 
-export default function ComparisonSection({ isDarkMode }: ComparisonSectionProps) {
+export default function ComparisonSection({ isDarkMode, compactTop }: ComparisonSectionProps) {
   const { t } = useLanguage()
   return (
-    <section id="comparison-table" className="py-20 md:py-28" style={{ background: isDarkMode ? '#0C1222' : '#FAFFFE' }}>
+    <section id="comparison-table" className={`${compactTop ? 'pt-8 pb-20 md:pt-12 md:pb-28' : 'py-20 md:py-28'}`} style={{ background: isDarkMode ? '#0C1222' : '#FAFFFE' }}>
       <div className="max-w-5xl mx-auto px-4">
         <FadeIn>
           <div className="text-center mb-14">

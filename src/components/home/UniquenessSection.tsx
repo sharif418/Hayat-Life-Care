@@ -11,6 +11,7 @@ import {
   Award,
   Layers,
   Users,
+  FileCheck,
 } from 'lucide-react'
 import { useLanguage } from '@/i18n/LanguageProvider'
 
@@ -79,13 +80,38 @@ const uniqueFeatures = [
     descKey: 'uniqueness.feature8Desc',
     color: '#0D9488',
   },
+  {
+    icon: Award,
+    title: 'Largest in Chattogram',
+    desc: 'The biggest diagnostic and doctor consultation center in the region',
+    titleKey: 'trust.trust1Title',
+    descKey: 'trust.trust1Desc',
+    color: '#6366F1', // Indigo
+  },
+  {
+    icon: Heart,
+    title: 'Family-Focused',
+    desc: 'Converting waiting time into quality family time with entertainment facilities',
+    titleKey: 'trust.trust4Title',
+    descKey: 'trust.trust4Desc',
+    color: '#F43F5E', // Rose
+  },
+  {
+    icon: FileCheck,
+    title: 'Transparent Operations',
+    desc: 'Govt. approved third-party audit, regular financial reporting',
+    titleKey: 'trust.trust6Title',
+    descKey: 'trust.trust6Desc',
+    color: '#14B8A6', // Teal
+  },
 ]
 
 interface UniquenessSectionProps {
   isDarkMode: boolean
+  hideHeader?: boolean
 }
 
-export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps) {
+export default function UniquenessSection({ isDarkMode, hideHeader }: UniquenessSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
   const { t } = useLanguage()
@@ -94,7 +120,7 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
     <section
       id="uniqueness"
       ref={sectionRef}
-      className="py-20 md:py-28 relative overflow-hidden"
+      className={`${hideHeader ? 'pb-8 md:pb-12' : 'py-20 md:py-28'} relative overflow-hidden`}
       style={{
         background: isDarkMode
           ? 'linear-gradient(180deg, #0C1222 0%, #111B2E 50%, #0C1222 100%)'
@@ -115,45 +141,47 @@ export default function UniquenessSection({ isDarkMode }: UniquenessSectionProps
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-4"
-            style={{
-              background: isDarkMode ? 'rgba(13,148,136,0.15)' : 'rgba(13,148,136,0.1)',
-              color: '#0D9488',
-              border: '1px solid rgba(13,148,136,0.2)',
-            }}
+        {!hideHeader && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
-            <Award className="size-4" />
-            {t('uniqueness.badge')}
-          </div>
-          <h2
-            className="text-3xl md:text-5xl font-black mb-4"
-            style={{ color: isDarkMode ? '#F1F5F9' : '#0F172A' }}
-          >
-            {t('uniqueness.title').split(' ').slice(0, -1).join(' ')}{' '}
-            <span
+            <div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-4"
               style={{
-                background: 'linear-gradient(135deg, #0D9488, #10B981)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                background: isDarkMode ? 'rgba(13,148,136,0.15)' : 'rgba(13,148,136,0.1)',
+                color: '#0D9488',
+                border: '1px solid rgba(13,148,136,0.2)',
               }}
             >
-              {t('uniqueness.title').split(' ').pop()}
-            </span>
-          </h2>
-          <p
-            className="text-lg max-w-2xl mx-auto"
-            style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
-          >
-            {t('uniqueness.description')}
-          </p>
-        </motion.div>
+              <Award className="size-4" />
+              {t('uniqueness.badge')}
+            </div>
+            <h2
+              className="text-3xl md:text-5xl font-black mb-4"
+              style={{ color: isDarkMode ? '#F1F5F9' : '#0F172A' }}
+            >
+              {t('uniqueness.title').split(' ').slice(0, -1).join(' ')}{' '}
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #0D9488, #10B981)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                {t('uniqueness.title').split(' ').pop()}
+              </span>
+            </h2>
+            <p
+              className="text-lg max-w-2xl mx-auto"
+              style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
+            >
+              {t('uniqueness.description')}
+            </p>
+          </motion.div>
+        )}
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

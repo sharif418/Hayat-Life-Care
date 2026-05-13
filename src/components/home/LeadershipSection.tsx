@@ -40,7 +40,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
             >
               <div className="relative aspect-[4/3.5] w-full overflow-hidden bg-slate-100 dark:bg-slate-700 shrink-0">
                 <Image
-                  src="/images/wings/Chairman-Sir-R-01.png"
+                  src="/images/directors/chairman.jpg"
                   alt="Capt. Md Showkat Hossain Chowdhury"
                   fill
                   className="object-cover scale-105 transition-transform duration-700 group-hover:scale-110"
@@ -73,7 +73,7 @@ export default function LeadershipSection({ isDarkMode }: LeadershipSectionProps
             >
               <div className="relative aspect-[4/3.5] w-full overflow-hidden bg-slate-100 dark:bg-slate-700 shrink-0">
                 <Image
-                  src="/images/wings/MD-sir-R-01.png"
+                  src="/images/directors/md-sir.jpg"
                   alt="Dr. Mohammad Azizul Haque"
                   fill
                   className="object-cover object-top scale-105 transition-transform duration-700 group-hover:scale-110"

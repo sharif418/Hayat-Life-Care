@@ -22,12 +22,12 @@ export default function FacilitiesPage() {
     <PageWrapper>
       <PageHeader 
         badge="A One Stop Service for Healthcare & Daily Essential"
-        title="Our"
-        highlightText="Facilities"
-        description="Explore our comprehensive healthcare and lifestyle services — from advanced diagnostics and specialized care to super shops and premium dining. 11 Business Wings under one roof."
+        title="11 Business"
+        highlightText="Wings"
+        description="Explore our comprehensive healthcare and lifestyle services. Each wing operates independently as a profit centre — giving investors diversified income from a single ownership stake and centralized management."
         langKeyPrefix="pages.facilities"
       />
-      <ServicesSection />
+      <ServicesSection hideHeader isDarkMode={isDarkMode} />
       <FloorsSection isDarkMode={isDarkMode} />
       {/* <VirtualTourSection isDarkMode={isDarkMode} /> */}
       {/* <DoctorsSection isDarkMode={isDarkMode} /> */}

@@ -21,10 +21,23 @@ const serviceKeyMap: Record<string, { titleKey: string; descKey: string }> = {
   'Specialized Hospital': { titleKey: 'serviceItems.specializedHospital', descKey: 'serviceItems.specializedHospitalDesc' },
 }
 
-export default function ServicesSection() {
+interface ServicesSectionProps {
+  hideHeader?: boolean
+  isDarkMode?: boolean
+}
+
+export default function ServicesSection({ hideHeader = false, isDarkMode = true }: ServicesSectionProps) {
   const { t } = useLanguage()
   return (
-    <section id="services" className="relative py-20 md:py-28 overflow-hidden" style={{ background: '#0F172A' }}>
+    <section
+      id="services"
+      className="relative py-20 md:py-28 overflow-hidden"
+      style={{
+        background: isDarkMode
+          ? '#0F172A'
+          : 'linear-gradient(180deg, #F0FDFA 0%, #F8FFFE 50%, #F0FDFA 100%)',
+      }}
+    >
       {/* Noise overlay */}
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
       {/* Gradient orbs */}
@@ -32,38 +45,44 @@ export default function ServicesSection() {
       <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #10B981, transparent)' }} />
 
       <div className="relative max-w-7xl mx-auto px-4">
-        <FadeIn>
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-emerald-300 text-xs font-semibold mb-4">
-              <Sparkles className="size-3" />
-              {t('services.badge')}
+        {!hideHeader && (
+          <FadeIn>
+            <div className="text-center mb-8">
+              <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-4 ${isDarkMode ? 'bg-white/10 text-emerald-300' : 'bg-teal-50 text-teal-700'}`}>
+                <Sparkles className="size-3" />
+                {t('services.badge')}
+              </div>
+              <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {t('services.title')}
+              </h2>
+              <div className="relative">
+                <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+                <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
+              </div>
+              <p className={`mt-4 max-w-xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>
+                {t('services.description')}
+              </p>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
-              {t('services.title')}
-            </h2>
-            <div className="relative">
-              <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
-              <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
-            </div>
-            <p className="mt-4 text-gray-300 max-w-xl mx-auto">
-              {t('services.description')}
-            </p>
-          </div>
-        </FadeIn>
+          </FadeIn>
+        )}
 
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((service, i) => (
             <StaggerItem key={i}>
               <motion.div
                 whileHover={{ y: -4, scale: 1.01 }}
-                className="group relative p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-teal-500/30 hover:bg-white/10 border-l-4"
+                className={`group relative p-6 rounded-2xl border backdrop-blur-sm transition-all duration-300 border-l-4 ${
+                  isDarkMode
+                    ? 'border-white/10 bg-white/5 hover:border-teal-500/30 hover:bg-white/10'
+                    : 'border-gray-200 bg-white shadow-sm hover:border-teal-300 hover:shadow-lg'
+                }`}
                 style={{ borderLeftColor: '#0D9488' }}
               >
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 {/* Glow effect on hover */}
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: '0 0 40px rgba(13,148,136,0.2), 0 8px 30px rgba(0,0,0,0.3)' }} />
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: isDarkMode ? '0 0 40px rgba(13,148,136,0.2), 0 8px 30px rgba(0,0,0,0.3)' : '0 0 30px rgba(13,148,136,0.1), 0 4px 20px rgba(0,0,0,0.05)' }} />
                 <div className="absolute inset-0 rounded-2xl overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute inset-0 animate-shimmer" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent)' }} />
+                  <div className="absolute inset-0 animate-shimmer" style={{ background: `linear-gradient(90deg, transparent, ${isDarkMode ? 'rgba(255,255,255,0.03)' : 'rgba(13,148,136,0.03)'}, transparent)` }} />
                 </div>
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-4">
@@ -73,12 +92,12 @@ export default function ServicesSection() {
                     >
                       <service.icon className="size-6" style={{ color: '#34D399' }} />
                     </div>
-                    <span className="text-3xl font-black text-white/10">{String(i + 1).padStart(2, '0')}</span>
+                    <span className={`text-3xl font-black ${isDarkMode ? 'text-white/10' : 'text-gray-200'}`}>{String(i + 1).padStart(2, '0')}</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                  <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                     {serviceKeyMap[service.title] ? t(serviceKeyMap[service.title].titleKey) : service.title}
                   </h3>
-                  <p className="text-sm text-gray-300 leading-relaxed">
+                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>
                     {serviceKeyMap[service.title] ? t(serviceKeyMap[service.title].descKey) : service.desc}
                   </p>
                 </div>

@@ -9,7 +9,6 @@ import dynamic from 'next/dynamic';
 import PageHeader from '@/components/layout/PageHeader';
 
 const ComparisonSection = dynamic(() => import('@/components/home/ComparisonSection'));
-const TrustSection = dynamic(() => import('@/components/home/TrustSection'));
 const PartnersSection = dynamic(() => import('@/components/home/PartnersSection'));
 const WhyPartnerSection = dynamic(() => import('@/components/home/WhyPartnerSection'));
 
@@ -23,12 +22,11 @@ export default function UniquenessPage() {
         badge="Why Choose Us"
         title="Our"
         highlightText="Uniqueness"
-        description="Discover what makes Hayat Life Care the most integrated, zero-interest, and comprehensive health complex in Chattogram."
+        description="Discover what makes Hayat Life Care the most integrated, comprehensive health complex and truly one-of-a-kind in Chattogram."
         langKeyPrefix="pages.uniqueness"
       />
-      <UniquenessSection isDarkMode={isDarkMode} />
-      <ComparisonSection isDarkMode={isDarkMode} />
-      <TrustSection isDarkMode={isDarkMode} />
+      <UniquenessSection isDarkMode={isDarkMode} hideHeader={true} />
+      <ComparisonSection isDarkMode={isDarkMode} compactTop={true} />
       {/* <PartnersSection isDarkMode={isDarkMode} /> */}
     </PageWrapper>
   );

@@ -78,8 +78,8 @@ export default function Home() {
           isDarkMode={isDarkMode}
         />
 
-        {/* 2. Stats */}
-        <StatsSection />
+        {/* 2. Stats - Hidden per client request */}
+        {/* <StatsSection /> */}
         
         {/* 3. Informative Preview Sections (About, Facilities, Uniqueness, Investment, Vision) */}
         <HomePreviewSections isDarkMode={isDarkMode} />

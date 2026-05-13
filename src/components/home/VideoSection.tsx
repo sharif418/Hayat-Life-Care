@@ -38,9 +38,10 @@ interface VideoItem {
 
 interface VideoSectionProps {
   isDarkMode: boolean
+  hideHeader?: boolean
 }
 
-export default function VideoSection({ isDarkMode }: VideoSectionProps) {
+export default function VideoSection({ isDarkMode, hideHeader = false }: VideoSectionProps) {
   const { t } = useLanguage()
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
@@ -141,53 +142,55 @@ export default function VideoSection({ isDarkMode }: VideoSectionProps) {
       <section
         id="videos"
         ref={sectionRef}
-        className="py-20 md:py-28 relative overflow-hidden"
+        className={`${hideHeader ? 'pb-20 md:pb-28 pt-4 md:pt-8' : 'py-20 md:py-28'} relative overflow-hidden`}
         style={{
           background: isDarkMode ? '#0F172A' : '#FAFFFE',
         }}
       >
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-4"
-              style={{
-                background: isDarkMode ? 'rgba(239,68,68,0.15)' : 'rgba(239,68,68,0.1)',
-                color: '#EF4444',
-                border: '1px solid rgba(239,68,68,0.2)',
-              }}
+          {!hideHeader && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
             >
-              <Youtube className="size-4" />
-              {t('video.badge')}
-            </div>
-            <h2
-              className="text-3xl md:text-5xl font-black mb-4"
-              style={{ color: isDarkMode ? '#F1F5F9' : '#0F172A' }}
-            >
-              {t('video.titlePrefix')}{' '}
-              <span
+              <div
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-4"
                 style={{
-                  background: 'linear-gradient(135deg, #0D9488, #10B981)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+                  background: isDarkMode ? 'rgba(239,68,68,0.15)' : 'rgba(239,68,68,0.1)',
+                  color: '#EF4444',
+                  border: '1px solid rgba(239,68,68,0.2)',
                 }}
               >
-                Hayat Life Care
-              </span>{' '}
-              {t('video.titleSuffix')}
-            </h2>
-            <p
-              className="text-lg max-w-2xl mx-auto"
-              style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
-            >
-              {t('video.description')}
-            </p>
-          </motion.div>
+                <Youtube className="size-4" />
+                {t('video.badge')}
+              </div>
+              <h2
+                className="text-3xl md:text-5xl font-black mb-4"
+                style={{ color: isDarkMode ? '#F1F5F9' : '#0F172A' }}
+              >
+                {t('video.titlePrefix')}{' '}
+                <span
+                  style={{
+                    background: 'linear-gradient(135deg, #0D9488, #10B981)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  Hayat Life Care
+                </span>{' '}
+                {t('video.titleSuffix')}
+              </h2>
+              <p
+                className="text-lg max-w-2xl mx-auto"
+                style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
+              >
+                {t('video.description')}
+              </p>
+            </motion.div>
+          )}
 
           {/* ═══════════════════════════════════════════════════════ */}
           {/* FEATURED / SPOTLIGHT VIDEO                             */}

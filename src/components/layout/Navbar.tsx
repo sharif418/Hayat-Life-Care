@@ -197,7 +197,10 @@ export default function Navbar() {
                                   if (pathname === basePath || (pathname === '/' && basePath === '')) {
                                     e.preventDefault()
                                     const el = document.getElementById(hash)
-                                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                                    if (el) {
+                                      const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                                      window.scrollTo({ top: y, behavior: 'smooth' });
+                                    }
                                   }
                                 }
                               }}
@@ -220,27 +223,27 @@ export default function Navbar() {
               )
             })}
 
-            {/* Desktop Search Icon */}
-            <button
+            {/* Desktop Search Icon - Hidden per client request */}
+            {/* <button
               className="rounded-full h-8 w-8 lg:h-9 lg:w-9 ml-1 md:ml-2 lg:ml-3 flex items-center justify-center transition-all duration-300 bg-amber-500 hover:bg-amber-600 text-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
               aria-label="Search"
               onClick={() => setIsSearchOpen(true)}
             >
               <Search className="size-4 lg:size-4.5" />
-            </button>
+            </button> */}
           </div>
 
 
           {/* Mobile menu */}
           <div className="md:hidden flex items-center gap-1.5 ml-auto">
-            {/* Mobile Search Icon */}
-            <button
+            {/* Mobile Search Icon - Hidden per client request */}
+            {/* <button
               className="rounded-full h-8 w-8 flex items-center justify-center transition-all duration-300 bg-amber-500 hover:bg-amber-600 text-white shadow-sm hover:shadow-md"
               aria-label="Search"
               onClick={() => setIsSearchOpen(true)}
             >
               <Search className="size-4" />
-            </button>
+            </button> */}
             {/* Language Toggle (Mobile) */}
             <div className="scale-90">
               <LanguageToggle />

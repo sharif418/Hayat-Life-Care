@@ -78,7 +78,7 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                     { icon: Building, label: t('about.structure'), valueKey: 'about.structureValue' },
                     { icon: Sparkles, label: t('about.businessWings'), valueKey: 'about.businessWingsValue' },
                     { icon: Car, label: t('about.paidParking'), valueKey: 'about.paidParkingValue' },
-                    { icon: TrendingUp, label: t('about.future'), valueKey: 'about.futureValue' },
+                    { icon: TrendingUp, label: t('about.totalArea'), valueKey: 'about.totalAreaValue' },
                   ].map((item, i) => (
                     <StaggerItem key={i}>
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-300">
@@ -289,9 +289,14 @@ export default function HomePreviewSections({ isDarkMode }: HomePreviewSectionsP
                 <TrendingUp className="size-3" />
                 {t('preview.investmentBadge')}
               </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                {t('preview.investmentTitle')}
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2">
+                {t('preview.investmentTitlePre')}{' '}
+                <span style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{t('preview.investmentTitleHighlight')}</span>{' '}
+                {t('preview.investmentTitlePost')}
               </h2>
+              <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 font-semibold mb-1 max-w-2xl mx-auto">
+                {t('preview.investmentTagline')}
+              </p>
               <p className="text-teal-700 dark:text-teal-400 font-medium italic max-w-xl mx-auto">
                 {t('preview.investmentSubtitle')}
               </p>

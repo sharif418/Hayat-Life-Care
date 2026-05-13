@@ -22,6 +22,35 @@ interface AdminDashboardProps {
   onClose: () => void
 }
 
+const compressImage = async (file: File, maxWidth = 1200): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target?.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth) {
+          height *= maxWidth / width;
+          width = maxWidth;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', 0.8));
+      };
+      img.onerror = reject;
+    };
+    reader.onerror = reject;
+  });
+};
+
 export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [adminTab, setAdminTab] = useState('dashboard')
@@ -75,6 +104,11 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
   const [featuredVideoId, setFeaturedVideoId] = useState('')
   const [savingFeatured, setSavingFeatured] = useState(false)
 
+  // Events state
+  const [adminEvents, setAdminEvents] = useState<any[]>([])
+  const [newEvent, setNewEvent] = useState({ name: '', description: '', coverPhoto: '', photos: [] as { photo: string, caption?: string }[] })
+  const [addingEventPhotos, setAddingEventPhotos] = useState<string | null>(null) // eventId being edited
+
   // Password change
   const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
   const [isChangingPassword, setIsChangingPassword] = useState(false)
@@ -98,6 +132,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
         fetch('/api/appointments'),
         fetch('/api/videos', { headers: { 'x-admin-auth': 'true' } }),
         fetch('/api/owners'),
+        fetch('/api/events'),
       ])
 
       // If any response is 401 Unauthorized, the session expired or token is missing
@@ -108,7 +143,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
         return
       }
 
-      const [inqRes, svcRes, faqRes, ldrRes, setRes, dlRes, visitRes, apptRes, vidRes, ownerRes] = responses
+      const [inqRes, svcRes, faqRes, ldrRes, setRes, dlRes, visitRes, apptRes, vidRes, ownerRes, eventRes] = responses
       const inqData = await inqRes.json()
       const svcData = await svcRes.json()
       const faqData = await faqRes.json()
@@ -119,6 +154,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
       const apptData = await apptRes.json()
       const vidData = await vidRes.json()
       const ownerData = await ownerRes.json()
+      const eventData = await eventRes.json()
       if (inqData.data) setInquiries(inqData.data)
       if (svcData.data) setAdminServices(svcData.data)
       if (faqData.data) setAdminFaqs(faqData.data)
@@ -145,6 +181,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
       if (apptData.data) setAppointments(apptData.data)
       if (vidData.data) setAdminVideos(vidData.data)
       if (ownerData.data) setOwners(ownerData.data)
+      if (eventData.data) setAdminEvents(eventData.data)
     } catch (err) {
       console.error('Failed to fetch admin data:', err)
     }
@@ -383,11 +420,12 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
         toast.error('Image size should be less than 2MB')
         return
       }
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setNewOwner(prev => ({ ...prev, image: reader.result as string }))
-      }
-      reader.readAsDataURL(file)
+      compressImage(file).then((base64) => {
+        setNewOwner(prev => ({ ...prev, image: base64 }))
+      }).catch((err) => {
+        console.error("Image compression failed", err)
+        toast.error("Failed to process image")
+      })
     }
   }
 
@@ -540,6 +578,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                     { id: 'appointments', icon: CalendarCheck, label: 'Appointments' },
                     { id: 'videos', icon: PlayCircle, label: 'Videos' },
                     { id: 'owners', icon: Users, label: 'Owners' },
+                    { id: 'events', icon: Star, label: 'Events' },
                     { id: 'faqs', icon: HelpCircle, label: 'FAQs' },
                     { id: 'testimonials', icon: MessageSquareQuote, label: 'Testimonials' },
                     { id: 'settings', icon: Settings, label: 'Settings' },
@@ -1328,6 +1367,257 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
 
                 {/* ── Testimonials Tab ── */}
                 {adminTab === 'testimonials' && <TestimonialsManager />}
+
+                {/* ── Events Tab ── */}
+                {adminTab === 'events' && (
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Events Management</h2>
+
+                    {/* Add New Event */}
+                    <div className="bg-white rounded-xl border shadow-sm p-6 mb-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <Plus className="size-5 text-teal-600" /> Add New Event
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                          <Label>Event Name *</Label>
+                          <Input
+                            value={newEvent.name}
+                            onChange={(e) => setNewEvent(p => ({ ...p, name: e.target.value }))}
+                            placeholder="e.g. Grand Opening Ceremony"
+                          />
+                        </div>
+                        <div>
+                          <Label>Cover Photo</Label>
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0]
+                              if (file) {
+                                try {
+                                  const base64 = await compressImage(file)
+                                  setNewEvent(p => ({ ...p, coverPhoto: base64 }))
+                                } catch (err) {
+                                  console.error(err)
+                                  toast.error("Failed to process cover photo")
+                                }
+                              }
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className="mb-4">
+                        <Label>Additional Event Photos (Optional)</Label>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={async (e) => {
+                            const files = Array.from(e.target.files || [])
+                            if (files.length > 0) {
+                              try {
+                                const newPhotos = await Promise.all(
+                                  files.map(async (file) => {
+                                    const base64 = await compressImage(file)
+                                    return { photo: base64 }
+                                  })
+                                )
+                                setNewEvent(p => ({ ...p, photos: [...p.photos, ...newPhotos] }))
+                              } catch (err) {
+                                console.error(err)
+                                toast.error("Failed to process additional photos")
+                              }
+                            }
+                          }}
+                        />
+                      </div>
+                      {newEvent.photos.length > 0 && (
+                        <div className="mb-4 flex flex-wrap gap-2">
+                          {newEvent.photos.map((p, idx) => (
+                            <div key={idx} className="relative group">
+                              <img src={p.photo} alt={`Preview ${idx + 1}`} className="w-20 h-20 object-cover rounded-md border" />
+                              <button
+                                onClick={() => setNewEvent(prev => ({
+                                  ...prev,
+                                  photos: prev.photos.filter((_, i) => i !== idx)
+                                }))}
+                                className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                              >
+                                <X className="size-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <div className="mb-4">
+                        <Label>Description</Label>
+                        <Textarea
+                          value={newEvent.description}
+                          onChange={(e) => setNewEvent(p => ({ ...p, description: e.target.value }))}
+                          placeholder="Brief description of the event..."
+                          rows={3}
+                        />
+                      </div>
+                      {newEvent.coverPhoto && (
+                        <div className="mb-4">
+                          <img src={newEvent.coverPhoto} alt="Preview" className="w-32 h-24 object-cover rounded-lg border" />
+                        </div>
+                      )}
+                      <Button
+                        onClick={async () => {
+                          if (!newEvent.name.trim()) return toast.error('Event name is required')
+                          try {
+                            const res = await fetch('/api/events', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify(newEvent),
+                            })
+                            const data = await res.json()
+                            if (data.success) {
+                              toast.success('Event created!')
+                              setNewEvent({ name: '', description: '', coverPhoto: '', photos: [] })
+                              // Refresh events
+                              const r = await fetch('/api/events')
+                              const d = await r.json()
+                              if (d.data) setAdminEvents(d.data)
+                            } else {
+                              toast.error(data.error || 'Failed to create event')
+                            }
+                          } catch { toast.error('Failed to create event') }
+                        }}
+                        className="text-white"
+                        style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}
+                      >
+                        <Plus className="size-4 mr-1" /> Create Event
+                      </Button>
+                    </div>
+
+                    {/* Events List */}
+                    <div className="space-y-4">
+                      {adminEvents.length === 0 && (
+                        <div className="text-center py-12 text-gray-400">No events yet. Create your first event above.</div>
+                      )}
+                      {adminEvents.map((event) => (
+                        <div key={event.id} className="bg-white rounded-xl border shadow-sm p-5">
+                          <div className="flex items-start gap-4">
+                            {event.coverPhoto ? (
+                              <img src={event.coverPhoto} alt={event.name} className="w-24 h-20 object-cover rounded-lg border shrink-0" />
+                            ) : (
+                              <div className="w-24 h-20 rounded-lg bg-gray-100 flex items-center justify-center text-gray-300 shrink-0">
+                                <ImagePlus className="size-8" />
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-bold text-gray-900 text-lg">{event.name}</h4>
+                              {event.description && <p className="text-sm text-gray-500 mt-1 line-clamp-2">{event.description}</p>}
+                              <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
+                                <span>{event.photos?.length || 0} photos</span>
+                                <span>•</span>
+                                <span>{new Date(event.createdAt).toLocaleDateString()}</span>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2 shrink-0">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => setAddingEventPhotos(addingEventPhotos === event.id ? null : event.id)}
+                              >
+                                <ImagePlus className="size-4 mr-1" /> Photos
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={async () => {
+                                  if (!confirm('Delete this event and all its photos?')) return
+                                  try {
+                                    await fetch(`/api/events/${event.id}`, { method: 'DELETE' })
+                                    toast.success('Event deleted')
+                                    setAdminEvents(prev => prev.filter(e => e.id !== event.id))
+                                  } catch { toast.error('Failed to delete') }
+                                }}
+                              >
+                                <Trash2 className="size-4" />
+                              </Button>
+                            </div>
+                          </div>
+
+                          {/* Photo Management Panel */}
+                          {addingEventPhotos === event.id && (
+                            <div className="mt-4 pt-4 border-t">
+                              <div className="flex items-center justify-between mb-3">
+                                <h5 className="font-semibold text-gray-700 text-sm">Event Photos</h5>
+                                <label className="cursor-pointer inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-white" style={{ background: 'linear-gradient(135deg, #0D9488, #10B981)' }}>
+                                  <Upload className="size-3" /> Add Photos
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    className="hidden"
+                                    onChange={async (e) => {
+                                      const files = Array.from(e.target.files || [])
+                                      if (files.length === 0) return
+                                      const photos: { photo: string }[] = []
+                                      for (const file of files) {
+                                        try {
+                                          const base64 = await compressImage(file)
+                                          photos.push({ photo: base64 })
+                                        } catch (err) {
+                                          console.error(err)
+                                        }
+                                      }
+                                      try {
+                                        const res = await fetch(`/api/events/${event.id}`, {
+                                          method: 'PUT',
+                                          headers: { 'Content-Type': 'application/json' },
+                                          body: JSON.stringify({ addPhotos: photos }),
+                                        })
+                                        const data = await res.json()
+                                        if (data.success) {
+                                          toast.success(`${photos.length} photo(s) added!`)
+                                          setAdminEvents(prev => prev.map(ev => ev.id === event.id ? data.data : ev))
+                                        }
+                                      } catch { toast.error('Failed to upload photos') }
+                                    }}
+                                  />
+                                </label>
+                              </div>
+                              {event.photos?.length === 0 && (
+                                <p className="text-xs text-gray-400 py-4 text-center">No photos yet. Click "Add Photos" to upload.</p>
+                              )}
+                              <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
+                                {event.photos?.map((photo: any) => (
+                                  <div key={photo.id} className="relative group">
+                                    <img src={photo.photo} alt="" className="w-full aspect-square object-cover rounded-lg border" />
+                                    <button
+                                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                                      onClick={async () => {
+                                        try {
+                                          const res = await fetch(`/api/events/${event.id}`, {
+                                            method: 'PUT',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ removePhotoIds: [photo.id] }),
+                                          })
+                                          const data = await res.json()
+                                          if (data.success) {
+                                            toast.success('Photo removed')
+                                            setAdminEvents(prev => prev.map(ev => ev.id === event.id ? data.data : ev))
+                                          }
+                                        } catch { toast.error('Failed to remove photo') }
+                                      }}
+                                    >
+                                      <X className="size-3" />
+                                    </button>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* ── Settings Tab ── */}
                 {adminTab === 'settings' && (

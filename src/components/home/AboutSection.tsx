@@ -18,12 +18,9 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
         <div className="max-w-7xl mx-auto px-4">
           <FadeIn>
             <div className="text-center mb-14">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3">
-                {t('about.title')}
-              </h2>
-              <p className="text-base md:text-lg text-teal-700 dark:text-teal-400 font-medium italic mb-4">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-snug max-w-4xl mx-auto">
                 {t('about.subtitle')}
-              </p>
+              </h2>
               <div className="relative">
                 <div className="w-24 h-1.5 mx-auto rounded-full shadow-[0_0_12px_rgba(13,148,136,0.5)]" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
                 <div className="w-16 h-4 mx-auto -mt-2 rounded-full blur-md opacity-40" style={{ background: 'linear-gradient(90deg, #0D9488, #10B981)' }} />
@@ -60,7 +57,7 @@ export default function AboutSection({ isDarkMode }: AboutSectionProps) {
                     { icon: Building, label: t('about.structure'), value: t('about.structureValue') },
                     { icon: Sparkles, label: t('about.businessWings'), value: t('about.businessWingsValue') },
                     { icon: Car, label: t('about.paidParking'), value: t('about.paidParkingValue') },
-                    { icon: TrendingUp, label: t('about.future'), value: t('about.futureValue') },
+                    { icon: TrendingUp, label: t('about.totalArea'), value: t('about.totalAreaValue') },
                   ].map((item, i) => (
                     <StaggerItem key={i}>
                       <div className="flex items-start gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-300">

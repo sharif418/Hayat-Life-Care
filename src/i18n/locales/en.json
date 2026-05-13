@@ -10,7 +10,7 @@
     "floorPlan": "Floor Plan",
     "gallery": "Gallery",
     "uniqueness": "Uniqueness",
-    "whyPartner": "Why Be an Owner",
+    "whyPartner": "Why Choose Ownership",
     "whatMakesDifferent": "What Makes Us Different",
     "comparisonTable": "Comparison Table",
     "ownership": "Ownership",
@@ -19,13 +19,16 @@
     "paymentPlan": "Payment Plan",
     "roiCalculator": "ROI Calculator",
     "videoGallery": "Video Gallery",
+    "youtubeChannel": "YouTube Channel",
+    "ownersGallery": "Owners",
+    "eventsGallery": "Event",
     "faq": "FAQ",
     "contact": "Contact",
     "bookAppointment": "Appointment",
     "downloadBrochure": "Brochure"
   },
   "hero": {
-    "badge": "First Super Specialized Hospital in Chattogram",
+    "badge": "Empowering a New Standard of Super-Specialized Hospital & Diagnostics in Chattogram",
     "headline_1_top": "To Gift an Innovative Healthcare Facility to",
     "headline_1_highlight": "The Society and Generations.",
     "headline_2_top": "Toward a Secure and Sustainable",
@@ -33,7 +36,7 @@
     "headline_3_top": "Your Dream to Be a Prestigious Owner of the",
     "headline_3_highlight": "Largest Diagnostic and Super Specialized Hospital",
     "description": "One of the Largest Healthcare & Lifestyle Complexes in Chattogram's Medical Hub—\nOffering World-class Healthcare Services, Daily Essentials, Dining, and Family Entertainment.",
-    "exploreServices": "Explore Services",
+    "exploreServices": "Explore the Opportunity",
     "beOwnerNow": "Be Owner Now"
   },
   "stats": {
@@ -42,7 +45,8 @@
     "kathaLandArea": "Katha Land Area",
     "floors": "FLOORS",
     "paidParking": "PAID PARKING",
-    "maxShares": "Max Shares"
+    "maxShares": "Max Shares",
+    "shares1stPhase": "SHARES · 1ST PHASE"
   },
   "preview": {
     "aboutBadge": "AT A GLANCE",
@@ -76,7 +80,7 @@
     "fc8Desc": "All-day financial convenience",
     "uniquenessBadge": "WHAT MAKES US UNIQUE",
     "uniquenessTitle": "Why Hayat Life Care?",
-    "uniquenessDescription": "The first cancer diagnostic and specialized hospital in Chattogram — one of the largest at the medical hub.",
+    "uniquenessDescription": "Discover what makes Hayat Life Care the most integrated, comprehensive health complex and truly one-of-a-kind in Chattogram.",
     "uniquenessCTA": "Discover All Unique Features",
     "globalConnectivity": "Global Connectivity",
     "globalConnectivityDesc": "Collaborations with Bumrungrad, Apollo, Tata Memorial, Fortis, Narayana Health & more international hospitals.",
@@ -86,6 +90,10 @@
     "singleManagementDesc": "All 11 wings managed under one roof — ensuring quality, coordination, and accountability.",
     "investmentBadge": "OWNERSHIP OPPORTUNITY",
     "investmentTitle": "Pathways to Prestigious Ownership",
+    "investmentTitlePre": "Pathways to",
+    "investmentTitleHighlight": "Prestigious",
+    "investmentTitlePost": "Ownership",
+    "investmentTagline": "More Than an Investment — A Legacy of Lasting Value.",
     "investmentSubtitle": "Become a partner in building a healthier, more prosperous tomorrow—together.",
     "investmentBody": "This is not just an investment, but the creation of lasting value—financially, socially, and through prestigious ownership. Ownership includes all 11 business wings, along with proportionate ownership of land and structure—ensuring tangible asset value and long-term security for your investment.",
     "investmentCTA": "View Full Investment Details",
@@ -194,9 +202,9 @@
     "aboutHighlight5": "150+ Paid Parking Spaces with Modern Facilities.",
     "aboutHighlight6": "Transparent Investment with Guaranteed Buyback Policy.",
     "facilitiesBadge": "A One Stop Service for Healthcare & Daily Essential",
-    "facilitiesTitle": "Our",
-    "facilitiesHighlight": "Facilities",
-    "facilitiesDesc": "Explore our comprehensive healthcare and lifestyle services — from advanced diagnostics and specialized care to super shops and premium dining. 11 Business Wings under one roof.",
+    "facilitiesTitle": "11 Business",
+    "facilitiesHighlight": "Wings",
+    "facilitiesDesc": "Explore our comprehensive healthcare and lifestyle services. Each wing operates independently as a profit centre — giving investors diversified income from a single ownership stake and centralized management.",
     "faqBadge": "Help & Support",
     "faqTitle": "Common",
     "faqHighlight": "Questions",
@@ -208,11 +216,11 @@
     "uniquenessBadge": "Why Choose Us",
     "uniquenessTitle": "Our",
     "uniquenessHighlight": "Uniqueness",
-    "uniquenessDesc": "Discover what makes Hayat Life Care the most integrated, zero-interest, and comprehensive health complex in Chattogram.",
-    "investmentBadge": "Ownership Opportunities",
-    "investmentTitle": "Secure Your",
-    "investmentHighlight": "Future",
-    "investmentDesc": "Join us in revolutionizing healthcare and lifestyle in Chattogram with secure, halal, and high-yield investment options.",
+    "uniquenessDesc": "Discover what makes Hayat Life Care the most integrated, comprehensive health complex and truly one-of-a-kind in Chattogram.",
+    "investmentBadge": "Ownership Opportunity",
+    "investmentTitle": "Pathways to",
+    "investmentHighlight": "Prestigious Ownership",
+    "investmentDesc": "More Than an Investment — A Legacy of Lasting Value. Ownership includes all 11 business wings with proportionate full land ownership. Share price: ৳10 Lacs per share (first phase).",
     "investment": {
       "ourOwnersBadge": "OUR VISIONARIES",
       "ourOwnersDescription": "The visionaries and partners who are driving the future of healthcare and lifestyle at Hayat Life Care."
@@ -221,7 +229,11 @@
     "ourOwnersBadge": "OUR VISIONARIES",
     "meetOur": "Meet Our",
     "esteemedOwners": "Esteemed Owners",
-    "ourOwnersDescription": "The visionaries and partners who are driving the future of healthcare and lifestyle at Hayat Life Care."
+    "ourOwnersDescription": "The visionaries and partners who are driving the future of healthcare and lifestyle at Hayat Life Care.",
+    "galleryBadge": "Gallery",
+    "galleryTitle": "Explore Our",
+    "galleryHighlight": "Visual Journey",
+    "galleryDesc": "Watch our videos, meet our esteemed owners, and relive the memorable events that define Hayat Life Care."
   },
   "contact": {
     "badge": "CONTACT US",
@@ -401,7 +413,17 @@
     "tierDesc": "Your status and benefits grow with your investment. Choose the tier that best suits your vision.",
     "togetherDesc": "Join 500+ visionary investors who believe in building a healthcare legacy for generations. Your partnership today shapes the well-being of tomorrow.",
     "investInHayat": "Invest in Hayat Life Care",
-    "startJourney": "Start your investment journey today",
+    "startJourney": "Start your journey to ownership and lifetime returns today.",
+    "fundamentalsTitle": "Built on Fundamentals That",
+    "fundamentalsHighlight": "Protect Your Capital",
+    "fund1Title": "Zero Bank Debt",
+    "fund1Desc": "Hayat Life Care is 100% shareholder-funded. No loan exposure, no bank dependency — your investment drives the project directly.",
+    "fund2Title": "RJSC Registered",
+    "fund2Desc": "Fully incorporated and registered under RJSC, Bangladesh. Complete legal transparency and investor protection.",
+    "fund3Title": "Buyback Guarantee",
+    "fund3Desc": "A 5% buyback guarantee over 3 years gives investors a clear, contractual exit path — a commitment rare in early-stage projects.",
+    "fund4Title": "Prime Location",
+    "fund4Desc": "Directly adjacent to Chattogram Medical College Hospital — the highest-footfall medical address in the Port City.",
     "thankYou": "Thank You!",
     "inquiryReceived": "Your investment inquiry has been received. Our team will contact you within 24 hours.",
     "close": "Close",
@@ -419,12 +441,12 @@
   },
   "services": {
     "badge": "COMPREHENSIVE CARE",
-    "title": "Our 11 Business Wings",
-    "description": "Comprehensive services designed to serve every aspect of your health and daily life."
+    "title": "11 Business Wings",
+    "description": "Explore our comprehensive healthcare and lifestyle services. Each wing operates independently as a profit centre — giving investors diversified income from a single ownership stake and centralized management."
   },
   "about": {
     "title": "At A Glance",
-    "subtitle": "Your Family, Your Wellness, Your Future. Together We are Building a Healthier Society.",
+    "subtitle": "Together We are Building a Healthier Society for You, Your Family, Your Wellness, Your Future.",
     "description": "Hayat Life Care is not just a building — it is a vision realized. Strategically located near Chittagong Medical College Hospital, it brings together healthcare, daily essentials, dining, and entertainment into a single, world-class complex.",
     "location": "Location",
     "landArea": "Land Area",
@@ -432,6 +454,7 @@
     "paidParking": "Paid Parking",
     "businessWings": "Business Wings",
     "future": "Future",
+    "totalArea": "Total Built Area",
     "diagnostic": "Diagnostic Center",
     "hospital": "Specialized Hospital",
     "registeredCompany": "Registered Company",
@@ -439,18 +462,19 @@
     "shares": "4,950 Shares",
     "rjsc": "RJSC Registered",
     "oneStopService": "A one-stop service for healthcare & daily essentials",
-    "locationValue": "O.R. Nizam Road, Chattogram",
+    "locationValue": "O.R. Nizam Road, Chattogram (Adjacent to Chattogram Medical College & Hospital)",
     "landAreaValue": "55 Katha",
-    "structureValue": "14 Levels + 3 Basements",
+    "structureValue": "3 Basements + 14 Levels",
     "paidParkingValue": "150+ Paid Parking Spaces",
     "businessWingsValue": "11 Comprehensive Wings",
     "futureValue": "14-18 Floor Expansion",
-    "diagnosticValue": "Cancer Diagnostic Center with first PET CT Scan in Chattogram",
-    "hospitalValue": "First Super Specialized Hospital at Chattogram's Medical Hub"
+    "totalAreaValue": "~2,66,000 sft Approx.",
+    "diagnosticValue": "Diagnostic Center with first PET CT Scan in Chattogram",
+    "hospitalValue": "Super Specialized Hospital at Chattogram's Medical Hub"
   },
   "floors": {
     "title": "Floor-wise Facilities",
-    "description": "Explore each floor of Hayat Life Care — from paid parking to specialized medical institutes.",
+    "description": "Explore the layout of Hayat Life Care — from basement parking to a world-class specialized hospital on the upper levels.",
     "whatsOnFloor": "What's on this floor"
   },
   "emergency": {
@@ -459,7 +483,11 @@
   "gallery": {
     "badge": "VISUAL TOUR",
     "title": "Project Gallery",
-    "description": "A visual journey through the Hayat Life Care complex."
+    "description": "A visual journey through the Hayat Life Care complex.",
+    "eventsBadge": "OUR EVENTS",
+    "eventsTitle": "Memorable",
+    "eventsHighlight": "Moments",
+    "eventsDescription": "Highlights from our latest events, grand openings, and community initiatives."
   },
   "whyPartner": {
     "badge": "Ownership Benefits",
@@ -486,7 +514,7 @@
     "reason5Desc": "A completely debt-free project ensuring financial security and transparency.",
     "reason6Title": "First Cancer Diagnostic Center in the City",
     "reason6Desc": "Pioneering PET-CT and advanced cancer diagnostics — a first in Chattogram.",
-    "reason7Title": "First Specialized Hospital in the City",
+    "reason7Title": "Specialized Hospital in the City",
     "reason7Desc": "Multi-disciplinary specialized hospital with internationally trained specialists.",
     "reason8Title": "Largest Diagnostic Center in Chattogram",
     "reason8Desc": "State-of-the-art imaging and laboratory facilities unmatched in the region.",
@@ -506,7 +534,7 @@
   "uniqueness": {
     "badge": "WHAT SETS US APART",
     "title": "Our Uniqueness",
-    "description": "What makes Hayat Life Care truly one-of-a-kind in Chattogram.",
+    "description": "Discover what makes Hayat Life Care the most integrated, comprehensive health complex and truly one-of-a-kind in Chattogram.",
     "feature1Title": "Dedicated Women's Diagnostic Floor",
     "feature1Desc": "An entire floor exclusively designed for women — ensuring privacy, comfort, and dignity in healthcare.",
     "feature2Title": "First PET-CT Scan in Chattogram",
