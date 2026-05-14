@@ -49,22 +49,23 @@ const DIRECTORS: Director[] = [
   },
   // ── Founding Directors (First 4 visible) ──
   {
-    id: 'capt-atique',
-    name: 'Capt. Atique UA Khan',
-    designation: 'Adviser',
-    shortTitle: 'Master Mariner, Writer & Social Activist',
-    photo: '/images/directors/capt-atique.jpg',
-    briefBio: 'Highly experienced Master Mariner, writer, columnist, and social activist with strong expertise in leadership, strategic planning, and risk management.',
+    id: 'shishir',
+    name: 'Md. Helal Uddin Kawsar (Shishir)',
+    designation: 'Founding Director & Chief Operating Officer (COO)',
+    shortTitle: 'Hospital Management Professional & Consultant',
+    photo: '/images/directors/shishir.jpg',
+    briefBio: 'Seasoned Hospital Management Professional & Consultant with MBA in Marketing and MPH in Health Policy & Administration, with over 11 years of healthcare experience.',
     fullBio: [
-      'Capt. Atique UA Khan is a highly experienced Master Mariner, writer, columnist, and social activist with strong expertise in leadership, strategic planning, and risk management gained through his distinguished maritime career. He also contributes to organizational development and strategic direction across various institutions.',
-      'He serves as an Adviser to several organizations, including the Bangladesh Kindergarten Association, Durbar Bangladesh Foundation, and Shikkha Foundation. He is also the Founding Chairman of Angeekar Bangladesh Charity Foundation, reflecting his strong commitment to social development and humanitarian initiatives.',
+      'Md. Helal Uddin Kawsar (Shishir) is a seasoned Hospital Management Professional & Consultant, holding an MBA in Marketing and an MPH in Health Policy & Administration, with over 11 years of experience in healthcare administration, hospital operations, HR & administration, strategic planning, and business development.',
+      'He has held senior leadership roles in reputed healthcare institutions including Bangladesh Eye Hospital, Khidmah Hospital Ltd., Hikmah Eye Hospital Ltd., Al-Manar Hospital Ltd., and Bangladesh Specialized Hospital.',
+      'He later transitioned into entrepreneurship and became the Founding Managing Director of EyeReach Eye Hospital Limited. He specializes in strategic planning, operational management, compliance, team leadership, and institutional capacity building.',
     ],
-    hayatRole: 'With his extensive leadership experience and dedication to community service, Capt. Khan is expected to play a valuable role in guiding the strategic growth and vision of Hayat Life Care, supporting its mission to enhance quality healthcare services for the people of Chattogram.',
+    hayatRole: 'As the Founding Director of Hayat Life Care, Mr. Kawsar is committed to utilizing his vast experience to develop a modern, patient-centered, and sustainable healthcare system in Bangladesh, driven by innovation and excellence.',
   },
   {
     id: 'liton',
     name: 'Ashekunnabi Mahmudur Rahman Mazumder (Liton)',
-    designation: 'Founding Director',
+    designation: 'Founding Director & Director of International Affairs',
     shortTitle: 'Healthcare Entrepreneur & CEO, Orbit Eye Hospital',
     photo: '/images/directors/liton.jpg',
     briefBio: 'Distinguished healthcare entrepreneur, corporate leader, and business strategist. MD & CEO of Orbit Eye Hospital Ltd. and Founder & CEO of World Class Air Ambulance.',
@@ -77,50 +78,36 @@ const DIRECTORS: Director[] = [
     hayatRole: 'As the Founding Director of Hayat Life Care, Mr. Liton is committed to contributing his diversified business experience and strategic leadership toward developing a modern, sustainable, and patient-centered healthcare platform in Bangladesh.',
   },
   {
-    id: 'shishir',
-    name: 'Md. Helal Uddin Kawsar (Shishir)',
-    designation: 'Founding Director',
-    shortTitle: 'Hospital Management Professional & Consultant',
-    photo: '/images/directors/shishir.jpg',
-    briefBio: 'Seasoned Hospital Management Professional & Consultant with MBA in Marketing and MPH in Health Policy & Administration, with over 11 years of healthcare experience.',
+    id: 'capt-atique',
+    name: 'Capt. Atique UA Khan',
+    designation: 'Founding Director & Marketing Advisor',
+    shortTitle: 'Master Mariner, Writer & Social Activist',
+    photo: '/images/directors/capt-atique.jpg',
+    briefBio: 'Highly experienced Master Mariner, writer, columnist, and social activist with strong expertise in leadership, strategic planning, and risk management.',
     fullBio: [
-      'Md. Helal Uddin Kawsar (Shishir) is a seasoned Hospital Management Professional & Consultant, holding an MBA in Marketing and an MPH in Health Policy & Administration, with over 11 years of experience in healthcare administration, hospital operations, HR & administration, strategic planning, and business development.',
-      'He has held senior leadership roles in reputed healthcare institutions including Bangladesh Eye Hospital, Khidmah Hospital Ltd., Hikmah Eye Hospital Ltd., Al-Manar Hospital Ltd., and Bangladesh Specialized Hospital.',
-      'He later transitioned into entrepreneurship and became the Founding Managing Director of EyeReach Eye Hospital Limited. He specializes in strategic planning, operational management, compliance, team leadership, and institutional capacity building.',
+      'Capt. Atique UA Khan is a highly experienced Master Mariner, writer, columnist, and social activist with strong expertise in leadership, strategic planning, and risk management gained through his distinguished maritime career. He also contributes to organizational development and strategic direction across various institutions.',
+      'He serves as an Adviser to several organizations, including the Bangladesh Kindergarten Association, Durbar Bangladesh Foundation, and Shikkha Foundation. He is also the Founding Chairman of Angeekar Bangladesh Charity Foundation, reflecting his strong commitment to social development and humanitarian initiatives.',
     ],
-    hayatRole: 'As the Founding Director of Hayat Life Care, Mr. Kawsar is committed to utilizing his vast experience to develop a modern, patient-centered, and sustainable healthcare system in Bangladesh, driven by innovation and excellence.',
+    hayatRole: 'With his extensive leadership experience and dedication to community service, Capt. Khan is expected to play a valuable role in guiding the strategic growth and vision of Hayat Life Care, supporting its mission to enhance quality healthcare services for the people of Chattogram.',
   },
   {
     id: 'bakkar',
-    name: 'Md Abu Bakkar Siddique, DMD',
-    designation: 'Founding Director',
+    name: 'Md Abu Bakkar Siddiki',
+    designation: 'Founding Director & Member, Chamber of Commerce',
     shortTitle: 'Entrepreneur & Business Strategist',
     photo: '/images/directors/bakkar.jpg',
     briefBio: 'Dedicated professional and dynamic entrepreneur with extensive business experience, particularly in the automobile industry. Strong analytical thinking from Mathematics background.',
     fullBio: [
-      'Md. Abu Bakkar Siddique, DMD is a dedicated professional and dynamic entrepreneur with extensive business experience, particularly in the automobile industry. With a strong entrepreneurial mindset and practical expertise in both local and international markets, he has successfully developed and managed diversified business ventures.',
+      'Md. Abu Bakkar Siddiki is a dedicated professional and dynamic entrepreneur with extensive business experience, particularly in the automobile industry. With a strong entrepreneurial mindset and practical expertise in both local and international markets, he has successfully developed and managed diversified business ventures.',
       'Academically, he studied Mathematics and completed his Master\'s degree, which has strengthened his analytical thinking and problem-solving abilities in business and organizational management.',
     ],
     hayatRole: 'As a key member of Hayat Life Care, he brings business insight, operational experience, and a progressive vision toward building a modern, efficient, and service-oriented healthcare platform in Bangladesh.',
   },
   // ── Hidden behind "More Directors" ──
   {
-    id: 'dr-naser',
-    name: 'Dr. Md Abu Naser',
-    designation: 'Vice Chairman',
-    shortTitle: 'Surgeon & Founding MD, National Hospital Chattogram',
-    photo: '/images/directors/dr-naser.jpg',
-    briefBio: 'Renowned surgeon, healthcare entrepreneur, and medical leader. Founding Managing Director of National Hospital Chattogram and Sigma Lab Ltd., established in 1998.',
-    fullBio: [
-      'Dr. Abu Naser is a renowned surgeon, healthcare entrepreneur, and medical leader, and the Founding Managing Director of National Hospital Chattogram and Sigma Lab Ltd., established in 1998. He is currently serving as Executive Director and has played a pioneering role in the development of super-specialized healthcare services in Chattogram.',
-      'He has also contributed to the Bangladesh Medical Association at various leadership levels.',
-    ],
-    hayatRole: 'As the Vice Chairman of Hayat Life Care, Dr. Abu Naser brings decades of clinical and administrative experience, guiding the organization toward excellence in healthcare delivery. His leadership is instrumental in shaping a new horizon of advanced and super-specialized healthcare services for the people of Chattogram.',
-  },
-  {
     id: 'sayed-noor',
     name: 'Mir Mohammad Sayed Noor',
-    designation: 'Founding Director',
+    designation: 'Founding Director & Finance Director',
     shortTitle: 'Banker, Entrepreneur & Chief Editor, NCC Bangla',
     photo: '/images/directors/sayed-noor.jpg',
     briefBio: 'Experienced banker and entrepreneur, retired as Senior AVP and Branch Head. Chief Editor of NCC Bangla with strong connections in salt and shrimp industries.',
@@ -129,6 +116,19 @@ const DIRECTORS: Director[] = [
       'He also serves as the Chief Editor of NCC Bangla.',
     ],
     hayatRole: 'With his extensive experience in banking, business, and organizational leadership, he brings valuable insight into financial management and institutional development. As a member of Hayat Life Care, he is expected to contribute to the organization\'s strategic growth and vision.',
+  },
+  {
+    id: 'dr-naser',
+    name: 'Dr. Md Abu Naser',
+    designation: 'Founding Director & Vice Chairman',
+    shortTitle: 'Surgeon & Founding MD, National Hospital Chattogram',
+    photo: '/images/directors/dr-naser.jpg',
+    briefBio: 'Renowned surgeon, healthcare entrepreneur, and medical leader. Founding Managing Director of National Hospital Chattogram and Sigma Lab Ltd., established in 1998.',
+    fullBio: [
+      'Dr. Abu Naser is a renowned surgeon, healthcare entrepreneur, and medical leader, and the Founding Managing Director of National Hospital Chattogram and Sigma Lab Ltd., established in 1998. He is currently serving as Executive Director and has played a pioneering role in the development of super-specialized healthcare services in Chattogram.',
+      'He has also contributed to the Bangladesh Medical Association at various leadership levels.',
+    ],
+    hayatRole: 'As the Vice Chairman of Hayat Life Care, Dr. Abu Naser brings decades of clinical and administrative experience, guiding the organization toward excellence in healthcare delivery. His leadership is instrumental in shaping a new horizon of advanced and super-specialized healthcare services for the people of Chattogram.',
   },
   {
     id: 'iqbal',
@@ -183,16 +183,20 @@ function ProfileModal({ director, onClose }: { director: Director; onClose: () =
             />
           </div>
           <div className="pt-1 pr-8">
-            <span
-              className="inline-block px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase mb-2"
-              style={{ background: 'rgba(13,148,136,0.1)', color: '#0D9488' }}
-            >
-              {director.designation}
-            </span>
             <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-tight">
               {director.name}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">{director.shortTitle}</p>
+            <p className="text-[13px] md:text-sm font-bold text-amber-600 dark:text-amber-400 mt-1.5 uppercase tracking-wide leading-snug">
+              {director.designation.includes(' & ') ? (
+                <>
+                  {director.designation.split(' & ')[0]} &<br />
+                  {director.designation.split(' & ')[1]}
+                </>
+              ) : (
+                director.designation
+              )}
+            </p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 font-medium border-l-2 border-gray-200 dark:border-gray-700 pl-2">{director.shortTitle}</p>
           </div>
         </div>
 
@@ -261,20 +265,23 @@ function DirectorCard({ director, index, isLarge }: { director: Director; index:
                 fill
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-x-0 bottom-0 h-1/2" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.25) 50%, transparent 100%)' }} />
+              <div className="absolute inset-x-0 bottom-0 h-2/3" style={{ background: 'linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.5) 50%, transparent 100%)' }} />
               
               {/* Name overlay on bottom */}
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <span
-                  className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase mb-2 backdrop-blur-md"
-                  style={{ background: 'rgba(255,255,255,0.15)', color: '#A7F3D0', border: '1px solid rgba(255,255,255,0.2)' }}
-                >
-                  {director.designation}
-                </span>
-                <h3 className="text-base font-bold text-white leading-snug drop-shadow-lg">
+              <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col justify-end">
+                <h3 className="text-[15px] lg:text-[16px] font-bold text-white leading-tight drop-shadow-md mb-1.5">
                   {director.name}
                 </h3>
-                <p className="text-xs text-white/70 mt-0.5 font-medium">{director.shortTitle}</p>
+                <p className="text-[10px] lg:text-[11px] font-bold tracking-wider uppercase leading-[1.35] text-amber-400 drop-shadow-sm">
+                  {director.designation.includes(' & ') ? (
+                    <>
+                      {director.designation.split(' & ')[0]} &<br />
+                      <span className="text-amber-200">{director.designation.split(' & ')[1]}</span>
+                    </>
+                  ) : (
+                    director.designation
+                  )}
+                </p>
               </div>
 
               {/* Flip hint */}

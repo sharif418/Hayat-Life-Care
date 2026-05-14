@@ -22,7 +22,7 @@ interface AdminDashboardProps {
   onClose: () => void
 }
 
-const compressImage = async (file: File, maxWidth = 1200): Promise<string> => {
+const compressImage = async (file: File, maxWidth = 800, quality = 0.6): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -34,16 +34,22 @@ const compressImage = async (file: File, maxWidth = 1200): Promise<string> => {
         let width = img.width;
         let height = img.height;
 
+        // Also limit height to prevent extremely tall images
+        const maxHeight = maxWidth * 1.5;
         if (width > maxWidth) {
           height *= maxWidth / width;
           width = maxWidth;
+        }
+        if (height > maxHeight) {
+          width *= maxHeight / height;
+          height = maxHeight;
         }
         
         canvas.width = width;
         canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx?.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL('image/jpeg', 0.8));
+        resolve(canvas.toDataURL('image/jpeg', quality));
       };
       img.onerror = reject;
     };
@@ -81,7 +87,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
   const [leaders, setLeaders] = useState<any[]>([])
   const [appointments, setAppointments] = useState<any[]>([])
   const [adminVideos, setAdminVideos] = useState<any[]>([])
-  const [owners, setOwners] = useState<any[]>([])
+  const [shareholderImages, setShareholderImages] = useState<any[]>([])
   const [siteSettings, setSiteSettings] = useState<Record<string, any[]>>({})
 
   // Analytics state
@@ -99,7 +105,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
   const [newService, setNewService] = useState({ title: '', slug: '', description: '', icon: '', floor: '', category: '' })
   const [newFaq, setNewFaq] = useState({ question: '', answer: '', category: 'general' })
   const [newLeader, setNewLeader] = useState({ name: '', designation: '', bio: '' })
-  const [newOwner, setNewOwner] = useState({ name: '', identity: '', image: '' })
+  const [isUploadingShareholders, setIsUploadingShareholders] = useState(false)
   const [newVideo, setNewVideo] = useState({ title: '', youtubeId: '', description: '' })
   const [featuredVideoId, setFeaturedVideoId] = useState('')
   const [savingFeatured, setSavingFeatured] = useState(false)
@@ -131,7 +137,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
         fetch('/api/visits'),
         fetch('/api/appointments'),
         fetch('/api/videos', { headers: { 'x-admin-auth': 'true' } }),
-        fetch('/api/owners'),
+        fetch('/api/shareholders'),
         fetch('/api/events'),
       ])
 
@@ -153,7 +159,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
       const visitData = await visitRes.json()
       const apptData = await apptRes.json()
       const vidData = await vidRes.json()
-      const ownerData = await ownerRes.json()
+      const shareholderData = await ownerRes.json()
       const eventData = await eventRes.json()
       if (inqData.data) setInquiries(inqData.data)
       if (svcData.data) setAdminServices(svcData.data)
@@ -180,7 +186,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
       }
       if (apptData.data) setAppointments(apptData.data)
       if (vidData.data) setAdminVideos(vidData.data)
-      if (ownerData.data) setOwners(ownerData.data)
+      if (shareholderData.data) setShareholderImages(shareholderData.data)
       if (eventData.data) setAdminEvents(eventData.data)
     } catch (err) {
       console.error('Failed to fetch admin data:', err)
@@ -413,64 +419,57 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
     }
   }
 
-  const handleOwnerImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        toast.error('Image size should be less than 2MB')
-        return
-      }
-      compressImage(file).then((base64) => {
-        setNewOwner(prev => ({ ...prev, image: base64 }))
-      }).catch((err) => {
-        console.error("Image compression failed", err)
-        toast.error("Failed to process image")
-      })
-    }
-  }
+  const handleShareholderImagesUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || [])
+    if (files.length === 0) return
 
-  const addOwner = async () => {
-    if (!newOwner.name || !newOwner.identity) { toast.error('Name and Identity are required'); return }
+    setIsUploadingShareholders(true)
     try {
-      const res = await fetch('/api/owners', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newOwner),
-      })
-      const data = await res.json()
-      if (data.success && data.data) {
-        setOwners(prev => [...prev, data.data])
-        setNewOwner({ name: '', identity: '', image: '' })
-        toast.success('Owner added successfully!')
-      } else {
-        toast.error(data.error || 'Failed to add owner')
+      const compressedPhotos: string[] = []
+      for (const file of files) {
+        if (file.size > 10 * 1024 * 1024) {
+          toast.error(`Image ${file.name} is too large. Max 10MB allowed.`)
+          continue
+        }
+        try {
+          const base64 = await compressImage(file) // compress to 800px max, 60% quality
+          compressedPhotos.push(base64)
+        } catch (err) {
+          console.error("Image compression failed for", file.name, err)
+        }
+      }
+
+      if (compressedPhotos.length > 0) {
+        const res = await fetch('/api/shareholders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ photos: compressedPhotos }),
+        })
+        const data = await res.json()
+        if (data.success && data.data) {
+          setShareholderImages(prev => [...prev, ...data.data])
+          toast.success(`${compressedPhotos.length} images uploaded successfully!`)
+        } else {
+          toast.error(data.error || 'Failed to upload images')
+        }
       }
     } catch (err) {
-      console.error('Failed to add owner:', err)
+      console.error('Failed to upload shareholder images:', err)
       toast.error('Network error. Please try again.')
+    } finally {
+      setIsUploadingShareholders(false)
+      // Reset input
+      e.target.value = ''
     }
   }
 
-  const deleteOwner = async (id: string) => {
+  const deleteShareholderImage = async (id: string) => {
     try {
-      await fetch(`/api/owners/${id}`, { method: 'DELETE' })
-      setOwners(prev => prev.filter(o => o.id !== id))
-      toast.success('Owner deleted')
+      await fetch(`/api/shareholders/${id}`, { method: 'DELETE' })
+      setShareholderImages(prev => prev.filter(o => o.id !== id))
+      toast.success('Image deleted')
     } catch (err) {
-      console.error('Failed to delete owner:', err)
-    }
-  }
-
-  const toggleOwnerActive = async (id: string, active: boolean) => {
-    try {
-      await fetch(`/api/owners/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ active: !active }),
-      })
-      setOwners(prev => prev.map(o => o.id === id ? { ...o, active: !active } : o))
-    } catch (err) {
-      console.error('Failed to toggle owner:', err)
+      console.error('Failed to delete image:', err)
     }
   }
 
@@ -577,7 +576,7 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                     { id: 'inquiries', icon: Inbox, label: 'Inquiries' },
                     { id: 'appointments', icon: CalendarCheck, label: 'Appointments' },
                     { id: 'videos', icon: PlayCircle, label: 'Videos' },
-                    { id: 'owners', icon: Users, label: 'Owners' },
+                    { id: 'shareholders', icon: Users, label: 'Shareholders' },
                     { id: 'events', icon: Star, label: 'Events' },
                     { id: 'faqs', icon: HelpCircle, label: 'FAQs' },
                     { id: 'testimonials', icon: MessageSquareQuote, label: 'Testimonials' },
@@ -606,9 +605,9 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                   { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
                   { id: 'analytics', icon: BarChart3, label: 'Analytics' },
                   { id: 'inquiries', icon: Inbox, label: 'Inquiries' },
-                  { id: 'appointments', icon: CalendarCheck, label: 'Appointments' },
                   { id: 'videos', icon: PlayCircle, label: 'Videos' },
-                  { id: 'owners', icon: Users, label: 'Owners' },
+                  { id: 'shareholders', icon: Users, label: 'Shareholders' },
+                  { id: 'events', icon: ImagePlus, label: 'Events' },
                   { id: 'faqs', icon: HelpCircle, label: 'FAQs' },
                   { id: 'testimonials', icon: MessageSquareQuote, label: 'Testimonials' },
                   { id: 'settings', icon: Settings, label: 'Settings' },
@@ -651,11 +650,6 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                         <div className="text-sm text-gray-500 mb-1">Total FAQs</div>
                         <div className="text-2xl font-bold text-gray-900 dark:text-white">{adminFaqs.length}</div>
                         <div className="text-xs text-teal-600 mt-2">{adminFaqs.filter(f => f.active).length} active</div>
-                      </div>
-                      <div className="bg-white rounded-xl border p-5 shadow-sm">
-                        <div className="text-sm text-gray-500 mb-1">Leaders</div>
-                        <div className="text-2xl font-bold text-gray-900 dark:text-white">{leaders.length}</div>
-                        <div className="text-xs text-teal-600 mt-2">Team members</div>
                       </div>
                     </div>
 
@@ -868,100 +862,6 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
                             )}
                           </tbody>
                         </table>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* ── Owners Tab ── */}
-                {adminTab === 'owners' && (
-                  <div className="space-y-8 animate-in fade-in duration-300">
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-2xl font-bold text-gray-900">Manage Owners</h2>
-                    </div>
-
-                    {/* Add New Owner */}
-                    <div className="bg-white rounded-xl shadow-sm border p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                        <UserPlus className="size-5 text-teal-600" />
-                        Add New Owner
-                      </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-4">
-                          <div>
-                            <Label>Name</Label>
-                            <Input placeholder="e.g. Dr. John Doe" value={newOwner.name} onChange={e => setNewOwner({ ...newOwner, name: e.target.value })} />
-                          </div>
-                          <div>
-                            <Label>Identity / Short Description</Label>
-                            <Input placeholder="e.g. Managing Director" value={newOwner.identity} onChange={e => setNewOwner({ ...newOwner, identity: e.target.value })} />
-                          </div>
-                          <div>
-                            <Label>Photo (max 2MB)</Label>
-                            <Input type="file" accept="image/*" onChange={handleOwnerImageUpload} />
-                          </div>
-                        </div>
-                        <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-4 bg-gray-50">
-                          {newOwner.image ? (
-                            <img src={newOwner.image} alt="Preview" className="w-32 h-32 object-cover rounded-full border-4 border-white shadow-md mb-4" />
-                          ) : (
-                            <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center mb-4 text-gray-400">
-                              <ImagePlus className="size-8" />
-                            </div>
-                          )}
-                          <p className="text-sm text-gray-500">Image Preview</p>
-                        </div>
-                      </div>
-                      <div className="mt-4 flex justify-end">
-                        <Button onClick={addOwner} className="bg-teal-600 hover:bg-teal-700 text-white">
-                          <Plus className="size-4 mr-2" /> Add Owner
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Existing Owners */}
-                    <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
-                      <div className="p-4 border-b bg-gray-50 flex items-center justify-between">
-                        <h3 className="font-semibold text-gray-900">Existing Owners</h3>
-                        <Badge className="bg-teal-100 text-teal-700">{owners.length} Owners</Badge>
-                      </div>
-                      <div className="divide-y">
-                        {owners.map((owner) => (
-                          <div key={owner.id} className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
-                            <div className="flex items-center gap-4">
-                              {owner.image ? (
-                                <img src={owner.image} alt={owner.name} className="w-12 h-12 rounded-full object-cover border" />
-                              ) : (
-                                <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold text-lg">
-                                  {owner.name.charAt(0)}
-                                </div>
-                              )}
-                              <div>
-                                <h4 className="font-medium text-gray-900">{owner.name}</h4>
-                                <p className="text-sm text-gray-500">{owner.identity}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <button
-                                onClick={() => toggleOwnerActive(owner.id, owner.active)}
-                                className={`text-xs px-2 py-1 rounded-full border ${owner.active ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-100 text-gray-600 border-gray-200'}`}
-                              >
-                                {owner.active ? 'Active' : 'Hidden'}
-                              </button>
-                              <button
-                                onClick={() => deleteOwner(owner.id)}
-                                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                              >
-                                <Trash2 className="size-4" />
-                              </button>
-                            </div>
-                          </div>
-                        ))}
-                        {owners.length === 0 && (
-                          <div className="p-8 text-center text-gray-500">
-                            No owners added yet.
-                          </div>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -1367,6 +1267,66 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
 
                 {/* ── Testimonials Tab ── */}
                 {adminTab === 'testimonials' && <TestimonialsManager />}
+
+                {/* ── Shareholders Tab ── */}
+                {adminTab === 'shareholders' && (
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
+                    <div className="flex justify-between items-center mb-6">
+                      <h2 className="text-2xl font-bold text-gray-900">Shareholders Gallery</h2>
+                    </div>
+
+                    {/* Bulk Upload Section */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                      <h3 className="font-semibold text-gray-900 mb-4 text-lg">Bulk Upload Images</h3>
+                      <p className="text-sm text-gray-500 mb-4">
+                        Select multiple images to upload. They will be automatically compressed in your browser to save server space (approx 100-200KB per image).
+                      </p>
+                      <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center">
+                        <div className="w-16 h-16 bg-teal-50 rounded-full flex items-center justify-center mb-4">
+                          <Upload className="size-8 text-teal-600" />
+                        </div>
+                        <Label htmlFor="bulk-upload" className="cursor-pointer bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-xl font-medium transition-colors">
+                          {isUploadingShareholders ? 'Compressing & Uploading...' : 'Select Images to Upload'}
+                        </Label>
+                        <input
+                          id="bulk-upload"
+                          type="file"
+                          multiple
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleShareholderImagesUpload}
+                          disabled={isUploadingShareholders}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Existing Images */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                      <div className="flex justify-between items-center mb-6">
+                        <h3 className="font-semibold text-gray-900 text-lg">Gallery ({shareholderImages.length})</h3>
+                      </div>
+                      {shareholderImages.length === 0 ? (
+                        <div className="text-center py-12 bg-gray-50 rounded-xl border border-gray-100">
+                          <ImagePlus className="size-12 text-gray-300 mx-auto mb-3" />
+                          <p className="text-gray-500">No images uploaded yet.</p>
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                          {shareholderImages.map((img) => (
+                            <div key={img.id} className="group relative bg-gray-50 rounded-xl overflow-hidden border border-gray-200 aspect-square">
+                              <img src={img.photo} alt="Shareholder" className="w-full h-full object-cover" />
+                              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                <Button size="icon" variant="destructive" className="h-8 w-8 rounded-full" onClick={() => deleteShareholderImage(img.id)}>
+                                  <Trash2 className="size-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
 
                 {/* ── Events Tab ── */}
                 {adminTab === 'events' && (

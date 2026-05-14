@@ -165,6 +165,7 @@ export const floors = [
 ]
 
 export const services = [
+  { icon: HeartPulse, title: 'Specialized Hospital', desc: 'Cancer, Heart, Kidney, Gyne & Obs — planned' },
   { icon: Microscope, title: 'Diagnostic Center', desc: 'AI-powered advanced diagnostics with full pathology lab' },
   { icon: Car, title: 'Paid Parking', desc: '150+ paid parking spaces across 3 basements with CCTV surveillance' },
   { icon: ShoppingBag, title: 'Super Shop', desc: 'Largest supershop in the complex' },
@@ -175,7 +176,6 @@ export const services = [
   { icon: CupSoda, title: 'Juice Bar', desc: 'Fresh, nutrient-rich juices & smoothies' },
   { icon: UtensilsCrossed, title: 'Restaurant', desc: 'Nutritious meals with special diet options' },
   { icon: Baby, title: "Kid's Amusement Park", desc: 'Indoor play zone for kids' },
-  { icon: HeartPulse, title: 'Specialized Hospital', desc: 'Cancer, Heart, Kidney, Gyne & Obs — planned' },
 ]
 
 export const benefitCodes = [

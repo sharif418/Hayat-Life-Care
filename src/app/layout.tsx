@@ -35,6 +35,7 @@ import Navbar from "@/components/layout/Navbar";
 import GlobalUI from "@/components/layout/GlobalUI";
 import { DownloadProvider } from "@/components/providers/DownloadProvider";
 import SiteVisitTracker from "@/components/ui/SiteVisitTracker";
+import ReloadRedirect from "@/components/ui/ReloadRedirect";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://hayatlifecare.duckdns.org'),
@@ -83,6 +84,7 @@ export default function RootLayout({
           <LanguageProvider>
             <AppointmentProvider>
               <DownloadProvider>
+                <ReloadRedirect />
                 <SiteVisitTracker />
                 <Navbar />
                 {children}

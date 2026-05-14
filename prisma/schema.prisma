@@ -188,3 +188,11 @@ model EventPhoto {
   createdAt DateTime @default(now())
 }
 
+
+model ShareholderImage {
+  id        String   @id @default(cuid())
+  photo     String   // base64 image
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

@@ -266,14 +266,14 @@ export default function HeroSection({
                 <div ref={stat1.ref} className="text-xl md:text-2xl lg:text-3xl font-bold text-white">
                   {formatNumber(stat1.count as string | number)}
                 </div>
-                <div className="text-[9px] md:text-[10px] text-white/40 mt-1 tracking-[0.15em] uppercase">{t('stats.businessWings')}</div>
+                <div className="text-xs md:text-[13px] text-white mt-1 tracking-wider font-bold uppercase">{t('stats.businessWings')}</div>
               </div>
               {/* Stat 2: Floors */}
               <div className="py-4 md:py-5 text-center border-r border-white/10">
                 <div ref={stat2.ref} className="text-xl md:text-2xl lg:text-3xl font-bold text-white">
                   {formatNumber(stat2.count as string | number)}+
                 </div>
-                <div className="text-[9px] md:text-[10px] text-white/40 mt-1 tracking-[0.15em] uppercase">{t('stats.floors')}</div>
+                <div className="text-xs md:text-[13px] text-white mt-1 tracking-wider font-bold uppercase">{t('stats.floors')}</div>
               </div>
               {/* Stat 3: 55 KATHA — FEATURED CENTER */}
               <div
@@ -290,22 +290,22 @@ export default function HeroSection({
                 <div ref={stat3.ref} className="text-2xl md:text-3xl lg:text-4xl font-black" style={{ background: 'linear-gradient(135deg, #5EEAD4, #14B8A6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 2px 8px rgba(13,148,136,0.4))' }}>
                   {formatNumber(stat3.count as string | number)}
                 </div>
-                <div className="text-[10px] md:text-[11px] text-teal-300/80 mt-0.5 tracking-[0.15em] uppercase font-bold">{t('stats.kathaLand')}</div>
-                <div className="text-[8px] md:text-[9px] text-teal-400/50 mt-0.5 tracking-wider font-medium">PRIME LAND, O.R. NIZAM ROAD</div>
+                <div className="text-[13px] md:text-[14px] text-teal-400 mt-1 tracking-wider uppercase font-extrabold">{t('stats.kathaLand')}</div>
+                <div className="text-[10px] md:text-[11px] text-teal-200 mt-0.5 tracking-wider font-semibold">PRIME LAND, O.R. NIZAM ROAD</div>
               </div>
               {/* Stat 4: Paid Parking */}
               <div className="py-4 md:py-5 text-center border-r border-white/10">
                 <div ref={stat4.ref} className="text-xl md:text-2xl lg:text-3xl font-bold text-white">
                   {formatNumber(stat4.count as string | number)}+
                 </div>
-                <div className="text-[9px] md:text-[10px] text-white/40 mt-1 tracking-[0.15em] uppercase">{t('stats.paidParking')}</div>
+                <div className="text-xs md:text-[13px] text-white mt-1 tracking-wider font-bold uppercase">{t('stats.paidParking')}</div>
               </div>
               {/* Stat 5: Shares 1st Phase */}
               <div className="py-4 md:py-5 text-center">
                 <div ref={stat5.ref} className="text-xl md:text-2xl lg:text-3xl font-bold text-amber-400">
                   {formatNumber(stat5.count as string | number)}
                 </div>
-                <div className="text-[9px] md:text-[10px] text-amber-400/50 mt-1 tracking-[0.15em] uppercase">{t('stats.shares1stPhase')}</div>
+                <div className="text-xs md:text-[13px] text-amber-400 mt-1 tracking-wider font-bold uppercase">{t('stats.shares1stPhase')}</div>
               </div>
             </div>
 
@@ -322,26 +322,26 @@ export default function HeroSection({
                 <div className="text-3xl font-black" style={{ background: 'linear-gradient(135deg, #5EEAD4, #14B8A6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 2px 8px rgba(13,148,136,0.4))' }}>
                   55
                 </div>
-                <div className="text-[10px] text-teal-300/80 mt-0.5 tracking-[0.15em] uppercase font-bold">{t('stats.kathaLand')}</div>
-                <div className="text-[8px] text-teal-400/50 mt-0.5 tracking-wider font-medium">PRIME LAND, O.R. NIZAM ROAD</div>
+                <div className="text-[12px] text-teal-400 mt-0.5 tracking-wider uppercase font-extrabold">{t('stats.kathaLand')}</div>
+                <div className="text-[10px] text-teal-200 mt-0.5 tracking-wider font-semibold">PRIME LAND, O.R. NIZAM ROAD</div>
               </div>
               {/* 2x2 grid for other stats */}
               <div className="grid grid-cols-4 rounded-2xl border border-white/10 overflow-hidden backdrop-blur-xl" style={{ background: 'rgba(255,255,255,0.06)' }}>
                 <div className="py-3 text-center border-r border-white/10">
                   <div className="text-lg font-bold text-white">11</div>
-                  <div className="text-[8px] text-white/40 mt-0.5 tracking-[0.12em] uppercase">{t('stats.businessWings')}</div>
+                  <div className="text-[11px] text-white mt-1 tracking-wide font-bold uppercase">{t('stats.businessWings')}</div>
                 </div>
                 <div className="py-3 text-center border-r border-white/10">
                   <div className="text-lg font-bold text-white">14+</div>
-                  <div className="text-[8px] text-white/40 mt-0.5 tracking-[0.12em] uppercase">{t('stats.floors')}</div>
+                  <div className="text-[11px] text-white mt-1 tracking-wide font-bold uppercase">{t('stats.floors')}</div>
                 </div>
                 <div className="py-3 text-center border-r border-white/10">
                   <div className="text-lg font-bold text-white">150+</div>
-                  <div className="text-[8px] text-white/40 mt-0.5 tracking-[0.12em] uppercase">{t('stats.paidParking')}</div>
+                  <div className="text-[11px] text-white mt-1 tracking-wide font-bold uppercase">{t('stats.paidParking')}</div>
                 </div>
                 <div className="py-3 text-center">
                   <div className="text-lg font-bold text-amber-400">2,500</div>
-                  <div className="text-[8px] text-amber-400/50 mt-0.5 tracking-[0.12em] uppercase">{t('stats.shares1stPhase')}</div>
+                  <div className="text-[11px] text-amber-400 mt-1 tracking-wide font-bold uppercase">{t('stats.shares1stPhase')}</div>
                 </div>
               </div>
             </div>

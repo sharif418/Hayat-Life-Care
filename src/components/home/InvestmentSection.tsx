@@ -28,20 +28,42 @@ const benefitNameKeys: Record<string, string> = {
   B8: 'investment.b8',
 }
 
-function TierBenefits({ benefits, color }: { benefits: string[], color: string }) {
+function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradient: string, color: string }) {
+  const [activeBenefit, setActiveBenefit] = useState<string | null>(null)
   const { t } = useLanguage()
+  
   return (
-    <div className="px-5 pb-6">
-      <div className="w-8 h-0.5 rounded-full mb-4" style={{ background: color, opacity: 0.3 }} />
-      <div className="space-y-2.5">
-        {benefits.map((b) => (
-          <div key={b} className="flex items-start gap-2.5">
-            <Check className="size-4 mt-0.5 shrink-0" style={{ color }} />
-            <span className="text-[13px] font-medium leading-snug opacity-90">
-              {t(benefitNameKeys[b])}
-            </span>
-          </div>
-        ))}
+    <div className="px-5 pb-5 relative z-20" onClick={(e) => e.stopPropagation()}>
+      <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2.5">{t('investment.benefitsIncluded')}</div>
+      <div className="flex flex-wrap gap-2">
+        {benefits.map((b) => {
+          const isActive = activeBenefit === b
+          return (
+            <button
+              key={b}
+              onClick={(e) => {
+                e.stopPropagation()
+                setActiveBenefit(isActive ? null : b)
+              }}
+              className={`px-3 py-1.5 rounded-full text-xs font-bold shadow-sm transition-all duration-200 ease-out border ${
+                isActive
+                  ? 'text-white scale-110 -translate-y-1 shadow-lg ring-2 ring-white/40 border-transparent'
+                  : 'text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-slate-800/50 border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600'
+              }`}
+              style={isActive ? { background: gradient } : {}}
+            >
+              {b}
+            </button>
+          )
+        })}
+      </div>
+      
+      {/* Inline benefit meaning display */}
+      <div className={`mt-3 overflow-hidden transition-all duration-300 ease-in-out ${activeBenefit ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="flex items-start gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: `${color}10` }}>
+          <span className="font-bold shrink-0" style={{ color }}>{activeBenefit}:</span>
+          <span className="text-gray-700 dark:text-gray-300 font-medium">{activeBenefit ? t(benefitNameKeys[activeBenefit]) : ''}</span>
+        </div>
       </div>
     </div>
   )
@@ -55,6 +77,7 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
   const [showInvestModal, setShowInvestModal] = useState(false)
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', shares: '1', message: '' })
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [selectedTier, setSelectedTier] = useState<any | null>(null)
   const { t } = useLanguage()
 
   const handleInvestSubmit = async (e: React.FormEvent) => {
@@ -241,8 +264,9 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                   return (
                   <motion.div
                     key={i}
+                    onClick={() => setSelectedTier(tier)}
                     whileHover={{ y: -8, scale: 1.02 }}
-                    className={`group relative rounded-2xl border-2 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden ${
+                    className={`group relative rounded-2xl border-2 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer ${
                        tier.popular
                           ? 'border-amber-300 dark:border-amber-600 ring-2 ring-amber-200/50'
                           : isDirector ? 'border-transparent shadow-[0_8px_30px_rgb(0,0,0,0.12)]' : 'border-gray-100 dark:border-slate-700 hover:border-transparent'
@@ -293,8 +317,15 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                       <div className={`text-base font-bold mb-1 ${isDirector ? 'text-gray-100' : 'text-gray-800 dark:text-gray-200'}`}>{tier.amount}</div>
                       <div className={`text-xs ${isDirector ? 'text-gray-400' : 'text-gray-500 dark:text-gray-400'}`}>Minimum: {tier.minShares}</div>
                     </div>
-                    <TierBenefits benefits={tier.benefits} color={tier.color} />
-                    <div className="h-2 group-hover:h-3 transition-all duration-300 rounded-b-2xl" style={{ background: tier.gradient }} />
+                    <TierBenefits benefits={tier.benefits} gradient={tier.gradient} color={tier.color} />
+                    
+                    <div className="px-5 pb-5 pt-1 text-center relative z-10">
+                      <span className="text-[11px] font-bold text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors uppercase tracking-wider">
+                        Click to view details
+                      </span>
+                    </div>
+
+                    <div className="h-2 group-hover:h-3 transition-all duration-300 rounded-b-2xl absolute bottom-0 left-0 right-0" style={{ background: tier.gradient }} />
                   </motion.div>
                   )
                 })}
@@ -345,11 +376,12 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                       <div className="text-3xl font-black" style={{ color: '#0D9488' }}>৳10 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{t('investment.lacs')}</span></div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-3 gap-3 mt-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
                     {[
                       { phase: 'Phase 1', price: '৳10L', shares: '2,500 shares', color: 'text-emerald-700 dark:text-emerald-300', active: true },
-                      { phase: 'Phase 2', price: '৳15L', shares: '1,000 shares', color: 'text-amber-600', active: false },
-                      { phase: 'Phase 3', price: '৳20L', shares: '1,000 shares', color: 'text-rose-600', active: false },
+                      { phase: 'Phase 2', price: '৳15L', shares: '1,000 shares', color: 'text-amber-600 dark:text-amber-400', active: false },
+                      { phase: 'Phase 3', price: '৳20L', shares: '1,000 shares', color: 'text-rose-600 dark:text-rose-400', active: false },
+                      { phase: 'Maximum', price: '4,950', shares: 'Total Shares', color: 'text-blue-600 dark:text-blue-400', active: false },
                     ].map((p, i) => (
                       <div key={i} className={`rounded-xl p-3 text-center transition-transform ${p.active ? 'bg-emerald-50 dark:bg-emerald-900/30 border-2 border-emerald-500 shadow-md scale-105 z-10' : 'bg-gray-50 dark:bg-slate-700/50 border border-transparent hover:scale-105'}`}>
                         <div className={`text-[10px] mb-0.5 flex items-center justify-center gap-1 ${p.active ? 'text-emerald-700 font-bold dark:text-emerald-300' : 'text-gray-500 dark:text-gray-400'}`}>
@@ -380,8 +412,8 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
               <div className="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 rounded-full opacity-10 pointer-events-none" style={{ background: 'radial-gradient(circle, #D97706, transparent)' }} />
               <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-64 h-64 rounded-full opacity-10 pointer-events-none" style={{ background: 'radial-gradient(circle, #10B981, transparent)' }} />
 
-              <div className="text-center mb-12 relative z-10">
-                <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white mb-2 leading-tight">
+              <div className="text-center mb-8 relative z-10">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-white mb-2 leading-tight max-w-4xl mx-auto">
                   {t('investment.fundamentalsTitle')} <span style={{ color: '#D97706' }}>{t('investment.fundamentalsHighlight')}</span>
                 </h3>
               </div>
@@ -395,7 +427,7 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                 ].map((item, i) => (
                   <div key={i} className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:bg-slate-800 transition-colors group">
                     <item.icon className="size-8 mb-6 group-hover:scale-110 transition-transform" style={{ color: item.color }} strokeWidth={1.5} />
-                    <h4 className="text-lg font-bold text-white mb-3" style={{ color: '#D97706' }}>{t(item.titleKey)}</h4>
+                    <h4 className="text-base xl:text-lg font-bold text-white mb-3 whitespace-nowrap tracking-tight" style={{ color: '#D97706' }}>{t(item.titleKey)}</h4>
                     <p className="text-sm text-slate-300 leading-relaxed">
                       {t(item.descKey)}
                     </p>
@@ -692,6 +724,110 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                   <p className="text-[11px] text-gray-400 text-center">{t('investment.secureInfo')}</p>
                 </form>
               )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* TIER DETAILS MODAL                                      */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <AnimatePresence>
+        {selectedTier && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6"
+            onClick={() => setSelectedTier(null)}
+          >
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden w-full max-w-2xl flex flex-col max-h-[90vh]"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="relative p-6 sm:p-8 text-white shrink-0" style={{ background: selectedTier.gradient }}>
+                <button
+                  onClick={() => setSelectedTier(null)}
+                  className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+                >
+                  <X className="size-4" />
+                </button>
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                    <HandCoins className="size-7" />
+                  </div>
+                  <div>
+                    <div className="text-white/80 font-medium uppercase tracking-widest text-xs mb-1">
+                      {selectedTier.status}
+                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-bold">{selectedTier.tier} Tier</h3>
+                  </div>
+                </div>
+              </div>
+
+              {/* Content Area - Scrollable */}
+              <div className="p-6 sm:p-8 overflow-y-auto">
+                <div className="grid sm:grid-cols-2 gap-6 mb-8">
+                  <div className="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-gray-100 dark:border-slate-700">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Investment Amount</div>
+                    <div className="text-lg font-bold text-gray-900 dark:text-white">{selectedTier.amount}</div>
+                  </div>
+                  <div className="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-gray-100 dark:border-slate-700">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Minimum Requirement</div>
+                    <div className="text-lg font-bold text-gray-900 dark:text-white">{selectedTier.minShares}</div>
+                  </div>
+                </div>
+
+                <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <Sparkles className="size-5" style={{ color: selectedTier.color }} />
+                  Included Benefits
+                </h4>
+                
+                <div className="space-y-3">
+                  {selectedTier.benefits.map((b: string) => (
+                    <div key={b} className="flex gap-3 bg-white dark:bg-slate-800 p-3 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-bold text-xs" style={{ background: `${selectedTier.color}15`, color: selectedTier.color }}>
+                        {b}
+                      </div>
+                      <div className="text-sm text-gray-700 dark:text-gray-300 flex-1 my-auto">
+                        {t(benefitNameKeys[b])}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="p-6 sm:p-8 border-t border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-900/50 shrink-0">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button
+                    size="lg"
+                    className="flex-1 text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
+                    style={{ background: selectedTier.gradient }}
+                    onClick={() => {
+                      setSelectedTier(null)
+                      setShowInvestModal(true)
+                    }}
+                  >
+                    <Sparkles className="mr-2 size-4" />
+                    Apply for {selectedTier.tier} Tier
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => setSelectedTier(null)}
+                  >
+                    Close Details
+                  </Button>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         )}

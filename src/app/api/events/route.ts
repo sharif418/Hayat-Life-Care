@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '50mb',
+    },
+  },
+};
+
+// Next.js App Router body size limit
+export const maxDuration = 60; // seconds
+
 export async function GET() {
   try {
     const events = await db.event.findMany({
