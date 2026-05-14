@@ -10,6 +10,10 @@ if [ ! -f /app/data/prod.db ]; then
   echo "✓ Database created at /app/data/prod.db"
 else
   echo "→ Database already exists at /app/data/prod.db"
+  # Apply any new table migrations to existing database
+  echo "🔄 Applying schema migrations to existing database..."
+  node prisma/migrate-prod.js 2>&1
+  echo "✓ Schema migrations applied"
 fi
 
 # Run seed script (it safely skips if data already exists)
