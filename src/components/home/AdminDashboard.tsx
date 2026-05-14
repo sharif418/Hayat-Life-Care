@@ -465,11 +465,15 @@ export default function AdminDashboard({ isOpen, onClose }: AdminDashboardProps)
 
   const deleteShareholderImage = async (id: string) => {
     try {
-      await fetch(`/api/shareholders/${id}`, { method: 'DELETE' })
+      const res = await fetch(`/api/shareholders/${id}`, { method: 'DELETE' })
+      if (!res.ok) {
+        throw new Error('Failed to delete image on server');
+      }
       setShareholderImages(prev => prev.filter(o => o.id !== id))
       toast.success('Image deleted')
     } catch (err) {
       console.error('Failed to delete image:', err)
+      toast.error('Failed to delete image. Please try again.')
     }
   }
 

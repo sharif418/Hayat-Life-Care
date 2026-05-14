@@ -24,10 +24,12 @@ export default function GalleryPage() {
       <div id="youtube">
         <VideoSection isDarkMode={isDarkMode} hideHeader={true} />
       </div>
-      <div id="shareholders">
+      <div id="owners">
         <ShareholdersGallery />
       </div>
-      <EventsShowcase />
+      <div id="events">
+        <EventsShowcase />
+      </div>
     </PageWrapper>
   );
 }
