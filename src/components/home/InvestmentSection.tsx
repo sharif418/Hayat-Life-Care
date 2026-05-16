@@ -28,7 +28,7 @@ const benefitNameKeys: Record<string, string> = {
   B8: 'investment.b8',
 }
 
-function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradient: string, color: string }) {
+function TierBenefits({ benefits, gradient, color, isDirector }: { benefits: string[], gradient: string, color: string, isDirector?: boolean }) {
   const [activeBenefit, setActiveBenefit] = useState<string | null>(null)
   const { t } = useLanguage()
   
@@ -47,10 +47,14 @@ function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradi
               }}
               className={`px-3 py-1.5 rounded-full text-xs font-bold shadow-sm transition-all duration-200 ease-out border ${
                 isActive
-                  ? 'text-white scale-110 -translate-y-1 shadow-lg ring-2 ring-white/40 border-transparent'
-                  : 'text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-slate-800/50 border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600'
+                  ? 'text-white scale-110 -translate-y-1 shadow-lg ring-2 ring-white/50 border-transparent'
+                  : 'hover:scale-105'
               }`}
-              style={isActive ? { background: gradient } : {}}
+              style={{ 
+                background: isActive ? gradient : (isDirector ? `${color}30` : `${color}15`),
+                color: isActive ? '#FFFFFF' : (isDirector ? '#F8FAFC' : color),
+                borderColor: isActive ? 'transparent' : (isDirector ? `${color}50` : `${color}40`)
+              }}
             >
               {b}
             </button>
@@ -60,9 +64,9 @@ function TierBenefits({ benefits, gradient, color }: { benefits: string[], gradi
       
       {/* Inline benefit meaning display */}
       <div className={`mt-3 overflow-hidden transition-all duration-300 ease-in-out ${activeBenefit ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="flex items-start gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: `${color}10` }}>
-          <span className="font-bold shrink-0" style={{ color }}>{activeBenefit}:</span>
-          <span className="text-gray-700 dark:text-gray-300 font-medium">{activeBenefit ? t(benefitNameKeys[activeBenefit]) : ''}</span>
+        <div className="flex items-start gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: isDirector ? `${color}25` : `${color}10` }}>
+          <span className="font-bold shrink-0" style={{ color: isDirector ? '#F8FAFC' : color }}>{activeBenefit}:</span>
+          <span className={`font-medium ${isDirector ? 'text-white' : 'text-gray-700 dark:text-gray-300'}`}>{activeBenefit ? t(benefitNameKeys[activeBenefit]) : ''}</span>
         </div>
       </div>
     </div>
@@ -317,7 +321,7 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                       <div className={`text-base font-bold mb-1 ${isDirector ? 'text-gray-100' : 'text-gray-800 dark:text-gray-200'}`}>{tier.amount}</div>
                       <div className={`text-xs ${isDirector ? 'text-gray-400' : 'text-gray-500 dark:text-gray-400'}`}>Minimum: {tier.minShares}</div>
                     </div>
-                    <TierBenefits benefits={tier.benefits} gradient={tier.gradient} color={tier.color} />
+                    <TierBenefits benefits={tier.benefits} gradient={tier.gradient} color={tier.color} isDirector={isDirector} />
                     
                     <div className="px-5 pb-5 pt-1 text-center relative z-10">
                       <span className="text-[11px] font-bold text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors uppercase tracking-wider">
@@ -354,7 +358,7 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
           {/* 4A. SHARE PRICE & VALUE PROPOSITION                      */}
           {/* ═══════════════════════════════════════════════════════ */}
           <FadeIn>
-            <div className="max-w-5xl mx-auto mb-16">
+            <div className="max-w-6xl w-full mx-auto mb-16">
               <div className="relative bg-white dark:bg-slate-800/80 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(90deg, #0D9488, #D97706, #10B981)' }} />
                 {/* Share Price Header */}
@@ -384,12 +388,12 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
                       { phase: 'Maximum', price: '4,950', shares: 'Total Shares', color: 'text-blue-600 dark:text-blue-400', active: false },
                     ].map((p, i) => (
                       <div key={i} className={`rounded-xl p-3 text-center transition-transform ${p.active ? 'bg-emerald-50 dark:bg-emerald-900/30 border-2 border-emerald-500 shadow-md scale-105 z-10' : 'bg-gray-50 dark:bg-slate-700/50 border border-transparent hover:scale-105'}`}>
-                        <div className={`text-[10px] mb-0.5 flex items-center justify-center gap-1 ${p.active ? 'text-emerald-700 font-bold dark:text-emerald-300' : 'text-gray-500 dark:text-gray-400'}`}>
+                        <div className={`text-[10px] mb-0.5 flex items-center justify-center gap-1 ${p.active ? 'text-emerald-700 font-bold dark:text-emerald-300' : 'text-gray-500 dark:text-gray-400 font-semibold'}`}>
                           {p.phase}
                           {p.active && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />}
                         </div>
-                        <div className={`font-black ${p.active ? 'text-lg text-emerald-700 dark:text-emerald-300' : 'text-sm text-gray-900 dark:text-white'}`}>{p.price}</div>
-                        <div className={`text-[10px] font-medium ${p.color}`}>{p.shares}</div>
+                        <div className={`font-black ${p.active ? 'text-lg text-emerald-700 dark:text-emerald-300' : p.phase === 'Maximum' ? 'text-xl text-blue-700 dark:text-blue-400' : 'text-base text-gray-900 dark:text-white'}`}>{p.price}</div>
+                        <div className={`${p.phase === 'Maximum' ? 'text-xs font-black' : 'text-[10px] font-bold'} tracking-wide ${p.color}`}>{p.shares}</div>
                       </div>
                     ))}
                   </div>
@@ -402,7 +406,7 @@ export default function InvestmentSection({ isDarkMode, children }: InvestmentSe
           {/* FUNDAMENTALS SECTION                                    */}
           {/* ═══════════════════════════════════════════════════════ */}
           <FadeIn>
-            <div className="max-w-5xl mx-auto mb-16 rounded-3xl p-8 md:p-12 border shadow-2xl relative overflow-hidden" 
+            <div className="max-w-6xl w-full mx-auto mb-16 rounded-3xl p-8 md:p-12 border shadow-2xl relative overflow-hidden" 
                  style={{ 
                    background: isDarkMode ? 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)' : 'linear-gradient(135deg, #0F172A 0%, #064E3B 100%)',
                    borderColor: isDarkMode ? '#334155' : '#0F172A'

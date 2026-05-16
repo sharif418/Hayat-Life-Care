@@ -93,8 +93,8 @@ const DIRECTORS: Director[] = [
   {
     id: 'bakkar',
     name: 'Md Abu Bakkar Siddiki',
-    designation: 'Founding Director & Member, Chamber of Commerce',
-    shortTitle: 'Entrepreneur & Business Strategist',
+    designation: 'Founding Director & DMD',
+    shortTitle: 'Member, Chamber of Commerce Chattogram',
     photo: '/images/directors/bakkar.jpg',
     briefBio: 'Dedicated professional and dynamic entrepreneur with extensive business experience, particularly in the automobile industry. Strong analytical thinking from Mathematics background.',
     fullBio: [
@@ -319,6 +319,9 @@ function DirectorCard({ director, index, isLarge }: { director: Director; index:
                 <div>
                   <h4 className="text-sm font-bold text-gray-900 leading-tight">{director.name}</h4>
                   <span className="text-[11px] font-semibold text-teal-700">{director.designation}</span>
+                  {director.shortTitle && (
+                    <p className="text-[10px] text-gray-500 mt-0.5 font-medium">{director.shortTitle}</p>
+                  )}
                 </div>
               </div>
 
@@ -361,12 +364,14 @@ interface FoundingDirectorsProps {
 }
 
 export default function FoundingDirectors({ isDarkMode }: FoundingDirectorsProps) {
-  const [showMore, setShowMore] = useState(false)
+  const [showSection1, setShowSection1] = useState(false)
+  const [showSection2, setShowSection2] = useState(false)
   const { t } = useLanguage()
 
-  const topLeadership = DIRECTORS.slice(0, 2)   // Chairman + MD
-  const foundingDirectors = DIRECTORS.slice(2, 6) // 4 visible founding directors
-  const moreDirectors = DIRECTORS.slice(6)        // 3 hidden directors
+  const topLeadership = DIRECTORS.slice(0, 2)      // Chairman + MD
+  const foundingDirectors = DIRECTORS.slice(2, 6)   // 4 visible founding directors
+  const moreSection1 = DIRECTORS.slice(6, 7)        // RJSC No 1: Sayed Noor
+  const moreSection2 = DIRECTORS.slice(7)            // Others: Dr. Naser + Iqbal
 
   return (
     <section
@@ -424,24 +429,24 @@ export default function FoundingDirectors({ isDarkMode }: FoundingDirectorsProps
           ))}
         </div>
 
-        {/* ── "More Directors" Expandable ── */}
-        {moreDirectors.length > 0 && (
+        {/* ── Sub-Section 1: RJSC No 1 (Sayed Noor) ── */}
+        {moreSection1.length > 0 && (
           <div className="mt-12">
             <FadeIn>
               <div className="text-center mb-8">
                 <button
-                  onClick={() => setShowMore(!showMore)}
+                  onClick={() => setShowSection1(!showSection1)}
                   className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 border"
                   style={{
-                    background: showMore ? 'linear-gradient(135deg, #0D9488, #10B981)' : 'white',
-                    color: showMore ? 'white' : '#0D9488',
-                    borderColor: showMore ? 'transparent' : '#0D948830',
+                    background: showSection1 ? 'linear-gradient(135deg, #0D9488, #10B981)' : 'white',
+                    color: showSection1 ? 'white' : '#0D9488',
+                    borderColor: showSection1 ? 'transparent' : '#0D948830',
                   }}
                 >
                   <Users className="size-4" />
-                  {showMore ? 'Show Less' : 'More Founding Directors'}
+                  {showSection1 ? 'Show Less' : 'More Founding Directors'}
                   <motion.div
-                    animate={{ rotate: showMore ? 180 : 0 }}
+                    animate={{ rotate: showSection1 ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
                     <ChevronDown className="size-4" />
@@ -451,7 +456,7 @@ export default function FoundingDirectors({ isDarkMode }: FoundingDirectorsProps
             </FadeIn>
 
             <AnimatePresence>
-              {showMore && (
+              {showSection1 && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -459,11 +464,57 @@ export default function FoundingDirectors({ isDarkMode }: FoundingDirectorsProps
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
                   className="overflow-hidden"
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                    {moreDirectors.map((director, i) => (
+                  <div className="grid grid-cols-1 sm:grid-cols-1 gap-6 max-w-xs mx-auto">
+                    {moreSection1.map((director, i) => (
                       <DirectorCard key={director.id} director={director} index={i} />
                     ))}
                   </div>
+
+                  {/* ── Sub-Section 2: Others (Dr. Naser + Iqbal) ── */}
+                  {moreSection2.length > 0 && (
+                    <div className="mt-12">
+                      <FadeIn>
+                        <div className="text-center mb-8">
+                          <button
+                            onClick={() => setShowSection2(!showSection2)}
+                            className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 border"
+                            style={{
+                              background: showSection2 ? 'linear-gradient(135deg, #0D9488, #10B981)' : 'white',
+                              color: showSection2 ? 'white' : '#0D9488',
+                              borderColor: showSection2 ? 'transparent' : '#0D948830',
+                            }}
+                          >
+                            <Users className="size-4" />
+                            {showSection2 ? 'Show Less' : 'More Founding Directors'}
+                            <motion.div
+                              animate={{ rotate: showSection2 ? 180 : 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <ChevronDown className="size-4" />
+                            </motion.div>
+                          </button>
+                        </div>
+                      </FadeIn>
+
+                      <AnimatePresence>
+                        {showSection2 && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.5, ease: 'easeInOut' }}
+                            className="overflow-hidden"
+                          >
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                              {moreSection2.map((director, i) => (
+                                <DirectorCard key={director.id} director={director} index={i} />
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
